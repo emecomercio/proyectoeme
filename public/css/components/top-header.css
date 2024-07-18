@@ -1,0 +1,166 @@
+.contacto {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 10px;
+  background-color: #000000;
+}
+
+.contactoa {
+  color: white;
+  text-decoration: none;
+  margin: 0 10px;
+}
+
+.contactoa:hover {
+  scale: 1.2;
+  color: #f6ff49;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 10px;
+  background-color: #000000;
+}
+
+.logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+}
+
+.LogoEme {
+  height: 40px;
+  width: auto;
+  transition: height 0.3s, width 0.3s;
+}
+
+.LogoEme:hover {
+  scale: 1.2;
+}
+
+.buscador {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+}
+
+.BarraBusqueda {
+  height: 25px;
+  width: 50vw;
+  background-color: aliceblue;
+  border: transparent;
+}
+
+.LogoBusqueda {
+  width: 20px;
+  height: auto;
+}
+
+.BotonBusqueda {
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.idiomaclass {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+}
+
+.idioma {
+  width: 100px;
+  height: 25px;
+  background-color: #ffffff;
+}
+
+.iconos {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+}
+
+.icono {
+  width: 20px;
+  height: 20px;
+}
+
+.TextoIcono,
+.TextoIcono,
+.TextoIcono {
+  color: white;
+  text-decoration: none;
+  text-align: center;
+  margin: 0 10px;
+}
+
+.TextoIcono:hover,
+.TextoIcono:hover,
+.TextoIcono:hover {
+  color: #f6ff49;
+  scale: 1.2;
+}
+
+.TextoIcono:hover img,
+.TextoIcono:hover img,
+.TextoIcono:hover img {
+  scale: 1.2;
+}
+
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+  }
+
+  .buscador {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  #BarraBusqueda {
+    width: calc(100% - 50px);
+  }
+
+  .iconos {
+    width: 100%;
+    justify-content: space-around;
+  }
+
+  .idiomaclass {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .contacto {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .header {
+    text-align: center;
+  }
+
+  .buscador {
+    flex-direction: column;
+  }
+
+  .iconos {
+    flex-direction: column;
+  }
+
+  #BarraBusqueda {
+    width: 80%;
+    margin-bottom: 10px;
+  }
+}

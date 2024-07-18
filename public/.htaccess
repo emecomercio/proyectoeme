@@ -1,0 +1,10 @@
+# Habilitar el motor de reescritura de URLs
+RewriteEngine On
+
+# Establecer la base de la URL para las reglas de reescritura
+RewriteBase /
+
+# Redirigir todas las solicitudes a index.php excepto archivos y directorios existentes
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ index.php?url=$0 [QSA,L]

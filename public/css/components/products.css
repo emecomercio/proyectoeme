@@ -1,0 +1,65 @@
+.productos img {
+  width: 320px;
+  height: 340px;
+  object-fit: cover;
+  border-radius: 20px 20px 0px 0px;
+}
+
+/* .contenedor {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 50px;
+    margin-bottom: 20px;
+  } */
+
+.productos {
+  width: 600px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 15px;
+}
+
+.contenedor > div {
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
+  background-color: #b4478f;
+  border-radius: 20px;
+}
+.contenedor > div:hover {
+  background-color: #e664ba;
+}
+.informacion {
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 15px;
+}
+.informacion > p:first-child {
+  font-family: "Montserrat", sans-serif;
+  font-size: 25px;
+  font-weight: 300;
+}
+.informacion .precio {
+  font-size: 20px;
+  font-weight: 500;
+}
+.informacion .precio span {
+  font-size: 17px;
+  font-weight: 300;
+}
+.informacion button {
+  background-color: #b4478f;
+  width: 100px;
+  height: 35px;
+  border-radius: 10px;
+  border: none;
+
+  font-size: 17px;
+  font-weight: 300;
+  cursor: pointer;
+}
+.informacion button:hover {
+  background-color: #11294d;
+}
