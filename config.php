@@ -1,5 +1,5 @@
 <?php
-define('ROOT', "/var/www/from-scratch");
+define('ROOT', "/var/www/proyectoeme");
 define('APP', ROOT . '/app/');
 define('VIEWS', APP . "views/");
 define('MODELS', APP . "models/");
