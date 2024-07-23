@@ -6,7 +6,7 @@
 }
 body {
   height: 100vh;
-  background-color: rgb(0, 0, 0);
+  background-color: #222;
   color: #ffffff;
   font-family: Arial, sans-serif;
   /* overflow-x: hidden; Algo se está desbordando, esto lo soluciona pero se 'borra' lo que se sale*/
