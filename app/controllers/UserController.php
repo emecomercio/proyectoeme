@@ -1,16 +1,68 @@
 <?php
-//create UserController class with an example static method
+require_once MODELS . "UserModel.php";
 class UserController
 {
-    public static function hello()
+    static public function getUsers()
     {
-        echo "Hello from the UserControllerrr class!";
+        $userModel = new UserModel;
+        $sqlTable = $userModel->getUsers();
+        view("usersTable", ["sqlTable" => $sqlTable]);
+    }
+    static public function addUser()
+    {
+        $userModel = new UserModel;
+        $user_type = $_POST['input-type'];
+        $fullname = $_POST['input-fullname'];
+        $password = $_POST['input-password'];
+        $email = $_POST['input-email'];
+        $birthdate = $_POST['input-birthdate'];
+        $userModel->addUser($user_type, $fullname, $email, $password, $birthdate);
+        include "../public/registro_exitoso.html";
     }
 
-    public static function login()
+    static public function logIn()
     {
-        echo "Login form";
+        $userModel = new UserModel;
+        $password = $_POST['input-password'];
+        $email = $_POST['input-email'];
+        $page = '';
+        //
+        //Tengo que programar la verifiacion del tipo de usuario
+        //
+        if ($userModel->userExists($email, $password)) {
+            $page = 'homepage';
+            include './' . $page . '.php';
+        } else {
+            echo "uma uma mama";
+        }
+    }
+
+    static public function updateUser()
+    {
+        $userModel = new UserModel;
+        $id = $_POST['input-id'];
+        $user = $userModel->getUserById($id);
+        include "../app/usuarios/views/updateUser.php";
+    }
+
+    static public function  saveUserUpdate()
+    {
+        $userModel = new UserModel;
+        $id = $_POST['input-id'];
+        $user_type = $_POST['input-type'];
+        $fullname = $_POST['input-fullname'];
+        $email = $_POST['input-email'];
+        $birthdate = $_POST['input-birthdate'];
+        $password = isset($_POST['input-password']) ? $_POST['input-password'] : null;
+        $userModel->updateUser($id, $user_type, $fullname, $password, $email, $birthdate);
+        static::getUsers();
+    }
+
+    static public function deleteUser()
+    {
+        $userModel = new UserModel;
+        $id = $_POST['input-id'];
+        $userModel->deleteUser($id);
+        static::getUsers();
     }
 }
-
-// Call the static method

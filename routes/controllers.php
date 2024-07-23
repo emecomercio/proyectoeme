@@ -1,11 +1,12 @@
 <?php
+require_once CONTROLLERS . "UserController.php";
 /*
 DECLARAR RUTAS GET
 */
 
 // Ruta GET con llamada a controlador
 Route::get('/dashboard', function () {
-    UserController::hello();
+    UserController::getUsers();
 });
 
 /*

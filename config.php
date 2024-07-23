@@ -12,3 +12,4 @@ $env = [
     "DB_USER" => "anibal",
     "DB_PASSWORD" => "1234"
 ];
+// Se accede a ellas asi: $env["CONSTANTE"]
