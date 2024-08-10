@@ -5,6 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./css/pages/login.css" />
+    <?php loadCSS("pages/login.css") ?>
     <title>Log-in eMe</title>
 </head>
 

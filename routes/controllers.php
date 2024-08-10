@@ -17,3 +17,8 @@ DECLARAR RUTAS POST
 Route::post('/login', function () {
     UserController::login();
 });
+
+
+
+
+// HAY QUE ELIMINAR ESTE ARCHIVO
