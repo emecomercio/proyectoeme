@@ -1,8 +1,79 @@
-<section class="categorias">
-    <img src="img/cards/imagen1.webp" alt="" />
-    <img src="img/cards/imagen2.webp" alt="" />
-    <img src="img/cards/imagen3.webp" alt="" />
-    <img src="img/cards/imagen4.webp" alt="" />
-    <img src="img/cards/imagen5.webp" alt="" />
-    <img src="img/cards/imagen7.webp" alt="" />
-</section>
+<!DOCTYPE html>
+<html lang="en">
+  <body>
+    <section class="section-categories">
+      <div class="categories">
+        Categoría 1
+        <div class="dropdown-content-categories">
+          <a href="#">Subcategoría 1-1</a>
+          <a href="#">Subcategoría 1-2</a>
+          <a href="#">Subcategoría 1-3</a>
+        </div>
+      </div>
+      <div class="categories">
+        Categoría 1
+        <div class="dropdown-content-categories">
+          <a href="#">Subcategoría 1-1</a>
+          <a href="#">Subcategoría 1-2</a>
+          <a href="#">Subcategoría 1-3</a>
+        </div>
+      </div>
+      <div class="categories">
+        Categoría 1
+        <div class="dropdown-content-categories">
+          <a href="#">Subcategoría 1-1</a>
+          <a href="#">Subcategoría 1-2</a>
+          <a href="#">Subcategoría 1-3</a>
+        </div>
+      </div>
+      <div class="categories">
+        Categoría 1
+        <div class="dropdown-content-categories">
+          <a href="#">Subcategoría 1-1</a>
+          <a href="#">Subcategoría 1-2</a>
+          <a href="#">Subcategoría 1-3</a>
+        </div>
+      </div>
+      <div class="categories">
+        Categoría 1
+        <div class="dropdown-content-categories">
+          <a href="#">Subcategoría 1-1</a>
+          <a href="#">Subcategoría 1-2</a>
+          <a href="#">Subcategoría 1-3</a>
+        </div>
+      </div>
+      <div class="categories">
+        Categoría 1
+        <div class="dropdown-content-categories">
+          <a href="#">Subcategoría 1-1</a>
+          <a href="#">Subcategoría 1-2</a>
+          <a href="#">Subcategoría 1-3</a>
+        </div>
+      </div>
+      <div class="categories">
+        Categoría 1
+        <div class="dropdown-content-categories">
+          <a href="#">Subcategoría 1-1</a>
+          <a href="#">Subcategoría 1-2</a>
+          <a href="#">Subcategoría 1-3</a>
+        </div>
+      </div>
+      <div class="categories">
+        Categoría 1
+        <div class="dropdown-content-categories">
+          <a href="#">Subcategoría 1-1</a>
+          <a href="#">Subcategoría 1-2</a>
+          <a href="#">Subcategoría 1-3</a>
+        </div>
+      </div>
+      <div class="categories">
+        Categoría 1
+        <div class="dropdown-content-categories">
+          <a href="#">Subcategoría 1-1</a>
+          <a href="#">Subcategoría 1-2</a>
+          <a href="#">Subcategoría 1-3</a>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>
