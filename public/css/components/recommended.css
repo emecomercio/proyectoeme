@@ -1,0 +1,63 @@
+.product-photo {
+    width: 150px; /* Asegúrate de que ocupe el 100% del contenedor */
+    height: auto; /* Altura automática para mantener la proporción */
+    border-radius: 2px; /* Ajusta el radio si lo necesitas */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.recommended-products-wrapper {
+    position: relative;
+    width: 97vw;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    margin: 20px;
+}
+
+.recommended-products-container {
+    display: flex;
+    overflow-x: scroll; /* Habilita el desplazamiento horizontal */
+    scroll-behavior: smooth;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Oculta la barra de desplazamiento en navegadores basados en WebKit (Chrome, Safari) */
+.recommended-products-container::-webkit-scrollbar {
+    display: none;
+}
+
+.product {
+    text-align: center;
+    min-width: 200px;
+    flex-shrink: 0;
+}
+
+.product-name {
+    font-size: 18px;
+    color: #ffffff;
+}
+
+.scroll-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    border: none;
+    color: white;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.scroll-button.left {
+    left: 0;
+}
+
+.scroll-button.right {
+    right: 0;
+}
+
+.scroll-button:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
