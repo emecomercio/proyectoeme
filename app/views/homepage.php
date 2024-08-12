@@ -1,3 +1,8 @@
+<?php
+
+/** @var array $products
+ */
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,18 +18,14 @@
 <body>
     <?php view('components/header'); ?>
     <?php view("components/categories") ?>
-    foreach ($products as $product) {
-        view("componets/card-product", ["product" => $product]);
-    }
-    ?>
+    <div class="product-grid">
+        <?php foreach ($products as $product) {
+            view("componets/card-product", ["product" => $product]);
+        }
+        ?>
+    </div>
     <?php view('components/recommended'); ?>
-    foreach ($products as $product) {
-        view("componets/card-product", ["product" => $product]);
-    }
-    ?>
-    
     <?php view('components/footer'); ?>
-
 </body>
 
 </html>

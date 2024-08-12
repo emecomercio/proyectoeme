@@ -1,21 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-  <body>
-    <div class="product-grid">
-      <a href="/all/all.html" class="product-card">
-        <img
-          src="img/post de instagram descuentos electrodomésticos llamativo rojo.png"
-          alt="Product Image"
-        />
-        <div class="product-info">
-          <h2 class="product-title">Product Title</h2>
-          <p class="product-description">
-            This is a short description of the product.
-          </p>
-          <span class="product-price">$29.99</span>
-          <button class="add-to-cart">Add to Cart</button>
-        </div>
-      </a>
-    </div>
-  </body>
-</html>
+<?php
+
+/** @var array $product*/ ?>
+
+<a href="/all/all.html" class="product-card">
+  <img
+    src="<?= $product['image_500x500']['image_url'] ?>"
+    width="500" height="500"
+    alt="<?= $product['alt_text'] ?>" />
+  <div class="product-info">
+    <h2 class="product-title"><?= $product['name'] ?></h2>
+    <p class="product-description">
+      Habria que ver que tipo de informacion vamos a poner aca para implementarlo en la BD
+    </p>
+    <span class="product-price"><?= $product['price'] ?></span>
+    <button class="add-to-cart">Add to Cart</button>
+  </div>
+</a>

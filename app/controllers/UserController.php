@@ -5,8 +5,11 @@ class UserController
     static public function getUsers()
     {
         $userModel = new UserModel;
-        $sqlTable = $userModel->getUsers();
-        view("usersTable", ["sqlTable" => $sqlTable]);
+        $users = $userModel->getUsers();
+        view("usersTable", [
+            "users" => $users,
+            "title" => "Usuarios"
+        ]);
     }
     static public function addUser()
     {

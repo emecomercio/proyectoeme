@@ -1,5 +1,6 @@
 <?php
-require CONTROLLERS . "ProductController.php";
+require_once CONTROLLERS . "ProductController.php";
+require_once CONTROLLERS . "UserController.php";
 
 // Define una ruta GET y ejecuta una funcion (bloque de codigo) cualquiera 
 Route::get('/', function () {
@@ -14,7 +15,10 @@ Route::get('/users/{id}', function ($id) {
     return "User with id: " . $id;
 });
 
-// get type route, call ProductController
+// Define una ruta GET que ejecuta un controlador y su metodo correspondiente
+Route::get('/dashboard', function () {
+    UserController::getUsers();
+});
 
 
 Route::get('/login', function () {
