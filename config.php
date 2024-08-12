@@ -1,5 +1,5 @@
 <?php
-define('ROOT', "/var/www/proyectoeme");
+define('ROOT', "/laragon/www/proyectoeme");
 define('APP', ROOT . "/app/");
 define('VIEWS', APP . "views/");
 define('MODELS', APP . "models/");
