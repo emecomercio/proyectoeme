@@ -1,11 +1,10 @@
 <?php
-define('ROOT', "/laragon/www/proyectoeme");
+define('ROOT', "/var/www/proyectoeme");
 define('APP', ROOT . "/app/");
 define('VIEWS', APP . "views/");
 define('MODELS', APP . "models/");
 define('CONTROLLERS', APP . "controllers/");
 define('LIB', ROOT . "/lib/");
-// define('IMAGES', "img/");
 
 $env = [
     "DB_NAME" => "tienda",
