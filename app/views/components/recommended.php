@@ -1,18 +1,10 @@
-<!DOCTYPE html>
-<html lang="es">
+<?php
 
-<body>
-    <div class="recommended-products-wrapper">
-        <button class="scroll-button left">&lt;</button>
-        <div class="recommended-products-container"> 
-            <div class="product">
-                <img src="#" alt="Producto 1" class="product-photo">
-                <h3 class="product-name">Nombre del Producto 1</h3>
-            </div>
-            <button class="scroll-button right">&gt;</button>
-        </div>
+/** @var array $product*/
+?>
+<div class="recommended-products-container">
+    <div class="product">
+        <img src="<?= $product['image_500x500']['image_url'] ?>" alt="Producto 1" class="product-photo">
+        <h3 class="product-name"><?= $product['name'] ?></h3>
     </div>
-
-</body>
-
-</html>
+</div>

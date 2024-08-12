@@ -16,16 +16,29 @@
 </head>
 
 <body>
-    <?php view('components/header'); ?>
-    <?php view("components/categories") ?>
-    <div class="product-grid">
-        <?php foreach ($products as $product) {
-            view("componets/card-product", ["product" => $product]);
-        }
-        ?>
-    </div>
-    <?php view('components/recommended'); ?>
-    <?php view('components/footer'); ?>
+    <?php view('components/top-header'); ?>
+    <main>
+        <?php view("components/categories") ?>
+        <div class="product-grid">
+            <?php foreach ($products as $product) {
+                view("components/card-product", ["product" => $product]);
+            }
+            ?>
+        </div>
+        <div class="recommended-products-wrapper">
+            <button class="scroll-button left">&lt;</button>
+            <?php foreach ($products as $product) {
+                view('components/recommended', ["product" => $product]);
+            }
+            ?>
+            <button class="scroll-button right">&gt;</button>
+        </div>
+        <?php view('components/footer'); ?>
+    </main>
+    <?php
+    loadJS("js-recommended");
+    loadJS("categories");
+    ?>
 </body>
 
 </html>

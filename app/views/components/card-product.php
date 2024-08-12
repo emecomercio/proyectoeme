@@ -2,11 +2,11 @@
 
 /** @var array $product*/ ?>
 
-<a href="/all/all.html" class="product-card">
+<a href="<?= $product['page_url'] ?? "/product-page-example" ?>" class="product-card">
   <img
     src="<?= $product['image_500x500']['image_url'] ?>"
     width="500" height="500"
-    alt="<?= $product['alt_text'] ?>" />
+    alt="<?= $product['image_500x500']['alt_text'] ?>" />
   <div class="product-info">
     <h2 class="product-title"><?= $product['name'] ?></h2>
     <p class="product-description">

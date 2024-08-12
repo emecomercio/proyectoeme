@@ -9,8 +9,24 @@ body {
   background-color: #222;
   color: #ffffff;
   font-family: Arial, sans-serif;
-  /* overflow-x: hidden; Algo se está desbordando, esto lo soluciona pero se 'borra' lo que se sale*/
+  display: flex;
+  flex-direction: column;
 }
+main {
+  flex: 1;
+}
+.error-msg {
+  color: #d8000c; /* Rojo intenso para el texto */
+  background-color: #ffd2d2; /* Fondo rojo claro */
+  padding: 10px; /* Espacio interno */
+  border: 1px solid #d8000c; /* Borde del mismo color que el texto */
+  border-radius: 5px; /* Esquinas redondeadas */
+  font-weight: bold; /* Texto en negrita */
+  display: inline-block; /* Mantener el span en línea pero permitiendo padding y margin */
+  margin-top: 10px; /* Espacio por encima del span */
+  margin-bottom: 10px; /* Espacio por debajo del span */
+}
+
 /* Declarar variables
   :root{
     --primary: black;

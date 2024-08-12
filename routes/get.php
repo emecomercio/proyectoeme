@@ -4,9 +4,16 @@ require_once CONTROLLERS . "UserController.php";
 
 // Define una ruta GET y ejecuta una funcion (bloque de codigo) cualquiera 
 Route::get('/', function () {
-    $products = ProductController::getProducts();
+    $products = ProductController::getProductsForHomepage();
     view("homepage", [
         "products" => $products
+    ]);
+});
+
+Route::get('/product-page-example', function () {
+    $product = ProductController::getProductById(1);
+    view("product-page-example", [
+        "product" => $product
     ]);
 });
 
