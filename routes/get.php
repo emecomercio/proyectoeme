@@ -10,9 +10,9 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/product-page-example', function () {
+Route::get('/product-page', function () {
     $product = ProductController::getProductById(1);
-    view("product-page-example", [
+    view("product-page", [
         "product" => $product
     ]);
 });
