@@ -1,5 +1,3 @@
-
-
 .product-description-container {
   display: flex;
   max-width: 100vw;
@@ -10,16 +8,15 @@
   overflow: hidden;
   flex-wrap: wrap;
   margin-left: 1%;
-
 }
 
 .product-image-container {
-  position: relative; /* Para que el botón de favoritos se posicione correctamente */
-  flex: 0 0 400px; /* Ancho fijo de 400px */
-  max-width: 100%; /* Ancho máximo 100% del contenedor padre */
+  position: relative;
+  flex: 0 0 400px;
+  max-width: 100%;
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
-  overflow: hidden; /* Evitar el desbordamiento de la imagen */
-  margin:  auto; /* Centra el contenedor horizontalmente */
+  overflow: hidden;
+  margin: auto;
   background-color: white;
   border-radius: 3%;
 }
@@ -43,13 +40,12 @@
 
 .product-image {
   width: 100%;
-  height: auto; /* Asegura que la imagen se ajuste proporcionalmente al contenedor */
-  object-fit: cover; /* Mantiene la proporción de aspecto de la imagen */
+  height: auto;
+  object-fit: cover;
 }
 
-
 .product-details-container {
-  flex: 1 1 300px; /* Ancho mínimo */
+  flex: 1 1 300px;
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -59,72 +55,72 @@
 .product-name {
   font-size: 30px;
   margin: 10px 0;
-  font-weight: bold; /* Resaltar las etiquetas */
-  color: #ffffff; /* Color del texto de las etiquetas */
+  font-weight: bold;
+  color: #ffffff;
 }
 
 .product-price {
   font-size: 50px;
   margin: 10px 0;
-  font-weight: bold; /* Resaltar las etiquetas */
-  color: #ffffff; /* Color del texto de las etiquetas */
-}
-
-
-.payment-option {
-  margin-right: 10px;
+  font-weight: bold;
+  color: #ffffff;
 }
 
 .product-info {
   list-style-type: none;
   padding: 30px;
-  
-  border-radius: 20px; /* Aumenta este valor para esquinas más redondeadas */
-  background-color: #ccc; 
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+  border-radius: 20px;
+  background-color: #ffffff;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+  color: black;
 }
-
 
 .model-color-selection {
   display: flex;
   justify-content: center;
-  align-items: center; /* Alineación vertical */
-  margin: 10px 0; /* Margen superior e inferior */
-  padding: 10px; /* Espacio interno */
-  border: 1px solid #ccc; /* Borde gris claro */
-  border-radius: 10px; /* Esquinas redondeadas */
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+  align-items: center;
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 10px;
 }
 
 .model-label, .color-label {
-  margin-right: 10px; /* Margen a la derecha de las etiquetas */
-  font-weight: bold; /* Resaltar las etiquetas */
-  color: #ffffff; /* Color del texto de las etiquetas */
+  margin-right: 10px;
+  font-weight: bold;
+  color: #ffffff;
 }
 
 .model-select, .color-select {
-  margin-left: 10px; /* Margen a la izquierda de los selectores */
-  padding: 5px; /* Espacio interno en los selectores */
-  border: 1px solid #ccc; /* Borde gris claro */
-  border-radius: 5px; /* Esquinas redondeadas en los selectores */
-  background-color: #f9f9f9; /* Fondo claro para los selectores */
-  cursor: pointer; /* Cambia el cursor al pasar por encima */
+  margin-left: 10px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  cursor: pointer;
 }
 
 .model-select:hover, .color-select:hover {
-  border-color: #888; /* Cambia el color del borde al pasar el mouse */
+  border-color: #888;
 }
 
+.button-container {
+  display: flex;
+  justify-content: space-between; /* Coloca los botones uno al lado del otro */
+  gap: 10px; /* Espacio entre los botones */
+}
 
 .buy-button {
-  background-color: #0f1210;
+  flex: 1;
+  background-color: #818080;
   color: white;
   border: none;
   border-radius: 5px;
   padding: 10px;
   cursor: pointer;
   font-size: 16px;
+  text-align: center;
 }
+
 .buy-button:hover {
   background-color: #1b201c;
 }
@@ -143,5 +139,10 @@
       width: 30px;
       height: 30px;
       font-size: 18px;
+  }
+
+  .button-container {
+      flex-direction: column;
+      gap: 5px; /* Espacio entre los botones en pantallas pequeñas */
   }
 }

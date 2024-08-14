@@ -21,6 +21,9 @@
                 <option value="blue">Azul</option>
             </select>
         </div>
-        <button class="buy-button">Comprar</button>
+        <div class="button-container"> <!-- Nuevo contenedor -->
+            <button class="buy-button">Comprar</button>
+            <button class="buy-button">Añadir al carrito</button>
+        </div>
     </div>
 </div>

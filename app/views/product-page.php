@@ -22,12 +22,15 @@
         <?php
         view("components/product", ["product" => $product]);
         ?>
+
+        <?php view("components/reviews-questions") ?>
     </main>
     <?php view("components/footer") ?>
 </body>
 <?php
 loadJS("searchbar");
 loadjs("user-button");
+loadJS("js-recommended");
 ?>
 
 </html>
