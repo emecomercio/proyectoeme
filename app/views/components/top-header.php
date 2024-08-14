@@ -1,8 +1,8 @@
 <header>
     <nav class="contacto">
-        <a class="contactoa" href="#">Contacto</a>
-        <a class="contactoa" href="#">Sobre nosotros</a>
-        <a class="contactoa" href="#">Locales</a>
+        <a class="contactoa" href="#contact-section">Contacto</a>
+        <a class="contactoa" href="#about-section">Sobre nosotros</a>
+        <a class="contactoa" href="#locales-section">Locales</a>
     </nav>
     <div class="header">
         <div class="logo">

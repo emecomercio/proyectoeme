@@ -17,6 +17,7 @@
 
 <body>
     <?php view('components/top-header'); ?>
+    <?php view("components/alert") ?>
     <main>
         <?php view("components/categories") ?>
         <div class="product-grid">
@@ -40,6 +41,7 @@
     loadJS("categories");
     loadJS("searchbar");
     loadjs("user-button");
+    loadJS("alert");
     ?>
 </body>
 
