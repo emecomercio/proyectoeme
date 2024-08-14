@@ -38,6 +38,7 @@
     <?php
     loadJS("js-recommended");
     loadJS("categories");
+    loadJS("searchbar");
     ?>
 </body>
 
