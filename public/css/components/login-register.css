@@ -1,9 +1,9 @@
 #login-form {
-    background-color: #000000; 
+    background-color: black; 
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    max-width: 300px;
+    max-width: 500px;
     width: 100%;
     text-align: center;
     margin: 10px auto; 
@@ -51,7 +51,23 @@
     height: 50px;
     width: auto;
 }
+.terms-and-conditions {
+    display: grid; /* Cambiado a grid para el diseño */
+    grid-template-columns: auto 0.35fr 0.35fr; /* La primera columna es más pequeña, las otras dos ocupan el espacio restante */
+    align-items: center; /* Centrar verticalmente los elementos */
+    font-size: small;
+    width: 100%;
+    height: auto;
+}
+.terms-and-conditions input[type="checkbox"] {
+    height: 15px; /* Ancho del checkbox */
+    width: auto; /* Altura automática (generalmente no es necesario para checkboxes) */
+}
 
+.taclink{
+    text-decoration: underline;
+    color: blue;
+}
 /* Media Query para pantallas pequeñas */
 @media (max-width: 480px) {
     #login-form {

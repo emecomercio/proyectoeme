@@ -8,6 +8,6 @@
             <input type="password" id="password" placeholder="Confirmar contraseña" required> 
             <button type="submit">Registrarse</button>
             <button type="submit">Registrarse como usuario</button>
-            <a href="">Iniciar sesion</a>
+            <a href="register-enterprise">Iniciar sesion</a>
         </form>
     </div>

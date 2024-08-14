@@ -18,7 +18,7 @@
 <body>
     <?php view('components/top-header'); ?>
     <main>
-         <?php view('components/register-enterprise-component'); ?>
+        <?php view("register-enterprise-component") ?>
         <?php view('components/footer'); ?>
     </main>
     <?php
