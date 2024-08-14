@@ -18,11 +18,14 @@
 <body>
     <?php view('components/top-header'); ?>
     <main>
-         <?php view('components/register-user-component'); ?>
+        <?php view('components/register-user-component'); ?>
         <?php view('components/footer'); ?>
     </main>
     <?php
+    loadJS("searchbar");
+    loadjs("user-button");
     ?>
+
 </body>
 
 </html>

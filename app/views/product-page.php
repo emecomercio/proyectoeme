@@ -25,5 +25,9 @@
     </main>
     <?php view("components/footer") ?>
 </body>
+<?php
+loadJS("searchbar");
+loadjs("user-button");
+?>
 
 </html>

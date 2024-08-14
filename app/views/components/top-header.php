@@ -23,17 +23,22 @@
             </select>
         </div>
         <nav class="iconos">
-            <a class="TextoIcono" href="dashboard">
+            <div class="TextoIcono" id="user-menu">
                 <img src="img/icons/usuario_icono.png" class="icono" alt="Usuario" />
                 <br />Usuario
-            </a>
+                <div class="dropdown-content" style="display: none;">
+                    <a href="register-user">Registrarse</a>
+                    <a href="login-user">Ingresar</a>
+                    <a href="dashboard">Datos de usuario</a>
+                </div>
+            </div>
             <a class="TextoIcono" href="cart">
                 <img src="img/icons/carrito_icono.png" class="icono" alt="Carrito" />
                 <br />Carrito
             </a>
             <a class="TextoIcono" href="#">
                 <img src="img/icons/ubicacion_icono.png" class="icono" alt="Ubicación" />
-                <br />Ubicacion
+                <br />Ubicación
             </a>
         </nav>
     </div>

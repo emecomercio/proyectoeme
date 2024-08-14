@@ -39,6 +39,7 @@
     loadJS("js-recommended");
     loadJS("categories");
     loadJS("searchbar");
+    loadjs("user-button");
     ?>
 </body>
 
