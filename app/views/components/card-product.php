@@ -13,6 +13,5 @@
       Habria que ver que tipo de informacion vamos a poner aca para implementarlo en la BD
     </p>
     <span class="product-price"><?= $product['price'] ?></span>
-    <button class="add-to-cart">Add to Cart</button>
   </div>
-</a>
+</a>  
