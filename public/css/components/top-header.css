@@ -15,7 +15,6 @@
 
 .contactoa:hover {
   scale: 1.2;
-  color: #f6ff49;
 }
 
 .header {
@@ -23,15 +22,19 @@
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  padding: 10px;
+  padding: 5px 10px; 
   background-color: #000000;
 }
+
 
 .logo {
   display: flex;
   justify-content: center;
   align-items: center;
   margin: 10px;
+  position: relative; 
+  top: -15px; 
+  right: -15px; 
 }
 
 .LogoEme {
@@ -44,18 +47,37 @@
   scale: 1.2;
 }
 
+
 .buscador {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 10px;
+  position: relative; /* Permite posicionar el botón dentro del input */
+  margin: 10px; 
+  top: -15px; 
 }
 
 .BarraBusqueda {
-  height: 25px;
-  width: 50vw;
+  height: 30px; /* Aumenté un poco la altura para mayor claridad */
+  width: 30vw;
   background-color: aliceblue;
-  border: transparent;
+  border: 1px solid #ccc; /* Añadí un borde para mayor visibilidad */
+  padding-right: 40px; /* Espacio para el botón dentro del input */
+  padding-left: 10px; /* Espacio interior a la izquierda */
+  border-radius: 20px; /* Redondeo las esquinas */
+}
+
+.BotonBusqueda {
+  position: absolute;
+  right: 5px; /* Coloca el botón en el extremo derecho del input */
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  height: 100%; /* Hace que el botón tenga la misma altura que el input */
+  display: flex;
+  align-items: center;
 }
 
 .LogoBusqueda {
@@ -63,17 +85,14 @@
   height: auto;
 }
 
-.BotonBusqueda {
-  border: none;
-  background: none;
-  cursor: pointer;
-}
 
 .idiomaclass {
   display: flex;
   justify-content: center;
   align-items: center;
   margin: 10px;
+  position: relative; 
+  top: -15px; 
 }
 
 .idioma {
@@ -87,6 +106,8 @@
   justify-content: center;
   align-items: center;
   margin: 10px;
+  position: relative; 
+  top: -15px; 
 }
 
 .icono {
@@ -106,8 +127,8 @@
 .TextoIcono:hover,
 .TextoIcono:hover,
 .TextoIcono:hover {
-  color: #f6ff49;
   scale: 1.2;
+
 }
 
 .TextoIcono:hover img,
