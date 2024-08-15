@@ -10,6 +10,10 @@ EME Comercio es una plataforma para la gestión de tiendas online que permite a 
 
 Sigue los pasos correspondientes para instalar el proyecto en tu sistema (tener en cuenta que la Base de Datos no se menciona debido a que todavía se está configurando):
 
+Nota: recuerda copiar el archivo de constantes de exemplo y ajustarlo en base a tu equipo
+Linux `cp config.php.example config.php`
+Windows `copy config.php.example config.php`
+
 ### Windows (probado en Windows 10)
 
 1. Tener instalado el stack AMP mediante la herramienta XAMPP
