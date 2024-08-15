@@ -16,15 +16,13 @@
 </head>
 
 <body>
-    <?php view('components/top-header'); ?>
+    <?php view('components/top-header-nobar'); ?>
     <main>
         <?php view('components/register-user-component'); ?>
         <?php view('components/footer'); ?>
     </main>
     <?php
-    loadJS("searchbar");
-    loadjs("user-button");
-
+    loadJS("user-button");
     ?>
 
 </body>

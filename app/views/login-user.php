@@ -16,7 +16,7 @@
 </head>
 
 <body>
-    <?php view('components/top-header'); ?>
+    <?php view('components/top-header-nobar'); ?>
     <main>
         <?php view('components/login-user-component'); ?>
         <?php view('components/footer'); ?>

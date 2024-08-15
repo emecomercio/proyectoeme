@@ -1,13 +1,18 @@
 <div id="login-form">
-        <img id="img_login" src="img/logo.png" alt="Logo">
-        <h2>Registrarse</h2>   
-        <input type="text" id="username" placeholder="Nombre de la empresa" required>
-        <input type="text" id="username" placeholder="Correo electronico" required>
-        <input type="text" id="username" placeholder="RUT" required>    
-        <input type="password" id="password" placeholder="Contraseña" required>
-            <input type="password" id="password" placeholder="Confirmar contraseña" required> 
-            <button type="submit">Registrarse</button>
-            <button type="submit">Registrarse como usuario</button>
-            <a href="register-enterprise">Iniciar sesion</a>
-        </form>
+    <h1>Registrarse</h1>
+    <input type="text" id="username" placeholder="Nombre de la empresa" required>
+    <input type="text" id="username" placeholder="Correo electronico" required>
+    <input type="text" id="username" placeholder="RUT" required>
+    <input type="password" id="password" placeholder="Contraseña" required>
+    <input type="password" id="password" placeholder="Confirmar contraseña" required>
+    <div class="terms-and-conditions">
+        <input type="checkbox">
+        <p>He leido y acepto los</p>
+        <a class="taclink" href="terms-and-conditions">
+            <p class="tacp">Terminos y condiciones</p>
+        </a>
     </div>
+    <button type="submit">Registrarse</button>
+    <a href="register-enterprise-component">Registrarse como usuario</a>
+    </form>
+</div>

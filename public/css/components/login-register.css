@@ -1,8 +1,6 @@
 #login-form {
-    background-color: black; 
     padding: 20px;
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
     max-width: 500px;
     width: 100%;
     text-align: center;
@@ -12,15 +10,17 @@
     align-items: center;
 }
 
-#login-form h2 {
+#login-form h1 {
     margin-bottom: 20px;
     color: #ffffff; 
 }
+
 #login-form a {
     color: #ffffff; 
     text-decoration: none;
     margin: 5px;
 }
+
 #login-form input {
     width: calc(90% - 5px); 
     padding: 10px;
@@ -51,31 +51,56 @@
     height: 50px;
     width: auto;
 }
+
+.password-container {
+    width: 100%;
+}
+
+.toggle-password {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+    color: #fff;
+    margin-top: 10px;
+}
+
+.toggle-password i {
+    background: none; /* Sin fondo */
+}
+
 .terms-and-conditions {
-    display: grid; /* Cambiado a grid para el diseño */
-    grid-template-columns: auto 0.35fr 0.35fr; /* La primera columna es más pequeña, las otras dos ocupan el espacio restante */
-    align-items: center; /* Centrar verticalmente los elementos */
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr; /* Ajuste para una mejor alineación */
+    align-items: center;
     font-size: small;
     width: 100%;
     height: auto;
-}
-.terms-and-conditions input[type="checkbox"] {
-    height: 15px; /* Ancho del checkbox */
-    width: auto; /* Altura automática (generalmente no es necesario para checkboxes) */
+    gap: 0px; /* Espacio entre los elementos */
 }
 
-.taclink{
+.terms-and-conditions input[type="checkbox"] {
+    height: 15px;
+    width: auto;
+}
+
+.tacp{
     text-decoration: underline;
-    color: blue;
+    color: rgb(0, 0, 255);
+    font-size: inherit; /* Mantiene el tamaño de fuente coherente */
+}
+
+.rea{   
+text-decoration: underline;
 }
 /* Media Query para pantallas pequeñas */
 @media (max-width: 480px) {
     #login-form {
-        padding: 10px;
-        max-width: 100%; /* Ocupar todo el ancho disponible */
+        padding: 10px;  
+        max-width: 100%; 
     }
 
     #login-form input {
-        width: calc(100% - 10px); /* Ajustar el ancho de los inputs */
+        width: calc(100% - 10px); 
     }
 }

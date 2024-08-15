@@ -11,10 +11,6 @@
             </a>
         </div>
         <div class="buscador">
-            <input type="text" placeholder="buscar" class="BarraBusqueda" />
-            <button type="button" class="BotonBusqueda">
-                <img class="LogoBusqueda" src="img/icons/lupa_icono_negro.png" alt="Buscar" />
-            </button>
         </div>
         <nav class="iconos">
             <div class="TextoIcono" id="user-menu">

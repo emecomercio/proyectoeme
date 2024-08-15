@@ -34,8 +34,9 @@
             ?>
             <button class="scroll-button right">&gt;</button>
         </div>
-        <?php view('components/footer'); ?>
+
     </main>
+    <?php view('components/footer'); ?>
     <?php
     loadJS("js-recommended");
     loadJS("categories");
