@@ -1,7 +1,14 @@
 <div class="product-description-container">
     <div class="product-image-container">
         <button class="favorite-button">♡</button>
-        <img src="<?= $product['image_500x500']['image_url'] ?>" width="500" height="500" alt="Producto" class="product-image" />
+        <img src="<?= $product['image_500x500']['image_url'] ?>" width="500" height="500" alt="Producto" class="product-image" id="main-product-image" />
+
+        <!-- Thumbnails -->
+        <div class="thumbnails">
+            <img src="<?= $product['image_500x500']['image_url'] ?>" alt="Thumbnail 1" class="thumbnail-image">
+            <img src="<?= $product['image_500x500']['image_url'] ?>" alt="Thumbnail 2" class="thumbnail-image">
+            <img src="<?= $product['image_500x500']['image_url'] ?>" alt="Thumbnail 3" class="thumbnail-image">
+        </div>
     </div>
     <div class="product-details-container">
         <h2 class="product-name"><?= $product['name'] ?></h2>
@@ -10,18 +17,25 @@
             <?= $product['description'] ?>
         </ul>
         <div class="model-color-selection">
-            <label for="model" class="model-label">Modelo:</label>
-            <select id="model" class="model-select">
-                <option value="model1">Modelo 1</option>
-                <option value="model2">Modelo 2</option>
-            </select>
-            <label for="color" class="color-label">Color:</label>
-            <select id="color" class="color-select">
-                <option value="red">Rojo</option>
-                <option value="blue">Azul</option>
-            </select>
+            <div class="model-selection">
+                <label class="model-label">Modelo</label>
+                <div class="models">
+                    <div class="model" data-model="model1">Modelo 1</div>
+                    <div class="model" data-model="model2">Modelo 2</div>
+                    <div class="model" data-model="model3">Modelo 3</div>
+                </div>
+            </div>
+            <div class="color-selection">
+                <label class="color-label">Color</label>
+                <div class="colors">
+                    <div class="color red" data-color="red"></div>
+                    <div class="color blue" data-color="blue"></div>
+                    <div class="color yellow" data-color="yellow"></div>
+                </div>
+            </div>
         </div>
-        <div class="button-container"> <!-- Nuevo contenedor -->
+
+        <div class="button-container">
             <button class="buy-button">Comprar</button>
             <button class="buy-button">Añadir al carrito</button>
         </div>

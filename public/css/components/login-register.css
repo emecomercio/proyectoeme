@@ -17,7 +17,6 @@
 
 #login-form a {
     color: #ffffff; 
-    text-decoration: none;
     margin: 5px;
 }
 
@@ -91,7 +90,7 @@
 }
 .forgot-password{
     text-decoration: underline;
-    color: rgb(0, 0, 255);
+    color: rgb(2, 2, 162);
     font-size: xx-small;
 }
 .rea{   

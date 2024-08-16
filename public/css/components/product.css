@@ -1,13 +1,11 @@
 .product-description-container {
   display: flex;
-  max-width: 100vw;
-  margin: 20px auto;
+  max-width: 90vw;
+  margin: 20px;
+  margin-left: auto;
+  margin-right: auto;
   background-color: transparent;
   border-radius: 8px;
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  flex-wrap: wrap;
-  margin-left: 1%;
 }
 
 .product-image-container {
@@ -17,9 +15,38 @@
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   margin: auto;
-  background-color: white;
   border-radius: 3%;
 }
+
+.thumbnails {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr; /* Crea 3 filas iguales */
+  gap: 5px; /* Espacio entre las miniaturas */
+}
+
+.thumbnail-image {
+  width: 80px;
+  height: 80px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: border-color 0.3s;
+  object-fit: cover;
+  border-radius: 5px;
+  margin: auto;
+}
+
+.thumbnail-image:hover {
+  border-color: black;
+}
+
+.product-image-container:hover .product-image {
+  cursor: zoom-in;
+}
+
+.product-image-container.zoomed .product-image {
+  cursor: zoom-out;
+}
+
 
 .favorite-button {
   position: absolute;
@@ -75,32 +102,62 @@
 }
 
 .model-color-selection {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin: 20px;
+}
+
+.model-selection, .color-selection {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  margin: 10px 0;
-  padding: 10px;
-  border-radius: 10px;
 }
 
-.model-label, .color-label {
-  margin-right: 10px;
-  font-weight: bold;
-  color: #ffffff;
+.models, .colors {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
 }
 
-.model-select, .color-select {
-  margin-left: 10px;
-  padding: 5px;
-  border: 1px solid #ccc;
+.model {
+  width: 80px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #ccc;
   border-radius: 5px;
-  background-color: #f9f9f9;
   cursor: pointer;
 }
 
-.model-select:hover, .color-select:hover {
-  border-color: #888;
+.model.selected {
+  border-color: black;
 }
+
+.color {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+  cursor: pointer;
+}
+
+.color.selected {
+  border-color: black;
+}
+
+.red {
+  background-color: red;
+}
+
+.blue {
+  background-color: blue;
+}
+
+.yellow {
+  background-color: yellow;
+}
+
 
 .button-container {
   display: flex;

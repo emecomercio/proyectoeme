@@ -28,10 +28,10 @@
     <?php view("components/footer") ?>
 </body>
 <?php
-loadJS("searchbar");
 loadjs("user-button");
-loadJS("js-recommended");
 loadJS("buy-button");
+loadJS("color-model-selector");
+loadJS("thumbnail");
 ?>
 
 </html>
