@@ -13,6 +13,6 @@
         </a>
     </div>
     <button type="submit">Registrarse</button>
-    <a href="register-enterprise-component">Registrarse como usuario</a>
+    <a href="register-user">Registrarse como usuario</a>
     </form>
 </div>

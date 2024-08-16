@@ -89,7 +89,11 @@
     color: rgb(0, 0, 255);
     font-size: inherit; /* Mantiene el tamaño de fuente coherente */
 }
-
+.forgot-password{
+    text-decoration: underline;
+    color: rgb(0, 0, 255);
+    font-size: xx-small;
+}
 .rea{   
 text-decoration: underline;
 }

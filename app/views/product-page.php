@@ -31,6 +31,7 @@
 loadJS("searchbar");
 loadjs("user-button");
 loadJS("js-recommended");
+loadJS("buy-button");
 ?>
 
 </html>

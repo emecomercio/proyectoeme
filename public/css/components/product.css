@@ -70,9 +70,8 @@
   list-style-type: none;
   padding: 30px;
   border-radius: 20px;
-  background-color: #ffffff;
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
-  color: black;
+  color: rgb(255, 255, 255);
+  font-size: large;
 }
 
 .model-color-selection {
@@ -110,6 +109,7 @@
 }
 
 .buy-button {
+  position: relative;
   flex: 1;
   background-color: #818080;
   color: white;
@@ -119,11 +119,30 @@
   cursor: pointer;
   font-size: 16px;
   text-align: center;
+  overflow: hidden;
 }
 
 .buy-button:hover {
   background-color: #1b201c;
 }
+
+.buy-button::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 10px;
+  height: 20px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  transform: translate(-50%, -50%) rotate(45deg) scale(0);
+  transition: transform 0.3s ease;
+}
+
+.buy-button.checked::after {
+  transform: translate(-50%, -50%) rotate(45deg) scale(1);
+}
+
 
 @media (max-width: 600px) {
   .product-description-container {
