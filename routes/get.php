@@ -37,21 +37,18 @@ Route::get('/register', function () {
 Route::get('/cart', function () {
     return view('cart');
 });
-// Route::get('/forgot', function () {
-//     return view('forgot');
-// });
-// Route::get('/reset', function () {
-//     return view('reset');
-// });
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// });
-// Route::get('/profile', function () {
-//     return view('profile');
-// });
-// Route::get('/settings', function () {
-//     return view('settings');
-// });
-// Route::get('/tables', function () {
-//     return view('tables');
-// });
+Route::get('/login-user', function () {
+    return view('login-user');
+});
+Route::get('/register-user', function () {
+    return view('register-user');
+});
+Route::get('/terms-and-conditions', function () {
+    return view('terms-and-conditions');
+});
+Route::get('/register-enterprise', function () {
+    return view('register-enterprise');
+});
+Route::get('/login-entrepise', function () {
+    return view('login-entrepise');
+});
