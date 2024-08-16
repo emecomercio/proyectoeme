@@ -4,7 +4,7 @@
     max-width: 500px;
     width: 100%;
     text-align: center;
-    margin: 10px auto; 
+    margin: 50px auto;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -12,16 +12,16 @@
 
 #login-form h1 {
     margin-bottom: 20px;
-    color: #ffffff; 
+    color: #ffffff;
 }
 
 #login-form a {
-    color: #ffffff; 
+    color: #ffffff;
     margin: 5px;
 }
 
 #login-form input {
-    width: calc(90% - 5px); 
+    width: calc(90% - 5px);
     padding: 10px;
     margin: 10px 0;
     border: 1px solid #ccc;
@@ -37,12 +37,29 @@
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    transition: background-color 0.3s; 
+    transition: background-color 0.3s;
     margin: 5px;
+    overflow: hidden;
+    position: relative;
+    display: inline-block;
 }
 
 #login-form button:hover {
     background-color: #5e5e5e;
+}
+
+.fade-in-letter {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeIn 0.3s forwards;
+    display: inline-block;
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 #img_login {
@@ -70,12 +87,12 @@
 
 .terms-and-conditions {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr; /* Ajuste para una mejor alineación */
+    grid-template-columns: 1fr 1fr 1fr;
     align-items: center;
     font-size: small;
     width: 100%;
     height: auto;
-    gap: 0px; /* Espacio entre los elementos */
+    gap: 0px;
 }
 
 .terms-and-conditions input[type="checkbox"] {
@@ -83,27 +100,30 @@
     width: auto;
 }
 
-.tacp{
+.tacp {
     text-decoration: underline;
     color: rgb(0, 0, 255);
-    font-size: inherit; /* Mantiene el tamaño de fuente coherente */
+    font-size: inherit;
 }
-.forgot-password{
+
+.forgot-password {
     text-decoration: underline;
     color: rgb(2, 2, 162);
     font-size: xx-small;
 }
-.rea{   
-text-decoration: underline;
+
+.rea {
+    text-decoration: underline;
 }
-/* Media Query para pantallas pequeñas */
+
+
 @media (max-width: 480px) {
     #login-form {
-        padding: 10px;  
-        max-width: 100%; 
+        padding: 10px;
+        max-width: 100%;
     }
 
     #login-form input {
-        width: calc(100% - 10px); 
+        width: calc(100% - 10px);
     }
 }

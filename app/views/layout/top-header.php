@@ -1,7 +1,7 @@
 <header>
     <nav class="contacto">
         <a class="contactoa" href="#contact-section">Contacto</a>
-        <a class="contactoa" href="#about-section">Sobre nosotros</a>
+        <a class="contactoa" href="terms-and-conditions" href="#about-section">Terminos y condiciones</a>
         <a class="contactoa" href="#locales-section">Locales</a>
     </nav>
     <div class="header">
@@ -27,13 +27,18 @@
                     <a href="">Cerrar sesión</a>
                 </div>
             </div>
-            <a class="TextoIcono" href="cart">
-                <img src="<?= loadIMG("icons/carrito_icono.png") ?>" class="icono" alt="Carrito" />
+            <div class="TextoIcono" id="cart-menu">
+                <img src="<?= loadIMG("icons/carrito_icono.png") ?>" class="icono" alt="Usuario" />
                 <br />Carrito
-            </a>
+                <div class="dropdown-content" style="display: none;">
+                    <a href="">Carrito</a>
+                    <a href="">Compras</a>
+                    <a href="">Historial</a>
+                </div>
+            </div>
             <a class="TextoIcono" href="#">
-                <img src="<?= loadIMG("icons/ubicacion_icono.png") ?>" class="icono" alt="Ubicación" />
-                <br />Ubicación
+                <img src="<?= loadIMG("icons/favorito-papel-corazon.png") ?>" class="icono" alt="Ubicación" />
+                <br />Favoritos
             </a>
         </nav>
     </div>

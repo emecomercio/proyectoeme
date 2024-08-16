@@ -12,7 +12,7 @@
             <p class="tacp">Terminos y condiciones</p>
         </a>
     </div>
-    <button type="submit">Registrarse</button>
+    <button type="submit" id="RegisterButton">Registrarse</button>
     <a href="register-user">Registrarse como usuario</a>
     </form>
 </div>

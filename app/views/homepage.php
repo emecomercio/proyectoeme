@@ -25,6 +25,7 @@
                 view("components/products/product-card", ["product" => $product]);
             }
             ?>
+            <?php view("components/products/product-container-cards") ?>
         </div>
         <div class="recommended-products-wrapper">
             <div class="recommended-products-container">
@@ -44,6 +45,8 @@
     loadJS("components/searchbar");
     loadjs("components/user-button");
     loadJS("components/alert");
+    loadJS("components/product-container-cards");
+
     ?>
 </body>
 

@@ -1,0 +1,55 @@
+.products-container-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    height: 450px;
+    width: 95vw;
+    margin: 10px 10px;
+    color: #333;
+}
+
+.product-container {
+    display: grid;
+    grid-template-rows: auto 1fr auto; /* Cambiado a auto para que el contenido se ajuste */
+    background-color: #ccc;
+    margin: 0 20px;
+    overflow: hidden; /* Asegura que la imagen no se salga del contenedor */
+    text-align: center;
+}
+
+.product-container h2 {
+    font-size: xx-large;
+    margin: 10px; /* Ajusta el margen si es necesario */
+}
+
+.product-container-img {
+    width: 100%; /* Ocupa todo el ancho del contenedor */
+    height: 250px; /* Tamaño fijo para el contenedor de la imagen */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden; /* Asegura que la imagen no se salga del contenedor */
+    margin: auto;
+}
+
+.product-container-img img {
+    width: 100%; /* La imagen ocupará todo el ancho del contenedor */
+    height: 100%; /* La imagen ocupará toda la altura del contenedor */
+    object-fit: cover; /* Ajusta la imagen dentro del contenedor sin deformar */
+}
+
+.product-container-img-small {
+    display: flex;
+    width: 100%; /* Ocupa todo el ancho del contenedor */
+    height: auto; /* Tamaño fijo para el contenedor de las miniaturas */
+    overflow: hidden; /* Asegura que las miniaturas no se salgan del contenedor */
+    justify-content: space-around; /* Distribuye las miniaturas uniformemente */
+    align-items: center; /* Centra verticalmente las miniaturas */
+    margin-bottom: 10px;
+}
+
+.product-container-img-small img {
+    width: 100px; /* Tamaño fijo para las imágenes miniatura */
+    height: 100px; /* Tamaño fijo para las imágenes miniatura */
+    object-fit: cover; /* Ajusta la imagen dentro del contenedor sin deformar */
+    margin: 0 5px; /* Espacio entre las miniaturas */
+}
