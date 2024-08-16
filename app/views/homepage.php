@@ -16,33 +16,34 @@
 </head>
 
 <body>
-    <?php view('components/top-header'); ?>
-    <?php view("components/alert") ?>
+    <?php view('layout/top-header'); ?>
+    <?php view("components/feedback/alert") ?>
     <main>
-        <?php view("components/categories") ?>
+        <?php view("components/products/categories") ?>
         <div class="product-grid">
             <?php foreach ($products as $product) {
-                view("components/card-product", ["product" => $product]);
+                view("components/products/product-card", ["product" => $product]);
             }
             ?>
         </div>
         <div class="recommended-products-wrapper">
-            <button class="scroll-button left">&lt;</button>
-            <?php foreach ($products as $product) {
-                view('components/recommended', ["product" => $product]);
-            }
-            ?>
-            <button class="scroll-button right">&gt;</button>
-        </div>
-
+            <div class="recommended-products-container">
+                <button class="scroll-button left">&lt;</button>
+                <?php foreach ($products as $product) {
+                    view('components/products/recommended', ["product" => $product]);
+                }
+                ?>
+                <button class="scroll-button right">&gt;</button>
+                <div></div>
+            </div>
     </main>
-    <?php view('components/footer'); ?>
+    <?php view('layout/footer'); ?>
     <?php
-    loadJS("js-recommended");
-    loadJS("categories");
-    loadJS("searchbar");
-    loadjs("user-button");
-    loadJS("alert");
+    loadJS("components/js-recommended");
+    loadJS("components/categories");
+    loadJS("components/searchbar");
+    loadjs("components/user-button");
+    loadJS("components/alert");
     ?>
 </body>
 

@@ -10,9 +10,9 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/product-page', function () {
-    $product = ProductController::getProductById(1);
-    view("product-page", [
+Route::get('/product-page/{id}', function ($id) {
+    $product = ProductController::getProductById($id);
+    view("products/product-page", [
         "product" => $product
     ]);
 });
@@ -38,17 +38,17 @@ Route::get('/cart', function () {
     return view('cart');
 });
 Route::get('/login-user', function () {
-    return view('login-user');
+    return view('auth/login-user');
 });
 Route::get('/register-user', function () {
-    return view('register-user');
+    return view('auth/register-user');
 });
 Route::get('/terms-and-conditions', function () {
-    return view('terms-and-conditions');
+    return view('static/terms-and-conditions');
 });
 Route::get('/register-enterprise', function () {
-    return view('register-enterprise');
+    return view('auth/register-enterprise');
 });
 Route::get('/login-entrepise', function () {
-    return view('login-entrepise');
+    return view('auth/login-enterprise');
 });

@@ -13,17 +13,24 @@
     <?php loadCSS("pages/register-user") ?>
 
     <title>Homepage</title>
+    <style>
+        main {
+            flex: 1;
+        }
+    </style>
 </head>
 
 <body>
-    <?php view('components/top-header-nobar'); ?>
+    <?php view('layout/top-header-nobar'); ?>
     <main>
-        <?php view('components/login-entrepise-component'); ?>
-        <?php view('components/footer'); ?>
+        <?php view('components/user-auth/register-user-component'); ?>
     </main>
+
+    <?php view('layout/footer'); ?>
     <?php
-    loadJS("user-button");
+    loadJS("components/user-button");
     ?>
+
 </body>
 
 </html>

@@ -16,15 +16,14 @@
 </head>
 
 <body>
-    <?php view('components/top-header-nobar'); ?>
+    <?php view('layout/top-header-nobar'); ?>
     <main>
-        <?php view('components/login-user-component'); ?>
-        <?php view('components/footer'); ?>
-    </main>
-    <?php
-    loadJS("searchbar");
-    loadjs("user-button");
+        <?php view('components/enterprise-auth/login-entrepise-component'); ?>
 
+    </main>
+    <?php view('layout/footer'); ?>
+    <?php
+    loadJS("components/user-button");
     ?>
 </body>
 

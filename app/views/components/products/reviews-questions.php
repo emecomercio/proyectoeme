@@ -50,7 +50,7 @@
             <h3>Review Title 1</h3>
             <div class="body">
                 <img
-                    src="#"
+                    src="<?= $product['image_500x500']['image_url'] ?>"
                     alt="User 1"
                     class="user-photo" />
                 <p>This is the body of review 1. I loved the product!</p>
@@ -67,7 +67,7 @@
             <h3>Review Title 2</h3>
             <div class="body">
                 <img
-                    src="#"
+                    src="<?= $product['image_500x500']['image_url'] ?>"
                     alt="User 2"
                     class="user-photo" />
                 <p>This is the body of review 2. Good customer service.</p>

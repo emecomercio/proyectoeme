@@ -7,18 +7,18 @@
     <div class="header">
         <div class="logo">
             <a href="/">
-                <img class="LogoEme" src="img/icons/logo.png" alt="logo de la empresa" />
+                <img class="LogoEme" src="<?= loadIMG("icons/logo.png") ?>" alt="logo de la empresa" />
             </a>
         </div>
         <div class="buscador">
             <input type="text" placeholder="buscar" class="BarraBusqueda" />
             <button type="button" class="BotonBusqueda">
-                <img class="LogoBusqueda" src="img/icons/lupa_icono_negro.png" alt="Buscar" />
+                <img class="LogoBusqueda" src="<?= loadIMG("icons/lupa_icono_negro.png") ?>" alt="Buscar" />
             </button>
         </div>
         <nav class="iconos">
             <div class="TextoIcono" id="user-menu">
-                <img src="img/icons/usuario_icono.png" class="icono" alt="Usuario" />
+                <img src="<?= loadIMG("icons/usuario_icono.png") ?>" class="icono" alt="Usuario" />
                 <br />Usuario
                 <div class="dropdown-content" style="display: none;">
                     <a href="register-user">Registrarse</a>
@@ -28,11 +28,11 @@
                 </div>
             </div>
             <a class="TextoIcono" href="cart">
-                <img src="img/icons/carrito_icono.png" class="icono" alt="Carrito" />
+                <img src="<?= loadIMG("icons/carrito_icono.png") ?>" class="icono" alt="Carrito" />
                 <br />Carrito
             </a>
             <a class="TextoIcono" href="#">
-                <img src="img/icons/ubicacion_icono.png" class="icono" alt="Ubicación" />
+                <img src="<?= loadIMG("icons/ubicacion_icono.png") ?>" class="icono" alt="Ubicación" />
                 <br />Ubicación
             </a>
         </nav>

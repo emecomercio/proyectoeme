@@ -16,7 +16,7 @@
 </head>
 
 <body>
-    <?php view('components/top-header'); ?>
+    <?php view('layout/top-header'); ?>
     <main>
         <p>
 
@@ -68,11 +68,12 @@
             ---
 
             Asegúrate de que estos términos y condiciones reflejen la política real de tu negocio y consulta con un abogado si es necesario.</p>
-        <?php view('components/footer'); ?>
+
     </main>
+    <?php view('layout/footer'); ?>
     <?php
-    loadJS("searchbar");
-    loadjs("user-button");
+    loadJS("components/searchbar");
+    loadjs("components/user-button");
     ?>
 
 </body>

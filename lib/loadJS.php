@@ -1,11 +1,12 @@
 <?php
-function loadJS($filename = "main")
+
+function loadJS($filename = "global")
 {
-    $base_path = "js/";
+    $base_path = "/js/";
     $full_path = $base_path . $filename . ".js";
-    if (file_exists($full_path)) {
-        echo "<script src='{$full_path}'></script>";
+    if (file_exists($_SERVER['DOCUMENT_ROOT'] . $full_path)) {
+        echo '<script src="' . $full_path . '"></script>';
     } else {
-        echo '<!-- Arhivo JS no encontrado: ' . $full_path . ' -->';
+        echo '<!-- Archivo CSS no encontrado: ' . $full_path . ' -->';
     }
 }

@@ -2,7 +2,7 @@
 
 /** @var array $product*/ ?>
 
-<a href="<?= $product['page_url'] ?? "/product-page" ?>" class="product-card">
+<a href="/product-page/<?= $product["id"] ?>" class="product-card">
   <img
     src="<?= $product['image_500x500']['image_url'] ?>"
     width="500" height="500"
