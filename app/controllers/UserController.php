@@ -48,7 +48,7 @@ class UserController
         $password_check = $_POST['password-check'];
         if ($password == $password_check) {
             $userModel->register($email, $password);
-            header("Location: /");
+            route("/");
         } else {
             echo "las contraseñas no coinciden";
         }
