@@ -4,11 +4,11 @@ USE tienda
 -- En un futuro: para tablas con informacion critica debemos tener en cuenta el usar UUID
 CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    user_type VARCHAR(255) NOT NULL,
-    fullname VARCHAR(255) NOT NULL,
+    user_type VARCHAR(255)  NULL,
+    fullname VARCHAR(255)  NULL,
     email VARCHAR(255) NOT NULL UNIQUE,
     password_hash VARCHAR(255) NOT NULL,
-    birthdate DATE NOT NULL,
+    birthdate DATE  NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );

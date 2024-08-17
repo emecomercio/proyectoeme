@@ -40,6 +40,20 @@ class UserController
         }
     }
 
+    static public function register()
+    {
+        $userModel = new UserModel;
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+        $password_check = $_POST['password-check'];
+        if ($password == $password_check) {
+            $userModel->register($email, $password);
+            header("Location: /");
+        } else {
+            echo "las contraseñas no coinciden";
+        }
+    }
+
     static public function updateUser()
     {
         $userModel = new UserModel;

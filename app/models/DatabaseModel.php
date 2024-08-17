@@ -12,14 +12,14 @@ class DatabaseModel
             die("Conexión fallida: " . $this->connection->connect_error);
         }
     }
-    public function query($sql)
+    public function query($query)
     {
-        return $this->connection->query($sql);
+        return $this->connection->query($query);
     }
 
-    public function prepare($sql)
+    public function prepare($query)
     {
-        return $this->connection->prepare($sql);
+        return $this->connection->prepare($query);
     }
 
     public function close()

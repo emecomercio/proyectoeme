@@ -23,7 +23,7 @@
 <body>
     <?php view('layout/top-header-nobar'); ?>
     <main>
-        <?php view('components/user-auth/register-user-component'); ?>
+        <?php view('components/user-auth/register-form'); ?>
     </main>
 
     <?php view('layout/footer'); ?>
