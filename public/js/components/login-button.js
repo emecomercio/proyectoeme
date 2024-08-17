@@ -1,8 +1,8 @@
-document.getElementById('loginButton,').addEventListener('click', function(event) {
+document.getElementById('loginButton').addEventListener('click', function(event) {
     event.preventDefault(); // Evita que el formulario se envíe
 
     var button = this;
-    var newText = 'Sesión iniciada correctamente';
+    var newText = 'Ingresado correctamente';
     button.textContent = ''; // Vacía el contenido del botón
 
     // Añade cada letra con un pequeño retraso, incluyendo los espacios

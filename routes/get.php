@@ -35,7 +35,7 @@ Route::get('/register', function () {
     return view('register');
 });
 Route::get('/cart', function () {
-    return view('cart');
+    return view('products/cart');
 });
 Route::get('/login-user', function () {
     return view('auth/login-user');
@@ -51,4 +51,7 @@ Route::get('/register-enterprise', function () {
 });
 Route::get('/login-entrepise', function () {
     return view('auth/login-enterprise');
+});
+Route::get('/homepage', function () {
+    return view('components/homepage');
 });

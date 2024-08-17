@@ -18,6 +18,7 @@
 <body>
     <?php view('layout/top-header'); ?>
     <?php view("components/feedback/alert") ?>
+    <?php view("components/feedback/alert-cookie") ?>
     <main>
         <?php view("components/products/categories") ?>
         <div class="product-grid">
@@ -45,6 +46,7 @@
     loadJS("components/searchbar");
     loadjs("components/user-button");
     loadJS("components/alert");
+    loadJS("components/alert-cookie");
     loadJS("components/product-container-cards");
 
     ?>

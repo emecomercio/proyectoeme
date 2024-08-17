@@ -27,7 +27,7 @@
                 <img src="<?= loadIMG("icons/carrito_icono.png") ?>" class="icono" alt="Usuario" />
                 <br />Carrito
                 <div class="dropdown-content" style="display: none;">
-                    <a href="">Carrito</a>
+                    <a href="cart">Carrito</a>
                     <a href="">Compras</a>
                     <a href="">Historial</a>
                 </div>

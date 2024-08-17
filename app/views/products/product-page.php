@@ -23,6 +23,7 @@
         ?>
 
         <?php view("components/products/reviews-questions", ["product" => $product]) ?>
+        <?php view("components/products/reviews") ?>
     </main>
     <?php view("layout/footer") ?>
 </body>

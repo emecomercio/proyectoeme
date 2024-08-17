@@ -1,0 +1,27 @@
+.cookie-alert {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #333;
+  color: white;
+  padding: 15px;
+  text-align: center;
+  transform: translateY(100%);
+  transition: transform 0.5s ease-in-out;
+  z-index: 9999; /* Asegura que esté por encima de otros elementos */
+}
+
+.cookie-alert.show {
+  transform: translateY(0);
+}
+
+.cookie-alertbutton {
+  background-color: #ccc;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin-left: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}

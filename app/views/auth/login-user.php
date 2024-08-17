@@ -23,8 +23,8 @@
 
     <?php view('layout/footer'); ?>
     <?php
-    loadjs("components/user-button");
-    loadJS("components/login-button");
+   loadJS("components/user-button");
+   loadJS("components/register-button");
 
     ?>
 </body>

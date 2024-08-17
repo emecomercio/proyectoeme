@@ -2,8 +2,8 @@
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     height: 450px;
-    width: 95vw;
-    margin: 10px 10px;
+    width: 85vw;
+    margin: 0px 50px;
     color: #333;
 }
 

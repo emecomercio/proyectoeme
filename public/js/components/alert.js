@@ -2,7 +2,7 @@ window.onload = function() {
     setTimeout(function() {
         // Mostrar el modal
         document.getElementById("register-modal").style.display = "block";
-    }, 10000); // 10000 ms = 10 segundos
+    }, 120000); // // 2 minutos en milisegundos
 };
 
 // Cierra el modal cuando se hace clic en el botón de cerrar

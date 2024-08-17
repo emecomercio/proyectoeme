@@ -17,18 +17,19 @@
 </head>
 
 <body>
-    <?php view("components/top-header") ?>
+    <?php view("layout/top-header") ?>
     <main>
-
+        <?php view("components/products/cart") ?>
 
 
 
     </main>
-    <?php view("components/footer") ?>
+    <?php view("layout/footer") ?>
 </body>
 <?php
 loadJS("searchbar");
-loadjs("user-button");
+loadjs("components/user-button");
+loadJS("components/js-recommended");
 
 ?>
 

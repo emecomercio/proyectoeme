@@ -1,33 +1,31 @@
 
 .last_and_questions {
-    display: flex;
-    justify-content: space-between; /* Espacio entre los elementos */
-    align-items: flex-start; /* Alinea los elementos al inicio del eje vertical */
-    gap: 10px; /* Espacio entre los elementos */
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin: 40px 20px;
 }
 
-#frequent-questions-container, .comments-container {
+#frequent-questions-containers {
     flex: 1; /* Hace que los contenedores ocupen el mismo ancho */
     max-width: 48%; /* Opción de ancho máximo para evitar que se expandan demasiado */
+    height: 450px;
+    margin: auto;
 }
 
 .comments-container {
-    background-color: #222;
     padding: 20px;
     display: flex;
-    overflow-x: scroll;
-    scroll-snap-type: x mandatory;
-    width: 70%;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
+    width: 100%;
     color: black;
+    overflow-x: auto; /* Habilita el desplazamiento horizontal */
+    scrollbar-width: none; /* Oculta la barra de desplazamiento en Firefox */
+    margin: auto;
 }
 
-
-/* Oculta la barra de desplazamiento en navegadores basados en WebKit (Chrome, Safari) */
 .comments-container::-webkit-scrollbar {
-    display: none;
+    display: none; /* Oculta la barra de desplazamiento en Webkit (Chrome, Safari) */
 }
+
 
 .comment {
     background-color: #ffffff;
@@ -63,26 +61,21 @@
 #frequent-questions-container {
     border-top-left-radius: 8px;  /* Borde redondeado en la esquina superior izquierda */
     border-top-right-radius: 8px; /* Borde redondeado en la esquina superior derecha */
-    background-color: #ffffff;
     padding: 20px;
     max-width: 550px; /* Ancho máximo */
+    height: 500px;
     width: 100%; /* Ancho completo */
     height: 230px; /* Altura fija */
     margin: 0 auto; /* Centra el contenedor horizontalmente */
-    overflow-y: scroll; /* Habilita el desplazamiento vertical */
-    overflow-x: hidden; /* Oculta la barra de desplazamiento horizontal */
     box-sizing: border-box; /* Asegura que el padding no aumente el tamaño total */
+    text-align: center;
+    color: white;
 }
 
-/* Oculta la barra de desplazamiento en navegadores basados en WebKit (Chrome, Safari) */
-#frequent-questions-container::-webkit-scrollbar {
-    display: none;
-}
 
 .frequent-questions-title {
     font-size: 24px;
     margin-bottom: 20px;
-    color: #333;
     text-align: center; /* Centrar el título */
 }
 
@@ -93,15 +86,53 @@
 .frequent-questions-question {
     font-size: 18px;
     margin-bottom: 10px;
-    color: #333;
 }
 
 .frequent-questions-answer {
     font-size: 16px;
     margin: 0;
-    color: #555;
     word-wrap: break-word; /* Asegura que palabras largas se ajusten dentro del contenedor */
 }
+
+.product-interest {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Dos columnas iguales */
+    grid-template-rows: auto 1fr 1fr; /* Una fila para el título y dos para los divs */
+    gap: 15px; /* Espacio entre los elementos */
+    justify-items: center; /* Centrar horizontalmente */
+    align-items: center; /* Centrar verticalmente */
+    text-align: center;
+    padding: 0px;
+}
+
+.product-interest h2 {
+    grid-column: 1 / -1; /* El título ocupará toda la fila superior */
+    font-family: 'Arial', sans-serif; /* Tipografía sencilla y moderna */
+    color: white; /* Color del texto */
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.product-interest div {
+    background-color: #fff; /* Fondo blanco para los divs */
+    border-radius: 8px; /* Bordes redondeados */
+    overflow: hidden; /* Asegura que las imágenes respeten los bordes redondeados */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transición suave para la animación */
+}
+
+.product-interest div:hover {
+    transform: translateY(-5px); /* Efecto de elevación al pasar el mouse */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Sombra más fuerte al hacer hover */
+}
+
+.product-interest img {
+    max-width: 100%; /* Asegura que la imagen no exceda el ancho del contenedor */
+    max-height: 150px; /* Establece una altura máxima */
+    object-fit: cover; /* Mantiene la proporción de la imagen mientras la recorta para encajar */
+    border-bottom: 4px solid #ddd; /* Pequeño borde en la parte inferior de la imagen */
+}
+
 
 @media (max-width: 600px) {
     #frequent-questions-container {
