@@ -10,12 +10,30 @@ EME Comercio es una plataforma para la gestión de tiendas online que permite a 
 
 Sigue los pasos correspondientes para instalar el proyecto en tu sistema (tener en cuenta que la Base de Datos no se menciona debido a que todavía se está configurando):
 
-Nota: recuerda copiar el archivo de constantes de exemplo y ajustarlo en base a tu equipo
-Linux `cp config.php.example config.php`
-Windows `copy config.php.example config.php`
+**Nota**: recuerda copiar el archivo de configuración de ejemplo y ajustarlo en base a tu equipo:
+
+Linux: `cp config.php.example config.php`
+
+Windows: `copy config.php.example config.php`
+
+### Linux -> Fedora
+
+1. Descargar el script `prepare_fedora.sh` desde el siguiente repositorio: [https://github.com/emecomercio/server_management](https://github.com/emecomercio/server_management)
+2. Asignarle permisos de ejecución al script: `chmod +x prepare_fedora.sh`
+3. Ejecutar el script con permisos de administrador: `sudo bash prepare_fedora.sh`
+4. **Si ya tienes montado el servidor LAMP, ve el paso 5**. Para montar el servidor LAMP, navega por las distintas secciones e instala o configura lo que necesites (si tienes dudas, abre el script con un editor de textos)
+5. Entrar en el menú de configuraciones (opción 4)
+6. Si necesitas permisos en `/var/www`, elige la opción 2
+7. Descarga este repositorio en `/var/www`
+8. Para generar un virtual host y un archivo de configuración de apache para el proyecto, elige la opción 3. Ingresa el nombre del repositorio, 'proyectoeme' y el correo [emecomerciooficial@gmail.com](emecomerciooficial@gmail.com)
+9. Ejecuta el script SQL `app/database/tienda.sql`, para ello puedes abrir una consola de mysql-server y ejecutar: `source /var/www/proyectoeme/app/database/tienda.sql`
+10. Ya puedes ejecutar el proyecto entrando a [http://proyectoeme.test/](http://proyectoeme.test/)
+
+Nota: si tienes problemas, puedes ejecutar `php -S localhost:8000 -t /var/www/proyectoeme/public` y analizar los errores. Si no puedes resolverlos, contáctanos.
 
 ### Windows (probado en Windows 10)
 
+0. Extra: recomendamos utilizar Laragon en vez de XAMPP para ahorrarse todos estos pasos.
 1. Tener instalado el stack AMP mediante la herramienta XAMPP
 2. Descargar el repositorio en la carpeta \xampp\htdocs\
 3. Modificar el archivo /config.php: define('ROOT', "/xampp/htdocs/proyectoeme");
@@ -44,7 +62,7 @@ Windows `copy config.php.example config.php`
 
 Ahora ingresando "http://proyectoeme.test/" en tu navegador ya puedes ver el sitio web.
 
-### Linux/Debian (probado en Ubuntu)
+### Linux -> Debian (probado en Ubuntu)
 
 1. Tener instalado el stack AMP (Apache2, MySQL y PHP) [A futuro y si los docentes lo solicitan, se redactará el cómo]
 2. Descargar el repositorio en la carpeta /var/www
