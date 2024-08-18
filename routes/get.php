@@ -55,3 +55,12 @@ Route::get('/login-entrepise', function () {
 Route::get('/homepage', function () {
     return view('components/homepage');
 });
+Route::get('/shopping', function () {
+    return view('/shopping');
+});
+Route::get('/history', function () {
+    return view('/history');
+});
+Route::get('/favorites', function () {
+    return view('/favorites');
+});
