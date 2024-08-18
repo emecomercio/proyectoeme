@@ -38,6 +38,7 @@ class UserController
         if ($password == $password_check) {
             $userModel->register($email, $password);
             $_SESSION['user_id'] = $userModel->getUserByEmail($email)["id"];
+            $_SESSION['user_name'] = "Marcos";
             redirect("/");
         } else {
             echo "[No deberia llegar hasta aca] las contraseñas no coinciden";

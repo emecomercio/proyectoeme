@@ -20,7 +20,7 @@
                     <a href="/register-user">Registrarse</a>
                     <a href="/login-user">Ingresar</a>
                     <a href="/dashboard">Datos de usuario</a>
-                    <a href="/">Cerrar sesión</a>
+                    <a href="/pohiguycftxdrycfgblkhigvuycfvhjl">Cerrar sesión</a>
                 </div>
             </div>
             <div class="TextoIcono" id="cart-menu">
@@ -32,7 +32,7 @@
                     <a href="/history">Historial</a>
                 </div>
             </div>
-            <a class="TextoIcono" href="#">
+            <a class="TextoIcono" href="/favorites">
                 <img src="<?= loadIMG("icons/favorito-papel-corazon.png") ?>" class="icono" alt="Ubicación" />
                 <br />Favoritos
             </a>
