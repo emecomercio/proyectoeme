@@ -1,5 +1,5 @@
 <?php
-function route($route)
+function redirect($route)
 {
     header("Location: $route");
     exit;
