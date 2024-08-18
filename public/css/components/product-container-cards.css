@@ -3,7 +3,7 @@
     grid-template-columns: 1fr 1fr 1fr;
     height: 450px;
     width: 85vw;
-    margin: 0px 50px;
+    margin: 0px auto;
     color: #333;
 }
 

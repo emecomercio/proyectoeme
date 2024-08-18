@@ -26,8 +26,8 @@
                 view("components/products/product-card", ["product" => $product]);
             }
             ?>
-            <?php view("components/products/product-container-cards") ?>
         </div>
+        <?php view("components/products/product-container-cards") ?>
         <div class="recommended-products-wrapper">
             <div class="recommended-products-container">
                 <button class="scroll-button left">&lt;</button>
@@ -38,6 +38,8 @@
                 <button class="scroll-button right">&gt;</button>
                 <div></div>
             </div>
+        </div>
+
     </main>
     <?php view('layout/footer'); ?>
     <?php

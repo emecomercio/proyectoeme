@@ -16,10 +16,12 @@
     padding: 20px;
     display: flex;
     width: 100%;
-    color: black;
+    color: rgb(0, 0, 0);
     overflow-x: auto; /* Habilita el desplazamiento horizontal */
     scrollbar-width: none; /* Oculta la barra de desplazamiento en Firefox */
-    margin: auto;
+    margin: auto; 
+    width: 97vw;
+    margin: 20px;
 }
 
 .comments-container::-webkit-scrollbar {
