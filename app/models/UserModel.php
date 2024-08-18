@@ -6,22 +6,13 @@ class UserModel extends DatabaseModel
     public function getUsers()
     {
         $query = "SELECT * FROM users";
-        $result = $this->connection->query($query); # Hago la quey$query a la bd
-        // Transformo la quey$query a un array de arrays asociativos
-        // Se puede recorrer con foreach o así: $result[1]["fullname"]
+        $result = $this->connection->query($query);
         return $result->fetch_all(MYSQLI_ASSOC);
     }
     public function userExists($email, $password)
     {
-        $usersTable = $this->getUsers();
-
-        foreach ($usersTable as $row) {
-            if (password_verify($password, $row['password_hash']) && $row['email'] == $email) {
-                return true;
-            } else {
-                return false;
-            }
-        }
+        $user = $this->getUserByEmail($email);
+        return $user && password_verify($password, $user['password_hash']);
     }
 
     public function register($email, $password)
@@ -32,6 +23,17 @@ class UserModel extends DatabaseModel
         $preparation->bind_param("ss", $email, $password_hash);
         return $preparation->execute();
     }
+
+    public function getUserByEmail($email)
+    {
+        $query = "SELECT * FROM users WHERE email = ?";
+        $preparation = $this->connection->prepare($query);
+        $preparation->bind_param("s", $email);
+        $preparation->execute();
+        return $preparation->get_result()->fetch_assoc();
+    }
+
+    // Lo de abajo no se usa aun
 
     public function getUserById($id)
     {

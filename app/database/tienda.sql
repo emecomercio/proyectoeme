@@ -1,6 +1,6 @@
 DROP DATABASE IF EXISTS tienda;
 CREATE DATABASE tienda;
-USE tienda
+USE tienda;
 -- En un futuro: para tablas con informacion critica debemos tener en cuenta el usar UUID
 CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,

@@ -1,4 +1,4 @@
-<div id="login-form">
+<form class="auth-form" action="############" method="post">
     <h1>Registrarse</h1>
     <input type="text" id="username" placeholder="Nombre de la empresa" required>
     <input type="text" id="username" placeholder="Correo electronico" required>
@@ -14,7 +14,11 @@
     </div>
     <button type="submit" id="RegisterButton">Registrarse</button>
     <a href="register-user">Registrarse como usuario</a>
+<<<<<<< HEAD
     </form>
 </div>
 
 
+=======
+</form>
+>>>>>>> 6c22829702c2ca1f5f9e65123ffa66eac3ff0df6

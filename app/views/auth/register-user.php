@@ -12,7 +12,7 @@
     <?php loadCSS() ?>
     <?php loadCSS("pages/register-user") ?>
 
-    <title>Homepage</title>
+    <title>Pagina de Registro</title>
     <style>
         main {
             flex: 1;
@@ -23,13 +23,14 @@
 <body>
     <?php view('layout/top-header-nobar'); ?>
     <main>
-        <?php view('components/user-auth/register-form'); ?>
+        <?php view('components/user-auth/register-form', ['errorMsg' => $errorMsg]); ?>
     </main>
 
     <?php view('layout/footer'); ?>
     <?php
+
+    loadJS("components/auth/password_validation");
     loadJS("components/user-button");
-    loadJS("components/register-button");
     ?>
 
 </body>

@@ -19,7 +19,7 @@
 <body>
     <?php view("layout/top-header") ?>
     <main>
-        <?php view("components/products/cart") ?>
+        <?php view("components/users/cart") ?>
 
 
 

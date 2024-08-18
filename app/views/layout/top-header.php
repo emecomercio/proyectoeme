@@ -24,7 +24,11 @@
                     <a href="/register-user">Registrarse</a>
                     <a href="/login-user">Ingresar</a>
                     <a href="/dashboard">Datos de usuario</a>
+<<<<<<< HEAD
                     <a href="/">Cerrar sesión</a>
+=======
+                    <a href="/logout">Cerrar sesión</a>
+>>>>>>> 6c22829702c2ca1f5f9e65123ffa66eac3ff0df6
                 </div>
             </div>
             <div class="TextoIcono" id="cart-menu">
@@ -32,8 +36,13 @@
                 <br />Carrito
                 <div class="dropdown-content" style="display: none;">
                     <a href="/cart">Carrito</a>
+<<<<<<< HEAD
                     <a href="/shopping">Compras</a>
                     <a href="/history">Historial</a>
+=======
+                    <a href="">Compras</a>
+                    <a href="">Historial</a>
+>>>>>>> 6c22829702c2ca1f5f9e65123ffa66eac3ff0df6
                 </div>
             </div>
             <a class="TextoIcono" href="/favorites">

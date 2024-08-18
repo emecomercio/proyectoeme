@@ -23,36 +23,64 @@ class UserController
         include "../public/registro_exitoso.html";
     }
 
-    static public function logIn()
-    {
-        $userModel = new UserModel;
-        $password = $_POST['input-password'];
-        $email = $_POST['input-email'];
-        $page = '';
-        //
-        //Tengo que programar la verifiacion del tipo de usuario
-        //
-        if ($userModel->userExists($email, $password)) {
-            $page = 'homepage';
-            include './' . $page . '.php';
-        } else {
-            echo "uma uma mama";
-        }
-    }
-
     static public function register()
     {
         $userModel = new UserModel;
         $email = $_POST['email'];
         $password = $_POST['password'];
         $password_check = $_POST['password-check'];
+
+        if ($userModel->userExists($email, $password)) {
+            $_SESSION['error'] = "Ya existe un usuario con ese correo";
+            redirect("/register-user");
+        }
+
         if ($password == $password_check) {
             $userModel->register($email, $password);
+            $_SESSION['user_id'] = $userModel->getUserByEmail($email)["id"];
             redirect("/");
         } else {
-            echo "las contraseñas no coinciden";
+            echo "[No deberia llegar hasta aca] las contraseñas no coinciden";
         }
     }
+
+    static public function login()
+    {
+        $userModel = new UserModel;
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+        if ($userModel->userExists($email, $password)) {
+            $_SESSION['user_id'] = $userModel->getUserByEmail($email)["id"];
+            redirect("/");
+        } else {
+            $_SESSION['error'] = "Usuario o contraseña incorrectos";
+            redirect("/login-user");
+        }
+    }
+
+    static public function logout()
+    {
+        session_start();
+        session_unset();
+        session_destroy();
+        redirect("/");
+    }
+
+    static public function getUserDashboard()
+    {
+        $userModel = new UserModel;
+        $id = $_SESSION['user_id'] ?? '';
+        if ($id != '') {
+            $user = $userModel->getUserById($id);
+            view("user/dashboard", [
+                "user" => $user,
+            ]);
+        } else {
+            redirect("/login-user");
+        }
+    }
+
+    // Las de abajo no se usan aun
 
     static public function updateUser()
     {
