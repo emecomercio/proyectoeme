@@ -2,7 +2,6 @@
 require_once CONTROLLERS . "ProductController.php";
 require_once CONTROLLERS . "UserController.php";
 
-// Define una ruta GET y ejecuta una funcion (bloque de codigo) cualquiera 
 Route::get('/', function () {
     $products = ProductController::getProductsForHomepage();
     view("homepage", [
@@ -10,6 +9,27 @@ Route::get('/', function () {
     ]);
 });
 
+// USERS ROUTES
+Route::get('/dashboard', function () {
+    UserController::getUserDashboard();
+});
+
+Route::get('/register-user', function () {
+    $errorMsg = $_SESSION['error'] ?? '';
+    unset($_SESSION['error']);
+    return view('auth/register-user', ['errorMsg' => $errorMsg]);
+});
+
+Route::get('/login-user', function () {
+    $errorMsg = $_SESSION['error'] ?? '';
+    unset($_SESSION['error']);
+    return view('auth/login-user', ['errorMsg' => $errorMsg]);
+});
+Route::get('/logout', function () {
+    UserController::logout();
+});
+
+// PRODUCTS ROUTES
 Route::get('/product-page/{id}', function ($id) {
     $product = ProductController::getProductById($id);
     view("products/product-page", [
@@ -17,28 +37,17 @@ Route::get('/product-page/{id}', function ($id) {
     ]);
 });
 
-// Define una ruta GET con parametros y ejecuta una funcion (bloque de codigo) cualquiera que puede pasarsele parametros 
-Route::get('/users/{id}', function ($id) {
-    return "User with id: " . $id;
-});
-
-// Define una ruta GET que ejecuta un controlador y su metodo correspondiente
-Route::get('/dashboard', function () {
+// TESTING ROUTES
+Route::get('/secret-access-to-users', function () {
     UserController::getUsers();
 });
 
-
-Route::get('/login', function () {
-    return view('login');
-});
+// Varias rutas - Pendiente agrupar
 Route::get('/register', function () {
     return view('register');
 });
 Route::get('/cart', function () {
-    return view('products/cart');
-});
-Route::get('/login-user', function () {
-    return view('auth/login-user');
+    return view('user/cart');
 });
 Route::get('/register-user', function () {
     return view('auth/register-user');

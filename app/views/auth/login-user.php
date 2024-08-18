@@ -18,13 +18,13 @@
 <body>
     <?php view('layout/top-header-nobar'); ?>
     <main>
-        <?php view('components/user-auth/login-user-component'); ?>
+        <?php view('components/user-auth/login-form', ["errorMsg" => $errorMsg]); ?>
     </main>
 
     <?php view('layout/footer'); ?>
     <?php
-   loadJS("components/user-button");
-   loadJS("components/register-button");
+    loadJS("components/user-button");
+    loadJS("components/register-button");
 
     ?>
 </body>

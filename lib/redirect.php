@@ -2,5 +2,5 @@
 function redirect($route)
 {
     header("Location: $route");
-    exit;
+    exit();
 }

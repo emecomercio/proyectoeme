@@ -1,5 +1,5 @@
-<form id="login-form" action="/register-user" method="post">
-    <p>s</p>
+<form class="auth-form" action="/register-user" method="post">
+    <?= htmlspecialchars($errorMsg) ?>
     <h1>Registrarse</h1>
     <input type="email" id="email" name="email" placeholder="Correo electronico" required>
     <input type="password" id="password" name="password" placeholder="Contraseña" required>
