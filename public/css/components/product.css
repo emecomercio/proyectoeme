@@ -47,7 +47,6 @@
   cursor: zoom-out;
 }
 
-
 .favorite-button {
   position: absolute;
   top: 10px;
@@ -63,7 +62,16 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  z-index: 10; 
 }
+
+.favorite-button.active {
+  background-color: red;
+  transform: scale(1.2);
+}
+
+
 
 .product-image {
   width: 100%;
@@ -183,7 +191,22 @@
   background-color: #1b201c;
 }
 
+.buy-button::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 10px;
+  height: 20px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  transform: translate(-50%, -50%) rotate(45deg) scale(0);
+  transition: transform 0.3s ease;
+}
 
+.buy-button.checked::after {
+  transform: translate(-50%, -50%) rotate(45deg) scale(1);
+}
 
 
 @media (max-width: 600px) {
