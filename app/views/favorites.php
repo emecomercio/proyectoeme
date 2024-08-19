@@ -12,13 +12,12 @@
 <body>
     <main>
         <?php view('layout/top-header-nobar'); ?>
-        <?php view("components/users/favorite") ?>
+        <h1>Favoritos</h1>
 
     </main>
     <?php view('layout/footer'); ?>
     <?php
     loadjs("components/user-button");
-    loadjs("components/favorite-button");
     ?>
 </body>
 

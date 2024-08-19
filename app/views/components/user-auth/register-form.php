@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-
-=======
->>>>>>> dba20a81cb024d5c1b0e8e4f191fb3b9416e6a70
 <form class="auth-form" action="/register-user" method="post">
     <?= htmlspecialchars($errorMsg) ?>
     <h1>Registrarse</h1>
