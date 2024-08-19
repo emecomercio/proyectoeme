@@ -12,7 +12,7 @@
     <?php loadCSS() ?>
     <?php loadCSS("pages/register-user") ?>
 
-    <title>Homepage</title>
+    <title>Inicio de sesion de empresa</title>
 </head>
 
 <body>
