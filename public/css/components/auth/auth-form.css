@@ -87,7 +87,7 @@
 
 .terms-and-conditions {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 2fr;
   align-items: center;
   font-size: small;
   width: 100%;

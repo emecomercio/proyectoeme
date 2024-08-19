@@ -6,10 +6,8 @@
     <input type="password" id="password" placeholder="Contraseña" required>
     <input type="password" id="password" placeholder="Confirmar contraseña" required>
     <div class="terms-and-conditions">
-        <input type="checkbox">
-        <p>He leido y acepto los</p>
-        <a class="taclink" href="terms-and-conditions">
-            <p class="tacp">Terminos y condiciones</p>
+        <input type="checkbox" required name="checkbox"> <a href="terms-and-conditions">
+            <p>He leido y acepto los Terminos y condiciones</p>
         </a>
     </div>
     <button type="submit" id="RegisterButton">Registrarse</button>
