@@ -14,4 +14,11 @@
     </div>
     <button type="submit" id="RegisterButton">Registrarse</button>
     <a href="register-user">Registrarse como usuario</a>
+<<<<<<< HEAD
+    </form>
+</div>
+
+
+=======
 </form>
+>>>>>>> 6c22829702c2ca1f5f9e65123ffa66eac3ff0df6

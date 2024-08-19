@@ -4,7 +4,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<title>Carrito</title>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,6 +13,7 @@
     loadCSS("pages/cart");
 
     ?>
+    <title><?= $product['name'] . ' ' ?> Page</title>
 </head>
 
 <body>

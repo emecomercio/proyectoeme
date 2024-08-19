@@ -12,7 +12,7 @@
     <?php loadCSS() ?>
     <?php loadCSS("pages/register-user") ?>
 
-    <title>Registro de usuario</title>
+    <title>Pagina de Registro</title>
     <style>
         main {
             flex: 1;

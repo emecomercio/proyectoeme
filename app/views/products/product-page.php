@@ -22,19 +22,13 @@
         view("components/products/product", ["product" => $product]);
         ?>
 
-        <?php view("components/products/reviews-questions") ?>
-        <div class="comments-container">
-            <?php
-            // Temporal
-            for ($i = 0; $i < 10; $i++) {
-                view("components/products/reviews", ["product" => $product]);
-            }
-            ?>
-        </div>
+        <?php view("components/products/reviews-questions", ["product" => $product]) ?>
+        <?php view("components/products/reviews") ?>
     </main>
     <?php view("layout/footer") ?>
 </body>
 <?php
+loadJS("components/favorite-button");
 loadjs("components/user-button");
 loadJS("components/buy-button");
 loadJS("components/color-model-selector");

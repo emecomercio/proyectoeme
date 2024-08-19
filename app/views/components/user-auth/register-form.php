@@ -1,3 +1,4 @@
+
 <form class="auth-form" action="/register-user" method="post">
     <?= htmlspecialchars($errorMsg) ?>
     <h1>Registrarse</h1>
