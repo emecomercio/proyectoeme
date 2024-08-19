@@ -4,11 +4,7 @@
             <img class="icon-cart" src="<?= loadIMG("icons/carrito_icono.png") ?>" alt="">
             <h3>¡Empieza un carrito de compras!</h3>
             <p>Suma productos y consigue envío gratis.</p>
-<<<<<<< HEAD
-            <a href="/"><button class="button-cart">Descubrir productos</button></a>
-=======
             <a href="/"> <button class="button-cart"> Descubrir productos</button></a>
->>>>>>> dba20a81cb024d5c1b0e8e4f191fb3b9416e6a70
         </div>
     </div>
     <div class="purchase-summary">
