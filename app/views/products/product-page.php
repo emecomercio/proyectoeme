@@ -22,8 +22,15 @@
         view("components/products/product", ["product" => $product]);
         ?>
 
-        <?php view("components/products/reviews-questions", ["product" => $product]) ?>
-        <?php view("components/products/reviews") ?>
+        <?php view("components/products/reviews-questions") ?>
+        <div class="comments-container">
+            <?php
+            // Temporal
+            for ($i = 0; $i < 10; $i++) {
+                view("components/products/reviews", ["product" => $product]);
+            }
+            ?>
+        </div>
     </main>
     <?php view("layout/footer") ?>
 </body>

@@ -19,13 +19,17 @@
         <nav class="iconos">
             <div class="TextoIcono" id="user-menu">
                 <img src="<?= loadIMG("icons/usuario_icono.png") ?>" class="icono" alt="Usuario" />
-                <br />Usuario
+                <br /><?= $_SESSION['user_name'] ?? "Usuario" ?>
                 <div class="dropdown-content" style="display: none;">
                     <a href="/register-user">Registrarse</a>
                     <a href="/login-user">Ingresar</a>
                     <a href="/dashboard">Datos de usuario</a>
+<<<<<<< HEAD
                     <a href="/">Cerrar sesión</a>
 
+=======
+                    <a href="/logout">Cerrar sesión</a>
+>>>>>>> dba20a81cb024d5c1b0e8e4f191fb3b9416e6a70
                 </div>
             </div>
             <div class="TextoIcono" id="cart-menu">
@@ -33,7 +37,11 @@
                 <br />Carrito
                 <div class="dropdown-content" style="display: none;">
                     <a href="/cart">Carrito</a>
+<<<<<<< HEAD
                    <a href="/shopping">Compras</a>
+=======
+                    <a href="/shopping">Compras</a>
+>>>>>>> dba20a81cb024d5c1b0e8e4f191fb3b9416e6a70
                     <a href="/history">Historial</a>
                 </div>
             </div>
