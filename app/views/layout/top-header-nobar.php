@@ -32,7 +32,7 @@
                     <a href="/history">Historial</a>
                 </div>
             </div>
-            <a class="TextoIcono" href="#">
+            <a class="TextoIcono" href="/favorites">
                 <img src="<?= loadIMG("icons/favorito-papel-corazon.png") ?>" class="icono" alt="Ubicación" />
                 <br />Favoritos
             </a>

@@ -1,9 +1,6 @@
-<<<<<<< HEAD
-<form id="login-form" action="/register-user" method="post">
-=======
+
 <form class="auth-form" action="/register-user" method="post">
     <?= htmlspecialchars($errorMsg) ?>
->>>>>>> 6c22829702c2ca1f5f9e65123ffa66eac3ff0df6
     <h1>Registrarse</h1>
     <input type="email" id="email" name="email" placeholder="Correo electronico" required>
     <input type="password" id="password" name="password" placeholder="Contraseña" required>
