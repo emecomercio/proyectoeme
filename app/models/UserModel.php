@@ -9,11 +9,18 @@ class UserModel extends DatabaseModel
         $result = $this->connection->query($query);
         return $result->fetch_all(MYSQLI_ASSOC);
     }
-    public function userExists($email, $password)
+    public function userExists($email)
     {
         $user = $this->getUserByEmail($email);
-        return $user && password_verify($password, $user['password_hash']);
+        return $user != null;
     }
+
+    public function validatePassword($email, $password)
+    {
+        $user = $this->getUserByEmail($email);
+        return password_verify($password, $user['password_hash']);
+    }
+
 
     public function register($email, $password)
     {

@@ -20,7 +20,7 @@
                     <a href="/register-user">Registrarse</a>
                     <a href="/login-user">Ingresar</a>
                     <a href="/dashboard">Datos de usuario</a>
-                    <a href="/">Cerrar sesión</a>
+                    <a href="/logout">Cerrar sesión</a>
                 </div>
             </div>
             <div class="TextoIcono" id="cart-menu">

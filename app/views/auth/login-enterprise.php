@@ -12,19 +12,20 @@
     <?php loadCSS() ?>
     <?php loadCSS("pages/register-user") ?>
 
-    <title>Homepage</title>
+    <title>Inicio de sesion de empresa</title>
 </head>
 
 <body>
     <?php view('layout/top-header-nobar'); ?>
     <main>
-        <?php view('components/enterprise-auth/login-entrepise-component'); ?>
+        <?php view('components/enterprise-auth/login-entrepise-component', ['errorMsg' => $errorMsg]); ?>
 
     </main>
     <?php view('layout/footer'); ?>
     <?php
-    loadJS("components/user-button");
+
     loadJS("components/register-button");
+    loadJS("components/user-button");
     ?>
 </body>
 

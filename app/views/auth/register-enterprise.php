@@ -12,19 +12,20 @@
     <?php loadCSS() ?>
     <?php loadCSS("pages/register-user") ?>
 
-    <title>Homepage</title>
+    <title>Registro de empresa</title>
 </head>
 
 <body>
     <?php view('layout/top-header-nobar'); ?>
     <main>
-        <?php view("components/enterprise-auth/register-entreprise-component") ?>
+        <?php view("components/enterprise-auth/register-entreprise-component", ["errorMsg" => $errorMsg]) ?>
 
     </main>
     <?php view('layout/footer'); ?>
     <?php
+
+    loadJS("components/auth/password_validation");
     loadJS("components/user-button");
-    loadJS("components/register-button");
     ?>
 </body>
 

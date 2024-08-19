@@ -12,11 +12,11 @@
     <?php loadCSS() ?>
     <?php loadCSS("pages/homepage") ?>
 
-    <title>Homepage</title>
+    <title>Terms and Conditions</title>
 </head>
 
 <body>
-    <?php view('layout/top-header'); ?>
+    <?php view('layout/top-header-nobar'); ?>
     <main>
         <p>
 

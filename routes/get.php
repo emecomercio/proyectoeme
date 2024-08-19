@@ -29,6 +29,19 @@ Route::get('/logout', function () {
     UserController::logout();
 });
 
+// ENTERPRISE ROUTES
+
+Route::get('/register-enterprise', function () {
+    $errorMsg = $_SESSION['error'] ?? '';
+    unset($_SESSION['error']);
+    return view('auth/register-enterprise', ['errorMsg' => $errorMsg]);
+});
+Route::get('/login-enterprise', function () {
+    $errorMsg = $_SESSION['error'] ?? '';
+    unset($_SESSION['error']);
+    return view('auth/login-enterprise', ['errorMsg' => $errorMsg]);
+});
+
 // PRODUCTS ROUTES
 Route::get('/product-page/{id}', function ($id) {
     $product = ProductController::getProductById($id);
@@ -49,18 +62,10 @@ Route::get('/register', function () {
 Route::get('/cart', function () {
     return view('user/cart');
 });
-Route::get('/register-user', function () {
-    return view('auth/register-user');
-});
 Route::get('/terms-and-conditions', function () {
     return view('static/terms-and-conditions');
 });
-Route::get('/register-enterprise', function () {
-    return view('auth/register-enterprise');
-});
-Route::get('/login-entrepise', function () {
-    return view('auth/login-enterprise');
-});
+
 Route::get('/homepage', function () {
     return view('components/homepage');
 });
@@ -72,7 +77,4 @@ Route::get('/history', function () {
 });
 Route::get('/favorites', function () {
     return view('/favorites');
-});
-Route::get('/forgot-password', function () {
-    return view('/forgot-password');
 });

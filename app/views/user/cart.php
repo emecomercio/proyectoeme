@@ -13,7 +13,7 @@
     loadCSS("pages/cart");
 
     ?>
-    <title><?= $product['name'] . ' ' ?> Page</title>
+    <title>Mi Carrito</title>
 </head>
 
 <body>

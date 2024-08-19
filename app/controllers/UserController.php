@@ -28,16 +28,20 @@ class UserController
         $userModel = new UserModel;
         $email = $_POST['email'];
         $password = $_POST['password'];
+        $user_type = $_POST['user-type'] ?? '';
         $password_check = $_POST['password-check'];
 
-        if ($userModel->userExists($email, $password)) {
-            $_SESSION['error'] = "Ya existe un usuario con ese correo";
-            redirect("/register-user");
+        if ($userModel->userExists($email)) {
+            $_SESSION['error'] = $user_type == "enterprise" ? "Ya existe una empresa registrada con ese correo" : "Ya existe un usuario con ese correo";
+            $redirection = $user_type == "enterprise" ? "/register-enterprise" : "/register-user";
+            redirect("$redirection");
         }
 
         if ($password == $password_check) {
             $userModel->register($email, $password);
-            $_SESSION['user_id'] = $userModel->getUserByEmail($email)["id"];
+            $user = $userModel->getUserByEmail($email);
+            $_SESSION['user_id'] = $user["id"];
+            $_SESSION['user_name'] = "Marcos";
             redirect("/");
         } else {
             echo "[No deberia llegar hasta aca] las contraseñas no coinciden";
@@ -49,12 +53,14 @@ class UserController
         $userModel = new UserModel;
         $email = $_POST['email'];
         $password = $_POST['password'];
-        if ($userModel->userExists($email, $password)) {
+        $user_type = $_POST['user-type'] ?? '';
+        if ($userModel->userExists($email) && $userModel->validatePassword($email, $password)) {
             $_SESSION['user_id'] = $userModel->getUserByEmail($email)["id"];
             redirect("/");
         } else {
             $_SESSION['error'] = "Usuario o contraseña incorrectos";
-            redirect("/login-user");
+            $redirection = $user_type == "enterprise" ? "/login-enterprise" : "/login-user";
+            redirect("$redirection");
         }
     }
 

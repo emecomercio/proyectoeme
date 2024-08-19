@@ -5,6 +5,7 @@
 ?>
 <!DOCTYPE html>
 <html lang="en">
+<title>Mis datos</title>
 
 <head>
     <meta charset="UTF-8">
