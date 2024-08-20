@@ -1,11 +1,12 @@
 <footer class="footer">
     <div class="top-container">
         <div class="inner-div" id="contact-section">
-            <p> 
+            <p>
                 Contacto <br />
                 Cel: 0965565 <br />
                 Tel: 22099878 <br />
-                Correo: emecomerciooficial@gmail.com
+                <a class="mailto" href="mailto:emecommerceoficial@gmail.com"> Correo: emecomerciooficial@gmail.com
+                </a>
             </p>
         </div>
         <div class="inner-div" id="about-section">

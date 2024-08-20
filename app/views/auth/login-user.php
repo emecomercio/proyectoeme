@@ -11,6 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <?php loadCSS() ?>
     <?php loadCSS("pages/register-user") ?>
+    <link rel="icon" type="image/x-icon" href="<?= loadIMG("icons/favicon.png"); ?>">
 
     <title>Iniciar sesion de usuario</title>
 </head>

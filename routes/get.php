@@ -78,3 +78,6 @@ Route::get('/history', function () {
 Route::get('/favorites', function () {
     return view('/favorites');
 });
+Route::get('/forgot-password', function () {
+    return view('/forgot-password');
+});

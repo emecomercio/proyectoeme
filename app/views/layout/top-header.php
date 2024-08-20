@@ -1,7 +1,7 @@
 <header>
     <nav class="contacto">
         <a class="contactoa" href="#contact-section">Contacto</a>
-        <a class="contactoa" href="terms-and-conditions" href="#about-section">Terminos y condiciones</a>
+        <a class="contactoa" href="/terms-and-conditions" href="#about-section">Terminos y condiciones</a>
         <a class="contactoa" href="#locales-section">Locales</a>
     </nav>
     <div class="header">
@@ -11,7 +11,7 @@
             </a>
         </div>
         <div class="buscador">
-            <input type="text" placeholder="buscar" class="BarraBusqueda" />
+            <input type="search" placeholder="buscar" class="BarraBusqueda" />
             <button type="button" class="BotonBusqueda">
                 <img class="LogoBusqueda" src="<?= loadIMG("icons/lupa_icono_negro.png") ?>" alt="Buscar" />
             </button>

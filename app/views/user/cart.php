@@ -13,11 +13,12 @@
     loadCSS("pages/cart");
 
     ?>
+    <link rel="icon" type="image/x-icon" href="<?= loadIMG("icons/favicon.png"); ?>">
     <title>Mi Carrito</title>
 </head>
 
 <body>
-    <?php view("layout/top-header") ?>
+    <?php view("layout/top-header-nobar") ?>
     <main>
         <?php view("components/users/cart") ?>
 

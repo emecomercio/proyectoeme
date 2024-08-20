@@ -12,6 +12,8 @@
     loadCSS();
     loadCSS("pages/product-page");
     ?>
+        <link rel="icon" type="image/x-icon" href="<?= loadIMG("icons/favicon.png"); ?>">
+
     <title><?= $product['name'] ?></title>
 </head>
 

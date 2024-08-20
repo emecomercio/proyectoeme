@@ -109,9 +109,9 @@
   font-size: large;
 }
 
-.model-color-selection {
+.selectors {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   margin: 20px;
 }
 
@@ -208,6 +208,89 @@
   transform: translate(-50%, -50%) rotate(45deg) scale(1);
 }
 
+.quantity-dropdown {
+  position: relative;
+  display: inline-block;
+  text-align: center;
+}
+
+.custom-select {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.quantity-select  {
+  appearance: none; /* Quita el estilo por defecto del select */
+  background-color: #3d3d3d;
+  color: white;
+  padding: 10px;
+  padding-right: 40px; /* Espacio para el icono */
+  border: none;
+  border-radius: 4px;
+  width: 100%;
+  cursor: pointer;
+}
+
+/* Icono de flecha */
+.custom-select::after {
+  content: '▼';
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: white;
+  font-size: 12px;
+}
+
+/* Opcional: cambiar el color de fondo cuando se abre el select */
+.quantity-select:focus {
+  outline: none;
+  background-color: #4d4d4d;
+}
+.model-color-selection {
+  position: relative;
+  display: inline-block;
+  text-align: center;
+}
+
+.model-selection {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+}
+
+.model-select {
+  appearance: none; /* Quita el estilo por defecto del select */
+  background-color: #3d3d3d;
+  color: white;
+  padding: 10px;
+  padding-right: 40px; /* Espacio para el icono */
+  border: none;
+  border-radius: 4px;
+  width: 100%;
+  cursor: pointer;
+}
+
+/* Icono de flecha */
+.model-selection::after {
+  content: '▼';
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: white;
+  font-size: 12px;
+}
+
+/* Opcional: cambiar el color de fondo cuando se abre el select */
+.model-select:focus {
+  outline: none;
+  background-color: #4d4d4d;
+}
 
 @media (max-width: 600px) {
   .product-description-container {

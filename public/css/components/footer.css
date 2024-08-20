@@ -5,7 +5,10 @@
   text-align: center;
   margin-top: auto;
 }
+.mailto{
 
+  color: white;
+}
 .main-container {
   display: grid;
   grid-template-rows: auto auto;

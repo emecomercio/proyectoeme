@@ -16,15 +16,16 @@
         <ul class="product-info">
             <?= $product['description'] ?>
         </ul>
-        <div class="model-color-selection">
+        <div class="selectors">
             <div class="model-selection">
-                <label class="model-label">Modelo</label>
-                <div class="models">
-                    <div class="model" data-model="model1">Modelo 1</div>
-                    <div class="model" data-model="model2">Modelo 2</div>
-                    <div class="model" data-model="model3">Modelo 3</div>
-                </div>
+                <label class="model-label" for="model-select">Modelo</label>
+                <select id="model-select" class="model-select">
+                    <option value="model1">Modelo 1</option>
+                    <option value="model2">Modelo 2</option>
+                    <option value="model3">Modelo 3</option>
+                </select>
             </div>
+
             <div class="color-selection">
                 <label class="color-label">Color</label>
                 <div class="colors">
@@ -33,6 +34,19 @@
                     <div class="color yellow" data-color="yellow"></div>
                 </div>
             </div>
+            <div class="quantity-dropdown">
+                <label for="quantity-select">Seleccionar cantidad</label>
+                <div class="custom-select">
+                    <select id="quantity-select" class="quantity-select">
+                        <option value="1">1 unidad</option>
+                        <option value="2">2 unidades</option>
+                        <option value="3">3 unidades</option>
+                        <option value="4">4 unidades</option>
+                        <option value="5">5 unidades</option>
+                    </select>
+                </div>
+            </div>
+
         </div>
 
         <div class="button-container">
