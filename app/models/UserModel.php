@@ -22,12 +22,12 @@ class UserModel extends DatabaseModel
     }
 
 
-    public function register($email, $password)
+    public function register($username, $email, $password)
     {
         $password_hash = password_hash($password, PASSWORD_DEFAULT);
-        $query = "INSERT INTO users (email, password_hash) VALUES (?, ?)";
+        $query = "INSERT INTO users (username,email, password_hash) VALUES (?,?,?)";
         $preparation = $this->prepare($query);
-        $preparation->bind_param("ss", $email, $password_hash);
+        $preparation->bind_param("sss", $username, $email, $password_hash);
         return $preparation->execute();
     }
 

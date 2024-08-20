@@ -21,6 +21,12 @@
     <main>
         <?php view('components/user-auth/login-form', ["errorMsg" => $errorMsg]); ?>
     </main>
+    <?php if (isset($_SESSION['error_message'])): ?>
+        <div class="error-message">
+            <?php echo $_SESSION['error_message']; ?>
+        </div>
+        <?php unset($_SESSION['error_message']); ?>
+    <?php endif; ?>
 
     <?php view('layout/footer'); ?>
     <?php

@@ -115,6 +115,15 @@
 .rea {
   text-decoration: underline;
 }
+.error-message {
+  color: red;
+  background-color: #fdd;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+  text-align: center;
+}
+
 
 @media (max-width: 480px) {
   .auth-form {

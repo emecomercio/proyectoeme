@@ -6,6 +6,7 @@ CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_type VARCHAR(255)  NULL,
     fullname VARCHAR(255)  NULL,
+    username VARCHAR(255)  NULL,
     email VARCHAR(255) NOT NULL UNIQUE,
     password_hash VARCHAR(255) NOT NULL,
     birthdate DATE  NULL,
@@ -43,12 +44,12 @@ CREATE TABLE images (
 -- );
 
 INSERT INTO users 
-(user_type, fullname, email, password_hash, birthdate)VALUES
-("admin", "Anibal Boggio", "anibalboggio12.6.2006@gmail.com", "$2y$10$UlzvPXndnzCa73DtSaeQa.ddfcgEeYugh04aFOl2fLnx2zKSLN4F6", "2006-06-12"),
-("admin", "Facundo Canclini", "facundocanclini27@gmail.com", "$2y$10$UlzvPXndnzCa73DtSaeQa.ddfcgEeYugh04aFOl2fLnx2zKSLN4F6", "2006-07-28"),
-("admin", "Lautaro da Rosa", "laudarosa12@gmail.com", "$2y$10$UlzvPXndnzCa73DtSaeQa.ddfcgEeYugh04aFOl2fLnx2zKSLN4F6", "2006-07-19"),
-("admin", "Luca Gómez", "lucaestudio14@gmail.com", "$2y$10$UlzvPXndnzCa73DtSaeQa.ddfcgEeYugh04aFOl2fLnx2zKSLN4F6", "2006-08-16"),
-("admin", "Marcos Muñoz", "marcosestudio13@gmail.com", "$2y$10$UlzvPXndnzCa73DtSaeQa.ddfcgEeYugh04aFOl2fLnx2zKSLN4F6", "2006-09-23");
+(user_type, fullname,username, email, password_hash, birthdate)VALUES
+("admin", "Anibal Boggio","Anibolo" ,"anibalboggio12.6.2006@gmail.com", "$2y$10$UlzvPXndnzCa73DtSaeQa.ddfcgEeYugh04aFOl2fLnx2zKSLN4F6", "2006-06-12"),
+("admin", "Facundo Canclini","Facundo" ,"facundocanclini27@gmail.com", "$2y$10$UlzvPXndnzCa73DtSaeQa.ddfcgEeYugh04aFOl2fLnx2zKSLN4F6", "2006-07-28"),
+("admin", "Lautaro da Rosa","Lautaro", "laudarosa12@gmail.com", "$2y$10$UlzvPXndnzCa73DtSaeQa.ddfcgEeYugh04aFOl2fLnx2zKSLN4F6", "2006-07-19"),
+("admin", "Luca Gómez","Panquesito", "lucaestudio14@gmail.com", "$2y$10$UlzvPXndnzCa73DtSaeQa.ddfcgEeYugh04aFOl2fLnx2zKSLN4F6", "2006-08-16"),
+("admin", "Marcos Muñoz","Marquiños jaker", "marcosestudio13@gmail.com", "$2y$10$UlzvPXndnzCa73DtSaeQa.ddfcgEeYugh04aFOl2fLnx2zKSLN4F6", "2006-09-23");
 
 INSERT INTO products 
 (name, description, price, category, stock, state) VALUES

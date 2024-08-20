@@ -30,6 +30,7 @@ class UserController
         $password = $_POST['password'];
         $user_type = $_POST['user-type'] ?? '';
         $password_check = $_POST['password-check'];
+        $username = $_POST['username'];
 
         if ($userModel->userExists($email)) {
             $_SESSION['error'] = $user_type == "enterprise" ? "Ya existe una empresa registrada con ese correo" : "Ya existe un usuario con ese correo";
@@ -38,10 +39,10 @@ class UserController
         }
 
         if ($password == $password_check) {
-            $userModel->register($email, $password);
+            $userModel->register( $username,$email, $password);
             $user = $userModel->getUserByEmail($email);
             $_SESSION['user_id'] = $user["id"];
-            $_SESSION['user_name'] = "Marcos";
+            $_SESSION['user_name'] = $user["username"];
             redirect("/");
         } else {
             echo "[No deberia llegar hasta aca] las contraseñas no coinciden";
@@ -82,9 +83,11 @@ class UserController
                 "user" => $user,
             ]);
         } else {
+            $_SESSION['error_message'] = "Debe iniciar sesión";
             redirect("/login-user");
         }
     }
+    
 
     // Las de abajo no se usan aun
 

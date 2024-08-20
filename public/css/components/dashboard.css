@@ -1,0 +1,17 @@
+.dashboard{
+    margin: auto; 
+    width: 800px;
+    height: auto;
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr;
+    text-align: center;
+
+}
+.dashboard input{
+    width: calc(70% - 5px);
+    padding: 10px;
+    margin: auto;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
