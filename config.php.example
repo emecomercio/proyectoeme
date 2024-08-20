@@ -1,5 +1,5 @@
 <?php
-define('ROOT', "/var/www/proyectoeme");
+define('ROOT', "/laragon/www/proyectoeme");
 define('APP', ROOT . "/app/");
 define('VIEWS', APP . "views/");
 define('MODELS', APP . "models/");
@@ -10,6 +10,6 @@ $env = [
     "DB_NAME" => "tienda",
     "DB_HOST" => "localhost",
     "DB_USER" => "root",
-    "DB_PASSWORD" => "root"
+    "DB_PASSWORD" => ""
 ];
 // Se accede a ellas asi: $env["CONSTANTE"]

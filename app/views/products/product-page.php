@@ -37,6 +37,7 @@
     <?php view("layout/footer") ?>
 </body>
 <?php
+loadjs("components/favorite-button");
 loadjs("components/user-button");
 loadJS("components/buy-button");
 loadJS("components/color-model-selector");
