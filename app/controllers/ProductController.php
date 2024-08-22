@@ -1,6 +1,10 @@
 <?php
-require_once MODELS . "ProductModel.php";
-require_once CONTROLLERS . "ImageController.php";
+
+namespace App\Controllers;
+
+use App\Models\ProductModel;
+use App\Controllers\ImageController;
+
 class ProductController
 {
     public static function getAllProducts()

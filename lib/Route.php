@@ -1,5 +1,7 @@
 <?php
-require_once ROOT . "/lib/view.php";
+
+namespace Lib;
+
 class Route
 {
     protected static $routes = [];

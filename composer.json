@@ -1,0 +1,11 @@
+{
+  "autoload": {
+    "psr-4": {
+      "App\\Api\\Controllers\\": "app/api/controllers/",
+      "App\\Controllers\\": "app/controllers/",
+      "App\\Models\\": "app/models/",
+      "App\\Database\\": "app/database/",
+      "Lib\\": "lib/"
+    }
+  }
+}

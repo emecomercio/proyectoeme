@@ -1,5 +1,8 @@
 <?php
-require_once(MODELS . "DatabaseModel.php");
+
+namespace App\Models;
+
+use App\Models\DatabaseModel;
 
 class ProductModel extends DatabaseModel
 {

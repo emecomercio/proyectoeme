@@ -1,6 +1,16 @@
 <?php
-require_once CONTROLLERS . "ProductController.php";
-require_once CONTROLLERS . "UserController.php";
+
+
+
+use Lib\Route;
+use App\Controllers\UserController;
+use App\Controllers\ProductController;
+
+
+
+Route::get('/api', function () {
+    return view('prueba');
+});
 
 Route::get('/', function () {
     $products = ProductController::getProductsForHomepage();
@@ -52,7 +62,7 @@ Route::get('/product-page/{id}', function ($id) {
 
 // TESTING ROUTES
 Route::get('/secret-access-to-users', function () {
-    UserController::getUsers();
+    UserController::all();
 });
 
 // Varias rutas - Pendiente agrupar

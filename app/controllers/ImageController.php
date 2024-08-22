@@ -1,5 +1,8 @@
 <?php
-require_once MODELS . 'ImageModel.php';
+
+namespace App\Controllers;
+
+use App\Models\ImageModel;
 
 class ImageController
 {
