@@ -26,3 +26,4 @@ document.addEventListener('DOMContentLoaded', function() {
         sectionCategories.style.display = sectionCategories.style.display === 'none' || sectionCategories.style.display === '' ? 'flex' : 'none';
     });
 });
+

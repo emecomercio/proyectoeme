@@ -10,13 +10,10 @@
 
 .product-container {
     display: grid;
-    grid-template-rows: auto 1fr auto; /* Cambiado a auto para que el contenido se ajuste */
-    background-color: #ccc;
     margin: 0 80px;
     overflow: hidden; /* Asegura que la imagen no se salga del contenedor */
     text-align: center;
-    box-shadow: 0 -4px 8px -2px rgba(41, 41, 41, 0.7), /* Sombra superior */
-                0 4px 8px -2px rgba(41, 41, 41, 0.7),  /* Sombra inferior */
+    color: white;
 }
 
 .product-container h2 {
@@ -38,6 +35,7 @@
     width: 100%; /* La imagen ocupará todo el ancho del contenedor */
     height: 100%; /* La imagen ocupará toda la altura del contenedor */
     object-fit: cover; /* Ajusta la imagen dentro del contenedor sin deformar */
+    cursor:zoom-in;
 }
 
 .product-container-img-small {
@@ -55,4 +53,5 @@
     height: 100px; /* Tamaño fijo para las imágenes miniatura */
     object-fit: cover; /* Ajusta la imagen dentro del contenedor sin deformar */
     margin: 0 5px; /* Espacio entre las miniaturas */
+    cursor: pointer;
 }

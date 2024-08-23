@@ -1,0 +1,224 @@
+.preview-container {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%; /* Ajusta la altura al 100% del contenedor padre */
+    width: 100%;
+}
+
+/* Estilos para .upload-product-main */
+.upload-product-main {
+    background-color: #f9f9f9;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    height: 100%; /* Ajusta la altura al 100% del contenedor padre */
+}
+
+/* Estilos adicionales para otros elementos */
+.upload-prduct-all {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 20px; /* Espacio entre los ítems de la grid */
+    margin: 20px;
+    padding: 20px;
+    border-radius: 15px; /* Esquinas redondeadas para el contenedor */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave para profundidad */
+    color: black;
+}
+
+.upload-product {
+    background-color: #ffffff;
+    width: 20vw;
+    height: auto;
+    border-radius: 10px; /* Esquinas redondeadas para el contenedor del producto */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave para profundidad */
+    padding: 20px; /* Agrega un poco de padding dentro del contenedor del producto */
+}
+
+.upload-product::-webkit-scrollbar-thumb {
+    background-color: #ccc; /* Color del pulgar de la barra de desplazamiento */
+    border-radius: 4px; /* Esquinas redondeadas para el pulgar */
+}
+
+.upload-product input[type="file"],
+.upload-product input[type="text"],
+.upload-product input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    font-size: 1rem;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.upload-product input[type="file"] {
+    padding: 5px;
+    background-color: #e0e0e0;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.upload-product input[type="file"]::-webkit-file-upload-button {
+    padding: 8px 12px;
+    color: #fff;
+    background-color: #4d4d4d; /* Gris oscuro en lugar de azul */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.3s ease;
+}
+
+.upload-product input[type="file"]::-webkit-file-upload-button:hover {
+    background-color: #333; /* Gris más oscuro al hacer hover */
+}
+
+.upload-product input[type="text"],
+.upload-product input[type="number"] {
+    color: #333;
+}
+
+.upload-product input[type="text"]:focus,
+.upload-product input[type="number"]:focus {
+    border-color: #4d4d4d; /* Gris oscuro en lugar de azul */
+    box-shadow: 0 0 5px rgba(77, 77, 77, 0.5); /* Sombra gris oscuro */
+    outline: none;
+}
+
+.upload-product section ul {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0;
+}
+
+.upload-product section ul li {
+    padding: 8px;
+    margin: 5px 0;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.upload-product section ul li:hover {
+    background-color: #4d4d4d; /* Gris oscuro en lugar de azul */
+    color: #fff; /* Color de texto blanco al hacer hover */
+}
+
+.upload-product-dropdown-container {
+    position: relative;
+    margin-bottom: 15px;
+}
+
+.dropdown-trigger {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #4d4d4d;
+    border-radius: 5px;
+    background-color: #fff;
+    cursor: pointer;
+    font-size: 1rem;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-menu {
+    display: none; /* Ocultar por defecto */
+    position: absolute;
+    top: 100%; /* Alinea el menú con el borde inferior del input */
+    left: 0;
+    width: 100%;
+    background-color: #fff;
+    border: 2px solid #4d4d4d;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 1000;
+}
+
+.dropdown-menu li {
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.dropdown-menu li:hover {
+    background-color: #007bff; /* Cambia el color al pasar el ratón */
+    color: #fff;
+}
+
+.preview-container .preview {
+    width: 100%;
+    height: auto;
+}
+
+.upload-product-main p {
+    font-size: 1rem;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.upload-product-main input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #2c2c2c;
+    border-radius: 5px;
+    background-color: #fff;
+    font-size: 1rem;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.upload-product-main input[type="file"]:hover {
+    border-color: #2c2c2c;
+}
+
+#imagePreview {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Ajusta el tamaño mínimo de las imágenes */
+    gap: 10px; /* Espacio entre las imágenes */
+    width: 100%;
+    height: auto;
+}
+
+#imagePreview img {
+    width: 100%; /* Ajusta el tamaño de las imágenes al contenedor */
+    height: auto; /* Mantiene la relación de aspecto */
+    border-radius: 10px;
+    border: 1px solid #ddd;
+}
+
+.image-container {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+}
+
+.delete-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: white;
+    border: none;
+    padding: 5px;
+    border-radius: 8px;
+    cursor: pointer;
+    color: black;
+}
+
+.delete-button:hover {
+    background-color: #cc0000;
+    color: white;
+}

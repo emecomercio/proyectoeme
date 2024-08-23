@@ -81,3 +81,7 @@ Route::get('/favorites', function () {
 Route::get('/forgot-password', function () {
     return view('/forgot-password');
 });
+
+Route::get('/upload-product-page', function () {
+    return view('/upload-product-page');
+});

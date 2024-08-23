@@ -15,7 +15,7 @@
         <nav class="iconos">
             <div class="TextoIcono" id="user-menu">
                 <img src="<?= loadIMG("icons/usuario_icono.png") ?>" class="icono" alt="Usuario" />
-                <br />Usuario
+                <br /><?= $_SESSION['user_name'] ?? "Usuario" ?>
                 <div class="dropdown-content" style="display: none;">
                     <a href="/register-user">Registrarse</a>
                     <a href="/login-user">Ingresar</a>

@@ -24,6 +24,7 @@
                     <a href="/register-user">Registrarse</a>
                     <a href="/login-user">Ingresar</a>
                     <a href="/dashboard">Datos de usuario</a>
+                    <a href="">Configuracion</a>
                     <a href="/logout">Cerrar sesión</a>
                 </div>
             </div>
@@ -34,6 +35,7 @@
                     <a href="/cart">Carrito</a>
                     <a href="/shopping">Compras</a>
                     <a href="/history">Historial</a>
+
                 </div>
             </div>
             <a class="TextoIcono" href="/favorites">
