@@ -1,12 +1,17 @@
 <?php
-require_once(MODELS . "DatabaseModel.php");
+
+namespace App\Models;
+
+use App\Models\DatabaseModel;
+
 class UserModel extends DatabaseModel
 {
 
-    public function getUsers()
+    static public function all()
     {
+        $db = new self();
         $query = "SELECT * FROM users";
-        $result = $this->connection->query($query);
+        $result = $db->query($query);
         return $result->fetch_all(MYSQLI_ASSOC);
     }
     public function userExists($email)
@@ -44,7 +49,7 @@ class UserModel extends DatabaseModel
 
     public function getUserById($id)
     {
-        $usersTable = $this->getUsers();
+        $usersTable = $this->all();
         foreach ($usersTable as $row) {
             if ($row['id'] == $id) {
                 return $row;

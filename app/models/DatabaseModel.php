@@ -1,5 +1,9 @@
 <?php
 
+namespace App\Models;
+
+use mysqli;
+
 class DatabaseModel
 {
     public $connection;

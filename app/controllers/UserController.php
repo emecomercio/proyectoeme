@@ -1,11 +1,15 @@
 <?php
-require_once MODELS . "UserModel.php";
+
+namespace App\Controllers;
+
+use App\Models\UserModel;
+
 class UserController
 {
-    static public function getUsers()
+    static public function all()
     {
         $userModel = new UserModel;
-        $users = $userModel->getUsers();
+        $users = $userModel->all();
         view("usersTable", [
             "users" => $users,
             "title" => "Usuarios"
@@ -39,7 +43,7 @@ class UserController
         }
 
         if ($password == $password_check) {
-            $userModel->register( $username,$email, $password);
+            $userModel->register($username, $email, $password);
             $user = $userModel->getUserByEmail($email);
             $_SESSION['user_id'] = $user["id"];
             $_SESSION['user_name'] = $user["username"];
@@ -87,7 +91,7 @@ class UserController
             redirect("/login-user");
         }
     }
-    
+
 
     // Las de abajo no se usan aun
 
@@ -109,7 +113,7 @@ class UserController
         $birthdate = $_POST['input-birthdate'];
         $password = isset($_POST['input-password']) ? $_POST['input-password'] : null;
         $userModel->updateUser($id, $user_type, $fullname, $password, $email, $birthdate);
-        static::getUsers();
+        static::all();
     }
 
     static public function deleteUser()
@@ -117,6 +121,6 @@ class UserController
         $userModel = new UserModel;
         $id = $_POST['input-id'];
         $userModel->deleteUser($id);
-        static::getUsers();
+        static::all();
     }
 }
