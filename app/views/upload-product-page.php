@@ -20,6 +20,7 @@
     loadjs("components/user-button");
     loadjs("components/preview-product");
     loadjs("components/dropdown-product");
+    loadjs("components/upload-product-text");
     ?>
 </body>
 

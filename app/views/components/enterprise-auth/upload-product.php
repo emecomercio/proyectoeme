@@ -36,7 +36,7 @@
                 </div>
             </section>
             <p>Proporciona una descripción que sea lo más detallada posible.</p>
-            <input type="text" placeholder="Descripción">
+            <textarea id="description" placeholder="Descripcion" oninput="autoExpand(this)"></textarea>
         </div>
 
         <div class="upload-product-main">

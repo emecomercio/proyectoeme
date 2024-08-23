@@ -41,11 +41,6 @@
     padding: 20px; /* Agrega un poco de padding dentro del contenedor del producto */
 }
 
-.upload-product::-webkit-scrollbar-thumb {
-    background-color: #ccc; /* Color del pulgar de la barra de desplazamiento */
-    border-radius: 4px; /* Esquinas redondeadas para el pulgar */
-}
-
 .upload-product input[type="file"],
 .upload-product input[type="text"],
 .upload-product input[type="number"] {
@@ -156,11 +151,6 @@
     color: #fff;
 }
 
-.preview-container .preview {
-    width: 100%;
-    height: auto;
-}
-
 .upload-product-main p {
     font-size: 1rem;
     color: #333;
@@ -221,4 +211,24 @@
 .delete-button:hover {
     background-color: #cc0000;
     color: white;
+}
+
+.upload-product textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    font-size: 1rem;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    color: #333;
+    resize: none; /* Desactiva el redimensionamiento manual */
+}
+
+.upload-product textarea:focus {
+    border-color: #4d4d4d;
+    box-shadow: 0 0 5px rgba(77, 77, 77, 0.5);
+    outline: none;
 }
