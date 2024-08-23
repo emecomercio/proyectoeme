@@ -18,3 +18,4 @@ class ImageController
         return $imageModel->getImageBySize($productId, $width, $height);
     }
 }
+

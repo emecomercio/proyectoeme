@@ -123,7 +123,14 @@
   border-radius: 5px;
   text-align: center;
 }
+.direction{
+margin: auto;
+height: auto;
+  background-color: #383838;
+  border-radius: 5px;
+  box-shadow: black;
 
+}
 
 @media (max-width: 480px) {
   .auth-form {
