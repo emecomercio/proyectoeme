@@ -24,6 +24,10 @@ Route::get('/dashboard', function () {
     UserController::getUserDashboard();
 });
 
+Route::get('/settings', function(){
+    view('settings');
+});
+
 Route::get('/register-user', function () {
     $errorMsg = $_SESSION['error'] ?? '';
     unset($_SESSION['error']);
