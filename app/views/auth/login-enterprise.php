@@ -27,6 +27,7 @@
 
     loadJS("components/register-button");
     loadJS("components/user-button");
+    loadJS("components/show-hide");
     ?>
 </body>
 

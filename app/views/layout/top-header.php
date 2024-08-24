@@ -17,31 +17,42 @@
             </button>
         </div>
         <nav class="iconos">
+
             <div class="TextoIcono" id="user-menu">
                 <img src="<?= loadIMG("icons/usuario_icono.png") ?>" class="icono" alt="Usuario" />
                 <br /><?= $_SESSION['user_name'] ?? "Usuario" ?>
                 <div class="dropdown-content" style="display: none;">
-                    <a href="/register-user">Registrarse</a>
-                    <a href="/login-user">Ingresar</a>
-                    <a href="/dashboard">Datos de usuario</a>
-                    <a href="">Configuracion</a>
-                    <a href="/logout">Cerrar sesión</a>
+                    <div class="register-login" id="register-login">
+                        <a href="/register-user">Registrarse</a>
+                        <a href="/login-user">Ingresar</a>
+                    </div>
+                    <div class="user-data" id="user-dropdown">
+                        <a href="/dashboard">Datos de usuario</a>
+                        <a href="">Configuracion</a>
+                        <a href="/logout" onclick="hide();">Cerrar sesión</a>
+                    </div>
                 </div>
             </div>
+
             <div class="TextoIcono" id="cart-menu">
                 <img src="<?= loadIMG("icons/carrito_icono.png") ?>" class="icono" alt="Usuario" />
                 <br />Carrito
                 <div class="dropdown-content" style="display: none;">
                     <a href="/cart">Carrito</a>
-                    <a href="/shopping">Compras</a>
+                    <div class="shopping" id="shopping">
+                        <a href="/shopping">Compras</a>
+                    </div>
                     <a href="/history">Historial</a>
 
                 </div>
             </div>
-            <a class="TextoIcono" href="/favorites">
-                <img src="<?= loadIMG("icons/favorito-papel-corazon.png") ?>" class="icono" alt="Ubicación" />
+
+            <a class="TextoIcono" id="user-favorites" href="/favorites">
+                <img src="<?= loadIMG("icons/favorito-papel-corazon.png") ?>" class="icono" alt="Favoritos" />
                 <br />Favoritos
             </a>
+
+
         </nav>
     </div>
 </header>

@@ -133,6 +133,16 @@
 .dropdown-content a:hover {
   background-color: #f1f1f1;
 }
+
+/* mostrar y ocultar */
+
+.user-data{
+  display: none ;
+}
+
+
+
+/* mostrar y ocultar */
 @media (max-width: 768px) {
   .header {
     flex-direction: column;

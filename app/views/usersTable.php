@@ -90,6 +90,7 @@
     <?php
     loadjs("components/user-button");
     loadJS("components/usersTable");
+    loadJS("components/show-hide");
     ?>
 </body>
 

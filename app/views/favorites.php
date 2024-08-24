@@ -20,6 +20,7 @@
     <?php
     loadjs("components/user-button");
     loadjs("components/favorite-button");
+    loadJS("components/show-hide");
     ?>
 </body>
 

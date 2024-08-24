@@ -19,6 +19,7 @@
     <?php view('layout/footer'); ?>
     <?php
     loadjs("components/user-button");
+    loadJS("components/show-hide");
     ?>
 </body>
 

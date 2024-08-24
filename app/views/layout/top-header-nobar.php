@@ -17,10 +17,14 @@
                 <img src="<?= loadIMG("icons/usuario_icono.png") ?>" class="icono" alt="Usuario" />
                 <br /><?= $_SESSION['user_name'] ?? "Usuario" ?>
                 <div class="dropdown-content" style="display: none;">
-                    <a href="/register-user">Registrarse</a>
-                    <a href="/login-user">Ingresar</a>
-                    <a href="/dashboard">Datos de usuario</a>
-                    <a href="/logout">Cerrar sesión</a>
+                    <div class="register-login" id="register-login">
+                        <a href="/register-user">Registrarse</a>
+                        <a href="/login-user">Ingresar</a>
+                    </div>
+                    <div class="user-data" id="user-dropdown">
+                        <a href="/dashboard">Datos de usuario</a>
+                        <a href="/logout" onclick="hide();">Cerrar sesión</a>
+                    </div>
                 </div>
             </div>
             <div class="TextoIcono" id="cart-menu">
@@ -28,7 +32,9 @@
                 <br />Carrito
                 <div class="dropdown-content" style="display: none;">
                     <a href="/cart">Carrito</a>
-                    <a href="/shopping">Compras</a>
+                    <div class="shopping" id="shopping">
+                        <a href="/shopping">Compras</a>
+                    </div>
                     <a href="/history">Historial</a>
                 </div>
             </div>

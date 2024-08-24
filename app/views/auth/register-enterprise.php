@@ -27,6 +27,7 @@
 
     loadJS("components/auth/password_validation");
     loadJS("components/user-button");
+    loadJS("components/show-hide"); 
     ?>
 </body>
 

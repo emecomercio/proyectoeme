@@ -32,7 +32,7 @@
     <?php
     loadJS("components/user-button");
     loadJS("components/register-button");
-
+    loadJS("components/show-hide");
     ?>
 </body>
 

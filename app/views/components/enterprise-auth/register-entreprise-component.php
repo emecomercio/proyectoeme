@@ -17,6 +17,6 @@
         <input type="checkbox" required name="checkbox">
         <p>He leido y acepto los <a href="/terms-and-conditions">Terminos y condiciones </a></p>
     </div>
-    <button type="submit">Registrarse</button>
+    <button onclick="show();"  type="submit">Registrarse</button>
     <a href="/register-user">Registrarse como usuario</a>
 </form>

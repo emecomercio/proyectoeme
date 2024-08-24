@@ -131,7 +131,6 @@ height: auto;
   box-shadow: black;
 
 }
-
 @media (max-width: 480px) {
   .auth-form {
     padding: 10px;

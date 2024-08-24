@@ -21,6 +21,7 @@
     loadjs("components/preview-product");
     loadjs("components/dropdown-product");
     loadjs("components/upload-product-text");
+    loadJS("components/show-hide");
     ?>
 </body>
 

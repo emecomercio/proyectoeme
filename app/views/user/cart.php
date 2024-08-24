@@ -31,6 +31,7 @@
 loadJS("searchbar");
 loadjs("components/user-button");
 loadJS("components/js-recommended");
+loadJS("components/show-hide");
 
 ?>
 

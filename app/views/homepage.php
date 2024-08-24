@@ -51,6 +51,7 @@
     loadJS("components/alert");
     loadJS("components/alert-cookie");
     loadJS("components/product-container-cards");
+    loadJS("components/show-hide");
 
     ?>
 </body>
