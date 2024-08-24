@@ -28,7 +28,7 @@
                     </div>
                     <div class="user-data" id="user-dropdown">
                         <a href="/dashboard">Datos de usuario</a>
-                        <a href="">Configuracion</a>
+                        <a href="/settings">Configuracion</a>
                         <a href="/logout" onclick="hide();">Cerrar sesión</a>
                     </div>
                 </div>
