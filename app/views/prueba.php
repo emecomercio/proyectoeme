@@ -15,7 +15,7 @@
         // Función para obtener los usuarios y mostrarlos
         function fetchUsers() {
             // Realiza una solicitud GET a la URL /users
-            fetch('/users')
+            fetch('/api/users')
                 .then(response => {
                     // Verifica si la respuesta es "ok" (código de estado HTTP 200-299)
                     if (!response.ok) {
@@ -41,7 +41,7 @@
 
         function fetchUsers2() {
             // Realiza una solicitud GET a la URL /users
-            fetch('/users')
+            fetch('/api/users')
                 .then(response => {
                     // Verifica si la respuesta es "ok" (código de estado HTTP 200-299)
                     if (!response.ok) {
@@ -70,7 +70,7 @@
 
 
         function fetchProducts() {
-            fetch('products')
+            fetch('/api/products')
                 .then(response => response.json())
                 .then(users => {
                     const userList = document.getElementById('user-list');
