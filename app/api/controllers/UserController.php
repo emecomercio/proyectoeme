@@ -2,19 +2,35 @@
 
 namespace App\Api\Controllers;
 
-use App\Models\UserModel;
+use App\Services\UserService;
 
 class UserController
 {
-    static public function index()
+    protected $userService;
+
+    public function __construct()
+    {
+        $this->userService = new UserService();
+    }
+
+    public function index()
     {
         // Obtén todos los usuarios desde el modelo
-        $users = UserModel::all();
+        $users = $this->userService->all();
 
         // Configura el encabezado para indicar que el contenido es JSON
         header('Content-Type: application/json');
 
         // Envía los datos en formato JSON
         echo json_encode($users);
+    }
+
+    public function find($id)
+    {
+        $user = $this->userService->find($id);
+
+        header('Content-Type: application/json');
+
+        echo json_encode($user);
     }
 }

@@ -13,6 +13,7 @@ class ComposerStaticInitd751713988987e9331980363e24189ce
         ),
         'A' => 
         array (
+            'App\\Services\\' => 13,
             'App\\Models\\' => 11,
             'App\\Database\\' => 13,
             'App\\Controllers\\' => 16,
@@ -24,6 +25,10 @@ class ComposerStaticInitd751713988987e9331980363e24189ce
         'Lib\\' => 
         array (
             0 => __DIR__ . '/../..' . '/lib',
+        ),
+        'App\\Services\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/app/services',
         ),
         'App\\Models\\' => 
         array (

@@ -3,28 +3,27 @@
 namespace App\Controllers;
 
 use App\Models\UserModel;
+use App\Services\UserService;
+
 
 class UserController
 {
-    static public function all()
+    protected $userService;
+
+    public function __construct()
     {
-        $userModel = new UserModel;
-        $users = $userModel->all();
+        $this->userService = new UserService;
+    }
+
+    // Para los estaticos tengo que instanciar manualmente el UserService
+    static public function usersTable()
+    {
+        $userService = new UserService;
+        $users = $userService->all();
         view("usersTable", [
             "users" => $users,
             "title" => "Usuarios"
         ]);
-    }
-    static public function addUser()
-    {
-        $userModel = new UserModel;
-        $user_type = $_POST['input-type'];
-        $fullname = $_POST['input-fullname'];
-        $password = $_POST['input-password'];
-        $email = $_POST['input-email'];
-        $birthdate = $_POST['input-birthdate'];
-        $userModel->addUser($user_type, $fullname, $email, $password, $birthdate);
-        include "../public/registro_exitoso.html";
     }
 
     static public function register()
@@ -36,7 +35,7 @@ class UserController
         $password_check = $_POST['password-check'];
         $username = $_POST['username'];
 
-        if ($userModel->userExists($email)) {
+        if ($userModel->exists($email)) {
             $_SESSION['error'] = $user_type == "enterprise" ? "Ya existe una empresa registrada con ese correo" : "Ya existe un usuario con ese correo";
             $redirection = $user_type == "enterprise" ? "/register-enterprise" : "/register-user";
             redirect("$redirection");
@@ -59,8 +58,10 @@ class UserController
         $email = $_POST['email'];
         $password = $_POST['password'];
         $user_type = $_POST['user-type'] ?? '';
-        if ($userModel->userExists($email) && $userModel->validatePassword($email, $password)) {
-            $_SESSION['user_id'] = $userModel->getUserByEmail($email)["id"];
+        if ($userModel->exists($email) && $userModel->validatePassword($email, $password)) {
+            $user = $userModel->getUserByEmail($email);
+            $_SESSION['user_id'] = $user["id"];
+            $_SESSION['user_name'] = $user["username"];
             redirect("/");
         } else {
             $_SESSION['error'] = "Usuario o contraseña incorrectos";
@@ -82,7 +83,7 @@ class UserController
         $userModel = new UserModel;
         $id = $_SESSION['user_id'] ?? '';
         if ($id != '') {
-            $user = $userModel->getUserById($id);
+            $user = $userModel->find($id);
             view("user/dashboard", [
                 "user" => $user,
             ]);
@@ -90,37 +91,5 @@ class UserController
             $_SESSION['error_message'] = "Debe iniciar sesión";
             redirect("/login-user");
         }
-    }
-
-
-    // Las de abajo no se usan aun
-
-    static public function updateUser()
-    {
-        $userModel = new UserModel;
-        $id = $_POST['input-id'];
-        $user = $userModel->getUserById($id);
-        include "../app/usuarios/views/updateUser.php";
-    }
-
-    static public function  saveUserUpdate()
-    {
-        $userModel = new UserModel;
-        $id = $_POST['input-id'];
-        $user_type = $_POST['input-type'];
-        $fullname = $_POST['input-fullname'];
-        $email = $_POST['input-email'];
-        $birthdate = $_POST['input-birthdate'];
-        $password = isset($_POST['input-password']) ? $_POST['input-password'] : null;
-        $userModel->updateUser($id, $user_type, $fullname, $password, $email, $birthdate);
-        static::all();
-    }
-
-    static public function deleteUser()
-    {
-        $userModel = new UserModel;
-        $id = $_POST['input-id'];
-        $userModel->deleteUser($id);
-        static::all();
     }
 }

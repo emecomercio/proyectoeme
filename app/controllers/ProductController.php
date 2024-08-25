@@ -7,16 +7,16 @@ use App\Controllers\ImageController;
 
 class ProductController
 {
-    public static function getAllProducts()
+    public static function all()
     {
         $productModel = new ProductModel();
-        $products = $productModel->getAllProducts();
+        $products = $productModel->all();
         return $products;
     }
-    public static function getProductById($id)
+    public static function find($id)
     {
         $productModel = new ProductModel();
-        $product = $productModel->getProductById($id);
+        $product = $productModel->find($id);
         $product['images'] = ImageController::getImagesByProduct($id);
         $product['image_500x500'] = ImageController::getImageBySize($product['id'], 500, 500);
         return $product;
@@ -25,7 +25,7 @@ class ProductController
     public static function getProductsForHomepage()
     {
         $productModel = new ProductModel();
-        $products = $productModel->getAllProducts();
+        $products = $productModel->all();
 
         foreach ($products as &$product) {
             $product['images'] = ImageController::getImagesByProduct($product['id']);

@@ -5,6 +5,7 @@
       "App\\Controllers\\": "app/controllers/",
       "App\\Models\\": "app/models/",
       "App\\Database\\": "app/database/",
+      "App\\Services\\": "app/services/",
       "Lib\\": "lib/"
     }
   }

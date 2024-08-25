@@ -28,6 +28,14 @@ class DatabaseModel
 
     public function close()
     {
-        $this->connection->close();
+        if ($this->connection !== null) {
+            $this->connection->close();
+            $this->connection = null;
+        }
+    }
+
+    public function __destruct()
+    {
+        $this->close();
     }
 }

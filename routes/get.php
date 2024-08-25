@@ -1,12 +1,8 @@
 <?php
 
-
-
 use Lib\Route;
 use App\Controllers\UserController;
 use App\Controllers\ProductController;
-
-
 
 Route::get('/api', function () {
     return view('prueba');
@@ -24,7 +20,7 @@ Route::get('/dashboard', function () {
     UserController::getUserDashboard();
 });
 
-Route::get('/settings', function(){
+Route::get('/settings', function () {
     view('settings');
 });
 
@@ -58,15 +54,15 @@ Route::get('/login-enterprise', function () {
 
 // PRODUCTS ROUTES
 Route::get('/product-page/{id}', function ($id) {
-    $product = ProductController::getProductById($id);
+    $product = ProductController::find($id);
     view("products/product-page", [
         "product" => $product
     ]);
 });
 
 // TESTING ROUTES
-Route::get('/secret-access-to-users', function () {
-    UserController::all();
+Route::get('/test/users', function () {
+    UserController::usersTable();
 });
 
 // Varias rutas - Pendiente agrupar
@@ -80,9 +76,6 @@ Route::get('/terms-and-conditions', function () {
     return view('static/terms-and-conditions');
 });
 
-Route::get('/homepage', function () {
-    return view('components/homepage');
-});
 Route::get('/shopping', function () {
     return view('/shopping');
 });

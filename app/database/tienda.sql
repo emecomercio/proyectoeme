@@ -4,11 +4,12 @@ USE tienda;
 -- En un futuro: para tablas con informacion critica debemos tener en cuenta el usar UUID
 CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    user_type VARCHAR(255)  NULL,
-    fullname VARCHAR(255)  NULL,
-    username VARCHAR(255)  NULL,
+    role VARCHAR(255) NOT NULL DEFAULT "buyer",
+    fullname VARCHAR(255) NULL,
+    username VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL UNIQUE,
     password_hash VARCHAR(255) NOT NULL,
+    active BOOLEAN DEFAULT TRUE,
     birthdate DATE  NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
@@ -34,17 +35,49 @@ CREATE TABLE images (
     FOREIGN KEY (product_id) REFERENCES products(id)
 );
 
--- CREATE TABLE cart (
---     id INT AUTO_INCREMENT PRIMARY KEY,
---     user_id INT NOT NULL,
---     product_id INT NOT NULL,
---     quantity INT DEFAULT 1,
---     FOREIGN KEY (user_id) REFERENCES users(id),
---     FOREIGN KEY (product_id) REFERENCES products(id)
--- );
+CREATE TABLE carts (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    status ENUM('active', 'completed', 'abandoned') DEFAULT 'active',
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+-- Crear tabla cart_lines simplificada
+CREATE TABLE cart_lines (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    cart_id INT NOT NULL,
+    product_id INT NOT NULL,
+    quantity INT DEFAULT 1,
+    price DECIMAL(10, 2) NOT NULL,
+    FOREIGN KEY (cart_id) REFERENCES carts(id),
+    FOREIGN KEY (product_id) REFERENCES products(id)
+);
+
+DELIMITER //
+
+CREATE TRIGGER calculate_cart_line_price
+BEFORE INSERT ON cart_lines
+FOR EACH ROW
+BEGIN
+    -- Declaramos una variable para almacenar el precio del producto
+    DECLARE product_price DECIMAL(10, 2);
+
+    -- Obtenemos el precio del producto desde la tabla 'products' usando el 'product_id' de la nueva línea de carrito
+    SELECT price INTO product_price 
+    FROM products 
+    WHERE id = NEW.product_id;
+
+    -- Calculamos el precio total de la línea del carrito multiplicando el precio del producto por la cantidad
+    SET NEW.price = product_price * NEW.quantity;
+END;
+
+//
+
+DELIMITER ;
+
 
 INSERT INTO users 
-(user_type, fullname,username, email, password_hash, birthdate)VALUES
+(role, fullname, username, email, password_hash, birthdate)VALUES
 ("admin", "Anibal Boggio","Anibolo" ,"anibalboggio12.6.2006@gmail.com", "$2y$10$UlzvPXndnzCa73DtSaeQa.ddfcgEeYugh04aFOl2fLnx2zKSLN4F6", "2006-06-12"),
 ("admin", "Facundo Canclini","Facundo" ,"facundocanclini27@gmail.com", "$2y$10$UlzvPXndnzCa73DtSaeQa.ddfcgEeYugh04aFOl2fLnx2zKSLN4F6", "2006-07-28"),
 ("admin", "Lautaro da Rosa","Lautaro", "laudarosa12@gmail.com", "$2y$10$UlzvPXndnzCa73DtSaeQa.ddfcgEeYugh04aFOl2fLnx2zKSLN4F6", "2006-07-19"),
@@ -64,13 +97,6 @@ INSERT INTO products
 ("Vestido", "Vestido de fiesta confeccionado en tela de seda con detalles en encaje, diseñado para destacar en eventos especiales. Ajuste ceñido con escote en V y espalda descubierta. Disponible en colores rojo, azul y negro. Talles desde XS hasta XL. Ideal para bodas, cócteles y otras celebraciones formales.", 29.99, "Ropa", 0, "agotado"),
 ("Zapatillas", "Zapatillas de running ligeras, diseñadas para ofrecer el máximo rendimiento y comodidad. Tecnología de amortiguación en la suela que reduce el impacto en cada pisada. Tejido transpirable de malla, disponible en colores negro, azul y blanco. Talles desde 36 hasta 44. Ideales para entrenamientos y carreras de larga distancia.", 44.99, "Calzado", 10, "disponible");
 
--- INSERT INTO cart 
--- (user_id, product_id, quantity) VALUES
--- (1, 1, 2),
--- (2, 2, 1),
--- (3, 3, 3),
--- (4, 4, 2);
-
 INSERT INTO images 
 (product_id, image_url, alt_text, width, height) VALUES
 (1, 'https://res.cloudinary.com/dtvdlk7fi/image/upload/c_auto,g_auto,h_500,w_500/camisa-algodon', 'Camisa de algodón', 500, 500),
@@ -83,3 +109,21 @@ INSERT INTO images
 (8, 'https://res.cloudinary.com/dtvdlk7fi/image/upload/c_auto,g_auto,h_500,w_500/bufanda-roja', 'Bufanda roja', 500, 500),
 (9, 'https://res.cloudinary.com/dtvdlk7fi/image/upload/c_auto,g_auto,h_500,w_500/vestido-fiesta', 'Vestido de fiesta', 500, 500),
 (10, 'https://res.cloudinary.com/dtvdlk7fi/image/upload/c_auto,g_auto,h_500,w_500/zapatilla-running-azul', 'Zapatilla de running azul', 500, 500);
+
+-- Insertar datos de prueba en carts
+INSERT INTO carts (user_id, status) VALUES
+(1, 'active'),
+(2, 'completed'),
+(3, 'active'),
+(4, 'abandoned'),
+(5, 'completed');
+
+-- Insertar datos de prueba en cart_lines, el TRIGGER calculará el precio automáticamente
+INSERT INTO cart_lines (cart_id, product_id, quantity) VALUES
+(1, 1, 2),  -- Camisa x2
+(1, 3, 1),  -- Zapatos x1
+(2, 2, 1),  -- Pantalón x1
+(2, 4, 1),  -- Bolso x1
+(3, 7, 1),  -- Chaqueta x1
+(4, 1, 1),  -- Camisa x1
+(5, 6, 2);  -- Reloj x2

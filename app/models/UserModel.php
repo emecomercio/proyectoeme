@@ -2,23 +2,130 @@
 
 namespace App\Models;
 
-use App\Models\DatabaseModel;
-
 class UserModel extends DatabaseModel
 {
 
-    static public function all()
+    public function all()
     {
-        $db = new self();
-        $query = "SELECT * FROM users";
-        $result = $db->query($query);
-        return $result->fetch_all(MYSQLI_ASSOC);
+        try {
+            $query = "SELECT * FROM users";
+            $preparation = $this->prepare($query);
+            $preparation->execute();
+            return $preparation->get_result()->fetch_all(MYSQLI_ASSOC);
+        } finally {
+            $this->close();
+        }
     }
-    public function userExists($email)
+
+    public function allActive()
     {
-        $user = $this->getUserByEmail($email);
-        return $user != null;
+        try {
+            $query = "SELECT * FROM users WHERE active = 1";
+            $preparation = $this->prepare($query);
+            $preparation->execute();
+            return $preparation->get_result()->fetch_all(MYSQLI_ASSOC);
+        } finally {
+            $this->close();
+        }
     }
+
+    public function allInactive()
+    {
+        try {
+            $query = "SELECT * FROM users WHERE active = 0";
+            $preparation = $this->prepare($query);
+            $preparation->execute();
+            return $preparation->get_result()->fetch_all(MYSQLI_ASSOC);
+        } finally {
+            $this->close();
+        }
+    }
+
+    public function find($id)
+    {
+        try {
+            $query = "SELECT * FROM users WHERE id = ?";
+            $preparation = $this->prepare($query);
+            $preparation->bind_param("i", $id);
+            $preparation->execute();
+            return $preparation->get_result()->fetch_assoc();
+        } finally {
+            $this->close();
+        }
+    }
+
+    public function create($username, $email, $password)
+    {
+        try {
+            $password_hash = password_hash($password, PASSWORD_DEFAULT);
+            $query = "INSERT INTO users (username,email, password_hash) VALUES (?,?,?)";
+            $preparation = $this->prepare($query);
+            $preparation->bind_param("sss", $username, $email, $password_hash);
+            return $preparation->execute();
+        } finally {
+            $this->close();
+        }
+    }
+
+    public function activate($id)
+    {
+        try {
+            $query = "UPDATE users SET active = 1 WHERE id = ?";
+            $preparation = $this->prepare($query);
+            $preparation->bind_param("i", $id);
+            return $preparation->execute();
+        } finally {
+            $this->close();
+        }
+    }
+
+    public function desactivate($id)
+    {
+        try {
+            $query = "UPDATE users SET active = 0 WHERE id = ?";
+            $preparation = $this->prepare($query);
+            $preparation->bind_param("i", $id);
+            return $preparation->execute();
+        } finally {
+            $this->close();
+        }
+    }
+
+    public function updateUsername($id, $username)
+    {
+        try {
+            $query = "UPDATE users SET username = ? WHERE id = ?";
+            $preparation = $this->prepare($query);
+            $preparation->bind_param("si", $username, $id);
+            return $preparation->execute();
+        } finally {
+            $this->close();
+        }
+    }
+
+    public function updatePhoneNumber($id, $phone_number)
+    {
+        try {
+            $query = "UPDATE users SET phone_number = ? WHERE id = ?";
+            $preparation = $this->prepare($query);
+            $preparation->bind_param("si", $phone_number, $id);
+            return $preparation->execute();
+        } finally {
+            $this->close();
+        }
+    }
+
+    public function exists($email)
+    {
+        $query = "SELECT COUNT(*) FROM users WHERE email = ?";
+        $stmt = $this->prepare($query);
+        $stmt->bind_param('s', $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $count = $result->fetch_row()[0];
+        return $count > 0;
+    }
+
 
     public function validatePassword($email, $password)
     {
@@ -46,16 +153,6 @@ class UserModel extends DatabaseModel
     }
 
     // Lo de abajo no se usa aun
-
-    public function getUserById($id)
-    {
-        $usersTable = $this->all();
-        foreach ($usersTable as $row) {
-            if ($row['id'] == $id) {
-                return $row;
-            } #algun else
-        }
-    }
     public function addUser($user_type, $fullname, $password, $email, $birthdate) #completar con los valores de la usersTable
     {
         $password_hash = password_hash($password, PASSWORD_DEFAULT);
