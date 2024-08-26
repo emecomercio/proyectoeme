@@ -10,8 +10,7 @@ class DatabaseModel
 
     public function __construct()
     {
-        global $env;
-        $this->connection = new mysqli($env['DB_HOST'], $env['DB_USER'], $env['DB_PASSWORD'], $env['DB_NAME']);
+        $this->connection = new mysqli($_ENV['DB_HOST'], $_ENV['DB_USER'], $_ENV['DB_PASSWORD'], $_ENV['DB_NAME']);
         if ($this->connection->connect_error) {
             die("Conexión fallida: " . $this->connection->connect_error);
         }

@@ -43,7 +43,7 @@ function redirect($route)
 function view($view, $data = [])
 {
     extract($data);
-    $filepath =  VIEWS . $view . ".php";
+    $filepath =  $_ENV['ROOT'] . "/app/views/" . $view . ".php";
     if (file_exists($filepath)) {
         include $filepath;
     } else {

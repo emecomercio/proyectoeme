@@ -1,5 +1,6 @@
 <?php
-
-foreach (glob(ROOT . "/routes/*.php") as $file) {
-    require_once $file;
-}
+require_once "get.php";
+require_once "post.php";
+require_once "put.php";
+require_once "delete.php";
+require_once "api.php";
