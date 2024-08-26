@@ -115,11 +115,22 @@ class UserModel extends DatabaseModel
         }
     }
 
-    public function exists($email)
+    public function existsEmail($email)
     {
         $query = "SELECT COUNT(*) FROM users WHERE email = ?";
         $stmt = $this->prepare($query);
         $stmt->bind_param('s', $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $count = $result->fetch_row()[0];
+        return $count > 0;
+    }
+
+    public function existsUsername($username)
+    {
+        $query = "SELECT COUNT(*) FROM users WHERE username = ?";
+        $stmt = $this->prepare($query);
+        $stmt->bind_param('s', $username);
         $stmt->execute();
         $result = $stmt->get_result();
         $count = $result->fetch_row()[0];

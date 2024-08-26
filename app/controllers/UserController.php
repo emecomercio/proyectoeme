@@ -35,8 +35,14 @@ class UserController
         $password_check = $_POST['password-check'];
         $username = $_POST['username'];
 
-        if ($userModel->exists($email)) {
+        if ($userModel->existsEmail($email)) {
             $_SESSION['error'] = $user_type == "enterprise" ? "Ya existe una empresa registrada con ese correo" : "Ya existe un usuario con ese correo";
+            $redirection = $user_type == "enterprise" ? "/register-enterprise" : "/register-user";
+            redirect("$redirection");
+        }
+
+        if ($userModel->existsUsername($username)) {
+            $_SESSION['error'] = $user_type == "enterprise" ? "Ya existe una empresa registrada con ese nombre de usuario" : "Ya existe un usuario con ese nombre de usuario";
             $redirection = $user_type == "enterprise" ? "/register-enterprise" : "/register-user";
             redirect("$redirection");
         }
@@ -58,7 +64,7 @@ class UserController
         $email = $_POST['email'];
         $password = $_POST['password'];
         $user_type = $_POST['user-type'] ?? '';
-        if ($userModel->exists($email) && $userModel->validatePassword($email, $password)) {
+        if ($userModel->existsEmail($email) && $userModel->validatePassword($email, $password)) {
             $user = $userModel->getUserByEmail($email);
             $_SESSION['user_id'] = $user["id"];
             $_SESSION['user_name'] = $user["username"];
