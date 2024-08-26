@@ -42,6 +42,7 @@ loadjs("components/user-button");
 loadJS("components/buy-button");
 loadJS("components/color-model-selector");
 loadJS("components/thumbnails");
+loadJS("components/show-hide");
 ?>
 
 </html>

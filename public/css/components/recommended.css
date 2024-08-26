@@ -6,10 +6,10 @@
 }
 
 .recommended-products-wrapper {
+    text-align: center;
     position: relative;
     width: 97vw;
     overflow: hidden;
-    display: flex;
     align-items: center;
     margin: 20px;
 }

@@ -1,57 +1,103 @@
+/* Contenedor Principal */
 .products-container-cards {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    height: 450px;
-    width: 95w;
-    margin: 0px auto;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Tamaño de columna más pequeño */
+    gap: 15px; /* Espacio entre columnas reducido */
+    max-width: 95vw; /* Ancho máximo ajustado */
+    margin: 0 auto;
     color: #333;
     background-color: #1f1f1f;
 }
 
+/* Contenedor de Producto */
 .product-container {
-    display: grid;
-    margin: 0 80px;
-    overflow: hidden; /* Asegura que la imagen no se salga del contenedor */
+    display: flex;
+    flex-direction: column;
+    margin: 0 15px;
+    overflow: hidden;
     text-align: center;
     color: white;
 }
 
+/* Título del Producto */
 .product-container h2 {
-    font-size: xx-large;
-    margin: 10px; /* Ajusta el margen si es necesario */
+    font-size: 1.3em; /* Tamaño de fuente más pequeño */
+    margin: 8px;
 }
 
+/* Contenedor de Imagen Principal */
 .product-container-img {
     width: 100%; /* Ocupa todo el ancho del contenedor */
-    height: 250px; /* Tamaño fijo para el contenedor de la imagen */
+    height: 200px; /* Altura fija para la imagen principal */
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: hidden; /* Asegura que la imagen no se salga del contenedor */
-    margin: auto;
+    overflow: hidden;
+    margin-bottom: 20px; /* Separación entre la imagen grande y las pequeñas */
 }
 
 .product-container-img img {
-    width: 100%; /* La imagen ocupará todo el ancho del contenedor */
-    height: 100%; /* La imagen ocupará toda la altura del contenedor */
-    object-fit: cover; /* Ajusta la imagen dentro del contenedor sin deformar */
-    cursor:zoom-in;
+    width: 70%;
+    height: 100%;
+    object-fit: cover; /* Asegura que la imagen ocupe todo el contenedor sin deformarse */
+    cursor: zoom-in;
+    border-radius: 15px;
 }
 
+/* Contenedor de Imágenes Miniatura */
 .product-container-img-small {
     display: flex;
-    width: 100%; /* Ocupa todo el ancho del contenedor */
-    height: auto; /* Tamaño fijo para el contenedor de las miniaturas */
-    overflow: hidden; /* Asegura que las miniaturas no se salgan del contenedor */
-    justify-content: space-around; /* Distribuye las miniaturas uniformemente */
-    align-items: center; /* Centra verticalmente las miniaturas */
-    margin-bottom: 10px;
+    flex-wrap: wrap; /* Permite que las miniaturas se ajusten en diferentes líneas */
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    gap: 8px; /* Espacio entre las miniaturas */
+    margin-bottom: 8px;
 }
 
 .product-container-img-small img {
-    width: 100px; /* Tamaño fijo para las imágenes miniatura */
-    height: 100px; /* Tamaño fijo para las imágenes miniatura */
-    object-fit: cover; /* Ajusta la imagen dentro del contenedor sin deformar */
-    margin: 0 5px; /* Espacio entre las miniaturas */
+    width: 70px; /* Tamaño más pequeño para las miniaturas */
+    height: 70px;
+    object-fit: cover;
+    margin: 0 3px;
     cursor: pointer;
+    border-radius: 15px;
+}
+
+/* Media Queries para Responsividad */
+@media (max-width: 768px) {
+    .products-container-cards {
+        grid-template-columns: 1fr 1fr; /* Ajuste a dos columnas en pantallas medianas */
+    }
+
+    .product-container {
+        margin: 0 10px; /* Reduce el margen en pantallas más pequeñas */
+    }
+
+    .product-container h2 {
+        font-size: 1.2em; /* Tamaño de fuente más pequeño */
+    }
+
+    .product-container-img {
+        height: 180px; /* Altura ajustada para pantallas medianas */
+    }
+}
+
+@media (max-width: 480px) {
+    .products-container-cards {
+        grid-template-columns: 1fr; /* Una columna en pantallas pequeñas */
+    }
+
+    .product-container h2 {
+        font-size: 1.1em; /* Tamaño de fuente más pequeño */
+    }
+
+    .product-container-img {
+        height: 160px; /* Altura ajustada para pantallas pequeñas */
+    }
+
+    .product-container-img-small img {
+        width: 60px; /* Reduce el tamaño de las miniaturas aún más */
+        height: 60px;
+    }
 }

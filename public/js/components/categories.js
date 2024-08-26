@@ -21,9 +21,5 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
     });
-
-    hamburgerMenu.addEventListener('click', function() {
-        sectionCategories.style.display = sectionCategories.style.display === 'none' || sectionCategories.style.display === '' ? 'flex' : 'none';
-    });
 });
 

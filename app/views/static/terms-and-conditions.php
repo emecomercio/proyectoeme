@@ -96,6 +96,7 @@
     <?php
     loadJS("components/searchbar");
     loadjs("components/user-button");
+    loadJS("components/show-hide");
     ?>
 
 </body>

@@ -30,6 +30,7 @@
         </div>
         <?php view("components/products/product-container-cards") ?>
         <div class="recommended-products-wrapper">
+            <h1>Recomendados</h1>
             <div class="recommended-products-container">
                 <button class="scroll-button left">&lt;</button>
                 <?php foreach ($products as $product) {

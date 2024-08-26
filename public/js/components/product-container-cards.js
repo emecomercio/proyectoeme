@@ -28,3 +28,9 @@ document.querySelectorAll('.product-container').forEach(container => {
     mainImage.addEventListener('mouseenter', activateZoom);
     mainImage.addEventListener('mouseleave', deactivateZoom);
 });
+
+
+// este js hace que que las cards acuten  dinámicamente según el tamaño del contenedor
+
+  
+
