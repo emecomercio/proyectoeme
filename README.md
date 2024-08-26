@@ -12,9 +12,9 @@ Sigue los pasos correspondientes para instalar el proyecto en tu sistema (tener 
 
 **Nota**: recuerda copiar el archivo de configuración de ejemplo y ajustarlo en base a tu equipo:
 
-Linux: `cp config.php.example config.php`
+Linux: `cp .env.example .env`
 
-Windows: `copy config.php.example config.php`
+Windows: `copy .env.example .env`
 
 ### Linux -> Fedora
 
@@ -36,7 +36,7 @@ Nota: si tienes problemas, puedes ejecutar `php -S localhost:8000 -t /var/www/pr
 0. Extra: recomendamos utilizar Laragon en vez de XAMPP para ahorrarse todos estos pasos.
 1. Tener instalado el stack AMP mediante la herramienta XAMPP
 2. Descargar el repositorio en la carpeta \xampp\htdocs\
-3. Modificar el archivo /config.php: define('ROOT', "/xampp/htdocs/proyectoeme");
+3. Modificar el archivo .env: ROOT=`/xampp/htdocs/proyectoeme`
 4. En el directorio /xampp/apache/conf/extra/ crear el archivo "proyectoeme.conf" con el siguiente contenido:
 
 ```
@@ -66,7 +66,8 @@ Ahora ingresando "http://proyectoeme.test/" en tu navegador ya puedes ver el sit
 
 1. Tener instalado el stack AMP (Apache2, MySQL y PHP) [A futuro y si los docentes lo solicitan, se redactará el cómo]
 2. Descargar el repositorio en la carpeta /var/www
-3. Dar permisos a tu usuario sobre esta carpeta mediante los siguientes comandos:
+3. Modificar el archivo .env: ROOT=`/var/www/proyectoeme`
+4. Dar permisos a tu usuario sobre esta carpeta mediante los siguientes comandos:
 
 `sudo usermod -a -G www-data [usuario] (ej sudo usermod -a -G www-data emecomercio)`
 Reinicia sesión y ejecuta:
