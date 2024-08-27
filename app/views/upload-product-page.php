@@ -16,13 +16,8 @@
         <?php view('components/enterprise-auth/upload-product'); ?>
     </main>
     <?php view('layout/footer'); ?>
-    <?php
-    loadjs("components/user-button");
-    loadjs("components/preview-product");
-    loadjs("components/dropdown-product");
-    loadjs("components/upload-product-text");
-    loadJS("components/show-hide");
-    ?>
+    <script type="module" src="<?= asset("/js/main.js") ?>"></script>
+    <script type="module" src="<?= asset("/js/pages/upload_product.js") ?>"></script>
 </body>
 
 </html>

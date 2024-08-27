@@ -17,11 +17,7 @@
 
     </main>
     <?php view('layout/footer'); ?>
-    <?php
-    loadjs("components/user-button");
-    loadjs("components/favorite-button");
-    loadJS("components/show-hide");
-    ?>
+    <script type="module" src="<?= asset("/js/main.js") ?>"></script>
 </body>
 
 </html>

@@ -44,17 +44,8 @@
 
     </main>
     <?php view('layout/footer'); ?>
-    <?php
-    loadJS("components/js-recommended");
-    loadJS("components/categories");
-    loadJS("components/searchbar");
-    loadjs("components/user-button");
-    loadJS("components/alert");
-    loadJS("components/alert-cookie");
-    loadJS("components/product-container-cards");
-    loadJS("components/show-hide");
-
-    ?>
+    <script type="module" src="<?= asset("/js/main.js") ?>"></script>
+    <script type="module" src="<?= asset("/js/pages/homepage.js") ?>"></script>
 </body>
 
 </html>

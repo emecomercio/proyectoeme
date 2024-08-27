@@ -23,14 +23,12 @@ function loadIMG($filename)
     }
 }
 
-function loadJS($filename = "global")
+function asset($path = "")
 {
-    $base_path = "/js/";
-    $full_path = $base_path . $filename . ".js";
-    if (file_exists($_SERVER['DOCUMENT_ROOT'] . $full_path)) {
-        echo '<script src="' . $full_path . '"></script>';
+    if (file_exists($_SERVER['DOCUMENT_ROOT'] . $path)) {
+        echo htmlspecialchars($path);
     } else {
-        echo '<!-- Archivo CSS no encontrado: ' . $full_path . ' -->';
+        echo '<!-- Archivo CSS no encontrado: ' . $path . ' -->';
     }
 }
 

@@ -12,7 +12,7 @@
     loadCSS();
     loadCSS("pages/product-page");
     ?>
-        <link rel="icon" type="image/x-icon" href="<?= loadIMG("icons/favicon.png"); ?>">
+    <link rel="icon" type="image/x-icon" href="<?= loadIMG("icons/favicon.png"); ?>">
 
     <title><?= $product['name'] ?></title>
 </head>
@@ -36,13 +36,7 @@
     </main>
     <?php view("layout/footer") ?>
 </body>
-<?php
-loadjs("components/favorite-button");
-loadjs("components/user-button");
-loadJS("components/buy-button");
-loadJS("components/color-model-selector");
-loadJS("components/thumbnails");
-loadJS("components/show-hide");
-?>
+<script type="module" src="<?= asset("/js/main.js") ?>"></script>
+<script type="module" src="<?= asset("/js/pages/product_page.js") ?>"></script>
 
 </html>

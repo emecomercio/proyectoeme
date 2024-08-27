@@ -27,12 +27,6 @@
     </main>
     <?php view("layout/footer") ?>
 </body>
-<?php
-loadJS("searchbar");
-loadjs("components/user-button");
-loadJS("components/js-recommended");
-loadJS("components/show-hide");
-
-?>
+<script type="module" src="<?= asset("/js/main.js") ?>"></script>
 
 </html>

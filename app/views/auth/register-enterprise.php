@@ -23,12 +23,7 @@
 
     </main>
     <?php view('layout/footer'); ?>
-    <?php
-
-    loadJS("components/auth/password_validation");
-    loadJS("components/user-button");
-    loadJS("components/show-hide"); 
-    ?>
+    <script type="module" src="<?= asset("/js/main.js") ?>"></script>
 </body>
 
 </html>

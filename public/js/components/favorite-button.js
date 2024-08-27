@@ -1,7 +1,9 @@
-document.addEventListener('DOMContentLoaded', () => {
-  const favoriteButton = document.querySelector('.favorite-button');
+export function favoriteButton() {
+  document.addEventListener("DOMContentLoaded", () => {
+    const favoriteButton = document.querySelector(".favorite-button");
 
-  favoriteButton.addEventListener('click', () => {
-    favoriteButton.classList.toggle('active');
+    favoriteButton.addEventListener("click", () => {
+      favoriteButton.classList.toggle("active");
+    });
   });
-});
+}

@@ -1,3 +1,4 @@
-config.php
-cambios.txt
-.env
+/cambios.txt
+/.env
+/.vscode
+/vendor/

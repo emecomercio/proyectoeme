@@ -16,10 +16,7 @@
         <?php view('components/user-auth/forgot-password'); ?>
     </main>
     <?php view('layout/footer'); ?>
-    <?php
-    loadjs("components/user-button");
-    loadJS("components/show-hide");
-    ?>
+    <script type="module" src="<?= asset("/js/main.js") ?>"></script>
 </body>
 
 </html>
