@@ -10,11 +10,15 @@ EME Comercio es una plataforma para la gestión de tiendas online que permite a 
 
 Sigue los pasos correspondientes para instalar el proyecto en tu sistema (tener en cuenta que la Base de Datos no se menciona debido a que todavía se está configurando):
 
-**Nota**: recuerda copiar el archivo de configuración de ejemplo y ajustarlo en base a tu equipo:
+**Nota**: recuerda copiar el archivo de configuración de ejemplo y ajustarlo en base a tu entorno:
 
 Linux: `cp .env.example .env`
 
 Windows: `copy .env.example .env`
+
+**Nota**: recuerda instalar las dependencias de Composer ejecutando: `composer install`
+
+Si no tienes instalado Composer puedes hacerlo mediante el siguiente link y siguiendo las instrucciones correspondientes a tu sistema operativo: [https://getcomposer.org/doc/00-intro.md](https://getcomposer.org/doc/00-intro.md)
 
 ### Linux -> Fedora
 
