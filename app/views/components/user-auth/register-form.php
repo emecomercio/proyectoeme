@@ -1,4 +1,4 @@
-<form class="auth-form" action="/register-user" method="post">
+<form class="auth-form" method="post">
     <?= htmlspecialchars($errorMsg) ?>
     <h1>Registrarse</h1>
     <input type="text" id="username" name="username" placeholder="Nombre de usuario" require>
@@ -12,3 +12,33 @@
     <button type="submit" onclick="show();">Registrarse</button>
     <a href="/register-enterprise">Registrarse como empresa</a>
 </form>
+
+<script type="module" src="">
+    document.querySelector('.auth-form').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevenir el envío por defecto del formulario
+        // Crear un objeto FormData con los datos del formulario
+        const formData = new FormData(this);
+
+        // Opcional: Convertir FormData a un objeto JSON
+        const data = {};
+        formData.forEach((value, key) => {
+            data[key] = value;
+        });
+
+        // Enviar los datos con fetch
+        fetch('/api/user', {
+                method: 'POST', // o el método que necesites
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(result => {
+                console.log('Success:', result);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    });
+</script>

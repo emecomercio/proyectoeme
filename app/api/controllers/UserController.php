@@ -4,6 +4,16 @@ namespace App\Api\Controllers;
 
 use App\Services\UserService;
 
+/**
+ * @var string $username
+ * @var string $email
+ * @var string $password
+ * @var int $id
+ * @var array $users
+ * @var array $user
+ * @var object $user
+ */
+
 class UserController
 {
     protected $userService;
@@ -28,6 +38,17 @@ class UserController
     public function find($id)
     {
         $user = $this->userService->find($id);
+
+        header('Content-Type: application/json');
+
+        echo json_encode($user);
+    }
+
+    public function create()
+    {
+        $data = json_decode(file_get_contents('php://input'), true);
+
+        $user = $this->userService->create($data);
 
         header('Content-Type: application/json');
 

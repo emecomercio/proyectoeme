@@ -33,9 +33,9 @@ class UserService
         return $this->userModel->find($id);
     }
 
-    public function create($username, $email, $password)
+    public function create(array $data = [])
     {
-        return $this->userModel->create($username, $email, $password);
+        return $this->userModel->create($data);
     }
 
     public function updatePhoneNumber($id, $phoneNumber)
@@ -63,8 +63,8 @@ class UserService
         return $this->userModel->validatePassword($email, $password);
     }
 
-    public function exists($email)
+    public function existsEmail($email)
     {
-        return $this->userModel->exists($email);
+        return $this->userModel->existsEmail($email);
     }
 }

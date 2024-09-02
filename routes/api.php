@@ -8,7 +8,7 @@ use App\Api\Controllers\ProductController;
 
 // USERS
 
-Route::get('/api/users', function () {
+Route::get('/api/user', function () {
     // Instancia del controlador
     $users = new UserController();
 
@@ -20,6 +20,12 @@ Route::get('/api/user/{id}', function ($id) {
     $user = new UserController();
 
     $user->find($id);
+});
+
+Route::post('/api/user', function () {
+    $user = new UserController();
+
+    $user->create();
 });
 
 // PRODUCTS

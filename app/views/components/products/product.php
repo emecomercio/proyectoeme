@@ -1,18 +1,18 @@
 <div class="product-description-container">
     <div class="product-image-container">
         <button class="favorite-button">♡</button>
-        <img src="<?= $product['image_500x500']['image_url'] ?>" width="500" height="500" alt="Producto" class="product-image" id="main-product-image" />
+        <img src="<?= $product['image_500x500']['image_url'] ?? "https://picsum.photos/200/300?random=168" ?>" width="500" height="500" alt="Producto" class="product-image" id="main-product-image" />
 
         <!-- Thumbnails -->
         <div class="thumbnails">
-            <img src="<?= $product['image_500x500']['image_url'] ?>" alt="Thumbnail 1" class="thumbnail-image">
-            <img src="<?= $product['image_500x500']['image_url'] ?>" alt="Thumbnail 2" class="thumbnail-image">
-            <img src="<?= $product['image_500x500']['image_url'] ?>" alt="Thumbnail 3" class="thumbnail-image">
+            <img src="<?= $product['image_500x500']['image_url'] ?? "https://picsum.photos/200/300?random=168" ?>" alt="Thumbnail 1" class="thumbnail-image">
+            <img src="<?= $product['image_500x500']['image_url'] ?? "https://picsum.photos/200/300?random=168" ?>" alt="Thumbnail 2" class="thumbnail-image">
+            <img src="<?= $product['image_500x500']['image_url'] ?? "https://picsum.photos/200/300?random=168" ?>" alt="Thumbnail 3" class="thumbnail-image">
         </div>
     </div>
     <div class="product-details-container">
         <h2 class="product-name"><?= $product['name'] ?></h2>
-        <p class="product-price"><?= $product['price'] ?></p>
+        <p class="product-price"><?= $product['price'] ?? 2 ?></p>
         <ul class="product-info">
             <?= $product['description'] ?>
         </ul>

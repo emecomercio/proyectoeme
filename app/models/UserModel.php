@@ -54,9 +54,12 @@ class UserModel extends DatabaseModel
         }
     }
 
-    public function create($username, $email, $password)
+    public function create(array $data = [])
     {
         try {
+            $username = $data['username'];
+            $email = $data['email'];
+            $password = $data['password'];
             $password_hash = password_hash($password, PASSWORD_DEFAULT);
             $query = "INSERT INTO users (username,email, password_hash) VALUES (?,?,?)";
             $preparation = $this->prepare($query);
