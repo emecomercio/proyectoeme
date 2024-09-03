@@ -1,8 +1,18 @@
 <?php
 
 use Lib\Route;
+use Lib\View;
 use App\Controllers\UserController;
 use App\Controllers\ProductController;
+
+Route::get('/vista', function () {
+    $vista = new View('products/show');
+    $vista->data = [
+        'name' => 'Juan',
+        'age' => 30
+    ];
+    $vista->render();
+});
 
 Route::get('/api', function () {
     return view('prueba');

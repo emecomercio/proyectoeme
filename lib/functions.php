@@ -49,3 +49,14 @@ function view($view, $data = [])
         echo "<span class='error-msg'>$error</span>";
     }
 }
+function renderComponent($view, $data = [])
+{
+    extract($data);
+    $filepath = $_ENV['ROOT'] . "/views/" . $view . ".php";
+    if (file_exists($filepath)) {
+        include $filepath;
+    } else {
+        $error = "Se intentó cargar el componente '$view' pero no se encontró el archivo";
+        echo "<span class='error-msg'>$error</span>";
+    }
+}
