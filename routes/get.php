@@ -29,8 +29,8 @@ Route::get('/', function () {
 // USERS ROUTES
 Route::get('/dashboard', function () {
     $role = getUserRole();
-    $homeController = new HomeController($role);
-    $homeController->dashboard();
+    $userController = new UserController($role);
+    $userController->dashboard();
 });
 
 Route::get('/settings', function () {
@@ -116,14 +116,8 @@ Route::get('/login-enterprise', function () {
 // STATIC
 Route::get('/terms-and-conditions', function () {
     $role = getUserRole();
-    $view = new View("static/terms-and-conditions", "alter/$role");
-    $view->data = [
-        'title' => 'Términos y Condiciones'
-    ];
-    $view->styles = [
-        'pages/terms-and-conditions'
-    ];
-    $view->render();
+    $homeController = new HomeController($role);
+    $homeController->termsAndConditions();
 });
 
 // ERROR

@@ -4,7 +4,7 @@ USE ecommerce;
 -- En un futuro: para tablas con informacion critica debemos tener en cuenta el usar UUID
 CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    role ENUM('buyer', 'seller', 'admin') DEFAULT "buyer",
+    role ENUM('buyer', 'seller', 'admin') NOT NULL DEFAULT "buyer",
     username VARCHAR(255) NOT NULL UNIQUE,
     email VARCHAR(255) NOT NULL UNIQUE,
     document_number VARCHAR(255) NOT NULL UNIQUE,

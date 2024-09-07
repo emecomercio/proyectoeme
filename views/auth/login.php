@@ -37,7 +37,7 @@ if ($msg != '') {
             .then(result => {
                 if (result.status === 'success') {
                     // Redirigir al homepage si el inicio de sesión fue exitoso
-                    window.location.href = '/';
+                    result.data.role == 'seller' ? window.location.href = '/dashboard' : window.location.href = '/';
                 } else {
                     console.log('Error de autenticación:', result.message);
                     errorBox.textContent = result.message;

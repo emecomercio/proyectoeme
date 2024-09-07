@@ -16,8 +16,8 @@ class BuyerModel extends DatabaseModel
     public function update($data = [])
     {
         $id = $data['id'];
-        $birthdate = $data['birthdate'];
-        $query = "UPDATE buyers SET birthdate = '$birthdate' WHERE id = $id";
-        return $this->executeQuery($query, [$id, $birthdate], 'is');
+        $birthdate = $data['birthdate'] ?? null;
+        $query = "UPDATE buyers SET birthdate = ? WHERE id = ?";
+        return $this->executeQuery($query, [$birthdate, $id], 'si');
     }
 }

@@ -36,12 +36,31 @@ class AuthController extends BaseController
     {
         try {
             $data = json_decode(file_get_contents('php://input'), true);
-            $user = $this->authService->create($data);
 
+            // Validar campos obligatorios
+            $requiredFields = ['email', 'password', 'document-number', 'role', 'name'];
+            $missingFields = [];
+
+            // Recorrer los campos requeridos y verificar si están vacíos o nulos
+            foreach ($requiredFields as $field) {
+                if (!isset($data[$field]) || empty($data[$field])) {
+                    $missingFields[] = $field;
+                }
+            }
+
+            // Si faltan campos, responde con un error
+            if (!empty($missingFields)) {
+                $msg = 'The following fields are required: ' . implode(', ', $missingFields);
+                $this->respondWithError($msg, 400); // Devuelve un error 400
+            }
+
+            // Crear el usuario si todos los campos son válidos
+            $user = $this->authService->create($data);
+            $_SESSION['msg']['login'] = 'Registrado con exito. Ingresa sesion para continuar';
             $this->respondWithSuccess($user, 201);
         } catch (mysqli_sql_exception $e) {
-            // Errores especificos de la BD
-            $this->handleDatabaseError($e);
+            // Errores específicos de la base de datos
+            $this->handleDatabaseError($e, $data);
         } catch (Exception $e) {
             // Errores generales
             $this->handleException($e, "Error creating user");

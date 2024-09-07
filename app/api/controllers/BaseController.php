@@ -49,7 +49,7 @@ class BaseController
             header('Content-Type: application/json');
             echo json_encode([
                 'status' => 'error',
-                'message' => 'You do not have permission to access this resource.'
+                'message' => 'You do not have permission to access this resource. You are ' . getUserRole()
             ]);
         } elseif (in_array($e->getCode(), [1062])) {
             error_log($e->getMessage());
@@ -60,13 +60,31 @@ class BaseController
         } elseif (in_array($e->getCode(), [1054])) {
             error_log($e->getMessage());
             $this->respondWithError('Unknown column', 400);
+        } elseif (in_array($e->getCode(), [1364])) {
+            error_log($e->getMessage());
+            $this->respondWithError('Field does not have a default value', 400);
+        } elseif (in_array($e->getCode(), [1064])) {
+            error_log($e->getMessage());
+            $this->respondWithError('You have an error in your SQL syntax', 400);
+        } elseif (in_array($e->getCode(), [1146])) {
+            error_log($e->getMessage());
+            $this->respondWithError('Table does not exist', 400);
+        } elseif (in_array($e->getCode(), [1366])) {
+            error_log($e->getMessage());
+            $this->respondWithError('Incorrect value for field', 400);
+        } elseif (in_array($e->getCode(), [1451])) {
+            error_log($e->getMessage());
+            $this->respondWithError('Cannot delete or update a parent row', 400);
+        } elseif (in_array($e->getCode(), [1048])) {
+            error_log($e->getMessage());
+            $this->respondWithError($e->getMessage(), 400);
         } else {
             // Si es otro tipo de error, puedes manejarlo de forma diferente
             http_response_code(500);
             header('Content-Type: application/json');
             echo json_encode([
                 'status' => 'error',
-                'message' => 'An unexpected error occurred.'
+                'message' => 'An unexpected error occurred. Code: ' . $e->getCode() . ' ' . $e->getMessage()
             ]);
         }
         exit;

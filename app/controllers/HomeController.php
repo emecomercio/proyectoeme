@@ -2,7 +2,6 @@
 
 namespace App\Controllers;
 
-use App\Models\UserModel;
 use Lib\View;
 
 class HomeController extends BaseController
@@ -61,5 +60,19 @@ class HomeController extends BaseController
         $this->role != 'guest'
             ? $show($this->role  . "/dashboard")
             : $this->userController->showLogin('Necesitas iniciar sesión primero');
+    }
+
+
+
+    public function termsAndConditions()
+    {
+        $view = new View("static/terms-and-conditions", "alter/$this->role");
+        $view->data = [
+            'title' => 'Términos y Condiciones'
+        ];
+        $view->styles = [
+            'pages/terms-and-conditions'
+        ];
+        $view->render();
     }
 }

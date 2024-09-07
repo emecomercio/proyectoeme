@@ -35,7 +35,7 @@
         </nav>
         <div class="header">
             <div class="logo">
-                <a href="/">
+                <a href="/dashboard">
                     <img class="LogoEme" src="<?= loadIMG("icons/logo.png") ?>" alt="logo de la empresa" />
                 </a>
             </div>
