@@ -3,27 +3,46 @@
 namespace App\Controllers;
 
 use App\Models\ProductModel;
+use Lib\View;
 
-class ProductController
+class ProductController extends BaseController
 {
-    public static function all()
+    protected $role;
+    protected $productModel;
+
+    public function __construct($role)
     {
-        $productModel = new ProductModel();
-        $products = $productModel->all();
-        return $products;
-    }
-    public static function find($id)
-    {
-        $productModel = new ProductModel();
-        $product = $productModel->find($id);
-        return $product;
+        $this->productModel = new ProductModel($role);
     }
 
-    public static function getProductsForHomepage()
+    public function all()
     {
-        $productModel = new ProductModel();
-        $products = $productModel->all();
-
+        $products = $this->productModel->all();
         return $products;
+    }
+
+    public function index($id)
+    {
+        $product = $this->productModel->find($id);
+        $view = new View('products/show');
+        $view->data = [
+            "title" => $product['name'],
+            "product" => $product
+        ];
+        $view->styles = [
+            "pages/product-page"
+        ];
+        $view->scripts = [
+            [
+                "type" => "module",
+                "src" => "/js/main.js"
+            ],
+            [
+                "type" => "module",
+                "src" => "/js/pages/product_page.js"
+            ]
+        ];
+
+        return $view->render();
     }
 }

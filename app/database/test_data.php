@@ -2,107 +2,539 @@
 require_once __DIR__ . '/../../vendor/autoload.php'; // Incluye el autoload de Composer
 
 use Faker\Factory as Faker;
+use Faker\Generator;
+
+/**
+ * @var PDO $pdo
+ * @var Generator $faker
+ * @var int $num
+ * @var string $role
+ * @var string $username
+ * @var string $email
+ * @var string $document_number
+ * @var string $password_hash
+ * @var string $fullname
+ * @var string $birthdate
+ * @var string $address
+ * @var string $city
+ * @var string $state
+ * @var string $country
+ * @var string $zip
+ * @var string $phone
+ * @var string $seller_id
+ * @var string $product_name
+ * @var string $product_description
+ * @var float $product_price
+ * @var int $product_stock
+ * 
+ */
+
 
 $faker = Faker::create(); // Crea una instancia de Faker
-$pdo = new PDO('mysql:host=localhost;dbname=tienda', 'root', 'root'); // Configura la conexión PDO
+$pdo = new PDO('mysql:host=localhost;dbname=ecommerce', 'root', 'root'); // Configura la conexión PDO
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-// Insertar datos en la tabla discounts
-$discountsStmt = $pdo->prepare("INSERT INTO discounts (seller_id, name, start_date, end_date, active, type, value, max) VALUES (:seller_id, :name, :start_date, :end_date, :active, :type, :value, :max)");
-for ($i = 0; $i < 10; $i++) {
-    $discountsStmt->execute([
-        ':seller_id' => $faker->numberBetween(11, 15),
-        ':name' => $faker->word,
-        ':start_date' => $faker->date,
-        ':end_date' => $faker->date,
-        ':active' => $faker->numberBetween(0, 1),
-        ':type' => $faker->numberBetween(0, 1),
-        ':value' => $faker->numberBetween(10, 500),
-        ':max' => $faker->optional()->numberBetween(1, 100)
-    ]);
-}
+// Insertar datos en la tabla users
+function insertUsers(PDO $pdo, Generator $faker, int $num)
+{
+    $stmt = $pdo->prepare("
+        INSERT INTO users (role, username, email, password_hash, document_number) 
+        VALUES (:role, :username, :email, :password_hash, :document_number)
+    ");
 
-// Insertar datos en la tabla catalogs
-$catalogsStmt = $pdo->prepare("INSERT INTO catalogs (discount_id, name) VALUES (:discount_id, :name)");
-for ($i = 0; $i < 5; $i++) {
-    $catalogsStmt->execute([
-        ':discount_id' => $faker->numberBetween(1, 10),
-        ':name' => $faker->word
-    ]);
-}
+    for ($i = 0; $i < $num; $i++) {
+        $role = $faker->randomElement(['buyer', 'seller', 'admin']);
+        $username = $faker->userName;
+        $email = $faker->email;
+        $document_number = $faker->ssn;
+        $password_hash = password_hash($faker->password, PASSWORD_BCRYPT);
 
-// Insertar datos en la tabla products
-$productsStmt = $pdo->prepare("INSERT INTO products (catalog_id, seller_id, name, description) VALUES (:catalog_id, :seller_id, :name, :description)");
-for ($i = 0; $i < 50; $i++) {
-    $productsStmt->execute([
-        ':catalog_id' => $faker->numberBetween(1, 5),
-        ':seller_id' => $faker->numberBetween(11, 15),
-        ':name' => $faker->word,
-        ':description' => $faker->text
-    ]);
-}
-
-// Insertar datos en la tabla product_variants
-$productVariantsStmt = $pdo->prepare("INSERT INTO product_variants (product_id, discount_id, stock, current_price, last_price, state) VALUES (:product_id, :discount_id, :stock, :current_price, :last_price, :state)");
-for ($i = 0; $i < 100; $i++) {
-    $productVariantsStmt->execute([
-        ':product_id' => $faker->numberBetween(1, 50),
-        ':discount_id' => $faker->optional()->numberBetween(1, 10),
-        ':stock' => $faker->numberBetween(1, 100),
-        ':current_price' => $faker->randomFloat(2, 1, 100),
-        ':last_price' => $faker->optional()->randomFloat(2, 1, 100),
-        ':state' => $faker->numberBetween(0, 1)
-    ]);
-}
-
-// Insertar datos en la tabla variant_attributes
-$variantAttributesStmt = $pdo->prepare("INSERT INTO variant_attributes (variant_id, name, value) VALUES (:variant_id, :name, :value)");
-for ($i = 0; $i < 200; $i++) {
-    $variantAttributesStmt->execute([
-        ':variant_id' => $faker->numberBetween(1, 100),
-        ':name' => $faker->word,
-        ':value' => $faker->word
-    ]);
-}
-
-// Insertar datos en la tabla images
-$imagesStmt = $pdo->prepare("INSERT INTO images (variant_id, image_url, alt_text, width, height) VALUES (:variant_id, :image_url, :alt_text, :width, :height)");
-for ($i = 0; $i < 100; $i++) {
-    $imageUrl = 'https://picsum.photos/200/300?random=' . rand(1, 1000);
-    $imagesStmt->execute([
-        ':variant_id' => $faker->numberBetween(1, 100),
-        ':image_url' => $imageUrl,
-        ':alt_text' => $faker->word,
-        ':width' => 800,
-        ':height' => 600
-    ]);
-}
-
-// Insertar datos en la tabla carts
-$cartsStmt = $pdo->prepare("INSERT INTO carts (user_id, total_price, status) VALUES (:user_id, :total_price, :status)");
-for ($i = 0; $i < 50; $i++) {
-    $cartsStmt->execute([
-        ':user_id' => $faker->numberBetween(1, 10),
-        ':total_price' => $faker->randomFloat(2, 10, 500),
-        ':status' => $faker->numberBetween(0, 1)
-    ]);
-}
-
-// Insertar datos en la tabla cart_lines
-$cartLinesStmt = $pdo->prepare("INSERT INTO cart_lines (cart_id, variant_id, quantity) VALUES (:cart_id, :variant_id, :quantity)");
-
-for ($i = 0; $i < 200; $i++) {
-    try {
-        $cartLinesStmt->execute([
-            ':cart_id' => $faker->numberBetween(1, 50),
-            ':variant_id' => $faker->numberBetween(1, 100),
-            ':quantity' => $faker->numberBetween(1, 5)
+        $stmt->execute([
+            ':role' => $role,
+            ':username' => $username,
+            ':email' => $email,
+            ':password_hash' => $password_hash,
+            ':document_number' => $document_number
         ]);
-    } catch (PDOException $e) {
-        echo 'Error: ' . $e->getMessage() . "\n";
     }
 }
 
-echo "Datos de prueba generados exitosamente.";
+function insertBuyers($pdo, $faker, $num)
+{
+    $insertUserStmt = $pdo->prepare("
+        INSERT INTO users (role, username, email, password_hash, document_number) 
+        VALUES (:role, :username, :email, :password_hash, :document_number)
+    ");
 
-$pdo = null; // Cierra la conexión
+    $insertBuyerStmt = $pdo->prepare("
+        INSERT INTO buyers (id, fullname, birthdate) 
+        VALUES (:id, :fullname, :birthdate)
+    ");
+
+    // Preparar consultas para verificar si el email o el username ya existen
+    $checkEmailStmt = $pdo->prepare("SELECT COUNT(*) FROM users WHERE email = :email");
+    $checkUsernameStmt = $pdo->prepare("SELECT COUNT(*) FROM users WHERE username = :username");
+
+    for ($i = 0; $i < $num; $i++) {
+        $role = 'buyer';
+        $username = $faker->userName;
+        $email = $faker->email;
+        $password_hash = password_hash($faker->password, PASSWORD_BCRYPT);
+        $document_number = $faker->unique()->numberBetween(10000000, 99999999);
+
+        // Verificar si el email ya existe
+        $checkEmailStmt->execute([':email' => $email]);
+        $emailExists = $checkEmailStmt->fetchColumn();
+
+        // Verificar si el username ya existe
+        $checkUsernameStmt->execute([':username' => $username]);
+        $usernameExists = $checkUsernameStmt->fetchColumn();
+
+        // Si el email o el username ya existen, generar otros nuevos
+        while ($emailExists) {
+            $email = $faker->unique()->email;
+            $checkEmailStmt->execute([':email' => $email]);
+            $emailExists = $checkEmailStmt->fetchColumn();
+        }
+
+        while ($usernameExists) {
+            $username = $faker->unique()->userName;
+            $checkUsernameStmt->execute([':username' => $username]);
+            $usernameExists = $checkUsernameStmt->fetchColumn();
+        }
+
+        // Insertar el usuario con un email y username únicos
+        $insertUserStmt->execute([
+            ':role' => $role,
+            ':username' => $username,
+            ':email' => $email,
+            ':password_hash' => $password_hash,
+            ':document_number' => $document_number
+        ]);
+
+        // Obtener el ID del usuario insertado
+        $userId = $pdo->lastInsertId();
+
+        // Insertar en la tabla buyers usando el ID del usuario
+        $fullname = $faker->name;
+        $birthdate = $faker->date;
+
+        $insertBuyerStmt->execute([
+            ':id' => $userId,
+            ':fullname' => $fullname,
+            ':birthdate' => $birthdate
+        ]);
+    }
+}
+
+
+function insertSellers($pdo, $faker, $num)
+{
+    $insertUserStmt = $pdo->prepare("
+        INSERT INTO users (role, username, email, password_hash, document_number) 
+        VALUES (:role, :username, :email, :password_hash, :document_number)
+    ");
+
+    $insertSellerStmt = $pdo->prepare("
+        INSERT INTO sellers (id, name, description, website, logo_url, mercadopago_account, paypal_account) 
+        VALUES (:id, :name, :description, :website, :logo_url, :mercadopago_account, :paypal_account)
+    ");
+
+    // Preparar consultas para verificar si el email o el username ya existen
+    $checkEmailStmt = $pdo->prepare("SELECT COUNT(*) FROM users WHERE email = :email");
+    $checkUsernameStmt = $pdo->prepare("SELECT COUNT(*) FROM users WHERE username = :username");
+
+    for ($i = 0; $i < $num; $i++) {
+        $role = 'seller';
+        $username = $faker->userName;
+        $email = $faker->email;
+        $password_hash = password_hash($faker->password, PASSWORD_BCRYPT);
+        $document_number = $faker->unique()->numberBetween(10000000, 99999999);
+
+        // Verificar si el email ya existe
+        $checkEmailStmt->execute([':email' => $email]);
+        $emailExists = $checkEmailStmt->fetchColumn();
+
+        // Verificar si el username ya existe
+        $checkUsernameStmt->execute([':username' => $username]);
+        $usernameExists = $checkUsernameStmt->fetchColumn();
+
+        // Si el email o el username ya existen, generar otros nuevos
+        while ($emailExists) {
+            $email = $faker->unique()->email;
+            $checkEmailStmt->execute([':email' => $email]);
+            $emailExists = $checkEmailStmt->fetchColumn();
+        }
+
+        while ($usernameExists) {
+            $username = $faker->unique()->userName;
+            $checkUsernameStmt->execute([':username' => $username]);
+            $usernameExists = $checkUsernameStmt->fetchColumn();
+        }
+
+        // Insertar el usuario con un email y username únicos
+        $insertUserStmt->execute([
+            ':role' => $role,
+            ':username' => $username,
+            ':email' => $email,
+            ':password_hash' => $password_hash,
+            ':document_number' => $document_number
+        ]);
+
+        // Obtener el ID del usuario insertado
+        $userId = $pdo->lastInsertId();
+
+        // Insertar en la tabla sellers usando el ID del usuario
+        $name = $faker->company;
+        $description = $faker->text;
+        $website = $faker->url;
+        $logo_url = $faker->imageUrl;
+        $mercadopago_account = $faker->unique()->numberBetween(1000000000, 9999999999);
+        $paypal_account = $faker->unique()->numberBetween(1000000000, 9999999999);
+
+        $insertSellerStmt->execute([
+            ':id' => $userId,
+            ':name' => $name,
+            ':description' => $description,
+            ':website' => $website,
+            ':logo_url' => $logo_url,
+            ':mercadopago_account' => $mercadopago_account,
+            ':paypal_account' => $paypal_account
+        ]);
+    }
+}
+
+function insertPhones(PDO $pdo, Generator $faker, int $num)
+{
+    $stmt = $pdo->prepare("
+        INSERT INTO phones (user_id, number) 
+        VALUES (:user_id, :number)
+    ");
+
+    // Obtener IDs de usuarios existentes
+    $userIds = $pdo->query('SELECT id FROM users')->fetchAll(PDO::FETCH_COLUMN);
+
+    for ($i = 0; $i < $num; $i++) {
+        $user_id = $faker->randomElement($userIds);
+        $number = $faker->phoneNumber;
+
+        $stmt->execute([
+            ':user_id' => $user_id,
+            ':number' => $number
+        ]);
+    }
+}
+
+function insertAddresses(PDO $pdo, Generator $faker, int $num)
+{
+    $stmt = $pdo->prepare("
+        INSERT INTO addresses (user_id, street, city, state, postal_code, country, type, description) 
+        VALUES (:user_id, :street, :city, :state, :postal_code, :country, :type, :description)
+    ");
+
+    // Obtener IDs de usuarios existentes
+    $userIds = $pdo->query('SELECT id FROM users')->fetchAll(PDO::FETCH_COLUMN);
+
+    $types = ['home', 'work', 'other'];
+
+    for ($i = 0; $i < $num; $i++) {
+        $user_id = $faker->randomElement($userIds);
+        $street = $faker->streetAddress;
+        $city = $faker->city;
+        $state = $faker->state;
+        $postal_code = $faker->postcode;
+        $country = $faker->country;
+        $type = $faker->randomElement($types);
+        $description = $faker->optional()->text(100);
+
+        $stmt->execute([
+            ':user_id' => $user_id,
+            ':street' => $street,
+            ':city' => $city,
+            ':state' => $state,
+            ':postal_code' => $postal_code,
+            ':country' => $country,
+            ':type' => $type,
+            ':description' => $description
+        ]);
+    }
+}
+
+function insertDiscounts(PDO $pdo, Generator $faker, int $num)
+{
+    $stmt = $pdo->prepare("
+        INSERT INTO discounts (seller_id, name, start_date, end_date, active, type, value, max) 
+        VALUES (:seller_id, :name, :start_date, :end_date, :active, :type, :value, :max)
+    ");
+
+    // Obtener IDs de vendedores existentes
+    $sellerIds = $pdo->query('SELECT id FROM sellers')->fetchAll(PDO::FETCH_COLUMN);
+
+    for ($i = 0; $i < $num; $i++) {
+        $seller_id = $faker->randomElement($sellerIds);
+        $name = $faker->word;
+        $start_date = $faker->date;
+        $end_date = $faker->date;
+        $active = $faker->numberBetween(0, 1);
+        $type = $faker->numberBetween(0, 1); // 0: porcentaje, 1: fijo
+        $value = $type == 0 ? $faker->numberBetween(5, 50) : $faker->randomNumber(); // Valor del descuento
+        $max = $faker->optional()->randomNumber(); // Valor máximo del descuento (opcional)
+
+        $stmt->execute([
+            ':seller_id' => $seller_id,
+            ':name' => $name,
+            ':start_date' => $start_date,
+            ':end_date' => $end_date,
+            ':active' => $active,
+            ':type' => $type,
+            ':value' => $value,
+            ':max' => $max
+        ]);
+    }
+}
+
+// Insertar datos en la tabla catalogs
+function insertCatalogs(PDO $pdo, Generator $faker, int $num)
+{
+    $stmt = $pdo->prepare("
+        INSERT INTO catalogs (discount_id, name) 
+        VALUES (:discount_id, :name)
+    ");
+
+    // Obtener IDs de descuentos existentes
+    $discountIds = $pdo->query('SELECT id FROM discounts')->fetchAll(PDO::FETCH_COLUMN);
+
+    for ($i = 0; $i < $num; $i++) {
+        $discount_id = $faker->optional()->randomElement($discountIds); // Puede ser NULL si no hay descuento asociado
+        $name = $faker->word;
+
+        $stmt->execute([
+            ':discount_id' => $discount_id,
+            ':name' => $name
+        ]);
+    }
+}
+
+// Insertar datos en la tabla products
+function insertProducts(PDO $pdo, Generator $faker, int $num)
+{
+    $stmt = $pdo->prepare("
+        INSERT INTO products (catalog_id, seller_id, name, description) 
+        VALUES (:catalog_id, :seller_id, :name, :description)
+    ");
+
+    // Obtener IDs de catálogos y vendedores existentes
+    $catalogIds = $pdo->query('SELECT id FROM catalogs')->fetchAll(PDO::FETCH_COLUMN);
+    $sellerIds = $pdo->query('SELECT id FROM sellers')->fetchAll(PDO::FETCH_COLUMN);
+
+    for ($i = 0; $i < $num; $i++) {
+        $catalog_id = $faker->randomElement($catalogIds);
+        $seller_id = $faker->randomElement($sellerIds);
+        $name = ucwords($faker->word);
+        $description = $faker->optional()->text(200);
+
+        $stmt->execute([
+            ':catalog_id' => $catalog_id,
+            ':seller_id' => $seller_id,
+            ':name' => $name,
+            ':description' => $description
+        ]);
+    }
+}
+
+// Insertar datos en la tabla product_variants
+function insertProductVariants(PDO $pdo, Generator $faker, int $num)
+{
+    $stmt = $pdo->prepare("
+        INSERT INTO product_variants (product_id, discount_id, stock, current_price, last_price) 
+        VALUES (:product_id, :discount_id, :stock, :current_price, :last_price)
+    ");
+
+    // Obtener IDs de productos y descuentos existentes
+    $productIds = $pdo->query('SELECT id FROM products')->fetchAll(PDO::FETCH_COLUMN);
+    $discountIds = $pdo->query('SELECT id FROM discounts')->fetchAll(PDO::FETCH_COLUMN);
+
+    for ($i = 0; $i < $num; $i++) {
+        $product_id = $faker->randomElement($productIds);
+        $discount_id = $faker->optional()->randomElement($discountIds); // Puede ser NULL si no hay descuento asociado
+        $stock = $faker->numberBetween(0, 100);
+        $current_price = $faker->randomFloat(2, 5, 500); // Precio actual entre 5 y 500
+        $last_price = $faker->optional(0.5, $current_price)->randomFloat(2, 5, 500); // Precio anterior (opcional)
+
+        $stmt->execute([
+            ':product_id' => $product_id,
+            ':discount_id' => $discount_id,
+            ':stock' => $stock,
+            ':current_price' => $current_price,
+            ':last_price' => $last_price,
+        ]);
+    }
+}
+
+// Insertar datos en la tabla variant_attributes
+function insertVariantAttributes($pdo, $faker, $num)
+{
+    $insertStmt = $pdo->prepare("
+        INSERT INTO variant_attributes (variant_id, name, value)
+        VALUES (:variant_id, :name, :value)
+    ");
+
+    // Consulta para verificar si ya existe el atributo para ese variant_id y name
+    $checkStmt = $pdo->prepare("
+        SELECT COUNT(*) FROM variant_attributes WHERE variant_id = :variant_id AND name = :name
+    ");
+
+    // Obtener todos los IDs de variantes
+    $variantIds = $pdo->query("SELECT id FROM product_variants")->fetchAll(PDO::FETCH_COLUMN);
+
+    for ($i = 0; $i < $num; $i++) {
+        $variant_id = $faker->randomElement($variantIds);
+        $name = $faker->word;
+        $value = $faker->word;
+
+        // Verificar si ya existe el atributo
+        $checkStmt->execute([
+            ':variant_id' => $variant_id,
+            ':name' => $name
+        ]);
+
+        $exists = $checkStmt->fetchColumn();
+
+        // Si ya existe el atributo, generar un nuevo nombre
+        while ($exists > 0) {
+            $name = $faker->unique()->word;
+            $checkStmt->execute([
+                ':variant_id' => $variant_id,
+                ':name' => $name
+            ]);
+            $exists = $checkStmt->fetchColumn();
+        }
+
+        // Insertar si no existe
+        $insertStmt->execute([
+            ':variant_id' => $variant_id,
+            ':name' => $name,
+            ':value' => $value
+        ]);
+    }
+}
+
+
+
+
+// Insertar datos en la tabla images
+function insertImages(PDO $pdo, Generator $faker, int $num)
+{
+    $stmt = $pdo->prepare("
+        INSERT INTO images (variant_id, image_url, alt_text, width, height) 
+        VALUES (:variant_id, :image_url, :alt_text, :width, :height)
+    ");
+
+    // Obtener IDs de variantes de productos existentes
+    $variantIds = $pdo->query('SELECT id FROM product_variants')->fetchAll(PDO::FETCH_COLUMN);
+
+    for ($i = 0; $i < $num; $i++) {
+        $variant_id = $faker->randomElement($variantIds);
+        $image_url = $faker->imageUrl();
+        $alt_text = $faker->sentence;
+        $width = $faker->numberBetween(100, 1920);
+        $height = $faker->numberBetween(100, 1080);
+
+        $stmt->execute([
+            ':variant_id' => $variant_id,
+            ':image_url' => $image_url,
+            ':alt_text' => $alt_text,
+            ':width' => $width,
+            ':height' => $height
+        ]);
+    }
+}
+
+
+// Insertar datos en la tabla carts
+function insertCarts(PDO $pdo, Generator $faker, int $num)
+{
+    $stmt = $pdo->prepare("
+        INSERT INTO carts (user_id, total_price, status) 
+        VALUES (:user_id, :total_price, :status)
+    ");
+
+    // Obtener IDs de usuarios existentes
+    $userIds = $pdo->query('SELECT id FROM users')->fetchAll(PDO::FETCH_COLUMN);
+
+    for ($i = 0; $i < $num; $i++) {
+        $user_id = $faker->randomElement($userIds);
+        $total_price = $faker->randomFloat(2, 0, 500); // Precio total entre 0 y 500
+        $status = $faker->numberBetween(0, 1); // 0: active, 1: completed
+
+        $stmt->execute([
+            ':user_id' => $user_id,
+            ':total_price' => $total_price,
+            ':status' => $status
+        ]);
+    }
+}
+
+
+// Insertar datos en la tabla cart_lines
+function insertCartLines(PDO $pdo, Generator $faker, int $num)
+{
+    $stmt = $pdo->prepare("
+        INSERT INTO cart_lines (cart_id, variant_id, quantity, price) 
+        VALUES (:cart_id, :variant_id, :quantity, :price)
+    ");
+
+    // Obtener IDs de carritos y variantes de productos existentes
+    $cartIds = $pdo->query('SELECT id FROM carts')->fetchAll(PDO::FETCH_COLUMN);
+    $variantIds = $pdo->query('SELECT id FROM product_variants')->fetchAll(PDO::FETCH_COLUMN);
+
+    for ($i = 0; $i < $num; $i++) {
+        $cart_id = $faker->randomElement($cartIds);
+        $variant_id = $faker->randomElement($variantIds);
+        $quantity = $faker->numberBetween(1, 10);
+        $price = $faker->randomFloat(2, 5, 100); // Precio entre 5 y 100
+
+        $stmt->execute([
+            ':cart_id' => $cart_id,
+            ':variant_id' => $variant_id,
+            ':quantity' => $quantity,
+            ':price' => $price
+        ]);
+    }
+}
+
+try {
+    insertBuyers($pdo, $faker, 50);
+    echo "-> Buyers insertados\n";
+    insertSellers($pdo, $faker, 50);
+    echo "-> Sellers insertados\n";
+    insertPhones($pdo, $faker, 110);
+    echo "-> Phones insertados\n";
+    insertAddresses($pdo, $faker, 110);
+    echo "-> Addresses insertados\n";
+    insertDiscounts($pdo, $faker, 50);
+    echo "-> Discounts insertados\n";
+    insertCatalogs($pdo, $faker, 10);
+    echo "-> Catalogs insertados\n";
+    insertProducts($pdo, $faker, 100);
+    echo "-> Products insertados\n";
+    insertProductVariants($pdo, $faker, 300);
+    echo "-> ProductsVariants  insertados\n";
+    insertVariantAttributes($pdo, $faker, 700);
+    echo "-> VariantAttributes insertados\n";
+    insertImages($pdo, $faker, 700);
+    echo "-> Images insertados\n";
+    insertCarts($pdo, $faker, 50);
+    echo "-> Carts insertados\n";
+    insertCartLines($pdo, $faker, 500);
+    echo "-> CartLines insertados\n";
+    echo "--------------------------------\n";
+    echo "|Datos insertados correctamente|\n";
+    echo "--------------------------------\n";
+} catch (Exception $e) {
+    echo "Hubo un error:\n";
+    echo $e;
+}
+
+// Cierra la conexión a la base de datos
+$pdo = null;

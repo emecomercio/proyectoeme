@@ -1,8 +1,10 @@
 <?php
 
-use Lib\Route;
 use Lib\View;
+use Lib\Route;
+use App\Controllers\HomeController;
 use App\Controllers\UserController;
+use App\Controllers\BuyerController;
 use App\Controllers\ProductController;
 
 Route::get('/vista', function () {
@@ -15,38 +17,85 @@ Route::get('/vista', function () {
 });
 
 Route::get('/api', function () {
-    return view('prueba');
+    return render('prueba');
 });
 
 Route::get('/', function () {
-    $products = ProductController::getProductsForHomepage();
-    view("homepage", [
-        "products" => $products
-    ]);
+    $role = getUserRole();
+    $homeController = new HomeController($role);
+    $homeController->index();
 });
 
 // USERS ROUTES
 Route::get('/dashboard', function () {
-    UserController::getUserDashboard();
+    $role = getUserRole();
+    $homeController = new HomeController($role);
+    $homeController->dashboard();
 });
 
 Route::get('/settings', function () {
-    view('settings');
+    $role = getUserRole();
+    $userController = new UserController($role);
+    $userController->settings();
 });
 
-Route::get('/register-user', function () {
-    $errorMsg = $_SESSION['error'] ?? '';
-    unset($_SESSION['error']);
-    return view('auth/register-user', ['errorMsg' => $errorMsg]);
+Route::get('/login', function () {
+    $msg = $_SESSION['msg']['login'] ?? '';
+    unset($_SESSION['msg']['login']);
+    $login = new View('auth/login', 'alter/guest');
+    $login->data = [
+        'title' => 'Login | EME Comercio',
+        'msg' => $msg
+    ];
+    $login->styles = [
+        'pages/register-login'
+    ];
+    $login->render();
 });
 
-Route::get('/login-user', function () {
-    $errorMsg = $_SESSION['error'] ?? '';
-    unset($_SESSION['error']);
-    return view('auth/login-user', ['errorMsg' => $errorMsg]);
+Route::get('/register', function () {
+    $register = new View('auth/buyers/register', 'alter/guest');
+    $register->data = [
+        'title' => 'Register | EME Comercio'
+    ];
+    $register->styles = [
+        'pages/register-login'
+    ];
+    $register->render();
 });
-Route::get('/logout', function () {
-    UserController::logout();
+
+// BUYERS
+
+Route::get('/cart', function () {
+    $role = getUserRole();
+    $productController = new UserController($role);
+    $productController->cart();
+});
+
+Route::get('/favorites', function () {
+    $role = getUserRole();
+    $buyerController = new BuyerController($role);
+    $buyerController->showFavorites();
+});
+
+Route::get('/shopping-history', function () {
+    $role = getUserRole();
+    $buyerController = new BuyerController($role);
+    $buyerController->showShopingHistory();
+});
+
+Route::get('/search-history', function () {
+    $role = getUserRole();
+    $buyerController = new BuyerController($role);
+    $buyerController->showSearchHistory();
+});
+
+// PRODUCTS
+
+Route::get('/product-page/{id}', function ($id) {
+    $role = getUserRole();
+    $productController = new ProductController($role);
+    $productController->index($id);
 });
 
 // ENTERPRISE ROUTES
@@ -54,51 +103,53 @@ Route::get('/logout', function () {
 Route::get('/register-enterprise', function () {
     $errorMsg = $_SESSION['error'] ?? '';
     unset($_SESSION['error']);
-    return view('auth/register-enterprise', ['errorMsg' => $errorMsg]);
+    return render('auth/register-enterprise', ['errorMsg' => $errorMsg]);
 });
 Route::get('/login-enterprise', function () {
     $errorMsg = $_SESSION['error'] ?? '';
     unset($_SESSION['error']);
-    return view('auth/login-enterprise', ['errorMsg' => $errorMsg]);
+    return render('auth/login-enterprise', ['errorMsg' => $errorMsg]);
 });
 
 // PRODUCTS ROUTES
-Route::get('/product-page/{id}', function ($id) {
-    $product = ProductController::find($id);
-    view("products/product-page", [
-        "product" => $product
-    ]);
+
+// STATIC
+Route::get('/terms-and-conditions', function () {
+    $role = getUserRole();
+    $view = new View("static/terms-and-conditions", "alter/$role");
+    $view->data = [
+        'title' => 'Términos y Condiciones'
+    ];
+    $view->styles = [
+        'pages/terms-and-conditions'
+    ];
+    $view->render();
+});
+
+// ERROR
+
+Route::get('/unknown-error', function () {
+    return render('errors/unknown');
 });
 
 // TESTING ROUTES
 Route::get('/test/users', function () {
-    UserController::usersTable();
+    // UserController::usersTable();
 });
 
 // Varias rutas - Pendiente agrupar
 Route::get('/register', function () {
-    return view('register');
-});
-Route::get('/cart', function () {
-    return view('user/cart');
-});
-Route::get('/terms-and-conditions', function () {
-    return view('static/terms-and-conditions');
+    return render('register');
 });
 
-Route::get('/shopping', function () {
-    return view('/shopping');
-});
 Route::get('/history', function () {
-    return view('/history');
+    return render('/history');
 });
-Route::get('/favorites', function () {
-    return view('/favorites');
-});
+
 Route::get('/forgot-password', function () {
-    return view('/forgot-password');
+    return render('/forgot-password');
 });
 
 Route::get('/upload-product-page', function () {
-    return view('/upload-product-page');
+    return render('/upload-product-page');
 });

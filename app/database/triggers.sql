@@ -1,4 +1,4 @@
-USE tienda;
+USE ecommerce;
 
 DELIMITER //
 CREATE TRIGGER calculate_cart_line_price

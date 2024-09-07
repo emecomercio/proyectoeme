@@ -3,38 +3,83 @@
 namespace App\Models;
 
 use mysqli;
+use Exception;
+use InvalidArgumentException;
 
 class DatabaseModel
 {
-    public $connection;
+    private $conn;
+    private $roles;
 
-    public function __construct()
+    public function __construct($role)
     {
-        $this->connection = new mysqli($_ENV['DB_HOST'], $_ENV['DB_USER'], $_ENV['DB_PASSWORD'], $_ENV['DB_NAME']);
-        if ($this->connection->connect_error) {
-            die("Conexión fallida: " . $this->connection->connect_error);
+        $this->roles = json_decode($_ENV['DB_USERS'], true);
+
+        if (!isset($this->roles[$role])) {
+            throw new InvalidArgumentException("Invalid role specified.");
+        }
+        $this->conn = $this->getConnection($role);
+    }
+
+    public function getConnection($role)
+    {
+
+        $host = 'localhost';
+        $database = 'ecommerce';
+        $username = $this->roles[$role]['user'] ?? 'guest';
+        $password = $this->roles[$role]['password'] ?? 'guest';
+
+        $mysqli = new mysqli($host, $username, $password, $database);
+
+        if ($mysqli->connect_error) {
+            throw new Exception("Database connection failed: " . $mysqli->connect_error);
+        }
+
+        return $mysqli;
+    }
+
+    public function prepare($sql)
+    {
+        $stmt = $this->conn->prepare($sql);
+        if (!$stmt) {
+            throw new Exception("Prepare failed: " . $this->conn->error);
+        }
+        return $stmt;
+    }
+
+    public function executeQuery($query, $params = [], $types = '')
+    {
+        try {
+            $stmt = $this->prepare($query);
+
+            // Si hay parámetros, los vinculamos
+            if (!empty($params)) {
+                $stmt->bind_param($types, ...$params);
+            }
+
+            $stmt->execute();
+            return $stmt;
+        } catch (Exception $e) {
+            // Manejar la excepción de forma centralizada
+            error_log("Query failed: " . $e->getMessage());
+            throw new Exception("Query failed.");
         }
     }
-    public function query($query)
+
+    public function fetchAll($query, $params = [], $types = '')
     {
-        return $this->connection->query($query);
+        $stmt = $this->executeQuery($query, $params, $types);
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function prepare($query)
+    public function fetchOne($query, $params = [], $types = '')
     {
-        return $this->connection->prepare($query);
-    }
-
-    public function close()
-    {
-        if ($this->connection !== null) {
-            $this->connection->close();
-            $this->connection = null;
-        }
+        $stmt = $this->executeQuery($query, $params, $types);
+        return $stmt->get_result()->fetch_assoc();
     }
 
     public function __destruct()
     {
-        $this->close();
+        $this->conn->close();
     }
 }

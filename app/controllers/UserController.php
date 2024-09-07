@@ -3,99 +3,121 @@
 namespace App\Controllers;
 
 use App\Models\UserModel;
-use App\Services\UserService;
+use Lib\View;
 
-
-class UserController
+class UserController extends BaseController
 {
-    protected $userService;
+    protected $userModel;
 
-    public function __construct()
+    public function __construct($role)
     {
-        $this->userService = new UserService;
+        parent::__construct($role);
+        $this->userModel = new UserModel($role);
     }
 
-    // Para los estaticos tengo que instanciar manualmente el UserService
-    static public function usersTable()
+    public function showLogin($msg = '')
     {
-        $userService = new UserService;
-        $users = $userService->all();
-        view("usersTable", [
-            "users" => $users,
-            "title" => "Usuarios"
-        ]);
+        $_SESSION['msg']['login'] = $msg;
+        redirect('/login');
     }
 
-    static public function register()
+    public function cart()
     {
-        $userModel = new UserModel;
-        $email = $_POST['email'];
-        $password = $_POST['password'];
-        $user_type = $_POST['user-type'] ?? '';
-        $password_check = $_POST['password-check'];
-        $username = $_POST['username'];
 
-        if ($userModel->existsEmail($email)) {
-            $_SESSION['error'] = $user_type == "enterprise" ? "Ya existe una empresa registrada con ese correo" : "Ya existe un usuario con ese correo";
-            $redirection = $user_type == "enterprise" ? "/register-enterprise" : "/register-user";
-            redirect("$redirection");
-        }
-
-        if ($userModel->existsUsername($username)) {
-            $_SESSION['error'] = $user_type == "enterprise" ? "Ya existe una empresa registrada con ese nombre de usuario" : "Ya existe un usuario con ese nombre de usuario";
-            $redirection = $user_type == "enterprise" ? "/register-enterprise" : "/register-user";
-            redirect("$redirection");
-        }
-
-        if ($password == $password_check) {
-            $userModel->register($username, $email, $password);
-            $user = $userModel->getUserByEmail($email);
-            $_SESSION['user_id'] = $user["id"];
-            $_SESSION['user_name'] = $user["username"];
-            redirect("/");
-        } else {
-            echo "[No deberia llegar hasta aca] las contraseñas no coinciden";
-        }
+        $view = function ($role) {
+            $cart = new View("$role/cart", $role);
+            $cart->data = [
+                "title" => "Carrito | EME Comercio"
+            ];
+            $cart->styles = [
+                "pages/cart"
+            ];
+            $cart->scripts = [
+                [
+                    "type" => "module",
+                    "src" => "js/pages/cart.js"
+                ]
+            ];
+            $cart->render();
+        };
+        $this->role != 'admin' && $this->role != 'seller'
+            ? $view($this->role)
+            : redirect('/');
     }
 
-    static public function login()
+    public function settings()
     {
-        $userModel = new UserModel;
-        $email = $_POST['email'];
-        $password = $_POST['password'];
-        $user_type = $_POST['user-type'] ?? '';
-        if ($userModel->existsEmail($email) && $userModel->validatePassword($email, $password)) {
-            $user = $userModel->getUserByEmail($email);
-            $_SESSION['user_id'] = $user["id"];
-            $_SESSION['user_name'] = $user["username"];
-            redirect("/");
-        } else {
-            $_SESSION['error'] = "Usuario o contraseña incorrectos";
-            $redirection = $user_type == "enterprise" ? "/login-enterprise" : "/login-user";
-            redirect("$redirection");
-        }
+        $show = function ($view) {
+            $settings = new View($view, $this->role);
+            $settings->data = [
+                "title" => "Settings | EME Comercio"
+            ];
+            $settings->styles = [
+                "pages/settings"
+            ];
+            $settings->render();
+        };
+        $this->role != 'guest'
+            ? $show($this->role  . "/settings")
+            : $this->showLogin('Necesitas iniciar sesión primero');
     }
 
-    static public function logout()
+
+
+    // static public function register()
+    // {
+    //     $email = $_POST['email'];
+    //     $password = $_POST['password'];
+    //     $user_type = $_POST['user-type'] ?? '';
+    //     $password_check = $_POST['password-check'];
+    //     $username = $_POST['username'];
+
+    //     if ($userModel->existsEmail($email)) {
+    //         $_SESSION['error'] = $user_type == "enterprise" ? "Ya existe una empresa registrada con ese correo" : "Ya existe un usuario con ese correo";
+    //         $redirection = $user_type == "enterprise" ? "/register-enterprise" : "/register-user";
+    //         redirect("$redirection");
+    //     }
+
+    //     if ($userModel->existsUsername($username)) {
+    //         $_SESSION['error'] = $user_type == "enterprise" ? "Ya existe una empresa registrada con ese nombre de usuario" : "Ya existe un usuario con ese nombre de usuario";
+    //         $redirection = $user_type == "enterprise" ? "/register-enterprise" : "/register-user";
+    //         redirect("$redirection");
+    //     }
+
+    //     if ($password == $password_check) {
+    //         $userModel->register($username, $email, $password);
+    //         $user = $userModel->getUserByEmail($email);
+    //         $_SESSION['user_id'] = $user["id"];
+    //         $_SESSION['user_name'] = $user["username"];
+    //         redirect("/");
+    //     } else {
+    //         echo "[No deberia llegar hasta aca] las contraseñas no coinciden";
+    //     }
+    // }
+
+    // static public function login()
+    // {
+    //     $userModel = new UserModel;
+    //     $email = $_POST['email'];
+    //     $password = $_POST['password'];
+    //     $user_type = $_POST['user-type'] ?? '';
+    //     if ($userModel->existsEmail($email) && $userModel->validatePassword($email, $password)) {
+    //         $user = $userModel->getUserByEmail($email);
+    //         $_SESSION['user_id'] = $user["id"];
+    //         $_SESSION['user_name'] = $user["username"];
+    //         redirect("/");
+    //     } else {
+    //         $_SESSION['error'] = "Usuario o contraseña incorrectos";
+    //         $redirection = $user_type == "enterprise" ? "/login-enterprise" : "/login-user";
+    //         redirect("$redirection");
+    //     }
+    // }
+
+    public function logout()
     {
-        session_start();
         session_unset();
         session_destroy();
-        redirect("/");
-    }
-
-    static public function getUserDashboard()
-    {
-        $userModel = new UserModel;
-        $id = $_SESSION['user_id'] ?? '';
-        if ($id != '') {
-            $user = $userModel->find($id);
-            view("user/dashboard", [
-                "user" => $user,
-            ]);
-        } else {
-            $_SESSION['error_message'] = "Debe iniciar sesión";
-            redirect("/login-user");
-        }
+        session_start();
+        $this->showLogin('Sesión cerrada con éxito');
     }
 }

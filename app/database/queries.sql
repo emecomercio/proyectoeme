@@ -1,9 +1,12 @@
-USE tienda;
+USE ecommerce;
 
-DESCRIBE cart_lines;
+SELECT * FROM users;
+SELECT * FROM buyers;
+SELECT * FROM sellers;
+SELECT * FROM phones;
+SELECT * FROM addresses;
 SELECT * FROM carts;
 SELECT * FROM cart_lines;
-SELECT * FROM users;
 SELECT * FROM images;
 SELECT * FROM discounts;
 SELECT * FROM catalogs;
@@ -89,3 +92,28 @@ FROM
     addresses a
 JOIN 
     users u ON a.user_id = u.id;
+
+-- TODOS LOS PRODUCTOS CON SU INFORMACION --
+
+SELECT 
+    p.id AS product_id,
+    p.name AS product_name,
+    p.description AS product_description,
+    pv.id AS variant_id,
+    pv.current_price AS variant_price,
+    pv.stock AS variant_stock,
+    pv.state AS variant_state,
+    va.name AS attribute_name,
+    va.value AS attribute_value,
+    i.image_url AS image_url,
+    i.alt_text AS image_alt_text,
+    i.width AS image_width,
+    i.height AS image_height
+FROM 
+    products p
+JOIN 
+    product_variants pv ON pv.product_id = p.id
+LEFT JOIN 
+    variant_attributes va ON va.variant_id = pv.id
+LEFT JOIN 
+    images i ON i.variant_id = pv.id

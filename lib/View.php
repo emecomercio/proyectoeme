@@ -6,13 +6,15 @@ class View
 {
     protected $template;
     protected $view;
-    protected $meta = [];
+    public $meta = [];
+    public $scripts = [];
+    public $styles = [];
     public $data = [];
 
-    public function __construct($view, $template = 'templates/app.php')
+    public function __construct($view, $template = 'guest')
     {
         $this->view = $view;
-        $this->template = $template;
+        $this->template = 'templates/' . $template . '.php';
     }
 
     public function render()

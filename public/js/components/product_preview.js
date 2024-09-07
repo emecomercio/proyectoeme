@@ -1,12 +1,12 @@
-export function productPreview() {
+export function productPrerender() {
   document.addEventListener("DOMContentLoaded", function () {
     const imageInput = document.getElementById("imageInput");
-    const imagePreview = document.getElementById("imagePreview");
+    const imagePrerender = document.getElementById("imagePrerender");
     const imageCounter = document.getElementById("imageCounter");
     const maxImages = 5;
 
     function updateImageCounter() {
-      const existingImagesCount = imagePreview.childElementCount;
+      const existingImagesCount = imagePrerender.childElementCount;
       imageCounter.innerHTML = `Fotos ${existingImagesCount}/${maxImages} <br>- Puedes agregar un máximo de 5 fotos en formato .png o .jpeg`;
     }
 
@@ -20,7 +20,7 @@ export function productPreview() {
 
     imageInput.addEventListener("change", function (event) {
       const files = event.target.files;
-      const existingImagesCount = imagePreview.childElementCount;
+      const existingImagesCount = imagePrerender.childElementCount;
       const totalImagesCount = existingImagesCount + files.length;
 
       if (totalImagesCount > maxImages) {
@@ -36,7 +36,7 @@ export function productPreview() {
           reader.onload = function (e) {
             // Verificar si ya hay una imagen existente antes de agregar una nueva
             const existingImageCount =
-              imagePreview.querySelectorAll(".image-container").length;
+              imagePrerender.querySelectorAll(".image-container").length;
             if (existingImageCount >= maxImages) {
               alert(`Ya has agregado el máximo de ${maxImages} imágenes.`);
               return;
@@ -56,7 +56,7 @@ export function productPreview() {
 
             imageContainer.appendChild(img);
             imageContainer.appendChild(deleteButton);
-            imagePreview.appendChild(imageContainer);
+            imagePrerender.appendChild(imageContainer);
 
             updateImageCounter(); // Actualizar el contador después de añadir la imagen
           };
@@ -70,7 +70,7 @@ export function productPreview() {
       });
     });
 
-    imagePreview.addEventListener("click", handleImageDelete); // Manejar la eliminación de imágenes
+    imagePrerender.addEventListener("click", handleImageDelete); // Manejar la eliminación de imágenes
 
     updateImageCounter(); // Actualizar el contador al cargar la página por primera vez
   });
