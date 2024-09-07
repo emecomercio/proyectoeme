@@ -49,7 +49,7 @@
                     <br /><?= $_SESSION['user_name'] ?? "Usuario" ?>
                     <div class="dropdown-content" style="display: none;">
                         <div class="register-login" id="register-login">
-                            <a href="/register">Registrarse</a>
+                            <a href="/register/buyer">Registrarse</a>
                             <a href="/login">Ingresar</a>
                         </div>
                     </div>

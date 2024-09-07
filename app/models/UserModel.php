@@ -41,15 +41,15 @@ class UserModel extends DatabaseModel
 
     public function create(array $data = [])
     {
-        $username = $data['username'];
         $email = $data['email'];
+        $username = $data['username'] ?? $email;
         $password = $data['password'];
         $document_number = $data['document-number'];
+        $role = $data['role'];
+        $name = $data['name'];
         $password_hash = password_hash($password, PASSWORD_DEFAULT);
-        $query = "INSERT INTO users (username,email, password_hash, document_number) VALUES (?,?,?,?)";
-        $preparation = $this->prepare($query);
-        $preparation->bind_param("ssss", $username, $email, $password_hash, $document_number);
-        return $preparation->execute();
+        $query = "INSERT INTO users (username,email, password_hash, document_number, role, name) VALUES (?,?,?,?,?,?)";
+        return $this->executeQuery($query, [$username, $email, $password_hash, $document_number, $role, $name], 'ssssss');
     }
 
     public function activate($id)

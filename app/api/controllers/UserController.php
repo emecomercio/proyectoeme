@@ -44,15 +44,4 @@ class UserController extends BaseController
             $this->handleException($e, "Error retrieving user");
         }
     }
-
-    public function create()
-    {
-        try {
-            $data = json_decode(file_get_contents('php://input'), true);
-            $user = $this->userModel->create($data);
-            $this->respondWithSuccess($user, 201);
-        } catch (Exception $e) {
-            $this->handleException($e, "Error creating user");
-        }
-    }
 }

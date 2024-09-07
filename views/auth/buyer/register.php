@@ -8,8 +8,8 @@
         <input type="checkbox" required name="checkbox">
         <p>He leido y acepto los <a href="/terms-and-conditions">Terminos y condiciones </a></p>
     </div>
-    <button type="submit" onclick="show();">Registrarse</button>
-    <a href="/register-enterprise">Registrarse como empresa</a>
+    <button type="submit">Registrarse</button>
+    <a href="/register/seller">Registrarse como empresa</a>
 </form>
 
 <script type="module" src="">
@@ -25,7 +25,7 @@
         });
 
         // Enviar los datos con fetch
-        fetch('/api/user', {
+        fetch('/api/users', {
                 method: 'POST', // o el método que necesites
                 headers: {
                     'Content-Type': 'application/json'

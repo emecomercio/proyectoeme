@@ -8,6 +8,7 @@ CREATE TABLE users (
     username VARCHAR(255) NOT NULL UNIQUE,
     email VARCHAR(255) NOT NULL UNIQUE,
     document_number VARCHAR(255) NOT NULL UNIQUE,
+    name VARCHAR(255) NOT NULL,
     password_hash VARCHAR(255) NOT NULL,
     active TINYINT DEFAULT 1,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -16,14 +17,12 @@ CREATE TABLE users (
 
 CREATE TABLE buyers (
     id INT PRIMARY KEY,
-    fullname VARCHAR(255) NULL,
     birthdate DATE  NULL,
     FOREIGN KEY (id) REFERENCES users(id)
 );
 
 CREATE TABLE sellers (
     id INT PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
     description TEXT NULL,
     website VARCHAR(255) NULL,
     logo_url VARCHAR(255) NULL,

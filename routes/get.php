@@ -53,10 +53,10 @@ Route::get('/login', function () {
     $login->render();
 });
 
-Route::get('/register', function () {
-    $register = new View('auth/buyers/register', 'alter/guest');
+Route::get('/register/{role}', function ($role) {
+    $register = new View("auth/$role/register", 'alter/guest');
     $register->data = [
-        'title' => 'Register | EME Comercio'
+        'title' => 'Registro | EME Comercio'
     ];
     $register->styles = [
         'pages/register-login'

@@ -5,6 +5,7 @@ namespace App\Models;
 use mysqli;
 use Exception;
 use InvalidArgumentException;
+use mysqli_sql_exception;
 
 class DatabaseModel
 {
@@ -59,12 +60,17 @@ class DatabaseModel
 
             $stmt->execute();
             return $stmt;
+        } catch (mysqli_sql_exception $e) {
+            // Manejar la excepción específica de MySQLi
+            error_log("MySQLi Query failed: " . $e->getMessage());
+            throw $e;  // Lanzar la excepción para que pueda ser capturada más arriba
         } catch (Exception $e) {
-            // Manejar la excepción de forma centralizada
+            // Manejar otras excepciones generales
             error_log("Query failed: " . $e->getMessage());
             throw new Exception("Query failed.");
         }
     }
+
 
     public function fetchAll($query, $params = [], $types = '')
     {

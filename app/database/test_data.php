@@ -35,40 +35,40 @@ $pdo = new PDO('mysql:host=localhost;dbname=ecommerce', 'root', 'root'); // Conf
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 // Insertar datos en la tabla users
-function insertUsers(PDO $pdo, Generator $faker, int $num)
-{
-    $stmt = $pdo->prepare("
-        INSERT INTO users (role, username, email, password_hash, document_number) 
-        VALUES (:role, :username, :email, :password_hash, :document_number)
-    ");
+// function insertUsers(PDO $pdo, Generator $faker, int $num)
+// {
+//     $stmt = $pdo->prepare("
+//         INSERT INTO users (role, username, email, password_hash, document_number) 
+//         VALUES (:role, :username, :email, :password_hash, :document_number)
+//     ");
 
-    for ($i = 0; $i < $num; $i++) {
-        $role = $faker->randomElement(['buyer', 'seller', 'admin']);
-        $username = $faker->userName;
-        $email = $faker->email;
-        $document_number = $faker->ssn;
-        $password_hash = password_hash($faker->password, PASSWORD_BCRYPT);
+//     for ($i = 0; $i < $num; $i++) {
+//         $role = $faker->randomElement(['buyer', 'seller', 'admin']);
+//         $username = $faker->userName;
+//         $email = $faker->email;
+//         $document_number = $faker->ssn;
+//         $password_hash = password_hash($faker->password, PASSWORD_BCRYPT);
 
-        $stmt->execute([
-            ':role' => $role,
-            ':username' => $username,
-            ':email' => $email,
-            ':password_hash' => $password_hash,
-            ':document_number' => $document_number
-        ]);
-    }
-}
+//         $stmt->execute([
+//             ':role' => $role,
+//             ':username' => $username,
+//             ':email' => $email,
+//             ':password_hash' => $password_hash,
+//             ':document_number' => $document_number
+//         ]);
+//     }
+// }
 
-function insertBuyers($pdo, $faker, $num)
+function insertBuyers(PDO $pdo, Generator $faker, int $num)
 {
     $insertUserStmt = $pdo->prepare("
-        INSERT INTO users (role, username, email, password_hash, document_number) 
-        VALUES (:role, :username, :email, :password_hash, :document_number)
+        INSERT INTO users (role, username, email, password_hash, document_number, name) 
+        VALUES (:role, :username, :email, :password_hash, :document_number, :name)
     ");
 
     $insertBuyerStmt = $pdo->prepare("
-        INSERT INTO buyers (id, fullname, birthdate) 
-        VALUES (:id, :fullname, :birthdate)
+        INSERT INTO buyers (id, birthdate) 
+        VALUES (:id, :birthdate)
     ");
 
     // Preparar consultas para verificar si el email o el username ya existen
@@ -79,6 +79,7 @@ function insertBuyers($pdo, $faker, $num)
         $role = 'buyer';
         $username = $faker->userName;
         $email = $faker->email;
+        $name = ucwords($faker->name());
         $password_hash = password_hash($faker->password, PASSWORD_BCRYPT);
         $document_number = $faker->unique()->numberBetween(10000000, 99999999);
 
@@ -108,6 +109,7 @@ function insertBuyers($pdo, $faker, $num)
             ':role' => $role,
             ':username' => $username,
             ':email' => $email,
+            ':name' => $name,
             ':password_hash' => $password_hash,
             ':document_number' => $document_number
         ]);
@@ -116,28 +118,26 @@ function insertBuyers($pdo, $faker, $num)
         $userId = $pdo->lastInsertId();
 
         // Insertar en la tabla buyers usando el ID del usuario
-        $fullname = $faker->name;
         $birthdate = $faker->date;
 
         $insertBuyerStmt->execute([
             ':id' => $userId,
-            ':fullname' => $fullname,
             ':birthdate' => $birthdate
         ]);
     }
 }
 
 
-function insertSellers($pdo, $faker, $num)
+function insertSellers(PDO $pdo, Generator $faker, int $num)
 {
     $insertUserStmt = $pdo->prepare("
-        INSERT INTO users (role, username, email, password_hash, document_number) 
-        VALUES (:role, :username, :email, :password_hash, :document_number)
+        INSERT INTO users (role, username, email, password_hash, document_number, name) 
+        VALUES (:role, :username, :email, :password_hash, :document_number, :name)
     ");
 
     $insertSellerStmt = $pdo->prepare("
-        INSERT INTO sellers (id, name, description, website, logo_url, mercadopago_account, paypal_account) 
-        VALUES (:id, :name, :description, :website, :logo_url, :mercadopago_account, :paypal_account)
+        INSERT INTO sellers (id, description, website, logo_url, mercadopago_account, paypal_account) 
+        VALUES (:id, :description, :website, :logo_url, :mercadopago_account, :paypal_account)
     ");
 
     // Preparar consultas para verificar si el email o el username ya existen
@@ -147,6 +147,7 @@ function insertSellers($pdo, $faker, $num)
     for ($i = 0; $i < $num; $i++) {
         $role = 'seller';
         $username = $faker->userName;
+        $name = ucwords($faker->company);
         $email = $faker->email;
         $password_hash = password_hash($faker->password, PASSWORD_BCRYPT);
         $document_number = $faker->unique()->numberBetween(10000000, 99999999);
@@ -177,15 +178,13 @@ function insertSellers($pdo, $faker, $num)
             ':role' => $role,
             ':username' => $username,
             ':email' => $email,
+            ':name' => $name,
             ':password_hash' => $password_hash,
             ':document_number' => $document_number
         ]);
 
         // Obtener el ID del usuario insertado
         $userId = $pdo->lastInsertId();
-
-        // Insertar en la tabla sellers usando el ID del usuario
-        $name = $faker->company;
         $description = $faker->text;
         $website = $faker->url;
         $logo_url = $faker->imageUrl;
@@ -194,7 +193,6 @@ function insertSellers($pdo, $faker, $num)
 
         $insertSellerStmt->execute([
             ':id' => $userId,
-            ':name' => $name,
             ':description' => $description,
             ':website' => $website,
             ':logo_url' => $logo_url,

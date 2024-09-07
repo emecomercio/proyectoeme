@@ -3,18 +3,24 @@
 namespace App\Services;
 
 use  App\Models\UserModel;
+use App\Models\BuyerModel;
+use App\Models\SellerModel;
 
 
 class AuthService
 {
 
     protected $userModel;
+    protected $sellerModel;
+    protected $buyerModel;
     protected $role;
 
     public function __construct($role)
     {
         $this->role = $role;
-        $this->userModel = new UserModel('admin');
+        $this->userModel = new UserModel('admin'); // ESTO DEBERIA CAMBIAR Y ACEPTAR INSERTS EN USERS PARA GUEST
+        $this->sellerModel = new SellerModel('admin');
+        $this->buyerModel = new BuyerModel('admin');
     }
 
     // Método para autenticar a un usuario
@@ -34,6 +40,18 @@ class AuthService
 
         return $user;
     }
+
+    public function create($data = [])
+    {
+        $user = $this->userModel->create($data);
+        $data['role'] == 'seller'
+            ? $this->sellerModel->update($data)
+            : $this->buyerModel->update($data);
+
+        return $user;
+    }
+
+
 
     public function logout()
     {

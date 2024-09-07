@@ -40,7 +40,7 @@ class UserController extends BaseController
             ];
             $cart->render();
         };
-        $this->role != 'admin' && $this->role != 'seller'
+        $this->role != 'admin' || $this->role != 'seller'
             ? $view($this->role)
             : redirect('/');
     }

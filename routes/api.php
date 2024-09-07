@@ -20,6 +20,11 @@ Route::post('/api/login', function () {
     $auth->login();
 });
 
+Route::post('/api/register', function () {
+    $role = getUserRole();
+    $authController = new AuthController($role);
+    $authController->create();
+});
 
 // USERS
 
@@ -37,11 +42,6 @@ Route::get('/api/users/{id}', function ($id) {
     $user->find($id);
 });
 
-Route::post('/api/users', function () {
-    $role = getUserRole();
-    $user = new UserController($role);
-    $user->create();
-});
 
 // PRODUCTS
 

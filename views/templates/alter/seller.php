@@ -17,9 +17,10 @@
         loadCSS($style);
     }
     ?>
+    <script type="module" src="<?= asset('/js/main.js') ?>"></script>
     <?php
     foreach ($this->scripts as $script) {
-        echo "<script type='{$script['type']}' src='{$script['src']}'></script>";
+        echo "<script type='{$script['type']}' src='" . asset($script['src']) . "'></script>";
     }
     ?>
     <title><?= $title ?></title>
@@ -39,6 +40,10 @@
                 </a>
             </div>
             <div class="buscador">
+                <input type="search" placeholder="buscar" class="BarraBusqueda" />
+                <button type="button" class="BotonBusqueda">
+                    <img class="LogoBusqueda" src="<?= loadIMG("icons/lupa_icono_negro.png") ?>" alt="Buscar" />
+                </button>
             </div>
             <nav class="iconos">
 
@@ -46,9 +51,17 @@
                     <img src="<?= loadIMG("icons/usuario_icono.png") ?>" class="icono" alt="Usuario" />
                     <br /><?= $_SESSION['user_name'] ?? "Usuario" ?>
                     <div class="dropdown-content" style="display: none;">
-                        <div class="user-data" id="user-dropdown">
+                        <div class="user-data" id="user-dropdown" style="display: block;">
                             <a href="/settings">Configuracion</a>
-                            <a href="/logout">Cerrar sesión</a>
+                            <form action="/logout" method="post" id='logout-form'>
+                                <a id="logout-btn">Cerrar sesión</a>
+                            </form>
+                            <script>
+                                const logoutForm = document.getElementById('logout-form')
+                                document.getElementById('logout-btn').addEventListener('click', () => {
+                                    logoutForm.submit()
+                                })
+                            </script>
                         </div>
                     </div>
                 </div>
@@ -59,9 +72,9 @@
                     <div class="dropdown-content" style="display: none;">
                         <a href="/cart">Carrito</a>
                         <div class="shopping" id="shopping">
-                            <a href="/shopping">Compras</a>
+                            <a href="/shopping-history">Compras</a>
                         </div>
-                        <a href="/history">Historial</a>
+                        <a href="/search-history">Historial</a>
 
                     </div>
                 </div>

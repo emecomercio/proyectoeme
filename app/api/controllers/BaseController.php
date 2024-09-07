@@ -51,6 +51,15 @@ class BaseController
                 'status' => 'error',
                 'message' => 'You do not have permission to access this resource.'
             ]);
+        } elseif (in_array($e->getCode(), [1062])) {
+            error_log($e->getMessage());
+            $this->respondWithError($e->getMessage(), 400);
+        } elseif (in_array($e->getCode(), [1452])) {
+            error_log($e->getMessage());
+            $this->respondWithError('Foreign key constraint fails', 400);
+        } elseif (in_array($e->getCode(), [1054])) {
+            error_log($e->getMessage());
+            $this->respondWithError('Unknown column', 400);
         } else {
             // Si es otro tipo de error, puedes manejarlo de forma diferente
             http_response_code(500);

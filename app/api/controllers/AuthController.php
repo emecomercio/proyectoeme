@@ -4,6 +4,7 @@ namespace App\Api\Controllers;
 
 use Exception;
 use App\Services\AuthService;
+use mysqli_sql_exception;
 
 class AuthController extends BaseController
 {
@@ -28,6 +29,22 @@ class AuthController extends BaseController
             $this->respondWithSuccess($user, 200);
         } catch (Exception $e) {
             $this->handleException($e, "Error logging in");
+        }
+    }
+
+    public function create()
+    {
+        try {
+            $data = json_decode(file_get_contents('php://input'), true);
+            $user = $this->authService->create($data);
+
+            $this->respondWithSuccess($user, 201);
+        } catch (mysqli_sql_exception $e) {
+            // Errores especificos de la BD
+            $this->handleDatabaseError($e);
+        } catch (Exception $e) {
+            // Errores generales
+            $this->handleException($e, "Error creating user");
         }
     }
 }
