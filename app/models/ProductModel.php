@@ -63,7 +63,7 @@ class ProductModel extends DatabaseModel
             LEFT JOIN 
                 images i ON i.variant_id = pv.id
             WHERE
-                p.id = ?
+                pv.id = ?
             ";
         return $this->fetchOne($query, [$id], 'i');
     }

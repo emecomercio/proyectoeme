@@ -1,4 +1,4 @@
-<a href="/product-page/<?= $product["id"] ?>" class="product-card">
+<a href="/product-page/<?= $product["variant_id"] ?>" class="product-card">
     <img
         src="<?= $product['images']['500x500']['url'] ?? "https://picsum.photos/200/300?random=168" ?>"
         width="500" height="500"
