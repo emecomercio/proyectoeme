@@ -5,6 +5,7 @@ use Lib\Route;
 use App\Controllers\HomeController;
 use App\Controllers\UserController;
 use App\Controllers\BuyerController;
+use App\Controllers\SellerController;
 use App\Controllers\ProductController;
 
 Route::get('/vista', function () {
@@ -90,6 +91,20 @@ Route::get('/search-history', function () {
     $buyerController->showSearchHistory();
 });
 
+// SELLERS
+
+Route::get('/store/upload', function () {
+    $role = getUserRole();
+    $sellerController = new SellerController($role);
+    $sellerController->showUploadProduct();
+});
+
+Route::get('/store/settings', function () {
+    $role = getUserRole();
+    $sellerController = new SellerController($role);
+    $sellerController->showSettings();
+});
+
 // PRODUCTS
 
 Route::get('/product-page/{id}', function ($id) {
@@ -97,6 +112,13 @@ Route::get('/product-page/{id}', function ($id) {
     $productController = new ProductController($role);
     $productController->index($id);
 });
+
+Route::get('/catalog/{id}', function ($id) {
+    $role = getUserRole();
+    $productController = new ProductController($role);
+    $productController->showCatalog($id);
+});
+
 
 // ENTERPRISE ROUTES
 

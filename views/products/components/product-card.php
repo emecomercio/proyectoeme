@@ -5,7 +5,7 @@
         alt="<?= "altext" ?>" />
     <div class="product-info">
         <h2 class="product-title"><?= $product['name'] ?></h2>
-        <span class="product-price"><?= $product['price'] ?? 2 ?></span>
+        <span class="product-price">$<?= $product['price'] ?? 2 ?></span>
         <p class="shipment">Envio gratis</p>
     </div>
 </a>

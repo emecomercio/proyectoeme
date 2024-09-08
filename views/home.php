@@ -5,7 +5,13 @@
 ?>
 <?php render("feedback/alert") ?>
 <?php render("feedback/alert-cookie") ?>
-<?php render("products/components/categories") ?>
+<section class="section-categories">
+    <?php
+    foreach ($catalogs as $catalog) {
+        render("products/components/catalog", ["catalog" => $catalog]);
+    }
+    ?>
+</section>
 <div class="product-grid">
     <?php
     $i = 0;

@@ -3,26 +3,31 @@
 namespace App\Controllers;
 
 use Lib\View;
+use App\Models\CatalogModel;
 
 class HomeController extends BaseController
 {
     protected $userController;
     protected $productController;
+    protected $categoryModel;
 
     public function __construct($role)
     {
         parent::__construct($role);
         $this->userController = new UserController($role);
         $this->productController = new ProductController($role);
+        $this->categoryModel = new CatalogModel($role);
     }
 
     public function index()
     {
+        $catalogs = $this->categoryModel->all();
         $products = $this->productController->all();
         $home = new View("home", getUserRole());
         $home->data = [
             "title" => "Home Page | EME Comercio",
-            "products" => $products
+            "products" => $products,
+            "catalogs" => $catalogs
         ];
         $home->styles = [
             "pages/homepage"

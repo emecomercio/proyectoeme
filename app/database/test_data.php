@@ -304,7 +304,7 @@ function insertCatalogs(PDO $pdo, Generator $faker, int $num)
 
     for ($i = 0; $i < $num; $i++) {
         $discount_id = $faker->optional()->randomElement($discountIds); // Puede ser NULL si no hay descuento asociado
-        $name = $faker->word;
+        $name = ucwords($faker->word);
 
         $stmt->execute([
             ':discount_id' => $discount_id,

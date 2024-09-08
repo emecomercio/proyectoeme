@@ -97,12 +97,13 @@ JOIN
 
 SELECT 
     p.id AS product_id,
-    p.name AS product_name,
-    p.description AS product_description,
+    p.name AS name,
+    p.description AS description,
+    p.catalog_id AS catalog_id,
     pv.id AS variant_id,
-    pv.current_price AS variant_price,
+    pv.current_price AS current_price,
+    pv.last_price AS last_price,
     pv.stock AS variant_stock,
-    pv.state AS variant_state,
     va.name AS attribute_name,
     va.value AS attribute_value,
     i.image_url AS image_url,
