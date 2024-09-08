@@ -472,8 +472,8 @@ function insertImages(PDO $pdo, Generator $faker, int $num)
 function insertImagesBySize(PDO $pdo, Generator $faker, int $num, array $size = ['width' => 500, 'height' => 500])
 {
     $stmt = $pdo->prepare("
-        INSERT INTO images (variant_id, src, alt_text, width, height) 
-        VALUES (:variant_id, :src, :alt_text, :width, :height)
+        INSERT INTO images (variant_id, src, alt, width, height) 
+        VALUES (:variant_id, :src, :alt, :width, :height)
     ");
 
     // Obtener IDs de variantes de productos existentes
@@ -489,7 +489,7 @@ function insertImagesBySize(PDO $pdo, Generator $faker, int $num, array $size = 
         $stmt->execute([
             ':variant_id' => $variant_id,
             ':src' => $src,
-            ':alt_text' => $alt_text,
+            ':alt' => $alt_text,
             ':width' => $width,
             ':height' => $height
         ]);

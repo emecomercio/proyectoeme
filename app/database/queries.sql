@@ -117,4 +117,4 @@ JOIN
 LEFT JOIN 
     variant_attributes va ON va.variant_id = pv.id
 LEFT JOIN 
-    images i ON i.variant_id = pv.id
+    images i ON i.variant_id = pv.id;

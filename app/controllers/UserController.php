@@ -34,8 +34,10 @@ class UserController extends BaseController
             ];
             $cart->scripts = [
                 [
-                    "type" => "module",
-                    "src" => "js/pages/cart.js"
+                    "type" => "",
+                    "src" => "/js/components/cart_products.js",
+                    "defer" => true
+
                 ]
             ];
             $cart->render();

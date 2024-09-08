@@ -35,17 +35,35 @@ class ProductController extends BaseController
 
     public function getVariants($id)
     {
+        // Obtener el producto para el ID dado
+        $product = $this->productModel->find($id); // Método hipotético para obtener el producto
+
+        if (!$product) {
+            return null; // O manejar el caso donde el producto no existe
+        }
+
+        // Obtener variantes para el producto actual
         $variants = $this->productModel->getVariants($id);
-        foreach ($variants as $key => $variant) {
+
+        // Obtener imágenes para cada variante
+        foreach ($variants as &$variant) {
             $images = $this->imageModel->getByProduct($variant['variant_id']);
+            $i = 0;
             foreach ($images as $image) {
                 $width = $image['width'];
                 $height = $image['height'];
-                $variants[$key]['images'][($width . 'x' . $height)]['src'][] = $image['src'];
+                $variant['images'][($width . 'x' . $height)][$i]['src'] = $image['src'];
+                $variant['images'][($width . 'x' . $height)][$i]['alt'] = $image['alt'];
+
+                $i++;
             }
         }
-        return $variants;
+
+        // Asignar las variantes al producto
+        $product['variants'] = $variants;
+        return $product;
     }
+
 
     public function allWithVariants()
     {
@@ -60,10 +78,14 @@ class ProductController extends BaseController
             // Obtener imágenes para cada variante
             foreach ($variants as &$variant) {
                 $images = $this->imageModel->getByProduct($variant['variant_id']);
+                $i = 0;
                 foreach ($images as $image) {
                     $width = $image['width'];
                     $height = $image['height'];
-                    $variant['images'][($width . 'x' . $height)]['src'][] = $image['src'];
+                    $variant['images'][($width . 'x' . $height)][$i]['src'] = $image['src'];
+                    $variant['images'][($width . 'x' . $height)][$i]['alt'] = $image['alt'];
+
+                    $i++;
                 }
             }
 
@@ -79,11 +101,20 @@ class ProductController extends BaseController
 
     public function index($id)
     {
-        $product = $this->productModel->find($id);
+        $product = $this->getVariants($id);
+
+        if (!empty($product['variants'])) {
+            // Obtener un índice aleatorio dentro del rango válido
+            $randomIndex = rand(0, count($product['variants']) - 1);
+            // Obtener la variante aleatoria
+            $randomVariant = $product['variants'][$randomIndex];
+        }
+
         $view = new View('products/show');
         $view->data = [
             "title" => $product['name'],
-            "product" => $product
+            "product" => $product,
+            "randomVariant" => $randomVariant
         ];
         $view->styles = [
             "pages/product-page"
@@ -91,11 +122,11 @@ class ProductController extends BaseController
         $view->scripts = [
             [
                 "type" => "module",
-                "src" => "/js/main.js"
+                "src" => "/js/pages/product_page.js"
             ],
             [
-                "type" => "module",
-                "src" => "/js/pages/product_page.js"
+                "src" => "/js/components/add_to_cart_button.js",
+                "defer" => true
             ]
         ];
 

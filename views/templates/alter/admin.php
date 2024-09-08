@@ -21,9 +21,26 @@
     <script type="module" src="<?= asset('/js/main.js') ?>"></script>
     <?php
     foreach ($this->scripts as $script) {
-        echo "<script type='" . $script['type'] . "' src='" . asset($script['src']) . "'></script>";
+        echo "<script";
+
+        // Verifica si el tipo de script está definido
+        if (!empty($script['type'])) {
+            echo " type='{$script['type']}'";
+        }
+
+        // Agrega el atributo src
+        echo " src='" . asset($script['src']) . "'";
+
+        // Verifica si el atributo 'defer' está presente y es verdadero
+        if (!empty($script['defer'])) {
+            echo " defer";
+        }
+
+        // Cierra la etiqueta de script
+        echo "></script>";
     }
     ?>
+
     <title><?= $title ?></title>
 </head>
 

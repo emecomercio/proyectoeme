@@ -105,7 +105,7 @@ CREATE TABLE images (
     id INT AUTO_INCREMENT PRIMARY KEY,
     variant_id INT,
     src VARCHAR(255) NOT NULL,
-    alt_text VARCHAR(255),
+    alt VARCHAR(255),
     width INT NOT NULL,
     height INT NOT NULL,
     FOREIGN KEY (variant_id) REFERENCES product_variants(id)
