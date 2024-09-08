@@ -2,33 +2,41 @@
 
 namespace App\Api\Controllers;
 
+use Exception;
 use App\Models\ProductModel;
 
-class ProductController
+class ProductController extends BaseController
 {
     protected $productModel;
 
-    public function __construct()
+    public function __construct($role)
     {
-        $this->productModel = new ProductModel();
+        $this->productModel = new ProductModel($role);
     }
-
 
     public function index()
     {
-        $products = $this->productModel->all();
-
-        header('Content-Type: application/json');
-
-        echo json_encode($products);
+        try {
+            $products = $this->productModel->all();
+            $this->respondWithSuccess($products);
+        } catch (Exception $e) {
+            // Usa el método de la clase base para manejar la excepción
+            $this->handleException($e, "Error retrieving products");
+        }
     }
 
     public function find($id)
     {
-        $product = $this->productModel->find($id);
+        try {
+            $product = $this->productModel->find($id);
 
-        header('Content-Type: application/json');
-
-        echo json_encode($product);
+            if (!$product) {
+                $this->respondWithError("Product not found", 404);
+            } else {
+                $this->respondWithSuccess($product);
+            }
+        } catch (Exception $e) {
+            $this->handleException($e, "Error retrieving product");
+        }
     }
 }

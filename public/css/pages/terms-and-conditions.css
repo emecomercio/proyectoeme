@@ -1,62 +1,59 @@
-@import url("../components/top-header.css");
-@import url("../components/footer.css");
-
 body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
-    margin: 0;
-    padding: 0;
-    color: #333;
-    background-color: #222;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+  color: #333;
+  background-color: #222;
 }
 
 main {
-    padding: 20px;
-    max-width: 450px;
-    margin: 40px auto; /* Espacio superior e inferior de 40px */
-    background-color: #ccc;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  max-width: 450px;
+  margin: 40px auto; /* Espacio superior e inferior de 40px */
+  background-color: #ccc;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 details {
-    margin-bottom: 10px;
+  margin-bottom: 10px;
 }
 
 summary {
-    cursor: pointer;
-    background-color: #3d3d3d;
-    color: #fff;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 1.2em;
-    font-weight: bold;
-    transition: background-color 0.3s ease;
+  cursor: pointer;
+  background-color: #3d3d3d;
+  color: #fff;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 1.2em;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
 }
 
 summary:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 details[open] summary {
-    background-color: #2c2c2c;
+  background-color: #2c2c2c;
 }
 
 .dropdown-content {
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-top: none;
-    border-radius: 0 0 5px 5px;
-    background-color: #f9f9f9;
-    margin-top: -1px; /* Align with summary border */
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-top: none;
+  border-radius: 0 0 5px 5px;
+  background-color: #f9f9f9;
+  margin-top: -1px; /* Align with summary border */
 }
 
 .dropdown-content p {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 details p {
-    font-weight: bold;
+  font-weight: bold;
 }

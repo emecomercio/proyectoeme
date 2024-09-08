@@ -26,9 +26,9 @@ function loadIMG($filename)
 function asset($path = "")
 {
     if (file_exists($_SERVER['DOCUMENT_ROOT'] . $path)) {
-        echo htmlspecialchars($path);
+        return htmlspecialchars($path);
     } else {
-        echo '<!-- Archivo CSS no encontrado: ' . $path . ' -->';
+        return '<!-- Archivo no encontrado: ' . $path . ' -->';
     }
 }
 
@@ -38,14 +38,30 @@ function redirect($route)
     exit();
 }
 
-function view($view, $data = [])
+function view($render, $data = [])
 {
     extract($data);
-    $filepath =  $_ENV['ROOT'] . "/app/views/" . $view . ".php";
+    $filepath =  $_ENV['ROOT'] . "/app/renders/" . $render . ".php";
     if (file_exists($filepath)) {
         include $filepath;
     } else {
-        $error = "Se intentó cargar la vista '$view' pero no se encontro el archivo";
+        $error = "Se intentó cargar la vista '$render' pero no se encontro el archivo";
         echo "<span class='error-msg'>$error</span>";
     }
+}
+function render($render, $data = [])
+{
+    extract($data);
+    $filepath = $_ENV['ROOT'] . "/views/" . $render . ".php";
+    if (file_exists($filepath)) {
+        include $filepath;
+    } else {
+        $error = "Se intentó cargar el componente '$render' pero no se encontró el archivo";
+        echo "<span class='error-msg'>$error</span>";
+    }
+}
+
+function getUserRole()
+{
+    return $_SESSION['user']['role'] ?? ($_ENV['DB_ENV'] == 'prod' ? 'guest' : 'admin');
 }

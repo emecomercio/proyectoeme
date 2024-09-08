@@ -1,4 +1,4 @@
-USE tienda;
+USE ecommerce;
 
 DELIMITER //
 CREATE TRIGGER calculate_cart_line_price
@@ -6,15 +6,15 @@ BEFORE INSERT ON cart_lines
 FOR EACH ROW
 BEGIN
     -- Declaramos una variable para almacenar el precio del producto
-    DECLARE product_price DECIMAL(10, 2);
+    DECLARE product_variant_price DECIMAL(10, 2);
 
     -- Obtenemos el precio del producto desde la tabla 'products' usando el 'product_id' de la nueva línea de carrito
-    SELECT price INTO product_price 
-    FROM products 
-    WHERE id = NEW.product_id;
+    SELECT current_price INTO product_variant_price 
+    FROM product_variants
+    WHERE id = NEW.variant_id;
 
     -- Calculamos el precio total de la línea del carrito multiplicando el precio del producto por la cantidad
-    SET NEW.price = product_price * NEW.quantity;
+    SET NEW.price = product_variant_price * NEW.quantity;
 END;
 //
 DELIMITER ;

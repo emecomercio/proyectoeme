@@ -2,35 +2,46 @@
 
 namespace App\Api\Controllers;
 
-use App\Services\UserService;
+use Exception;
+use mysqli_sql_exception;
+use App\Models\UserModel;
 
-class UserController
+class UserController extends BaseController
 {
-    protected $userService;
+    protected $userModel;
 
-    public function __construct()
+    public function __construct($role)
     {
-        $this->userService = new UserService();
+        $this->userModel = new UserModel($role);
     }
 
     public function index()
     {
-        // Obtén todos los usuarios desde el modelo
-        $users = $this->userService->all();
-
-        // Configura el encabezado para indicar que el contenido es JSON
-        header('Content-Type: application/json');
-
-        // Envía los datos en formato JSON
-        echo json_encode($users);
+        try {
+            $users = $this->userModel->all();
+            $this->respondWithSuccess($users);
+        } catch (mysqli_sql_exception $e) {
+            // Errores especificos de la BD
+            $this->handleDatabaseError($e);
+        } catch (Exception $e) {
+            // Errores generales
+            $this->handleException($e, "Error retrieving users");
+        }
     }
+
 
     public function find($id)
     {
-        $user = $this->userService->find($id);
+        try {
+            $user = $this->userModel->find($id);
 
-        header('Content-Type: application/json');
-
-        echo json_encode($user);
+            if (!$user) {
+                $this->respondWithError("User not found", 404);
+            } else {
+                $this->respondWithSuccess($user);
+            }
+        } catch (Exception $e) {
+            $this->handleException($e, "Error retrieving user");
+        }
     }
 }

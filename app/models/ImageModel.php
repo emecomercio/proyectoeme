@@ -2,27 +2,34 @@
 
 namespace App\Models;
 
+/**
+ * mysqli queries
+ * 
+ */
+
 class ImageModel extends DatabaseModel
 {
 
-
-    public function getImagesByProductId($productId)
+    public function __construct($role)
     {
-        $query = "SELECT * FROM images WHERE product_id = ?";
-        $stmt = $this->connection->prepare($query);
-        $stmt->bind_param("i", $productId);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        return $result->fetch_all(MYSQLI_ASSOC);
+        parent::__construct($role);
     }
 
-    public function getImageBySize($productId, $width, $height)
+    public function all()
     {
-        $query = "SELECT * FROM images WHERE product_id = ? AND width = ? AND height = ?";
-        $stmt = $this->connection->prepare($query);
-        $stmt->bind_param("iii", $productId, $width, $height);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        return $result->fetch_assoc();
+        $query = "SELECT * FROM images";
+        return $this->fetchAll($query);
+    }
+
+    public function find($id)
+    {
+        $query = "SELECT * FROM images WHERE id ?";
+        return $this->fetchOne($query, [$id], 'i');
+    }
+
+    public function getByProduct($id)
+    {
+        $query = "SELECT * FROM images WHERE variant_id = ?";
+        return $this->fetchAll($query, [$id], 'i');
     }
 }
