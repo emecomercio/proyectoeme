@@ -22,7 +22,8 @@ class HomeController extends BaseController
     public function index()
     {
         $catalogs = $this->categoryModel->all();
-        $products = $this->productController->all();
+        $products = $this->productController->allWithVariants();
+        shuffle($products);
         $home = new View("home", getUserRole());
         $home->data = [
             "title" => "Home Page | EME Comercio",

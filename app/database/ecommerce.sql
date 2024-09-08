@@ -104,7 +104,7 @@ CREATE TABLE variant_attributes(
 CREATE TABLE images (
     id INT AUTO_INCREMENT PRIMARY KEY,
     variant_id INT,
-    image_url VARCHAR(255) NOT NULL,
+    src VARCHAR(255) NOT NULL,
     alt_text VARCHAR(255),
     width INT NOT NULL,
     height INT NOT NULL,

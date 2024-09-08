@@ -29,6 +29,27 @@ use Faker\Generator;
  * 
  */
 
+// Desactivar límites de tiempo y de memoria
+set_time_limit(0);  // Sin límite de tiempo
+ini_set('memory_limit', '-1');  // Sin límite de memoria
+
+// Ajustar tamaños de archivos (si es necesario)
+ini_set('upload_max_filesize', '500M');
+ini_set('post_max_size', '500M');
+
+// Desactivar la visualización de errores en pantalla (opcional)
+ini_set('display_errors', 'Off');
+ini_set('log_errors', 'On');
+ini_set('error_log', '/path/to/error.log');
+
+// Optimizar tiempos de espera de la base de datos
+ini_set('mysql.connect_timeout', 300);
+ini_set('default_socket_timeout', 300);
+
+// Desactivar el almacenamiento en búfer de salida (opcional)
+ob_implicit_flush(true);
+ob_end_flush();
+
 
 $faker = Faker::create(); // Crea una instancia de Faker
 $pdo = new PDO('mysql:host=localhost;dbname=ecommerce', 'root', 'root'); // Configura la conexión PDO
@@ -424,8 +445,8 @@ function insertVariantAttributes($pdo, $faker, $num)
 function insertImages(PDO $pdo, Generator $faker, int $num)
 {
     $stmt = $pdo->prepare("
-        INSERT INTO images (variant_id, image_url, alt_text, width, height) 
-        VALUES (:variant_id, :image_url, :alt_text, :width, :height)
+        INSERT INTO images (variant_id, src, alt_text, width, height) 
+        VALUES (:variant_id, :src, :alt_text, :width, :height)
     ");
 
     // Obtener IDs de variantes de productos existentes
@@ -433,14 +454,41 @@ function insertImages(PDO $pdo, Generator $faker, int $num)
 
     for ($i = 0; $i < $num; $i++) {
         $variant_id = $faker->randomElement($variantIds);
-        $image_url = $faker->imageUrl();
         $alt_text = $faker->sentence;
         $width = $faker->numberBetween(100, 1920);
         $height = $faker->numberBetween(100, 1080);
+        $src =  "https://picsum.photos/" . $width . "/" . $height;
 
         $stmt->execute([
             ':variant_id' => $variant_id,
-            ':image_url' => $image_url,
+            ':src' => $src,
+            ':alt_text' => $alt_text,
+            ':width' => $width,
+            ':height' => $height
+        ]);
+    }
+}
+
+function insertImagesBySize(PDO $pdo, Generator $faker, int $num, array $size = ['width' => 500, 'height' => 500])
+{
+    $stmt = $pdo->prepare("
+        INSERT INTO images (variant_id, src, alt_text, width, height) 
+        VALUES (:variant_id, :src, :alt_text, :width, :height)
+    ");
+
+    // Obtener IDs de variantes de productos existentes
+    $variantIds = $pdo->query('SELECT id FROM product_variants')->fetchAll(PDO::FETCH_COLUMN);
+
+    for ($i = 0; $i < $num; $i++) {
+        $variant_id = $faker->randomElement($variantIds);
+        $alt_text = $faker->sentence;
+        $width = $size['width'];
+        $height = $size['height'];
+        $src = "https://picsum.photos/" . $width . "/" . $height . "?random=" . rand();
+
+        $stmt->execute([
+            ':variant_id' => $variant_id,
+            ':src' => $src,
             ':alt_text' => $alt_text,
             ':width' => $width,
             ':height' => $height
@@ -520,7 +568,8 @@ try {
     echo "-> ProductsVariants  insertados\n";
     insertVariantAttributes($pdo, $faker, 700);
     echo "-> VariantAttributes insertados\n";
-    insertImages($pdo, $faker, 700);
+    // insertImages($pdo, $faker, 300);
+    insertImagesBySize($pdo, $faker, 10000);
     echo "-> Images insertados\n";
     insertCarts($pdo, $faker, 50);
     echo "-> Carts insertados\n";

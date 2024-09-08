@@ -17,7 +17,14 @@
     $i = 0;
     foreach ($products as $product) {
         if ($i <= 30) {
-            render("products/components/product-card", ["product" => $product]);
+            if (!empty($product['variants'])) {
+                // Obtener un índice aleatorio dentro del rango válido
+                $randomIndex = rand(0, count($product['variants']) - 1);
+                // Obtener la variante aleatoria
+                $randomVariant = $product['variants'][$randomIndex];
+                // Renderizar la variante aleatoria
+                render("products/components/product-card", ["product" => $randomVariant]);
+            }
             $i++;
         } else {
             break;
