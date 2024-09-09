@@ -1,15 +1,27 @@
 <?php
 
-/**
- * @var array $user
+/** @var array $products
  */
-
 ?>
+<div class="all-container" >
+<?php render("seller/components/home-entrepise-component") ?>
+<?php render("seller/components/lateral-slayer") ?>
+</div>
+<?php render("seller/components/home-entrepise-component") ?>
 
-<h1>Welcome <?= $user['name'] ?></h1>
-<p>Choose an option</p>
-<ul>
-    <li><a href="/store/upload">Upload a product!</a></li>
-    <li><a href="/store/edit"></a></li>
-    <li><a href="/store/settings">Settings</a></li>
-</ul>
+<?php render("seller/components/home-entrepise-component") ?>
+<?php render("seller/components/home-entrepise-component") ?>
+<?php render("seller/components/home-entrepise-component") ?>
+<?php render("seller/components/home-entrepise-component") ?>
+<?php render("seller/components/home-entrepise-component") ?>
+<?php render("seller/components/home-entrepise-component") ?>
+<?php render("seller/components/home-entrepise-component") ?>
+<?php render("seller/components/home-entrepise-component") ?>
+<?php render("seller/components/home-entrepise-component") ?>
+<?php render("seller/components/home-entrepise-component") ?>
+<?php render("seller/components/home-entrepise-component") ?>
+<?php render("seller/components/home-entrepise-component") ?>
+<?php render("seller/components/home-entrepise-component") ?>
+<?php render("seller/components/home-entrepise-component") ?>
+<?php render("seller/components/home-entrepise-component") ?>
+<button href="/upload-product-page" class="floating-button">Publicar</button>

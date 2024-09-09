@@ -73,7 +73,8 @@ class UserController extends BaseController
                 "user" => $this->userModel->find($_SESSION['user']['id'])
             ];
             $dashboard->styles = [
-                "pages/dashboard"
+                "pages/dashboard",
+                "pages/home-entrepise"
             ];
             $dashboard->render();
         };
