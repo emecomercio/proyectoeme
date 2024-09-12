@@ -34,7 +34,7 @@
   width: 100%;
 }
 
-.product-item {
+.cart-product {
   width: 100%; /* Ocupa todo el ancho del contenedor */
   display: flex;
   justify-content: space-between;
@@ -44,6 +44,7 @@
   background-color: white;
   border-radius: 5px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra para destacar cada producto */
+  border: 1px solid #000000; /* Marco alrededor del producto */
 }
 
 .product-item img {
