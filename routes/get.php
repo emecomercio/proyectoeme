@@ -134,6 +134,16 @@ Route::get('/login-enterprise', function () {
 });
 
 // PRODUCTS ROUTES
+Route::get('/result-search-component', function () {
+    $errorMsg = $_SESSION['error'] ?? '';
+    unset($_SESSION['error']);
+    return render('products/components/result-search-component', ['errorMsg' => $errorMsg]);
+});
+Route::get('/filter-result-search', function () {
+    $errorMsg = $_SESSION['error'] ?? '';
+    unset($_SESSION['error']);
+    return render('products/components/filter-result-search', ['errorMsg' => $errorMsg]);
+});
 
 // STATIC
 Route::get('/terms-and-conditions', function () {

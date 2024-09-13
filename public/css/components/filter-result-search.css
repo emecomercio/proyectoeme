@@ -1,0 +1,159 @@
+.main-container {
+  display: flex;
+  margin: 50px;
+  gap: 50px;
+}
+.second-container {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+.sidebar {
+  width: 280px;
+  padding: 20px;
+  background-color: #222;
+  border-right: 1px solid #e0e0e0;
+}
+
+.filter {
+  margin-bottom: 20px;
+}
+
+.filter-title {
+  font-size: 16px;
+  color: white;
+  margin-bottom: 10px;
+}
+
+.filter-options {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.filter-options li {
+  margin-bottom: 5px;
+}
+
+.filter-options a {
+  text-decoration: none;
+  font-size: 14px;
+}
+.filter-options a {
+  text-decoration: none;
+  color: white;
+  font-size: 14px;
+  text-decoration: underline;
+}
+
+/* Toggle Switch Styling */
+.toggle-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  color: white;
+}
+
+.toggle-container input[type="checkbox"] {
+  display: none;
+}
+
+.toggle {
+  width: 40px;
+  height: 20px;
+  background-color: #727272;
+  border-radius: 20px;
+  position: relative;
+  transition: background-color 0.3s;
+}
+
+.toggle::after {
+  content: "";
+  width: 18px;
+  height: 18px;
+  background-color: white;
+  border-radius: 50%;
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  transition: transform 0.3s;
+}
+
+.toggle-container input:checked + .toggle {
+  background-color: #4caf50;
+}
+
+.toggle-container input:checked + .toggle::after {
+  transform: translateX(20px);
+}
+
+/* Price Range Styling */
+.price-range {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.price-range input {
+  width: 45%;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+/* Responsive Styles */
+@media (max-width: 1024px) {
+  .sidebar {
+    width: 250px;
+  }
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    width: 220px;
+  }
+}
+
+@media (max-width: 576px) {
+  body {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    position: relative;
+    border-right: none;
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  .filter {
+    padding: 10px 0;
+  }
+
+  .price-range {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .price-range input {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .filter-title {
+    font-size: 14px;
+  }
+
+  .filter-options a {
+    font-size: 12px;
+  }
+
+  .toggle-container {
+    font-size: 12px;
+  }
+}

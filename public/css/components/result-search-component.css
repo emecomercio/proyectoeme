@@ -1,0 +1,139 @@
+.results-search-container {
+  width: 50vw;
+  height: 200px;
+  background-color: #ccc;
+  margin: 20px auto;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 20px;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: width 0.3s ease;
+}
+
+.results-search-img {
+  width: 100%; /* Ocupará el 100% del ancho del contenedor padre */
+  height: auto; /* Se ajustará automáticamente en altura */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden; /* Evita que la imagen se salga del contenedor */
+}
+
+.results-search-img img {
+  width: auto; /* La imagen se ajusta automáticamente en ancho */
+  height: 100%; /* Se asegura de que ocupe el 100% de la altura del contenedor */
+  max-width: 100%; /* Evita que la imagen crezca más allá del contenedor en ancho */
+  max-height: 400px; /* Altura máxima para asegurar que no exceda el contenedor */
+  object-fit: contain; /* Mantiene la proporción de la imagen y se ajusta al contenedor */
+}
+
+.results-search-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.product-title {
+  font-size: 1.2em;
+  margin: 0 0 10px 0;
+}
+
+.price {
+  font-size: 1.5em;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+.old-price {
+  text-decoration: line-through;
+  color: #999;
+  margin-right: 10px;
+}
+
+.new-price {
+  color: #2e7d32;
+}
+
+.discount {
+  color: #388e3c;
+  font-size: 0.9em;
+  margin-left: 10px;
+}
+
+.installments {
+  color: #757575;
+  margin: 10px 0;
+}
+
+.coupon {
+  background-color: #e0f7fa;
+  color: #00796b;
+  padding: 5px;
+  border-radius: 5px;
+  display: inline-block;
+  margin: 5px 0;
+}
+
+.shipping {
+  background-color: #e8f5e9;
+  color: #388e3c;
+  padding: 5px;
+  border-radius: 5px;
+  display: inline-block;
+  margin-top: 10px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1024px) {
+  .results-search-container {
+    width: 70vw; /* Ajusta el ancho en pantallas más pequeñas */
+    grid-template-columns: 1fr 2fr; /* Mantiene la disposición en 2 columnas */
+  }
+}
+
+@media (max-width: 768px) {
+  .results-search-container {
+    width: 90vw; /* Ocupa más ancho en dispositivos más pequeños */
+    grid-template-columns: 1fr; /* Coloca todo en una sola columna */
+  }
+
+  .results-search-img {
+    width: 100%; /* Imagen ocupa el 100% de su contenedor en vista móvil */
+    height: 300px; /* Ajusta la altura de la imagen para pantallas más pequeñas */
+  }
+
+  .product-title {
+    font-size: 1.1em; /* Ajuste del tamaño de la fuente para pantallas pequeñas */
+  }
+
+  .price {
+    font-size: 1.3em; /* Ajuste del tamaño de la fuente para precios */
+  }
+}
+
+@media (max-width: 480px) {
+  .results-search-container {
+    width: 100vw; /* En pantallas muy pequeñas ocupa todo el ancho */
+    padding: 10px; /* Reduce el padding */
+  }
+
+  .results-search-img {
+    height: 200px; /* Reduce aún más la altura de la imagen */
+  }
+
+  .product-title {
+    font-size: 1em; /* Ajusta el tamaño del título */
+  }
+
+  .price {
+    font-size: 1.2em; /* Ajusta el tamaño del precio */
+  }
+
+  .coupon,
+  .shipping {
+    font-size: 0.8em; /* Reduce el tamaño del texto en cupones y envíos */
+    padding: 3px; /* Reduce el padding en elementos pequeños */
+  }
+}

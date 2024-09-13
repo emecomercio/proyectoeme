@@ -42,7 +42,7 @@
 }
 
 .checkbox-container .checkbox-label::before {
-  content: '';
+  content: "";
   position: absolute;
   left: 0;
   width: 20px; /* Tamaño del círculo del checkbox */
@@ -54,7 +54,7 @@
 }
 
 .checkbox-container .checkbox-label::before {
-  content: '';
+  content: "";
   position: absolute;
   left: 0;
   width: 20px; /* Tamaño del círculo del checkbox */
@@ -68,6 +68,3 @@
 .checkbox-container input[type="checkbox"]:checked + .checkbox-label::before {
   background-color: #2ecc71; /* Color del círculo cuando está marcado */
 }
-
-
-
