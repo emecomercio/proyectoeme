@@ -15,9 +15,9 @@ class AuthService
     protected $buyerModel;
     protected $role;
 
-    public function __construct($role)
+    public function __construct($role = '')
     {
-        $this->role = $role;
+        $this->role = $role ?? getUserRole();
         $this->userModel = new UserModel('admin'); // ESTO DEBERIA CAMBIAR Y ACEPTAR INSERTS EN USERS PARA GUEST
         $this->sellerModel = new SellerModel('admin');
         $this->buyerModel = new BuyerModel('admin');

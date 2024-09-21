@@ -51,22 +51,23 @@
                     <img class="LogoEme" src="<?= loadIMG("icons/logo.png") ?>" alt="logo de la empresa" />
                 </a>
             </div>
-            <div class="buscador">
-            </div>
             <nav class="iconos">
 
                 <div class="TextoIcono" id="user-menu">
                     <img src="<?= loadIMG("icons/usuario_icono.png") ?>" class="icono" alt="Usuario" />
                     <br /><?= $_SESSION['user_name'] ?? "Usuario" ?>
                     <div class="dropdown-content" style="display: none;">
-                        <div class="register-login" id="register-login">
-                            <a href="/register">Registrarse</a>
-                            <a href="/login">Ingresar</a>
-                        </div>
-                        <div class="user-data" id="user-dropdown">
-                            <a href="/dashboard">Datos de usuario</a>
+                        <div class="user-data" id="user-dropdown" style="display: block;">
                             <a href="/settings">Configuracion</a>
-                            <a href="/logout">Cerrar sesión</a>
+                            <form action="/logout" method="post" id='logout-form'>
+                                <a id="logout-btn">Cerrar sesión</a>
+                            </form>
+                            <script>
+                                const logoutForm = document.getElementById('logout-form')
+                                document.getElementById('logout-btn').addEventListener('click', () => {
+                                    logoutForm.submit()
+                                })
+                            </script>
                         </div>
                     </div>
                 </div>
@@ -91,6 +92,23 @@
 
 
             </nav>
+            <ul>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" id="categoriesDropdown">Categorías</a>
+                    <div class="dropdown-content" id="categoriesMenu">
+                        <?php
+                        foreach ($catalogs as $catalog):
+                        ?>
+                            <a href="/catalog/<?= $catalog['id'] ?>"><?= $catalog['name'] ?></a>
+                        <?php endforeach; ?>
+                    </div>
+                </li>
+                <li><a href="#">Ofertas</a></li>
+                <li><a href="#">Cupones</a></li>
+                <li><a href="#">Proximas ofertas</a></li>
+
+                <li><a href="#">Ayuda</a></li>
+            </ul>
         </div>
     </header>
 

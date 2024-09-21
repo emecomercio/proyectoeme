@@ -9,9 +9,9 @@ class ProductController extends BaseController
 {
     protected $productModel;
 
-    public function __construct($role)
+    public function __construct()
     {
-        $this->productModel = new ProductModel($role);
+        $this->productModel = new ProductModel();
     }
 
     public function index()

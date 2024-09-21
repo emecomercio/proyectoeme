@@ -10,7 +10,7 @@ class AuthController extends BaseController
 {
     protected $authService;
 
-    public function __construct($role)
+    public function __construct($role = 'admin')
     {
         $this->authService = new AuthService($role);
     }

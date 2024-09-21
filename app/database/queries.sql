@@ -1,5 +1,6 @@
 USE ecommerce;
 
+
 SELECT * FROM users;
 SELECT * FROM buyers;
 SELECT * FROM sellers;

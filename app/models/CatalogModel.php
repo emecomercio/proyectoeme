@@ -10,4 +10,10 @@ class CatalogModel extends DatabaseModel
         $query = "SELECT * FROM catalogs";
         return $this->fetchAll($query);
     }
+
+    public function find($id)
+    {
+        $query = "SELECT * FROM catalogs WHERE id = ?";
+        return $this->fetchOne($query, [$id], 'i');
+    }
 }

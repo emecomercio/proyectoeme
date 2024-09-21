@@ -2,36 +2,32 @@
 
 /** @var array $products
  */
+// ESTABA TOMANDO EL VARIANT PARA MOSTRARLO POR DEFAULT
 ?>
+
 <div class="product-page">
     <!-- Imagen principal del producto -->
     <div class="product-page__main">
+
+        <!-- Limitar a 10 imagenes-->
+        <div class="thumbnail-container">
+            <?php foreach ($product['variants'][$variantNumber]['images']['500x500'] as $thumbnail) : ?>
+                <img src="<?= $thumbnail['src'] ?>" alt="<?= $thumbnail['alt'] ?? 'no altern text' ?>" class="thumbnail">
+            <?php endforeach; ?>
+        </div>
+
         <div class="product-page__images1">
 
             <img
 
-                src="<?= $product['variants'][0]['images']['500x500'][0]['src'] ?>"
+                src="<?= $product['variants'][$variantNumber]['images']['500x500'][0]['src'] ?>"
                 width="500"
                 height="500"
-                alt="<?= $product['variants'][0]['images']['500x500'][0]['alt'] ?? 'no altern text' ?>"
+                alt="<?= $product['variants'][$variantNumber]['images']['500x500'][0]['alt'] ?? 'no altern text' ?>"
                 id="main-product-image" />
             <button class="favorite-button">♡</button>
         </div>
-        <!-- Contenedor de imágenes -->
-        <div class="product-page__images2">
-            <img
-                src="<?= $randomVariant['images']['500x500'][rand(0, (count($randomVariant['images']['500x500']) - 1))]['src'] ?>"
-                alt="Thumbnail 1"
-                class="thumbnail" />
-            <img
-                src="<?= $randomVariant['images']['500x500'][rand(0, count($randomVariant['images']['500x500']) - 1)]['src'] ?>"
-                alt="Thumbnail 2"
-                class="thumbnail" />
-            <img
-                src="<?= $randomVariant['images']['500x500'][rand(0, count($randomVariant['images']['500x500']) - 1)]['src'] ?>"
-                alt="Thumbnail 3"
-                class="thumbnail" />
-        </div>
+
     </div>
 
     <!-- Información del producto -->
@@ -60,6 +56,35 @@
             </ul>
         </div>
         <p class="quantity-availability">(+10 disponibles)</p>
+        <div class="product-options">
+            <div class="option">
+                <p>Seleccione: <strong>Modelo:</strong></p>
+                <div class="choices">
+                    <div class="choice" data-choice="256 GB">Modelo 1</div>
+                    <div class="choice" data-choice="512 GB">Modelo 2</div>
+                </div>
+            </div>
+
+            <div class="option">
+                <p>Seleccione: <strong>Talle</strong></p>
+                <div class="choices">
+                    <div class="choice" data-choice="8 GB">M</div>
+                    <div class="choice" data-choice="12 GB">S</div>
+                </div>
+            </div>
+
+            <div class="option">
+                <p>Color: </p>
+                <div class="color-choices">
+                    <div class="color-choice" data-choice="Peacock blue">
+                        <img src="#" alt="Peacock blue">
+                    </div>
+                    <div class="color-choice" data-choice="Golden">
+                        <img src="#" alt="Golden">
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
         <!-- Area to display the information -->
@@ -289,10 +314,6 @@
     </div>
 </div>
 <div class="comments-container">
-    <?php
-    // Temporal
-    for ($i = 0; $i < 10; $i++) {
-        render("products/components/review", ["product" => $product]);
-    }
-    ?>
+
+
 </div>

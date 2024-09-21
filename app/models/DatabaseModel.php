@@ -12,14 +12,13 @@ class DatabaseModel
     private $conn;
     private $roles;
 
-    public function __construct($role)
+    public function __construct($role = null)
     {
         $this->roles = json_decode($_ENV['DB_USERS'], true);
-
-        if (!isset($this->roles[$role])) {
+        if (!isset($this->roles[$role ?? getUserRole()])) {
             throw new InvalidArgumentException("Invalid role specified.");
         }
-        $this->conn = $this->getConnection($role);
+        $this->conn = $this->getConnection($role ?? getUserRole());
     }
 
     public function getConnection($role)

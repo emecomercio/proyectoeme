@@ -65,3 +65,18 @@ function getUserRole()
 {
     return $_SESSION['user']['role'] ?? ($_ENV['DB_ENV'] == 'prod' ? 'guest' : 'admin');
 }
+
+
+function dd($arg, $debug = false)
+{
+    if ($debug) {
+        echo "<pre>";
+        print_r($arg);
+        echo "</pre>";
+    } else {
+        echo '<pre>';
+        print_r($arg);
+        echo '</pre>';
+        exit;
+    }
+}

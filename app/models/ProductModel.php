@@ -11,63 +11,32 @@ class ProductModel extends DatabaseModel
         $query = "SELECT * FROM products";
         return $this->fetchAll($query);
     }
-
-    public function getVariants($id)
-    {
-        $query =
-            "SELECT 
-                p.id AS product_id,
-                p.name AS name,
-                p.description AS description,
-                p.catalog_id AS catalog_id,
-                pv.id AS variant_id,
-                pv.current_price AS current_price,
-                pv.last_price AS last_price,
-                pv.stock AS variant_stock,
-                va.name AS attribute_name,
-                va.value AS attribute_value
-            FROM 
-                products p
-            JOIN 
-                product_variants pv ON pv.product_id = p.id
-            LEFT JOIN 
-                variant_attributes va ON va.variant_id = pv.id
-            WHERE 
-                p.id = ?
-            ";
-        return $this->fetchAll($query, [$id], 'i');
-    }
-
-
     public function find($id)
     {
         $query = "SELECT * FROM products WHERE id = ?";
         return $this->fetchOne($query, [$id], 'i');
     }
 
-    public function getByCatalog($id)
+    public function getByCatalog($catalog_id)
     {
-        $query =
-            "SELECT 
-                p.id AS product_id,
-                p.name AS name,
-                p.description AS description,
-                p.catalog_id AS catalog_id,
-                pv.id AS variant_id,
-                pv.current_price AS current_price,
-                pv.last_price AS last_price,
-                pv.stock AS variant_stock,
-                va.name AS attribute_name,
-                va.value AS attribute_value
-            FROM 
-                products p
-            JOIN 
-                product_variants pv ON pv.product_id = p.id
-            LEFT JOIN 
-                variant_attributes va ON va.variant_id = pv.id
-                WHERE
-                    p.catalog_id = ?
-                ";
-        return $this->fetchAll($query, [$id], 'i');
+        $query = "SELECT * FROM products WHERE catalog_id = ?";
+        return $this->fetchAll($query, [$catalog_id], 'i');
+    }
+
+    public function getVariants($product_id)
+    {
+        $query = "
+        SELECT pv.id as id, pv.current_price, pv.last_price, pv.stock, d.value as discount
+        FROM product_variants pv
+        LEFT JOIN discounts d ON pv.discount_id = d.id
+        WHERE pv.product_id = ?
+        ";
+        return $this->fetchAll($query, [$product_id], 'i');
+    }
+
+    public function getVariantAttributes($variant_id)
+    {
+        $query = "SELECT name, value FROM variant_attributes WHERE variant_id = ?";
+        return $this->fetchAll($query, [$variant_id], 'i');
     }
 }

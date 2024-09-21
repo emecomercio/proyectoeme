@@ -32,6 +32,9 @@ GRANT SELECT ON ecommerce.product_variants TO 'guest'@'localhost';
 GRANT SELECT ON ecommerce.variant_attributes TO 'guest'@'localhost';
 GRANT SELECT ON ecommerce.catalogs TO 'guest'@'localhost';
 GRANT SELECT ON ecommerce.images TO 'guest'@'localhost';
+GRANT SELECT ON ecommerce.discounts TO 'guest'@'localhost';
+GRANT INSERT ON ecommerce.users TO 'guest'@'localhost';
+
 
 -- DEFAULT ROLES --
 SET DEFAULT ROLE 'admin' TO 'admin'@'localhost';

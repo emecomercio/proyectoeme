@@ -10,9 +10,9 @@ namespace App\Models;
 class ImageModel extends DatabaseModel
 {
 
-    public function __construct($role)
+    public function __construct()
     {
-        parent::__construct($role);
+        parent::__construct();
     }
 
     public function all()
@@ -31,5 +31,11 @@ class ImageModel extends DatabaseModel
     {
         $query = "SELECT * FROM images WHERE variant_id = ?";
         return $this->fetchAll($query, [$id], 'i');
+    }
+
+    public function getByVariant($variant_id)
+    {
+        $query = "SELECT src, alt, width, height FROM images WHERE variant_id = ?";
+        return $this->fetchAll($query, [$variant_id], 'i');
     }
 }

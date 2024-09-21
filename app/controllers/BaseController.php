@@ -6,9 +6,9 @@ class BaseController
 {
     protected $role;
 
-    public function __construct($role)
+    public function __construct()
     {
-        $this->role = $role;
+        $this->role = getUserRole();
     }
 
     protected function render($view, $data = [])

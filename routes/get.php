@@ -6,6 +6,7 @@ use App\Controllers\HomeController;
 use App\Controllers\UserController;
 use App\Controllers\BuyerController;
 use App\Controllers\SellerController;
+use App\Controllers\CatalogController;
 use App\Controllers\ProductController;
 
 Route::get('/vista', function () {
@@ -22,25 +23,24 @@ Route::get('/api', function () {
 });
 
 Route::get('/', function () {
-    $role = getUserRole();
-    $homeController = new HomeController($role);
+    $homeController = new HomeController();
     $homeController->index();
 });
 
 // USERS ROUTES
 Route::get('/dashboard', function () {
-    $role = getUserRole();
-    $userController = new UserController($role);
+    $userController = new UserController();
     $userController->dashboard();
 });
 
 Route::get('/settings', function () {
-    $role = getUserRole();
-    $userController = new UserController($role);
+    $userController = new UserController();
     $userController->settings();
 });
 
 Route::get('/login', function () {
+
+    $catalogController = new CatalogController();
     $msg = $_SESSION['msg']['login'] ?? '';
     unset($_SESSION['msg']['login']);
     $login = new View('auth/login', 'alter/guest');
@@ -68,26 +68,22 @@ Route::get('/register/{role}', function ($role) {
 // BUYERS
 
 Route::get('/cart', function () {
-    $role = getUserRole();
-    $productController = new UserController($role);
+    $productController = new UserController();
     $productController->cart();
 });
 
 Route::get('/favorites', function () {
-    $role = getUserRole();
-    $buyerController = new BuyerController($role);
+    $buyerController = new BuyerController();
     $buyerController->showFavorites();
 });
 
 Route::get('/shopping-history', function () {
-    $role = getUserRole();
-    $buyerController = new BuyerController($role);
+    $buyerController = new BuyerController();
     $buyerController->showShopingHistory();
 });
 
 Route::get('/search-history', function () {
-    $role = getUserRole();
-    $buyerController = new BuyerController($role);
+    $buyerController = new BuyerController();
     $buyerController->showSearchHistory();
 });
 
@@ -106,31 +102,14 @@ Route::get('/store/settings', function () {
 });
 
 // PRODUCTS
-
-Route::get('/product-page/{id}', function ($id) {
-    $role = getUserRole();
-    $productController = new ProductController($role);
-    $productController->index($id);
+Route::get('/product-page/{id}/{variantNumber}', function ($id, $variantNumber) {
+    $productController = new ProductController();
+    $productController->index($id,  $variantNumber);
 });
 
 Route::get('/catalog/{id}', function ($id) {
-    $role = getUserRole();
-    $productController = new ProductController($role);
-    $productController->showCatalog($id);
-});
-
-
-// ENTERPRISE ROUTES
-
-Route::get('/register-enterprise', function () {
-    $errorMsg = $_SESSION['error'] ?? '';
-    unset($_SESSION['error']);
-    return render('auth/register-enterprise', ['errorMsg' => $errorMsg]);
-});
-Route::get('/login-enterprise', function () {
-    $errorMsg = $_SESSION['error'] ?? '';
-    unset($_SESSION['error']);
-    return render('auth/login-enterprise', ['errorMsg' => $errorMsg]);
+    $catalogController = new CatalogController();
+    $catalogController->index($id);
 });
 
 // PRODUCTS ROUTES
@@ -147,8 +126,7 @@ Route::get('/filter-result-search', function () {
 
 // STATIC
 Route::get('/terms-and-conditions', function () {
-    $role = getUserRole();
-    $homeController = new HomeController($role);
+    $homeController = new HomeController();
     $homeController->termsAndConditions();
 });
 

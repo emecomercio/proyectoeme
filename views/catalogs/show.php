@@ -1,11 +1,7 @@
-<div class="product-grid">
-    <?php
-    if (isset($products[0])) {
-        foreach ($products as $product) {
-            render('products/components/product-card', ['product' => $product]);
-        }
-    } else {
-        echo "Categoria vacia o inexistente";
-    }
-    ?>
-</div>
+<h1><?= $catalog['name'] ?></h1>
+
+<pre>
+<?php
+dd($products, true)
+?>
+</pre>

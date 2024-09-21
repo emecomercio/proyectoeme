@@ -52,8 +52,6 @@
                     <img class="LogoEme" src="<?= loadIMG("icons/logo.png") ?>" alt="logo de la empresa" />
                 </a>
             </div>
-            <div class="buscador">
-            </div>
             <nav class="iconos">
 
                 <div class="TextoIcono" id="user-menu">
@@ -107,7 +105,7 @@
             </div>
         </div>
         <div class="bottom-div">
-        <a class="contactoa" href="/terms-and-conditions" href="#about-section">Terminos y condiciones</a>
+            <a class="contactoa" href="/terms-and-conditions" href="#about-section">Terminos y condiciones</a>
             <p>@ TODOS LOS DERECHOS RESERVADOS EME COMERCIO</p>
         </div>
     </footer>

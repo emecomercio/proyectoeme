@@ -9,10 +9,10 @@ class UserController extends BaseController
 {
     protected $userModel;
 
-    public function __construct($role)
+    public function __construct()
     {
-        parent::__construct($role);
-        $this->userModel = new UserModel($role);
+        parent::__construct();
+        $this->userModel = new UserModel();
     }
 
     public function showLogin($msg = '')

@@ -11,11 +11,11 @@ class SellerController extends BaseController
     protected $userModel;
     protected $sellerModel;
 
-    public function __construct($role)
+    public function __construct()
     {
-        parent::__construct($role);
-        $this->userModel = new UserModel($role);
-        $this->sellerModel = new SellerModel($role);
+        parent::__construct();
+        $this->userModel = new UserModel();
+        $this->sellerModel = new SellerModel();
     }
 
     public function showUploadProduct()

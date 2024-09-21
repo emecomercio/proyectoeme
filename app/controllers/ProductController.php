@@ -19,12 +19,12 @@ class ProductController extends BaseController
     protected $catalogModel;
     protected $imageModel;
 
-    public function __construct($role)
+    public function __construct()
     {
-        $this->role = $role;
-        $this->productModel = new ProductModel($role);
-        $this->catalogModel = new CartModel($role);
-        $this->imageModel = new ImageModel($role);
+        $this->role = getUserRole();
+        $this->productModel = new ProductModel();
+        $this->catalogModel = new CartModel();
+        $this->imageModel = new ImageModel();
     }
 
     public function all()
@@ -47,7 +47,7 @@ class ProductController extends BaseController
 
         // Obtener imágenes para cada variante
         foreach ($variants as &$variant) {
-            $images = $this->imageModel->getByProduct($variant['variant_id']);
+            $images = $this->imageModel->getByProduct($variant['id']);
             $i = 0;
             foreach ($images as $image) {
                 $width = $image['width'];
@@ -77,7 +77,7 @@ class ProductController extends BaseController
 
             // Obtener imágenes para cada variante
             foreach ($variants as &$variant) {
-                $images = $this->imageModel->getByProduct($variant['variant_id']);
+                $images = $this->imageModel->getByProduct($variant['id']);
                 $i = 0;
                 foreach ($images as $image) {
                     $width = $image['width'];
@@ -99,22 +99,24 @@ class ProductController extends BaseController
 
 
 
-    public function index($id)
+    public function index($id, $variantNumber)
     {
         $product = $this->getVariants($id);
 
-        if (!empty($product['variants'])) {
-            // Obtener un índice aleatorio dentro del rango válido
-            $randomIndex = rand(0, count($product['variants']) - 1);
-            // Obtener la variante aleatoria
-            $randomVariant = $product['variants'][$randomIndex];
-        }
+        // if (!empty($product['variants'])) {
+        //     // Obtener un índice aleatorio dentro del rango válido
+        //     $randomIndex = rand(0, count($product['variants']) - 1);
+        //     // Obtener la variante aleatoria
+        //     $randomVariant = $product['variants'][$randomIndex];
+        // }
+
+
 
         $view = new View('products/show');
         $view->data = [
-            "title" => $product['name'],
+            "title" => $product['name'] ?? 'Default',
             "product" => $product,
-            "randomVariant" => $randomVariant
+            "variantNumber" => $variantNumber
         ];
         $view->styles = [
             "pages/product-page"
@@ -133,23 +135,62 @@ class ProductController extends BaseController
         return $view->render();
     }
 
-    public function getByCatalog($id)
+    public function getByCatalog($catalog_id)
     {
-        $products = $this->productModel->getByCatalog($id);
+        // Obtener todos los productos del catálogo específico
+        $products = $this->productModel->getByCatalog($catalog_id);
+
+        foreach ($products as &$product) {
+            // Obtener las variantes para cada producto
+            $variants = $this->productModel->getVariants($product['id']);
+
+            foreach ($variants as &$variant) {
+                // Obtener los atributos de la variante
+                $attributes = $this->productModel->getVariantAttributes($variant['id']);
+                $variant['attributes'] = $attributes;
+
+                // Obtener las imágenes de la variante
+                $images = $this->imageModel->getByVariant($variant['id']);
+                $i = 0;
+                foreach ($images as $image) {
+                    $width = $image['width'];
+                    $height = $image['height'];
+                    $variant['images'][($width . 'x' . $height)][$i]['src'] = $image['src'];
+                    $variant['images'][($width . 'x' . $height)][$i]['alt'] = $image['alt'];
+
+                    $i++;
+                }
+            }
+
+            // Asignar las variantes al producto
+            $product['variants'] = $variants;
+        }
+
         return $products;
     }
 
-    public function showCatalog($id)
+
+
+    public function showCatalog($catalog_id)
     {
-        $products = $this->getByCatalog($id);
-        $view = new View('catalogs/show', $this->role);
+        // Obtener productos del catálogo usando el método getByCatalog
+        $products = $this->getByCatalog($catalog_id);
+
+        // Crear la vista con los productos obtenidos
+        $view = new View('catalogs/show');  // Cargar la vista 'catalogs/show.php'
+
+        // Asignar los datos a la vista
         $view->data = [
-            "title" => "Catalog | EME Comercio",
+            "title" => "Catálogo de Productos",
             "products" => $products
         ];
+
+        // Establecer las hojas de estilo necesarias
         $view->styles = [
             "pages/catalog"
         ];
-        $view->render();
+
+        // Renderizar la vista y devolver el resultado
+        return $view->render();
     }
 }

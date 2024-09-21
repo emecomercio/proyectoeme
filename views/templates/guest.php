@@ -86,17 +86,11 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" id="categoriesDropdown">Categorías</a>
                     <div class="dropdown-content" id="categoriesMenu">
-                        <a href="#">Electrónicos</a>
-                        <a href="#">Hogar y Muebles</a>
-                        <a href="#">Moda</a>
-                        <a href="#">Deportes y Fitness</a>
-                        <a href="#">Herramientas</a>
-                        <a href="#">Construcción</a>
-                        <a href="#">Industrias y Oficinas</a>
-                        <a href="#">Accesorios para Vehículos</a>
-                        <a href="#">Juguetes y Bebés</a>
-                        <a href="#">Salud y Equipamiento Médico</a>
-                        <a href="#">Belleza y Cuidado Personal</a>
+                        <?php
+                        foreach ($catalogs as $catalog):
+                        ?>
+                            <a href="/catalog/<?= $catalog['id'] ?>"><?= $catalog['name'] ?></a>
+                        <?php endforeach; ?>
                     </div>
                 </li>
                 <li><a href="#">Ofertas</a></li>
@@ -137,7 +131,7 @@
             </div>
         </div>
         <div class="bottom-div">
-        <a class="contactoa" href="/terms-and-conditions" href="#about-section">Terminos y condiciones</a>
+            <a class="contactoa" href="/terms-and-conditions" href="#about-section">Terminos y condiciones</a>
             <p>@ TODOS LOS DERECHOS RESERVADOS EME COMERCIO</p>
         </div>
     </footer>

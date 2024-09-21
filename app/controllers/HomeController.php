@@ -9,19 +9,19 @@ class HomeController extends BaseController
 {
     protected $userController;
     protected $productController;
-    protected $categoryModel;
+    protected $catalogModel;
 
-    public function __construct($role)
+    public function __construct()
     {
-        parent::__construct($role);
-        $this->userController = new UserController($role);
-        $this->productController = new ProductController($role);
-        $this->categoryModel = new CatalogModel($role);
+        parent::__construct();
+        $this->userController = new UserController();
+        $this->productController = new ProductController();
+        $this->catalogModel = new CatalogModel();
     }
 
     public function index()
     {
-        $catalogs = $this->categoryModel->all();
+        $catalogs = $this->catalogModel->all();
         $products = $this->productController->allWithVariants();
         shuffle($products);
         $home = new View("home", getUserRole());

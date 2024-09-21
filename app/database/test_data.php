@@ -52,7 +52,7 @@ ob_end_flush();
 
 
 $faker = Faker::create(); // Crea una instancia de Faker
-$pdo = new PDO('mysql:host=localhost;dbname=ecommerce', 'root', ''); // Configura la conexión PDO
+$pdo = new PDO('mysql:host=localhost;dbname=ecommerce', 'root', 'root'); // Configura la conexión PDO
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 // Insertar datos en la tabla users

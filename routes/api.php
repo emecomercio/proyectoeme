@@ -15,30 +15,25 @@ Route::get('/pruebita', function () {
 // AUTH
 
 Route::post('/api/login', function () {
-    $role = getUserRole();
-    $auth = new AuthController($role);
+    $auth = new AuthController('admin');
     $auth->login();
 });
 
 Route::post('/api/register', function () {
-    $role = getUserRole();
-    $authController = new AuthController($role);
+    $authController = new AuthController();
     $authController->create();
 });
 
 // USERS
 
 Route::get('/api/users', function () {
-    // Instancia del controlador
-    $role = getUserRole();
-    $users = new UserController($role);
+    $users = new UserController();
     // Llama al método 'index' en el controlador
     $users->index();
 });
 
 Route::get('/api/users/{id}', function ($id) {
-    $role = getUserRole();
-    $user = new UserController($role);
+    $user = new UserController();
     $user->find($id);
 });
 
@@ -46,15 +41,13 @@ Route::get('/api/users/{id}', function ($id) {
 // PRODUCTS
 
 Route::get('/api/products', function () {
-    $role = getUserRole();
-    $products = new ProductController($role);
+    $products = new ProductController();
 
     $products->index();
 });
 
 Route::get('/api/products/{id}', function ($id) {
-    $role = getUserRole();
-    $product = new ProductController($role);
+    $product = new ProductController();
 
     $product->find($id);
 });
