@@ -1,0 +1,65 @@
+.offer-container {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px;
+  gap: 20px;
+}
+
+.offer-item {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 15px;
+  width: 300px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.offer-title {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.offer-image {
+  width: 100%;
+  height: auto;
+  margin-bottom: 10px;
+}
+
+.product-name {
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.old-price {
+  text-decoration: line-through;
+  color: #999;
+  margin-bottom: 5px;
+}
+
+.new-price {
+  font-size: 18px;
+  color: #28a745;
+  margin-bottom: 5px;
+}
+
+.discount {
+  color: #ff0000;
+}
+
+.installments, .shipping {
+  font-size: 12px;
+  margin-bottom: 5px;
+}
+
+.product {
+  margin-bottom: 20px;
+}
+
+.product-image {
+  width: 100px;
+  height: auto;
+  margin-bottom: 5px;
+}
+
+.shipping {
+  color: #28a745;
+}

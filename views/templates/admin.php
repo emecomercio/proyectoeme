@@ -45,11 +45,6 @@
 
 <body>
     <header>
-        <nav class="contacto">
-            <a class="contactoa" href="#contact-section">Contacto</a>
-            <a class="contactoa" href="/terms-and-conditions" href="#about-section">Terminos y condiciones</a>
-            <a class="contactoa" href="#locales-section">Locales</a>
-        </nav>
         <div class="header">
             <div class="logo">
                 <a href="/">
@@ -115,6 +110,7 @@
             </div>
         </div>
         <div class="bottom-div">
+            <a class="contactoa" href="/terms-and-conditions" href="#about-section">Terminos y condiciones</a>
             <p>@ TODOS LOS DERECHOS RESERVADOS EME COMERCIO</p>
         </div>
     </footer>

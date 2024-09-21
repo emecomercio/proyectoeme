@@ -1,0 +1,43 @@
+.carousel {
+    position: relative;
+    width: 100%; /* Ocupará todo el ancho de la pantalla */
+    margin: 0 auto;
+    overflow: hidden;
+    border-radius: 8px;
+    height: 400px; /* Fija la altura del carrusel, puedes ajustar este valor */
+}
+
+.carousel-inner {
+    display: flex;
+    transition: transform 0.3s ease-in-out;
+}
+
+.carousel-item {
+    flex: 0 0 100%;
+}
+
+.carousel-item img {
+    width: 100%;
+    height: 50%; /* Ocupa toda la altura del carrusel */
+}
+
+.carousel-control {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: transparent;
+    color: rgb(78, 78, 78);
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.3s;
+}
+
+.carousel-control.prev {
+    left: 10px;
+}
+
+.carousel-control.next {
+    right: 10px;
+}

@@ -1,32 +1,15 @@
-export function categories() {
-  document.addEventListener("DOMContentLoaded", function () {
-    const categorias = document.querySelectorAll(".categories");
-    const hamburgerMenu = document.querySelector(".hamburger-menu");
-    const sectionCategories = document.querySelector(".section-categories");
+document.addEventListener('DOMContentLoaded', function() {
+  var dropdown = document.getElementById("categoriesDropdown");
+  var dropdownContent = document.getElementById("categoriesMenu");
 
-    categorias.forEach(function (categorie) {
-      categorie.addEventListener("click", function () {
-        const dropdownContent = this.querySelector(
-          ".dropdown-content-categories"
-        );
-        const isVisible = dropdownContent.style.display === "block";
-        document
-          .querySelectorAll(".dropdown-content-categories")
-          .forEach(function (content) {
-            content.style.display = "none";
-          });
-        dropdownContent.style.display = isVisible ? "none" : "block";
-      });
-    });
-
-    window.addEventListener("click", function (event) {
-      if (!event.target.closest(".categories")) {
-        document
-          .querySelectorAll(".dropdown-content-categories")
-          .forEach(function (content) {
-            content.style.display = "none";
-          });
-      }
-    });
+  dropdown.addEventListener("click", function(e) {
+      e.preventDefault();
+      dropdownContent.classList.toggle("show");
   });
-}
+
+  window.addEventListener("click", function(e) {
+      if (!dropdown.contains(e.target)) {
+          dropdownContent.classList.remove("show");
+      }
+  });
+});

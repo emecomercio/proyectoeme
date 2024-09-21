@@ -58,7 +58,7 @@ class ProductModel extends DatabaseModel
                 pv.last_price AS last_price,
                 pv.stock AS variant_stock,
                 va.name AS attribute_name,
-                va.value AS attribute_value,
+                va.value AS attribute_value
             FROM 
                 products p
             JOIN 

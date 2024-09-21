@@ -20,9 +20,9 @@
 .header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: end;
   flex-wrap: wrap;
-  padding: 5px 10px; 
+  padding: 15px 10px; 
   background-color: #1c1c1c;
 }
 
@@ -58,13 +58,14 @@
 }
 
 .BarraBusqueda {
-  height: 30px; /* Aumenté un poco la altura para mayor claridad */
-  width: 30vw;
+  height: 30px;
+  width: 40vw;
   background-color: aliceblue;
-  border: 1px solid #ccc; /* Añadí un borde para mayor visibilidad */
-  padding-right: 40px; /* Espacio para el botón dentro del input */
-  padding-left: 10px; /* Espacio interior a la izquierda */
-  border-radius: 20px; /* Redondeo las esquinas */
+  border: 1px solid #ccc; 
+  padding-right: 40px; 
+  padding-left: 10px; 
+  border-radius: 20px;
+
 }
 
 .BotonBusqueda {
@@ -172,6 +173,7 @@
   .contacto {
     flex-direction: column;
     text-align: center;
+    
   }
 
   .header {
