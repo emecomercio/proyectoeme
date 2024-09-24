@@ -37,11 +37,6 @@ ini_set('memory_limit', '-1');  // Sin límite de memoria
 ini_set('upload_max_filesize', '500M');
 ini_set('post_max_size', '500M');
 
-// Desactivar la visualización de errores en pantalla (opcional)
-ini_set('display_errors', 'Off');
-ini_set('log_errors', 'On');
-ini_set('error_log', '/path/to/error.log');
-
 // Optimizar tiempos de espera de la base de datos
 ini_set('mysql.connect_timeout', 300);
 ini_set('default_socket_timeout', 300);

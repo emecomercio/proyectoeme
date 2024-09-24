@@ -24,6 +24,7 @@ class Route
         static::addRoute("POST", ...$args);
     }
 
+    // SIN USO
     public static function view($uri, $view, $data = [])
     {
         static::get($uri, function () use ($view, $data) {
