@@ -86,7 +86,7 @@
             <ul>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" id="categoriesDropdown">Categorías</a>
-                    <div class="dropdown-content" id="categoriesMenu">
+                    <div class="dropdown-categories" id="categoriesMenu">
                         <?php
                         foreach ($catalogs as $catalog):
                         ?>
@@ -94,11 +94,10 @@
                         <?php endforeach; ?>
                     </div>
                 </li>
-                <li><a href="#">Ofertas</a></li>
-                <li><a href="#">Cupones</a></li>
-                <li><a href="#">Proximas ofertas</a></li>
-
-                <li><a href="#">Ayuda</a></li>
+                <li class="dropdown"><a href="#">Ofertas</a></li>
+                <li class="dropdown"><a href="#">Cupones</a></li>
+                <li class="dropdown"><a href="#">Proximas ofertas</a></li>
+                <li class="dropdown"><a href="#">Ayuda</a></li>
             </ul>
         </div>
     </header>

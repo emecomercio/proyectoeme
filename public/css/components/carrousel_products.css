@@ -1,4 +1,18 @@
-    .carousel-container {
+.presentation {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  margin: auto;
+  width: 80%;
+}
+
+
+.presentation>.carousel-container {
+  margin: 20px 0;
+
+}
+.carousel-container {
   width: 90%;
   height: 360px;
   margin: 0 auto;
@@ -102,4 +116,133 @@
 
 .carousel_control_product:focus {
   outline: none;
+}
+
+.container_category {
+  background-color: #222222;
+  border-radius: 8px;
+  padding: 20px;
+  max-width: 80%;
+  margin: 0 auto;
+}
+.header_category {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.header_category h2 {
+  color: #464646;
+  margin: 0;
+  font-size: 18px;
+}
+.header_category a {
+  color: #3483fa;
+  text-decoration: none;
+}
+.categories_category {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+.category {
+  display: flex;
+  align-items: center;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  padding: 10px;
+}
+.category img {
+  width: 80px;
+  height: 80px;
+  margin-right: 15px;
+  object-fit: contain;
+}
+.category span {
+  font-size: 14px;
+}
+.nav_arrow_category {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+.nav_arrow_category button {
+  background: none;
+  border: none;
+  color: #3483fa;
+  cursor: pointer;
+  font-size: 24px;
+}
+
+
+.promo-card-section {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  background-color: #222222;
+}
+
+.promo-item {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  width: 48%;
+  overflow: hidden;
+}
+
+.promo-description {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-basis: 50%;
+}
+
+.promo-heading {
+  color: #999;
+  font-size: 12px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.promo-main-title {
+  font-size: 20px;
+  margin-bottom: 15px;
+  font-weight: bold;
+  color: #333;
+}
+
+.promo-btn {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 15px;
+  text-decoration: none;
+  border-radius: 5px;
+  display: inline-block;
+  margin-top: auto;
+}
+
+.promo-btn:hover {
+  background-color: #0056b3;
+}
+
+.promo-image-section {
+  position: relative;
+  flex-basis: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f1f1f1;
+}
+
+.promo-image-section img {
+  max-width: 100%;
+  border-radius: 8px;
+}
+
+.promo-heart {
+  font-size: 18px;
+  margin-left: 5px;
+  color: red;
 }

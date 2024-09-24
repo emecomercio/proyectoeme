@@ -114,15 +114,41 @@
 }
 /* Dropdown styling */
 .dropdown-content {
-  position: absolute;
+  position: absolute; /* Usar absolute para que se posicione en relación con el contenedor padre */
   background-color: #ffffff;
   min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  max-width: 200px; /* Limita el ancho */
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  right: 0; /* Asegura que el dropdown no se salga por la derecha */
+  left: auto; /* Deshabilita el left */
+}
+
+.dropdown-categories {
+  position: absolute; /* Usar absolute para que se posicione en relación con el contenedor padre */
+  background-color: #ffffff;
+  min-width: 160px;
+  max-width: 200px; /* Limita el ancho */
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
   margin-top: 10px;
   padding: 10px;
   border-radius: 5px;
 }
+
+.dropdown-categories a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+.dropdown-categories a:hover {
+  background-color: #f1f1f1;
+}
+
 
 .dropdown-content a {
   color: black;
@@ -130,9 +156,40 @@
   text-decoration: none;
   display: block;
 }
+.dropdown > a {
+  color: rgb(255, 255, 255)
+}
 
 .dropdown-content a:hover {
   background-color: #f1f1f1;
+}
+
+/* Oculta el menú por defecto */
+#categoriesMenu {
+  display: none;
+  position: absolute;
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  border-radius: 4px;
+  z-index: 1000; /* Asegúrate de que esté sobre otros elementos */
+}
+
+/* Cuando la clase "show" está presente, se muestra el menú */
+#categoriesMenu.show {
+  display: block;
+}
+
+/* Para que los enlaces en el menú tengan un buen estilo */
+#categoriesMenu a {
+  display: block;
+  padding: 8px 12px;
+  text-decoration: none;
+  color: black;
+}
+
+#categoriesMenu a:hover {
+  background-color: #f0f0f0;
 }
 
 /* mostrar y ocultar */

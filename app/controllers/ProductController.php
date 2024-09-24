@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use Lib\View;
 use App\Models\CartModel;
+use App\Models\CatalogModel;
 use App\Models\ImageModel;
 use App\Models\ProductModel;
 
@@ -23,7 +24,7 @@ class ProductController extends BaseController
     {
         $this->role = getUserRole();
         $this->productModel = new ProductModel();
-        $this->catalogModel = new CartModel();
+        $this->catalogModel = new CatalogModel();
         $this->imageModel = new ImageModel();
     }
 
@@ -102,7 +103,7 @@ class ProductController extends BaseController
     public function index($id, $variantNumber)
     {
         $product = $this->getVariants($id);
-
+        $catalogs = $this->catalogModel->all();
         // if (!empty($product['variants'])) {
         //     // Obtener un índice aleatorio dentro del rango válido
         //     $randomIndex = rand(0, count($product['variants']) - 1);
@@ -114,6 +115,7 @@ class ProductController extends BaseController
 
         $view = new View('products/show');
         $view->data = [
+            "catalogs" =>  $catalogs,
             "title" => $product['name'] ?? 'Default',
             "product" => $product,
             "variantNumber" => $variantNumber
