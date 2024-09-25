@@ -37,6 +37,10 @@ class HomeController extends BaseController
             [
                 "type" => "module",
                 "src" => "/js/pages/homepage.js"
+            ],
+            [
+                "src" => "/js/components/carrousel_products.js",
+                "defer" => true
             ]
         ];
         $home->render();

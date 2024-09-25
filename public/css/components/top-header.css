@@ -17,26 +17,6 @@
   text-decoration: underline;
 }
 
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: end;
-  flex-wrap: wrap;
-  padding: 15px 10px; 
-  background-color: #1c1c1c;
-}
-
-
-.logo {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 10px;
-  position: relative; 
-  top: -15px; 
-  right: -15px; 
-}
-
 .LogoEme {
   height: 40px;
   width: auto;
@@ -47,30 +27,28 @@
   scale: 1.2;
 }
 
-
 .buscador {
   display: flex;
   justify-content: center;
   align-items: center;
   position: relative; /* Permite posicionar el botón dentro del input */
-  margin: 10px; 
-  top: -15px; 
+  margin: 10px;
+  top: -15px;
 }
 
 .BarraBusqueda {
   height: 30px;
   width: 40vw;
   background-color: aliceblue;
-  border: 1px solid #ccc; 
-  padding-right: 40px; 
-  padding-left: 10px; 
+  border: 1px solid #ccc;
+  padding-right: 40px;
+  padding-left: 10px;
   border-radius: 20px;
-
 }
 
 .BotonBusqueda {
   position: absolute;
-  right: 5px; /* Coloca el botón en el extremo derecho del input */
+  right: 1em; /* Coloca el botón en el extremo derecho del input */
   background: none;
   border: none;
   cursor: pointer;
@@ -85,16 +63,14 @@
   width: 20px;
   height: auto;
 }
-.user-menu:hover{
+.user-menu:hover {
   cursor: pointer;
 }
 .iconos {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 10px;
-  position: relative; 
-  top: -15px; 
+  position: relative;
 }
 
 .icono {
@@ -103,8 +79,6 @@
   cursor: pointer;
 }
 
-.TextoIcono,
-.TextoIcono,
 .TextoIcono {
   color: white;
   text-decoration: none;
@@ -149,7 +123,6 @@
   background-color: #f1f1f1;
 }
 
-
 .dropdown-content a {
   color: black;
   padding: 12px 16px;
@@ -157,7 +130,7 @@
   display: block;
 }
 .dropdown > a {
-  color: rgb(255, 255, 255)
+  color: rgb(255, 255, 255);
 }
 
 .dropdown-content a:hover {
@@ -178,6 +151,9 @@
 /* Cuando la clase "show" está presente, se muestra el menú */
 #categoriesMenu.show {
   display: block;
+  position: absolute;
+  left: 0;
+  right: 0;
 }
 
 /* Para que los enlaces en el menú tengan un buen estilo */
@@ -194,11 +170,9 @@
 
 /* mostrar y ocultar */
 
-.user-data{
-  display: none ;
+.user-data {
+  display: none;
 }
-
-
 
 /* mostrar y ocultar */
 @media (max-width: 768px) {
@@ -230,7 +204,6 @@
   .contacto {
     flex-direction: column;
     text-align: center;
-    
   }
 
   .header {
@@ -249,4 +222,22 @@
     width: 80%;
     margin-bottom: 10px;
   }
+}
+
+header {
+  all: unset;
+  margin: 1em;
+  display: flex;
+  flex-direction: column;
+  padding: 0.5em;
+}
+
+.main-h {
+  display: flex;
+  justify-content: space-between;
+}
+
+.snd-h {
+  margin-top: 1em;
+  list-style: none;
 }

@@ -5,12 +5,11 @@
   padding: 20px;
   margin: auto;
   width: 80%;
+  margin-top: -6em;
 }
 
-
-.presentation>.carousel-container {
+.presentation > .carousel-container {
   margin: 20px 0;
-
 }
 .carousel-container {
   width: 90%;
@@ -173,7 +172,6 @@
   cursor: pointer;
   font-size: 24px;
 }
-
 
 .promo-card-section {
   display: flex;

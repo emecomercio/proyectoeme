@@ -50,14 +50,14 @@
 
 <body>
     <header>
-        <div class="header">
+        <div class="main-h">
             <div class="logo">
                 <a href="/">
                     <img class="LogoEme" src="<?= loadIMG("icons/logo.png") ?>" alt="logo de la empresa" />
                 </a>
             </div>
             <div class="buscador">
-                <input type="search" placeholder="buscar" class="BarraBusqueda" />
+                <input type="search" placeholder="Buscar" class="BarraBusqueda" />
                 <button type="button" class="BotonBusqueda">
                     <img class="LogoBusqueda" src="<?= loadIMG("icons/lupa_icono_negro.png") ?>" alt="Buscar" />
                 </button>
@@ -83,23 +83,23 @@
                     </div>
                 </div>
             </nav>
-            <ul>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" id="categoriesDropdown">Categorías</a>
-                    <div class="dropdown-categories" id="categoriesMenu">
-                        <?php
-                        foreach ($catalogs as $catalog):
-                        ?>
-                            <a href="/catalog/<?= $catalog['id'] ?>"><?= $catalog['name'] ?></a>
-                        <?php endforeach; ?>
-                    </div>
-                </li>
-                <li class="dropdown"><a href="#">Ofertas</a></li>
-                <li class="dropdown"><a href="#">Cupones</a></li>
-                <li class="dropdown"><a href="#">Proximas ofertas</a></li>
-                <li class="dropdown"><a href="#">Ayuda</a></li>
-            </ul>
         </div>
+        <ul class="snd-h">
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" id="categoriesDropdown">Categorias</a>
+                <div class="dropdown-content" id="categoriesMenu">
+                    <?php
+                    foreach ($catalogs as $catalog):
+                    ?>
+                        <a href="/catalog/<?= $catalog['id'] ?>"><?= $catalog['name'] ?></a>
+                    <?php endforeach; ?>
+                </div>
+            </li>
+            <li class="dropdown"><a href="#">Ofertas</a></li>
+            <li class="dropdown"><a href="#">Cupones</a></li>
+            <li class="dropdown"><a href="#">Proximas ofertas</a></li>
+            <li class="dropdown"><a href="#">Ayuda</a></li>
+        </ul>
     </header>
 
     <main>
