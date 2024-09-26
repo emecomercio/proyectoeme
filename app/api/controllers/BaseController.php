@@ -3,9 +3,21 @@
 namespace App\Api\Controllers;
 
 use Exception;
+use mysqli_sql_exception;
 
 class BaseController
 {
+    protected function handle(callable $f, string $m = "An error occurred")
+    {
+        try {
+            return  $f();
+        } catch (mysqli_sql_exception $e) {
+            $this->handleDatabaseError($e);
+        } catch (Exception $e) {
+            $this->handleException($e, $m);
+        }
+    }
+
     protected function respondWithSuccess($data, $statusCode = 200)
     {
         http_response_code($statusCode);
@@ -41,7 +53,6 @@ class BaseController
 
     protected function handleDatabaseError($e)
     {
-        // Verificar si es un error de permiso denegado (error codes: 1044, 1142)
         if (in_array($e->getCode(), [1044, 1142])) {
             error_log($e->getMessage());
             // Mostrar un mensaje personalizado al usuario
@@ -79,7 +90,7 @@ class BaseController
             error_log($e->getMessage());
             $this->respondWithError($e->getMessage(), 400);
         } else {
-            // Si es otro tipo de error, puedes manejarlo de forma diferente
+            // Si es otro tipo de error, se muestra  un mensaje genérico
             http_response_code(500);
             header('Content-Type: application/json');
             echo json_encode([
@@ -92,7 +103,7 @@ class BaseController
 
     protected function handleException(Exception $e, $message = "An error occurred")
     {
-        // Log the exception (puedes integrar aquí un logger si es necesario)
+        // Log the exception
         error_log($e->getMessage());
 
         // Retorna una respuesta de error

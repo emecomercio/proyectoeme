@@ -40,6 +40,8 @@ class UserController extends BaseController
             } else {
                 $this->respondWithSuccess($user);
             }
+        } catch (mysqli_sql_exception $e) {
+            $this->handleDatabaseError($e);
         } catch (Exception $e) {
             $this->handleException($e, "Error retrieving user");
         }

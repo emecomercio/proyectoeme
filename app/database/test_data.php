@@ -1,5 +1,7 @@
 <?php
 require_once __DIR__ . '/../../vendor/autoload.php'; // Incluye el autoload de Composer
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../../');
+$dotenv->load();
 
 use Faker\Factory as Faker;
 use Faker\Generator;
@@ -33,21 +35,8 @@ use Faker\Generator;
 set_time_limit(0);  // Sin límite de tiempo
 ini_set('memory_limit', '-1');  // Sin límite de memoria
 
-// Ajustar tamaños de archivos (si es necesario)
-ini_set('upload_max_filesize', '500M');
-ini_set('post_max_size', '500M');
-
-// Optimizar tiempos de espera de la base de datos
-ini_set('mysql.connect_timeout', 300);
-ini_set('default_socket_timeout', 300);
-
-// Desactivar el almacenamiento en búfer de salida (opcional)
-ob_implicit_flush(true);
-ob_end_flush();
-
-
 $faker = Faker::create(); // Crea una instancia de Faker
-$pdo = new PDO('mysql:host=localhost;dbname=ecommerce', 'root', ''); // Configura la conexión PDO
+$pdo = new PDO('mysql:host=' . $_ENV['DB_HOST'] . ';dbname=' . $_ENV['DB_NAME'], 'root', $_ENV['DB_ROOT']); // Configura la conexión PDO
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 // Insertar datos en la tabla users
