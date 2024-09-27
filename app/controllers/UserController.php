@@ -7,7 +7,7 @@ use App\Models\UserModel;
 use Lib\View;
 
 class UserController extends BaseController
-{       
+{
     protected $catalogModel;
     protected $userModel;
 
@@ -16,7 +16,6 @@ class UserController extends BaseController
         parent::__construct();
         $this->userModel = new UserModel();
         $this->catalogModel = new CatalogModel();
-
     }
 
     public function showLogin($msg = '')
@@ -82,6 +81,12 @@ class UserController extends BaseController
             $dashboard->styles = [
                 "pages/dashboard",
                 "pages/home-entrepise"
+            ];
+            $dashboard->scripts = [
+                [
+                    "src" => "/js/pages/seller_dashboard.js",
+                    "defer" => true
+                ],
             ];
             $dashboard->render();
         };
