@@ -40,4 +40,15 @@ class CartModel extends DatabaseModel
         $preparation->execute();
         return $preparation->get_result()->fetch_all(MYSQLI_ASSOC);
     }
+    public function create($data)
+    {
+        $query = "INSERT INTO carts (user_id) VALUES (?)";
+        $this->executeQuery($query, [$data['user_id']], 'i');
+    }
+
+    public function update($data)
+    {
+        $query = "UPDATE carts SET status = ? WHERE id = ?";
+        $this->executeQuery($query, [$data['status'], $data['id']], 'ii');
+    }
 }

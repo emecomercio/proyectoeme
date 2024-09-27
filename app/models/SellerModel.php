@@ -13,6 +13,30 @@ class SellerModel extends DatabaseModel
         $this->userModel = new UserModel();
     }
 
+    public function all()
+    {
+        $query = "SELECT
+                    u.id,
+                    u.role,
+                    u.username,
+                    u.email,
+                    u.document_number,
+                    u.active,
+                    u.created_at,
+                    u.updated_at,
+                    u.name AS seller_name,
+                    s.description AS seller_description,
+                    s.website AS seller_website,
+                    s.logo_url AS seller_logo_url,
+                    s.mercadopago_account AS seller_mercadopago_account,
+                    s.paypal_account AS seller_paypal_account
+                FROM
+                    users u
+                INNER JOIN
+                    sellers s ON u.id = s.id;";
+        return $this->fetchAll($query);
+    }
+
     public function update($data = [])
     {
         $description = $data['description'];

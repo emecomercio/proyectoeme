@@ -4,7 +4,7 @@ namespace App\Api\Controllers;
 
 use App\Models\CartModel;
 
-class CartController
+class CartController extends  BaseController
 {
     protected $cartModel;
 
@@ -43,5 +43,13 @@ class CartController
 
         header('Content-Type: application/json');
         echo json_encode($result);
+    }
+
+    public function create()
+    {
+        $this->handle(function () {
+            $data = json_decode(file_get_contents('php://input'), true);
+            $this->cartModel->create($data);
+        }, 'Error creating cart');
     }
 }

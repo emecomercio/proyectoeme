@@ -5,7 +5,7 @@ use App\Api\Controllers\AuthController;
 use App\Api\Controllers\CartController;
 use App\Api\Controllers\UserController;
 use App\Api\Controllers\ProductController;
-
+use App\Api\Controllers\SellerController;
 
 Route::get('/pruebita', function () {
     $roles = json_decode($_ENV['DB_USERS'], true);
@@ -60,8 +60,20 @@ Route::get('/api/carts', function () {
     $carts->index();
 });
 
-Route::get('/api/cart/{id}', function ($id) {
+Route::get('/api/carts/{id}', function ($id) {
     $cart = new CartController();
 
     $cart->find($id);
+});
+
+Route::post('/api/carts/', function () {
+    $cart = new CartController();
+    $cart->create();
+});
+
+// SELLER
+
+Route::get('/api/seller/{$id}/products', function ($id) {
+    $user = new SellerController();
+    $user->getAllProducts($id);
 });

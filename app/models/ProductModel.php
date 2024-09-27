@@ -39,4 +39,10 @@ class ProductModel extends DatabaseModel
         $query = "SELECT name, value FROM variant_attributes WHERE variant_id = ?";
         return $this->fetchAll($query, [$variant_id], 'i');
     }
+
+    public function getAllBySeller($id)
+    {
+        $query = "SELECT * FROM products WHERE seller_id = ?";
+        return $this->fetchAll($query, [$id], 'i');
+    }
 }
