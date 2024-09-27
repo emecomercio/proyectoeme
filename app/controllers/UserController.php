@@ -2,17 +2,21 @@
 
 namespace App\Controllers;
 
+use App\Models\CatalogModel;
 use App\Models\UserModel;
 use Lib\View;
 
 class UserController extends BaseController
-{
+{       
+    protected $catalogModel;
     protected $userModel;
 
     public function __construct()
     {
         parent::__construct();
         $this->userModel = new UserModel();
+        $this->catalogModel = new CatalogModel();
+
     }
 
     public function showLogin($msg = '')
@@ -27,7 +31,8 @@ class UserController extends BaseController
         $view = function ($role) {
             $cart = new View("$role/cart", $role);
             $cart->data = [
-                "title" => "Carrito | EME Comercio"
+                "title" => "Carrito | EME Comercio",
+
             ];
             $cart->styles = [
                 "pages/cart"
@@ -67,10 +72,12 @@ class UserController extends BaseController
     public function dashboard()
     {
         $show = function ($view) {
+            $catalogs = $this->catalogModel->all();
             $dashboard = new View($view, $this->role);
             $dashboard->data = [
                 "title" => "Dashboard | EME Comercio",
-                "user" => $this->userModel->find($_SESSION['user']['id'])
+                "user" => $this->userModel->find($_SESSION['user']['id']),
+                "catalogs" => $catalogs
             ];
             $dashboard->styles = [
                 "pages/dashboard",

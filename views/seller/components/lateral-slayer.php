@@ -1,18 +1,33 @@
-<div class="slayer-inputs">
-  <img src="logo.png" alt="logo"> <!-- Ajusta la ruta del logo -->
-  <h1>Nombre de la empresa</h1>
-  <h2>Filtrar por</h2>
-  <div class="checkbox-container">
-    <input type="checkbox" id="Masvendidos">
-    <label for="Masvendidos" class="checkbox-label">Más vendidos</label>
-    <input type="checkbox" id="Menosvendidos">
-    <label for="Menosvendidos" class="checkbox-label">Menos vendidos</label>
-    <input type="checkbox" id="altapuntuacion">
-    <label for="altapuntuacion" class="checkbox-label">Más alta puntuación</label>
-    <input type="checkbox" id="bajapuntuacion">
-    <label for="bajapuntuacion" class="checkbox-label">Más baja puntuación</label>
-    <input type="checkbox" id="masantiguos">
-    <label for="masantiguos" class="checkbox-label">Más antiguos</label>
-  </div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Lateral - Centro de Vendedores</title>
 
-</div>
+    <!-- Enlace correcto a Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+    <!-- Vincula tu archivo CSS (debe estar en el mismo directorio o cambiar la ruta según corresponda) -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="sidebar">
+        <a href="#" class="sidebar-item">
+            <i class="fas fa-shopping-bag"></i>
+        </a>
+        <a href="#" class="sidebar-item">
+            <i class="fas fa-chart-line"></i>
+        </a>
+        <a href="#" class="sidebar-item">
+            <i class="fas fa-dollar-sign"></i>
+        </a>
+        <a href="#" class="sidebar-item">
+            <i class="fas fa-user-shield"></i>
+        </a>
+        <a href="#" class="sidebar-item">
+            <i class="fas fa-truck"></i>
+        </a>
+        <a href="#" class="sidebar-item">
+            <i class="fas fa-cog"></i>
+        </a>
+    </div>
+</body>
