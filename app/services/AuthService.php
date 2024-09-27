@@ -44,6 +44,7 @@ class AuthService
     public function create($data = [])
     {
         $user = $this->userModel->create($data);
+
         // $data['role'] == 'seller'
         //     ? $this->sellerModel->update($data)
         //     : $this->buyerModel->update($data);

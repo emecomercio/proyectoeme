@@ -74,6 +74,11 @@ Route::post('/api/carts/', function () {
 // SELLER
 
 Route::get('/api/seller/{$id}/products', function ($id) {
-    $user = new SellerController();
-    $user->getAllProducts($id);
+    $seller = new SellerController();
+    $seller->getAllProducts($id);
+});
+
+Route::post('/api/seller/{id}/products', function ($id) {
+    $seller = new SellerController();
+    $seller->createProduct($id);
 });

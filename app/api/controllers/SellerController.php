@@ -35,4 +35,13 @@ class SellerController extends  BaseController
             }
         });
     }
+
+    public function createProduct()
+    {
+        $this->handle(function () {
+            $data = json_decode(file_get_contents('php://input'), true);
+            $this->productModel->create($data);
+            $this->respondWithSuccess('Product created successfully');
+        });
+    }
 }

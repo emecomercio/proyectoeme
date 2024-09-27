@@ -7,10 +7,10 @@ class SellerModel extends DatabaseModel
 
     protected $userModel;
 
-    public function __construct()
+    public function __construct($role = null)
     {
-        parent::__construct();
-        $this->userModel = new UserModel();
+        parent::__construct($role);
+        $this->userModel = new UserModel($role);
     }
 
     public function all()
@@ -39,11 +39,11 @@ class SellerModel extends DatabaseModel
 
     public function update($data = [])
     {
-        $description = $data['description'];
-        $website = $data['website'];
-        $logo_url = $data['logo-url'];
-        $mercadopago_account = $data['mercadopago-account'];
-        $paypal_account = $data['paypal-account'];
+        $description = $data['description'] ?? null;
+        $website = $data['website'] ?? null;
+        $logo_url = $data['logo-url'] ?? null;
+        $mercadopago_account = $data['mercadopago-account'] ?? null;
+        $paypal_account = $data['paypal-account'] ?? null;
         $id = $data['id'];
 
         $query = "UPDATE sellers SET description = ?, website = ?, logo_url = ?, mercadopago_account = ?, paypal_account = ? WHERE id = ?";

@@ -45,4 +45,10 @@ class ProductModel extends DatabaseModel
         $query = "SELECT * FROM products WHERE seller_id = ?";
         return $this->fetchAll($query, [$id], 'i');
     }
+
+    public function create($data)
+    {
+        $query = "INSERT INTO products (catalog_id, seller_id, name, description) VALUES (?,?,?,?)";
+        return $this->executeQuery($query, [$data['catalog-id'], $data['seller-id'], $data['name'], $data['description']], "iiss");
+    }
 }

@@ -41,7 +41,7 @@ SELECT
     u.active,
     u.created_at,
     u.updated_at,
-    s.name AS seller_name,
+    u.name AS seller_name,
     s.description AS seller_description,
     s.website AS seller_website,
     s.logo_url AS seller_logo_url,

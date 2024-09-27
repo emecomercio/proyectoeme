@@ -48,9 +48,21 @@ class UserModel extends DatabaseModel
         $role = $data['role'];
         $name = $data['name'];
         $password_hash = password_hash($password, PASSWORD_DEFAULT);
-        $query = "INSERT INTO users (username,email, password_hash, document_number, role, name) VALUES (?,?,?,?,?,?)";
-        return $this->executeQuery($query, [$username, $email, $password_hash, $document_number, $role, $name], 'ssssss');
+
+        // Primera consulta: insertar en la tabla `users`
+        $query1 = "INSERT INTO users (username, email, password_hash, document_number, role, name) VALUES (?, ?, ?, ?, ?, ?)";
+
+        // Ejecutar la primera consulta
+        $this->executeQuery($query1, [$username, $email, $password_hash, $document_number, $role, $name], 'ssssss');
+
+        // Segunda consulta: insertar en la tabla del rol utilizando `LAST_INSERT_ID()`
+        $query2 = "INSERT INTO " . $role . "s (id) VALUES (LAST_INSERT_ID())";
+
+        // Ejecutar la segunda consulta
+        return $this->executeQuery($query2);
     }
+
+
 
     public function activate($id)
     {
