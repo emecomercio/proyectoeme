@@ -1,4 +1,7 @@
 <?php
+
+use App\Models\CatalogModel;
+
 function loadCSS($filename = "global")
 {
     $base_path = "/css/";
@@ -38,17 +41,6 @@ function redirect($route)
     exit();
 }
 
-function view($render, $data = [])
-{
-    extract($data);
-    $filepath =  $_ENV['ROOT'] . "/app/renders/" . $render . ".php";
-    if (file_exists($filepath)) {
-        include $filepath;
-    } else {
-        $error = "Se intentó cargar la vista '$render' pero no se encontro el archivo";
-        echo "<span class='error-msg'>$error</span>";
-    }
-}
 function render($render, $data = [])
 {
     extract($data);
@@ -79,4 +71,10 @@ function dd($arg, $debug = false)
         echo '</pre>';
         exit;
     }
+}
+
+function getCategories()
+{
+    $categoryModel = new CatalogModel();
+    return $categoryModel->all();
 }
