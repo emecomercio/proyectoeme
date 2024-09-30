@@ -1,3 +1,13 @@
+@import url("./components/top-header.css");
+@import url("./components/footer.css");
+@import url("./components/categories.css");
+@import url("./components/carrousel.css");
+
+:root {
+  --primary: black;
+  --secondary: white;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -16,19 +26,13 @@ main {
   flex: 1;
 }
 .error-msg {
-  color: #d8000c; /* Rojo intenso para el texto */
-  background-color: #ffd2d2; /* Fondo rojo claro */
-  padding: 10px; /* Espacio interno */
-  border: 1px solid #d8000c; /* Borde del mismo color que el texto */
-  border-radius: 5px; /* Esquinas redondeadas */
-  font-weight: bold; /* Texto en negrita */
-  display: inline-block; /* Mantener el span en línea pero permitiendo padding y margin */
-  margin-top: 10px; /* Espacio por encima del span */
-  margin-bottom: 10px; /* Espacio por debajo del span */
+  color: #d8000c;
+  background-color: #ffd2d2;
+  padding: 10px;
+  border: 1px solid #d8000c;
+  border-radius: 5px;
+  font-weight: bold;
+  display: inline-block;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
-/* Declarar variables
-  :root{
-    --primary: black;
-    --secondary: white;
-  } */
-/* Acá van todos los estilos generales; los que van en todas las páginas */

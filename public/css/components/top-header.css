@@ -33,7 +33,6 @@
   align-items: center;
   position: relative; /* Permite posicionar el botón dentro del input */
   margin: 10px;
-  top: -15px;
 }
 
 .BarraBusqueda {
