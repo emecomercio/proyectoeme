@@ -2,30 +2,6 @@
 
 use App\Models\CatalogModel;
 
-function loadCSS($filename = "global")
-{
-    $base_path = "/css/";
-    $full_path = $base_path . $filename . ".css";
-    if (file_exists($_SERVER['DOCUMENT_ROOT'] . $full_path)) {
-        echo "<link rel='stylesheet' type='text/css' href='{$full_path}'>";
-    } else {
-        echo '<!-- Archivo CSS no encontrado: ' . $full_path . ' -->';
-    }
-}
-
-
-function loadIMG($filename)
-{
-    $base_path = "/img/";
-    $type = isset($path_info['extension']) ? $path_info['extension'] : '';
-    $full_path = $base_path . $filename . $type;
-    if (file_exists($_SERVER['DOCUMENT_ROOT'] . $full_path)) {
-        echo $full_path;
-    } else {
-        echo '<!-- Archivo CSS no encontrado: ' . $full_path . ' -->';
-    }
-}
-
 function asset($path = "")
 {
     if (file_exists($_SERVER['DOCUMENT_ROOT'] . $path)) {
@@ -49,7 +25,7 @@ function render($render, $data = [])
         include $filepath;
     } else {
         $error = "Se intentó cargar el componente '$render' pero no se encontró el archivo";
-        echo "<span class='error-msg'>$error</span>";
+        echo "<span style='  color: #d8000c; background-color: #ffd2d2; padding: 3px; border: 1px solid #d8000c; border-radius: 5px; font-weight: bold; font-size: 0.8em; display: inline-block; max-width: 500px;'>$error</span>";
     }
 }
 

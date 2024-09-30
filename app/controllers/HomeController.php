@@ -21,17 +21,15 @@ class HomeController extends BaseController
 
     public function index()
     {
-        $catalogs = $this->catalogModel->all();
         $products = $this->productController->allWithVariants();
         shuffle($products);
-        $home = new View("home", getUserRole());
+        $home = new View("home", 'main');
         $home->data = [
             "title" => "Home Page | EME Comercio",
-            "products" => $products,
-            "catalogs" => $catalogs
+            "products" => $products
         ];
         $home->styles = [
-            "pages/homepage"
+            "/css/pages/homepage.css"
         ];
         $home->scripts = [
             [
