@@ -11,7 +11,7 @@ class View
     public $styles = [];
     public $data = [];
 
-    public function __construct($view, $template = 'guest')
+    public function __construct($view, $template = 'main')
     {
         $this->view = $view;
         $this->template = 'templates/' . $template . '.php';

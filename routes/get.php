@@ -43,24 +43,24 @@ Route::get('/login', function () {
     $catalogController = new CatalogController();
     $msg = $_SESSION['msg']['login'] ?? '';
     unset($_SESSION['msg']['login']);
-    $login = new View('auth/login', 'alter/guest');
+    $login = new View('auth/login');
     $login->data = [
         'title' => 'Login | EME Comercio',
         'msg' => $msg
     ];
     $login->styles = [
-        'pages/register-login'
+        '/css/pages/register-login.css'
     ];
     $login->render();
 });
 
 Route::get('/register/{role}', function ($role) {
-    $register = new View("auth/$role/register", 'alter/guest');
+    $register = new View("auth/$role/register");
     $register->data = [
         'title' => 'Registro | EME Comercio'
     ];
     $register->styles = [
-        'pages/register-login'
+        '/css/pages/register-login.css'
     ];
     $register->render();
 });

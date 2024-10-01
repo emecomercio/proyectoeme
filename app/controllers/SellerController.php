@@ -20,9 +20,9 @@ class SellerController extends BaseController
 
     public function showUploadProduct()
     {
-        $view = new View('seller/upload-product', 'seller');
+        $view = new View('seller/upload-product');
         $view->styles = [
-            'pages/upload-product'
+            '/css/pages/upload-product.css'
         ];
         $view->scripts = [
             [
@@ -35,9 +35,9 @@ class SellerController extends BaseController
 
     public function showSettings()
     {
-        $view = new View('seller/settings', 'seller');
+        $view = new View('seller/settings');
         $view->styles = [
-            'pages/settings'
+            '/css/pages/settings.css'
         ];
         $view->render();
     }

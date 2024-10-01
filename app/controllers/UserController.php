@@ -28,13 +28,13 @@ class UserController extends BaseController
     {
 
         $view = function ($role) {
-            $cart = new View("$role/cart", $role);
+            $cart = new View("$role/cart");
             $cart->data = [
                 "title" => "Carrito | EME Comercio",
 
             ];
             $cart->styles = [
-                "pages/cart"
+                "/css/pages/cart.css"
             ];
             $cart->scripts = [
                 [
@@ -54,12 +54,12 @@ class UserController extends BaseController
     public function settings()
     {
         $show = function ($view) {
-            $settings = new View($view, $this->role);
+            $settings = new View($view);
             $settings->data = [
                 "title" => "Settings | EME Comercio"
             ];
             $settings->styles = [
-                "pages/settings"
+                "/css/pages/settings.css"
             ];
             $settings->render();
         };
@@ -72,15 +72,15 @@ class UserController extends BaseController
     {
         $show = function ($view) {
             $catalogs = $this->catalogModel->all();
-            $dashboard = new View($view, $this->role);
+            $dashboard = new View($view);
             $dashboard->data = [
                 "title" => "Dashboard | EME Comercio",
                 "user" => $this->userModel->find($_SESSION['user']['id']),
                 "catalogs" => $catalogs
             ];
             $dashboard->styles = [
-                "pages/dashboard",
-                "pages/home-entrepise"
+                "/css/pages/dashboard.css",
+                "/css/pages/home-entrepise.css"
             ];
             $dashboard->scripts = [
                 [

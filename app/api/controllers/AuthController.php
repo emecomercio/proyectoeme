@@ -26,6 +26,7 @@ class AuthController extends BaseController
             }
             $_SESSION['user']['id'] = $user['id'];
             $_SESSION['user']['role'] = $user['role'];
+            $_SESSION['user']['name'] = $user['name'];
             $this->respondWithSuccess($user, 200);
         } catch (Exception $e) {
             $this->handleException($e, "Error logging in");

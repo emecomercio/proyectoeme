@@ -47,7 +47,7 @@ class CatalogController extends BaseController
 
         // Establecer las hojas de estilo necesarias
         $view->styles = [
-            "pages/catalog"
+            "/css/pages/catalog.css"
         ];
 
         $view->scripts = [

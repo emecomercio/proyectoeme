@@ -121,7 +121,7 @@ class ProductController extends BaseController
             "variantNumber" => $variantNumber
         ];
         $view->styles = [
-            "pages/product-page"
+            "/css/pages/product-page.css"
         ];
         $view->scripts = [
             [
@@ -189,7 +189,7 @@ class ProductController extends BaseController
 
         // Establecer las hojas de estilo necesarias
         $view->styles = [
-            "pages/catalog"
+            "/css/pages/catalog.css"
         ];
 
         // Renderizar la vista y devolver el resultado

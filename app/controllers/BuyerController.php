@@ -9,9 +9,9 @@ class BuyerController extends BaseController
 
     public function showFavorites()
     {
-        $favorites = new View('buyer/favorites', 'buyer');
+        $favorites = new View('buyer/favorites');
         $favorites->styles = [
-            "pages/favorites"
+            "/css/pages/favorites.css"
         ];
         $favorites->render();
     }
@@ -20,7 +20,7 @@ class BuyerController extends BaseController
     {
         $shopHistory = new View('buyer/shopping-history', 'buyer');
         $shopHistory->styles = [
-            "pages/shopping-history"
+            "/css/pages/shopping-history.css"
         ];
         $shopHistory->render();
     }
@@ -29,7 +29,7 @@ class BuyerController extends BaseController
     {
         $searchHistory = new View('buyer/search-history', 'buyer');
         $searchHistory->styles = [
-            "pages/search-history"
+            "/css/pages/search-history.css"
         ];
         $searchHistory->render();
     }

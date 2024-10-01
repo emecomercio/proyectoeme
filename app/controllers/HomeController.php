@@ -23,7 +23,7 @@ class HomeController extends BaseController
     {
         $products = $this->productController->allWithVariants();
         shuffle($products);
-        $home = new View("home", 'main');
+        $home = new View("home");
         $home->data = [
             "title" => "Home Page | EME Comercio",
             "products" => $products
@@ -51,7 +51,7 @@ class HomeController extends BaseController
                 "title" => "Dashboard | EME Comercio"
             ];
             $dashboard->styles = [
-                "pages/dashboard"
+                "/css/pages/dashboard.css"
             ];
             $dashboard->scripts = [
                 [
@@ -74,12 +74,12 @@ class HomeController extends BaseController
 
     public function termsAndConditions()
     {
-        $view = new View("static/terms-and-conditions", "alter/$this->role");
+        $view = new View("static/terms-and-conditions");
         $view->data = [
             'title' => 'Términos y Condiciones'
         ];
         $view->styles = [
-            'pages/terms-and-conditions'
+            '/css/pages/terms-and-conditions.css'
         ];
         $view->render();
     }
