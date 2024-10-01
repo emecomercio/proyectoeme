@@ -5,9 +5,9 @@ use Lib\Route;
 
 session_start(); // Iniciar una sesion
 
-require_once "../vendor/autoload.php";  // Cargar el autoload
-require_once "../lib/functions.php";
-require_once "../routes/web.php";
+require_once __DIR__ . "/../vendor/autoload.php";  // Cargar el autoload
+require_once __DIR__ . "/../lib/functions.php";
+require_once __DIR__ . "/../routes/web.php";
 
 $dotenv = Dotenv\Dotenv::createImmutable('../');
 $dotenv->load();

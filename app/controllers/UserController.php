@@ -2,104 +2,36 @@
 
 namespace App\Controllers;
 
-use App\Models\CatalogModel;
-use App\Models\UserModel;
-use Lib\View;
+use App\Models\Phone;
+use App\Models\User;
 
-class UserController extends BaseController
+class UserController extends Controller
 {
-    protected $catalogModel;
-    protected $userModel;
+    protected  $userModel;
 
     public function __construct()
     {
-        parent::__construct();
-        $this->userModel = new UserModel();
-        $this->catalogModel = new CatalogModel();
+        $this->userModel = new User();
     }
 
-    public function showLogin($msg = '')
+    public function index()
     {
-        $_SESSION['msg']['login'] = $msg;
-        redirect('/login');
+        // $users = $this->userModel->where("email like '%@example.com%'")->orderBy('name', 'asc')->limit(10)->get();
+        $sql = "SELECT id, name, email  FROM users WHERE id < ?";
+        $raw = $this->userModel->rawQuery($sql,  [5], 'i');
+        return dd($raw[0]->name);
+
+        $users = $this->userModel->select('name', 'email')->where('id',  '<', 10)->get();
+        foreach ($users as $user) {
+            dd($user, true);
+        }
     }
 
-    public function cart()
+    public function phones()
     {
-
-        $view = function ($role) {
-            $cart = new View("$role/cart", $role);
-            $cart->data = [
-                "title" => "Carrito | EME Comercio",
-
-            ];
-            $cart->styles = [
-                "pages/cart"
-            ];
-            $cart->scripts = [
-                [
-                    "type" => "",
-                    "src" => "/js/components/cart_products.js",
-                    "defer" => true
-
-                ]
-            ];
-            $cart->render();
-        };
-        $this->role != 'admin' || $this->role != 'seller'
-            ? $view($this->role)
-            : redirect('/');
-    }
-
-    public function settings()
-    {
-        $show = function ($view) {
-            $settings = new View($view, $this->role);
-            $settings->data = [
-                "title" => "Settings | EME Comercio"
-            ];
-            $settings->styles = [
-                "pages/settings"
-            ];
-            $settings->render();
-        };
-        $this->role != 'guest'
-            ? $show($this->role  . "/settings")
-            : $this->showLogin('Necesitas iniciar sesión primero');
-    }
-
-    public function dashboard()
-    {
-        $show = function ($view) {
-            $catalogs = $this->catalogModel->all();
-            $dashboard = new View($view, $this->role);
-            $dashboard->data = [
-                "title" => "Dashboard | EME Comercio",
-                "user" => $this->userModel->find($_SESSION['user']['id']),
-                "catalogs" => $catalogs
-            ];
-            $dashboard->styles = [
-                "pages/dashboard",
-                "pages/home-entrepise"
-            ];
-            $dashboard->scripts = [
-                [
-                    "src" => "/js/pages/seller_dashboard.js",
-                    "defer" => true
-                ],
-            ];
-            $dashboard->render();
-        };
-        $this->role != 'seller'
-            ? redirect('/')
-            : $show($this->role  . "/dashboard");
-    }
-
-    public function logout()
-    {
-        session_unset();
-        session_destroy();
-        session_start();
-        $this->showLogin('Sesión cerrada con éxito');
+        $user = new User();
+        $userDetails = $user->find(57);
+        $userPosts = $userDetails->phones();
+        dd($userPosts);
     }
 }
