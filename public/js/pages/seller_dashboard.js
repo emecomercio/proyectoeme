@@ -122,7 +122,25 @@ sidebarBtns.forEach((btn) => {
   });
 });
 
-
 // Cargar los productos inicialmente
 getProductsBySeller(localStorage.getItem("sellerId"));
 
+// Obtener el dropdown y los contenedores de los mapas
+let correosDropdown = document.getElementById("correos-dropdown");
+let mapsSections = document.querySelectorAll(".maps-display div");
+
+// Escuchar cuando el usuario selecciona una oficina del dropdown
+correosDropdown.addEventListener("change", function () {
+    let selectedTarget = this.options[this.selectedIndex].getAttribute("data-target");
+
+    // Ocultar todos los mapas
+    mapsSections.forEach((mapSection) => {
+        mapSection.classList.remove("active");
+    });
+
+    // Mostrar el mapa correspondiente a la oficina seleccionada
+    let selectedMap = document.getElementById(selectedTarget);
+    if (selectedMap) {
+        selectedMap.classList.add("active");
+    }
+});
