@@ -127,9 +127,10 @@ $categories = getCategories();
         <?php
         function getLogoHref() {
             if (getUserRole() == 'seller') {
-                return '/dashboard';
-            } else if (getUserRole() === 'buyer') {
-                return '/';
+                echo '/dashboard';
+            } else if (getUserRole() === 'buyer' ||  getUserRole() === 'guest') {
+
+                echo '/';
             }
         }
         ?>

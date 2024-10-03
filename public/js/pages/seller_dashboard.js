@@ -110,3 +110,4 @@ form.addEventListener("submit", function (event) {
 
 // Cargar los productos inicialmente
 getProductsBySeller(localStorage.getItem("sellerId"));
+
