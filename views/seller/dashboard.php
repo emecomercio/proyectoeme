@@ -7,31 +7,39 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 
     <div class="sidebar">
-        <a href="#" class="sidebar-item">
+        <a href="#" class="sidebar-item" data-target="product-display">
             <i class="fas fa-shopping-bag"></i>
         </a>
-        <a href="#" class="sidebar-item">
+        <a href="#" class="sidebar-item"  data-target="stats">
+
             <i class="fas fa-chart-line"></i>
         </a>
-        <a href="#" class="sidebar-item">
+        <a href="#" class="sidebar-item" data-target="">
             <i class="fas fa-dollar-sign"></i>
         </a>
-        <a href="#" class="sidebar-item">
+        <a href="#" class="sidebar-item" data-target="">
             <i class="fas fa-user-shield"></i>
         </a>
-        <a href="#" class="sidebar-item">
+        <a href="#" class="sidebar-item" data-target="">
             <i class="fas fa-truck"></i>
         </a>
-        <a href="#" class="sidebar-item">
+        <a href="#" class="sidebar-item" data-target="">
             <i class="fas fa-cog"></i>
         </a>
     </div>
-    <section class="products-display">
+    <section class="products-display active" id="product-display">
         <h1>Mis productos</h1>
-        <div class="seller-dashboard">
+        <div class="product-dashboard">
 
         </div>
     </section>
+    <section class="stats-display" id="stats">
+    <h1>Stats</h1>
+    <div class="stats-dashboard">
+
+    </div>
+    </section>
+    
 </div>
 
 <form action="/api/seller/60/products" id="create-form">

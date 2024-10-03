@@ -53,7 +53,7 @@
         font-size: 24px;
     }
     
-    .seller-dashboard {
+    .product-dashboard {
         display: grid;
         grid-template-columns: repeat(2, 1fr); 
         gap: 20px;
@@ -135,3 +135,11 @@
     flex-direction: column;
 
 }
+
+.all-container section {
+    display: none;
+    }
+
+    .active {
+    display: block !important;
+    }

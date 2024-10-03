@@ -33,7 +33,7 @@ const getProductsBySeller = (sellerId) => {
     .then((response) => response.json())
     .then((response) => {
       // Limpiar la lista de productos antes de agregar los nuevos
-      const dashboard = document.querySelector(".seller-dashboard");
+      const dashboard = document.querySelector(".product-dashboard");
       dashboard.innerHTML = ''; // Limpia el contenido anterior
 
       response.data.forEach((product) => {
@@ -107,6 +107,21 @@ form.addEventListener("submit", function (event) {
   });
   createProduct(data); // Crear el producto y actualizar la lista
 });
+
+let dashboardSections = document.querySelectorAll(".all-container section");
+let sidebarBtns = document.querySelectorAll(".sidebar-item");
+sidebarBtns.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    dashboardSections.forEach((section) => {
+      if (btn.getAttribute("data-target") != section.id) {
+        section.classList.remove("active");
+      } else {
+        section.classList.add("active");
+      }
+    });
+  });
+});
+
 
 // Cargar los productos inicialmente
 getProductsBySeller(localStorage.getItem("sellerId"));

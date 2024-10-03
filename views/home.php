@@ -8,7 +8,7 @@
     <div class="carousel-inner">
         <div class="carousel-item">
             <a href="/register/buyer">
-                <img src="/img/Carrousel/Unete_ahora.png" alt="Image 1">
+                <img src=<?= getCarouselHref()?> alt="Image 1">
             </a>
         </div>
         <div class="carousel-item">
@@ -245,5 +245,14 @@
             <button>&#8250;</button>
         </div>
     </div>
+    <?php
+        function getCarouselHref() {
+            if (getUserRole() == 'guest') {
+                echo "/img/Carrousel/Unete_ahora.png";
+            } else if (getUserRole() === 'buyer') {
+                echo "/img/Carrousel/nuevas_modas.webp";
+            }
+        }
+        ?>
 
 
