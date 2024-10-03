@@ -84,14 +84,23 @@ $categories = getCategories();
 
                     </div>
                 </div>
-                
-                <div hidden class=" TextoIcono" id="cart-menu">
+                <?php if (getUserRole() === 'buyer' ||  getUserRole() === 'guest'): ?>
+
+                    <div class=" TextoIcono" id="cart-menu">
                     <img src="<?= asset("/img/icons/carrito_icono.png") ?>" class="icono" alt="Usuario" />
                     <br />Carrito
                     <div class="dropdown-content" style="display: none;">
                         <a href="/cart">Carrito</a>
                     </div>
                 </div>
+                    <?php else: ?>
+                        <div hidden class=" TextoIcono" id="cart-menu">
+                    <img src="<?= asset("/img/icons/carrito_icono.png") ?>" class="icono" alt="Usuario" />
+                    <br />Carrito
+                    <div class="dropdown-content" style="display: none;">
+                        <a href="/cart">Carrito</a>
+                    </div>
+                    <?php endif; ?>
             </nav>
         </div>
         <ul class="snd-h">
