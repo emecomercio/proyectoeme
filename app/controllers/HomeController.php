@@ -74,7 +74,7 @@ class HomeController extends BaseController
 
     public function termsAndConditions()
     {
-        $view = new View("static/terms-and-conditions");
+        $view = new View("static/terms-and-conditions", 'alter');
         $view->data = [
             'title' => 'Términos y Condiciones'
         ];
