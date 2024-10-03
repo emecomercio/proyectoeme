@@ -34,7 +34,7 @@
     </section>
 </div>
 
-<form action="/api/seller/60/products" id="create-form" hidden>
+<form action="/api/seller/60/products" id="create-form">
     <input type="hidden" name="seller-id" value="<?= $_SESSION['user']['id'] ?>">
     <input type="text" name="name" placeholder="Product Name">
     <input type="text" name="description" placeholder="Product Description">

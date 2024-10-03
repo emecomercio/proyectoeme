@@ -6,9 +6,20 @@ const createProduct = (data) => {
     },
     body: JSON.stringify(data),
   })
-    .then((response) => response.json())
     .then((response) => {
-      console.log(response);
+      if (!response.ok) {
+        throw new Error('Error al crear el producto');
+      }
+      return response.json();
+    })
+    .then((responseData) => {
+      console.log(responseData);
+      // Después de crear el producto, vuelve a cargar la lista de productos
+      getProductsBySeller(data["seller-id"]);
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+      alert("Hubo un problema al crear el producto.");
     });
 };
 
@@ -21,11 +32,13 @@ const getProductsBySeller = (sellerId) => {
   })
     .then((response) => response.json())
     .then((response) => {
+      // Limpiar la lista de productos antes de agregar los nuevos
+      const dashboard = document.querySelector(".seller-dashboard");
+      dashboard.innerHTML = ''; // Limpia el contenido anterior
+
       response.data.forEach((product) => {
         console.log(product);
-        document
-          .querySelector(".seller-dashboard")
-          .appendChild(createSellerItemCard(product));
+        dashboard.appendChild(createSellerItemCard(product));
       });
     });
 };
@@ -83,6 +96,7 @@ function createSellerItemCard(product) {
   return card;
 }
 
+// Evento para crear un producto y luego actualizar la lista
 const form = document.querySelector("#create-form");
 form.addEventListener("submit", function (event) {
   event.preventDefault();
@@ -91,7 +105,8 @@ form.addEventListener("submit", function (event) {
   formData.forEach((value, key) => {
     data[key] = value;
   });
-  createProduct(data);
+  createProduct(data); // Crear el producto y actualizar la lista
 });
 
-getProductsBySeller(112);
+// Cargar los productos inicialmente
+getProductsBySeller(localStorage.getItem("sellerId"));
