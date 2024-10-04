@@ -5,21 +5,31 @@
 // ESTABA TOMANDO EL VARIANT PARA MOSTRARLO POR DEFAULT
 ?>
 
+<script>
+function changeImage(src) {
+    const mainImage = document.getElementById('main-product-image');
+    mainImage.src = src; // Cambia la fuente de la imagen principal
+}
+</script>
+
 <div class="product-page">
     <!-- Imagen principal del producto -->
     <div class="product-page__main">
 
-        <!-- Limitar a 10 imagenes-->
         <div class="thumbnail-container">
-            <?php foreach ($product['variants'][$variantNumber]['images']['500x500'] as $thumbnail) : ?>
-                <img src="<?= $thumbnail['src'] ?>" alt="<?= $thumbnail['alt'] ?? 'no altern text' ?>" class="thumbnail">
+            <?php 
+            $images = $product['variants'][$variantNumber]['images']['500x500'];
+            $maxImages = 5; 
+            foreach (array_slice($images, 0, $maxImages) as $thumbnail) : ?>
+                <img src="<?= $thumbnail['src'] ?>" 
+                    alt="<?= $thumbnail['alt'] ?? 'no altern text' ?>" 
+                    class="thumbnail" 
+                    onclick="changeImage(this.src)">
             <?php endforeach; ?>
         </div>
 
         <div class="product-page__images1">
-
             <img
-
                 src="<?= $product['variants'][$variantNumber]['images']['500x500'][0]['src'] ?>"
                 width="500"
                 height="500"
@@ -42,20 +52,10 @@
         <p class="product-page__payment-options">
             En hasta 12 cuotas de $70 sin interés
         </p>
-        <p class="product-page__availability">Última disponible</p>
-        <div class="quantity-container">
-            <span class="quantity-label" id="quantity-toggle">Cantidad: <span id="selected-quantity">1 unidad</span>
-                <span class="quantity-arrow">^</span></span>
-            <ul class="quantity-dropdown">
-                <li class="quantity-option" data-value="1">1 unidad</li>
-                <li class="quantity-option" data-value="2">2 unidades</li>
-                <li class="quantity-option" data-value="3">3 unidades</li>
-                <li class="quantity-option" data-value="4">4 unidades</li>
-                <li class="quantity-option" data-value="5">5 unidades</li>
-                <li class="quantity-option" data-value="6">6 unidades</li>
-            </ul>
+        <div class="product-quantity">
+            <label for="quantity">Cantidad:</label>
+            <input type="number" id="quantity" name="quantity" min="1" value="1" />
         </div>
-        <p class="quantity-availability">(+10 disponibles)</p>
         <div class="product-options">
             <div class="option">
                 <p>Seleccione: <strong>Modelo:</strong></p>
@@ -307,13 +307,11 @@
                 <span class="review-date">01 Ago 2024</span>
             </div>
         </div>
-
         <div class="show-more-reviews">
             <button>Mostrar todas las opiniones</button>
         </div>
     </div>
 </div>
 <div class="comments-container">
-
 
 </div>

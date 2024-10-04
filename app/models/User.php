@@ -2,6 +2,17 @@
 
 namespace App\Models;
 
+/**
+ * @property int $id
+ * @property string $role
+ * @property string $username
+ * @property string $email
+ * @property int $document_number
+ * @property string $name
+ * @property string $password
+ * @property int $active
+ */
+
 class User extends Model
 {
     public $id;
@@ -13,6 +24,9 @@ class User extends Model
     public $password;
     public $active;
 
+    /**
+     * @param array $data
+     */
     public function __construct($data = [])
     {
         $this->table = 'users';
@@ -21,12 +35,7 @@ class User extends Model
 
 
     /**
-     * Undocumented function
-     *
      * @param boolean $state
-     * False for inactive users
-     * @return void
-     * 
      */
     public function all($state = null)
     {

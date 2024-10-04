@@ -10,7 +10,17 @@ use stdClass;
 
 /**
  * @property string $table
- * 
+ * @property mysqli $conn
+ * @property string $db_role
+ * @property string $pk
+ * @property array $parrams
+ * @property boolean $isInstance
+ * @property string $select
+ * @property array $where
+ * @property array $orderBy
+ * @property array $groupBy
+ * @property string $limit
+ * @property array $join
  */
 
 
@@ -33,7 +43,10 @@ class Model
     protected $limit = '';
     protected $join = [];
 
-
+/**
+ * @param array $data
+ * @param string $role
+ */
     public function  __construct($data = [], $role = '')
     {
         $host = $_ENV['DB_HOST'];
@@ -83,7 +96,9 @@ class Model
         unset($this->join);
         unset($this->params);
     }
-
+/**
+ * @param array $data
+ */
     public function fill($data = [])
     {
         return $this->handle(function () use ($data) {
@@ -92,6 +107,7 @@ class Model
             };
         });
     }
+
 
     protected function reset()
     {
@@ -102,6 +118,10 @@ class Model
         $this->limit = '';
         $this->join = '';
     }
+   /**
+    *@param array $data
+    *@return string 
+    */ 
 
     private function getParamTypes($data = [])
     {
@@ -111,7 +131,12 @@ class Model
             return 's';
         }, $data));
     }
-
+/**
+ * @param string $sql
+ * @param array $data
+ * @param string $params
+ * @return mysqli_result|false
+ */
     public function query($sql, $data = [], $params = '')
     {
         if (empty($params) && !empty($data)) {
@@ -132,9 +157,7 @@ class Model
 
 
     /**
-     * 
-     *
-     * @return  static[]
+     * @return static[]
      */
     public function get()
     {
@@ -176,7 +199,11 @@ class Model
 
         return $results;
     }
+/**
+ * @param int $id
+ * @return static|null
 
+ */
     public function find($id)
     {
         $sql = "SELECT * FROM $this->table WHERE $this->pk = ?";
@@ -197,83 +224,109 @@ class Model
         return null;
     }
 
-
+/**
+ * @return static[]
+ */
     public function all()
     {
         return $this->select('*')->get();
     }
-
+/**
+ * @param string ...$columns
+ */
     public function select(...$columns)
     {
         $this->select =  implode(', ', $columns);
         return $this;
     }
-
+/**
+ * @param
+ */
     public function where($column, $operator, $value)
     {
         $this->where[] = "$column $operator ?"; // Usar un placeholder
         $this->params[] = $value; // Guardar el valor correspondiente
         return $this;
     }
-
+/**
+ * @param
+ */
     public function orWhere($column, $operator, $value)
     {
         $this->where[] = "OR $column $operator ?";
         $this->params[] = $value;
         return $this;
     }
-
+/**
+ * @param
+ */
     public function andWhere($column, $operator, $value)
     {
         $this->where[] = "AND $column $operator ?";
         $this->params[] = $value;
         return $this;
     }
-
+/**
+ * @param
+ */
     public function join($table, $firstColumn, $secondColumn)
     {
         $this->join[] = "JOIN $table ON $firstColumn = $secondColumn";
         return $this;
     }
-
+/**
+ * @param
+ */
     public function leftJoin($table, $firstColumn, $secondColumn)
     {
         $this->join[] = "LEFT JOIN $table ON $firstColumn = $secondColumn";
         return $this;
     }
-
+/**
+ * @param
+ */
     public function rightJoin($table, $firstColumn, $secondColumn)
     {
         $this->join[] = "RIGHT JOIN $table ON $firstColumn = $secondColumn";
         return $this;
     }
-
+/**
+ * @param
+ */
     public function fullJoin($table, $firstColumn, $secondColumn)
     {
         $this->join[] = "FULL JOIN $table ON $firstColumn = $secondColumn";
         return $this;
     }
-
+/**
+ * @param
+ */
     public function limit($count)
     {
         $this->limit = "LIMIT ?";
         $this->params[] = $count; // Guardar el valor del límite
         return $this;
     }
-
+/**
+ * @param
+ */
     public function orderBy($column, $direction = 'ASC')
     {
         $this->orderBy[] = "$column $direction";
         return $this;
     }
-
+/**
+ * @param
+ */
     public function groupBy(...$columns)
     {
         $this->groupBy[] = "GROUP BY " . implode(', ', $columns);
         return $this;
     }
 
-
+/**
+ * @param
+ */
     protected function handle(callable $function, string $message = "An error occured")
     {
         try {
@@ -290,7 +343,9 @@ class Model
         }
     }
 
-
+/**
+ * @param
+ */
     public function create($data = [])
     {
         return $this->handle(function () use ($data) {
@@ -302,7 +357,9 @@ class Model
         });
     }
 
-
+/**
+ * @param
+ */
     public function  update($id, $data = [])
     {
         return $this->handle(function () use ($id, $data) {
@@ -315,7 +372,9 @@ class Model
             return $this->find($id);
         });
     }
-
+/**
+ * @param
+ */
     public function id()
     {
         return $this->query("SELECT LAST_INSERT_ID()")->fetch_assoc()['LAST_INSERT_ID()'];
@@ -328,7 +387,9 @@ class Model
     }
 
 
-
+/**
+ * @param
+ */
     public function rawQuery($sql, $params = [], $types = 's')
     {
         $stmt = $this->conn->prepare($sql);
