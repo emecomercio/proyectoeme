@@ -158,6 +158,7 @@
   object-fit: contain;
 }
 .category span {
+  color: #000000;
   font-size: 14px;
 }
 .nav_arrow_category {

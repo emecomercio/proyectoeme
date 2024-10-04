@@ -6,6 +6,7 @@ use mysqli;
 use Exception;
 use mysqli_sql_exception;
 use InvalidArgumentException;
+use stdClass;
 
 /**
  * @property string $table
@@ -16,16 +17,13 @@ use InvalidArgumentException;
 
 class Model
 {
-    private $host;
-    private $database;
-    private $username;
-    private $password;
     private $conn;
-    protected $role;
+    protected $db_role;
 
     protected $table;
-    protected $primaryKey = 'id';
+    protected $pk = 'id';
     protected $params = [];
+    protected $isInstance = false;
 
 
     protected $select = '*';
@@ -36,33 +34,63 @@ class Model
     protected $join = [];
 
 
-    public function  __construct($role = '')
+    public function  __construct($data = [], $role = '')
     {
-        $this->host = $_ENV['DB_HOST'];
-        $this->database = $_ENV['DB_NAME'];
+        $host = $_ENV['DB_HOST'];
+        $database = $_ENV['DB_NAME'];
         $roles = json_decode($_ENV['DB_USERS'], true);
-        $this->role = empty($role) ? getUserRole() : $role;
-        if (!isset($roles[$this->role])) {
+        $this->db_role = empty($role) ? getUserRole() : $role;
+        if (!isset($roles[$this->db_role])) {
             throw new InvalidArgumentException("Invalid role specified.");
         }
-        $this->username = $roles[$this->role]['user'];
-        $this->password = $roles[$this->role]['password'];
-        try {
-            $this->conn = new mysqli($this->host, $this->username, $this->password, $this->database);
-            if ($this->conn->connect_error) {
-                throw new mysqli_sql_exception("Error connecting to database");
+        $username = $roles[$this->db_role]['user'];
+        $password = $roles[$this->db_role]['password'];
+        if ($data) {
+            $this->fill($data);
+            $this->simplify($this);
+        } else {
+            try {
+                $this->conn = new mysqli($host, $username, $password, $database);
+                if ($this->conn->connect_error) {
+                    throw new mysqli_sql_exception("Error connecting to database");
+                }
+            } catch (mysqli_sql_exception $e) {
+                error_log($e->getMessage());
+                die('An error occurred while connecting to the database');
             }
-        } catch (mysqli_sql_exception $e) {
-            error_log($e->getMessage());
-            die('An error occurred while connecting to the database');
         }
     }
 
     public function __destruct()
     {
-        if ($this->conn) {
-            $this->conn->close();
+        if (! $this->isInstance) {
+            if ($this->conn) {
+                $this->conn->close();
+            }
         }
+    }
+
+    public function simplify()
+    {
+        $this->isInstance = true;
+        unset($this->conn);
+        unset($this->db_role);
+        unset($this->select);
+        unset($this->where);
+        unset($this->orderBy);
+        unset($this->groupBy);
+        unset($this->limit);
+        unset($this->join);
+        unset($this->params);
+    }
+
+    public function fill($data = [])
+    {
+        return $this->handle(function () use ($data) {
+            foreach ($data as $key => $value) {
+                $this->$key = $value;
+            };
+        });
     }
 
     protected function reset()
@@ -103,6 +131,11 @@ class Model
     }
 
 
+    /**
+     * 
+     *
+     * @return  static[]
+     */
     public function get()
     {
         $results = $this->handle(function () {
@@ -128,9 +161,13 @@ class Model
             $results = [];
 
             // Se ejecuta mientras haya resultados.
-            while ($row = $resultSet->fetch_object()) {
+            while ($row = $resultSet->fetch_object(static::class)) {
                 $results[] = $row;
             }
+            array_map(function ($result) {
+                return $result->simplify();
+            }, $results);
+
             return $results;
         });
 
@@ -142,15 +179,18 @@ class Model
 
     public function find($id)
     {
-        $sql = "SELECT * FROM $this->table WHERE $this->primaryKey = ?";
+        $sql = "SELECT * FROM $this->table WHERE $this->pk = ?";
         $result = $this->query($sql, [$id], 'i')->fetch_assoc();
 
         // Verifica si se encontró el resultado
         if ($result) {
-            $model = new static(); // Crea una nueva instancia del modelo actual
+            $data = [];
             foreach ($result as $key => $value) {
-                $model->{$key} = $value; // Asigna cada valor a la instancia
+                $data[$key] = $value; // Asigna cada valor a la instancia
             }
+
+            $model = new static($data); // Crea una nueva instancia del modelo actual
+
             return $model; // Devuelve la instancia del modelo
         }
 
@@ -281,6 +321,14 @@ class Model
         return $this->query("SELECT LAST_INSERT_ID()")->fetch_assoc()['LAST_INSERT_ID()'];
     }
 
+    public function exists($field, $value)
+    {
+        $result =  $this->select($field)->where($field, '=',  $value)->limit(1)->get();
+        return !empty($result);
+    }
+
+
+
     public function rawQuery($sql, $params = [], $types = 's')
     {
         $stmt = $this->conn->prepare($sql);
@@ -296,24 +344,49 @@ class Model
         return $results;
     }
 
-    // Por probar
-    public function hasOne($relatedModel, $foreignKey)
+    /**
+     * 
+     *
+     * @param Model $relatedModel
+     * @param string $fk
+     * @return 
+     */
+    public function hasOne($relatedModel, $fk)
     {
         $related = new $relatedModel();
-        $related->where($foreignKey, '=', $this->primaryKey);
+        $related->where($fk, '=', $this->pk);
         return $related->get();
     }
 
-    public function hasMany($relatedModel, $foreignKey)
+    /**
+     * @template T of object
+     * Obtiene una colección de instancias del modelo relacionado.
+     *
+     * @param class-string<T> $relatedModel El nombre de la clase del modelo relacionado.
+     * @param string $fk El nombre de la clave foránea en el modelo relacionado.
+     *
+     * @return T[] Una colección de instancias del modelo relacionado (por ejemplo, Phone[]).
+     */
+    public function hasMany($relatedModel, $fk, ...$fields)
     {
         $related = new $relatedModel();
-        $related->where($foreignKey, '=', $this->{$this->primaryKey});
+        if (!empty($fields)) {
+            $related->select(...$fields);
+        }
+        $related->where($fk, '=', $this->{$this->pk});
         return $related->get();
     }
-    // Por probar
-    public function belongsTo($relatedModel, $foreignKey)
+
+    /**
+     * 
+     *
+     * @param Model $relatedModel
+     * @param string $fk
+     * @return Model
+     */
+    public function belongsTo($relatedModel, $fk)
     {
         $related = new $relatedModel();
-        return $related->find($this->{$foreignKey});
+        return $related->find($this->{$fk});
     }
 }

@@ -6,9 +6,20 @@ const createProduct = (data) => {
     },
     body: JSON.stringify(data),
   })
-    .then((response) => response.json())
     .then((response) => {
-      console.log(response);
+      if (!response.ok) {
+        throw new Error('Error al crear el producto');
+      }
+      return response.json();
+    })
+    .then((responseData) => {
+      console.log(responseData);
+      // Después de crear el producto, vuelve a cargar la lista de productos
+      getProductsBySeller(data["seller-id"]);
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+      alert("Hubo un problema al crear el producto.");
     });
 };
 
@@ -21,11 +32,13 @@ const getProductsBySeller = (sellerId) => {
   })
     .then((response) => response.json())
     .then((response) => {
+      // Limpiar la lista de productos antes de agregar los nuevos
+      const dashboard = document.querySelector(".product-dashboard");
+      dashboard.innerHTML = ''; // Limpia el contenido anterior
+
       response.data.forEach((product) => {
         console.log(product);
-        document
-          .querySelector(".seller-dashboard")
-          .appendChild(createSellerItemCard(product));
+        dashboard.appendChild(createSellerItemCard(product));
       });
     });
 };
@@ -83,6 +96,7 @@ function createSellerItemCard(product) {
   return card;
 }
 
+// Evento para crear un producto y luego actualizar la lista
 const form = document.querySelector("#create-form");
 form.addEventListener("submit", function (event) {
   event.preventDefault();
@@ -91,7 +105,42 @@ form.addEventListener("submit", function (event) {
   formData.forEach((value, key) => {
     data[key] = value;
   });
-  createProduct(data);
+  createProduct(data); // Crear el producto y actualizar la lista
 });
 
-getProductsBySeller(112);
+let dashboardSections = document.querySelectorAll(".all-container section");
+let sidebarBtns = document.querySelectorAll(".sidebar-item");
+sidebarBtns.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    dashboardSections.forEach((section) => {
+      if (btn.getAttribute("data-target") != section.id) {
+        section.classList.remove("active");
+      } else {
+        section.classList.add("active");
+      }
+    });
+  });
+});
+
+// Cargar los productos inicialmente
+getProductsBySeller(localStorage.getItem("sellerId"));
+
+// Obtener el dropdown y los contenedores de los mapas
+let correosDropdown = document.getElementById("correos-dropdown");
+let mapsSections = document.querySelectorAll(".maps-display div");
+
+// Escuchar cuando el usuario selecciona una oficina del dropdown
+correosDropdown.addEventListener("change", function () {
+    let selectedTarget = this.options[this.selectedIndex].getAttribute("data-target");
+
+    // Ocultar todos los mapas
+    mapsSections.forEach((mapSection) => {
+        mapSection.classList.remove("active");
+    });
+
+    // Mostrar el mapa correspondiente a la oficina seleccionada
+    let selectedMap = document.getElementById(selectedTarget);
+    if (selectedMap) {
+        selectedMap.classList.add("active");
+    }
+});

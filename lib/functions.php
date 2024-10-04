@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\CatalogModel;
+use App\Models\Category;
 
 function asset($path = "")
 {
@@ -51,6 +51,6 @@ function dd($arg, $debug = false)
 
 function getCategories()
 {
-    $categoryModel = new CatalogModel();
+    $categoryModel = new Category();
     return $categoryModel->all();
 }

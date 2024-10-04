@@ -52,8 +52,8 @@
         margin-bottom: 20px;
         font-size: 24px;
     }
-    
-    .seller-dashboard {
+
+    .product-dashboard {
         display: grid;
         grid-template-columns: repeat(2, 1fr); 
         gap: 20px;
@@ -135,3 +135,224 @@
     flex-direction: column;
 
 }
+.stats-display{
+    display: flex;
+    flex-direction: column;
+
+}
+
+.all-container section {
+    display: none;
+    }
+
+    .active {
+    display: block !important;
+    }
+
+    .settings-section {
+        background-color: #f9f9f9;
+        border: 1px solid #ddd;
+        padding: 20px;
+        margin-bottom: 20px;
+        border-radius: 8px;
+    }
+    
+    .settings-title {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 15px;
+        color: #333;
+    }
+    
+    .settings-subtitle {
+        font-size: 20px;
+        font-weight: 600;
+        margin-bottom: 10px;
+        color: #555;
+    }
+    
+    .settings-section form {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .settings-section label {
+        margin-bottom: 5px;
+        font-weight: 500;
+        color: #000; /* Color negro para las etiquetas */
+    }
+    
+    .settings-section input,
+    .settings-section select,
+    .settings-section textarea {
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        font-size: 16px;
+        width: 100%;
+    }
+    
+    .settings-section textarea {
+        resize: vertical;
+        height: 120px;
+    }
+    
+    .settings-section button {
+        background-color: #007bff;
+        color: #fff;
+        padding: 10px;
+        font-size: 16px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+    
+    .settings-section button:hover {
+        background-color: #0056b3;
+    }
+
+    
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chart-header h2 {
+            font-size: 1.5rem;
+            color: #333;
+        }
+
+        .chart-header img {
+            width: 120px;
+            height: auto;
+        }
+
+        .chart-placeholder {
+            width: 100%;
+            height: 300px;
+            background-color: #f4faff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2rem;
+            color: #999;
+            margin-top: 20px;
+            position: relative;
+        }
+
+        /* Colores de las líneas (simulado) */
+        .line-sales {
+            position: absolute;
+            width: 70%;
+            height: 50px;
+            background: linear-gradient(to right, rgba(0, 99, 255, 0.5) 0%, rgba(0, 99, 255, 0.5) 70%, transparent 70%);
+            top: 40%;
+        }
+
+        .line-goal {
+            position: absolute;
+            width: 75%;
+            height: 10px;
+            background: rgba(77, 175, 124, 0.8);
+            top: 50%;
+        }
+
+        .line-last-year {
+            position: absolute;
+            width: 70%;
+            height: 15px;
+            background: rgba(255, 159, 64, 0.8);
+            top: 60%;
+        }
+
+        /* Leyenda de la gráfica */
+        .chart-legend {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .chart-legend div {
+            display: flex;
+            align-items: center;
+        }
+
+        .chart-legend span {
+            display: inline-block;
+            width: 15px;
+            height: 15px;
+            margin-right: 5px;
+            border-radius: 3px;
+        }
+
+        .legend-sales {
+            background-color: rgba(0, 99, 255, 0.5);
+        }
+
+        .legend-goal {
+            background-color: rgba(77, 175, 124, 0.8);
+        }
+
+        .legend-last-year {
+            background-color: rgba(255, 159, 64, 0.8);
+        }
+        .graphicseller{
+            width: 100%;
+            height: 100%;
+        }
+
+        .correos-dropdown-wrapper {
+            width: 300px;
+            margin: 20px auto;
+        }
+
+        .maps-display div {
+            display: none;
+        }
+        
+        .maps-display div.active {
+            display: block;
+        }
+
+        label {
+            display: block;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #555;
+            text-align: center;
+        }
+        
+        /* Estilos para el select */
+        #correos-dropdown {
+            width: 100%;
+            max-width: 400px;
+            padding: 12px 16px;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+            color: #333;
+            appearance: none; /* Elimina la flecha predeterminada en algunos navegadores */
+            -webkit-appearance: none; /* Safari y Chrome */
+            -moz-appearance: none; /* Firefox */
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: border-color 0.3s, box-shadow 0.3s;
+            display: block;
+            margin: 0 auto;
+        }
+        
+        #correos-dropdown {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23333'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            background-size: 16px;
+        }
+        

@@ -1,3 +1,22 @@
+h1 {
+  font-family: "Arial", sans-serif;
+  font-size: 3rem;
+  color: #ffffff;
+  text-align: center; /* Centrar el texto */
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-top: 20px;
+  padding: 10px;
+}
+.h3 {
+  font-family: "Arial", sans-serif;
+  font-size: 2rem;
+  text-align: left; /* Alineado a la izquierda */
+  margin-top: 20px; /* Espacio superior */
+  padding-bottom: 10px; /* Espacio inferior */
+  border-bottom: 1px solid #ccc; /* Línea decorativa debajo */
+  letter-spacing: 1px; /* Espaciado entre letras */
+}
 .cart-component-container {
   margin: auto;
   display: grid;
@@ -93,7 +112,9 @@
   margin-top: 20px;
   width: 100%;
 }
-
+.button-delete {
+  background-color: red;
+}
 .button-cart:hover {
   background-color: #1b201c;
 }
@@ -111,4 +132,70 @@
 
 .purchase-summary p {
   margin: 0;
+}
+.payment-options {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.option {
+  text-align: center;
+  max-width: 30%;
+}
+
+.more-info {
+  display: inline-block;
+  margin-top: 10px;
+  font-size: 0.9rem;
+  color: #007bff;
+  text-decoration: none;
+}
+
+.more-info:hover {
+  text-decoration: underline;
+}
+
+/* Modal styles */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+  background-color: white;
+  margin: 10% auto;
+  padding: 20px;
+  border-radius: 10px;
+  width: 80%;
+  max-width: 600px;
+  text-align: center;
+}
+
+.modal-icons a img {
+  margin: 10px;
+  width: 50px;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
 }

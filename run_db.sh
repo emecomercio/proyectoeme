@@ -13,10 +13,10 @@ DB_HOST="localhost"
 DB_NAME="ecommerce"
 SQL_SCRIPTS_PATH="./app/database"
 
-echo "Iniciando ejecución de scripts SQL..."
-echo "-------------------------------------"
+echo -e "\033[33mStarting execution of SQL scripts...\033[0m"
+sleep 1
 
-mysql -u$DB_USER -p$DB_PASSWORD -h$DB_HOST <<EOF
+mysql -u$DB_USER -p$DB_PASSWORD -h$DB_HOST <<EOF > /dev/null 2>&1
 SOURCE $SQL_SCRIPTS_PATH/ecommerce.sql;
 SOURCE $SQL_SCRIPTS_PATH/roles.sql;
 SOURCE $SQL_SCRIPTS_PATH/triggers.sql;
@@ -24,11 +24,12 @@ SOURCE $SQL_SCRIPTS_PATH/default_data.sql;
 EOF
 
 echo "--------------------------------"
-echo "Scripts SQL ejecutados con éxito"
+echo -e "\033[32mSQL scripts executed successfully\033[0m"
 echo "--------------------------------"
 echo ""
-echo "Ejecutando script PHP para datos de prueba"
+echo -e "\033[32mExecuting PHP script for test data\033[0m"
 echo "------------------------------------------"
+
 
 # Ejecución del script PHP sin límite de tiempo
 php -d max_execution_time=0 $SQL_SCRIPTS_PATH/test_data.php
