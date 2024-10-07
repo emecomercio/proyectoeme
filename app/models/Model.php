@@ -43,7 +43,6 @@ class Model
      * Model Constructor
      * 
      * Initializes the model with the provided data.
-     * If no data is provided, the model is simplified for instances where no data is provided in the constructor but assigned later.
      *
      * @param array $data Data to initialize the model. Default is an empty array.
      * @return void
@@ -52,8 +51,6 @@ class Model
     {
         if ($data) {
             $this->fill($data);
-        } else {
-            $this->simplify();
         }
     }
 
@@ -197,7 +194,11 @@ class Model
             if (!empty($this->limit)) {
                 $query .= ' ' . $this->limit;
             }
-            $resultSet = $this->query($query, $this->bindings);
+            if (!empty($this->bindings)) {
+                $resultSet = $this->query($query, $this->bindings);
+            } else {
+                $resultSet = $this->query($query);
+            }
             $results = [];
 
             // It executes while there are results.
@@ -219,7 +220,7 @@ class Model
      *
      * @return array<static> An array of model instances representing all records.
      */
-    protected function all()
+    public function all()
     {
         return $this->select('*')->get();
     }
@@ -582,8 +583,8 @@ class Model
     public function save()
     {
         return $this->handle(function () {
+            $this->simplify();
 
-            // Obtener las propiedades del objeto
             $data = get_object_vars($this);
 
             if (isset($data['id'])) {
@@ -760,7 +761,7 @@ class Model
      * - join
      * - bindings
      */
-    protected function simplify()
+    public function simplify()
     {
         unset(
             $this->db_role,
@@ -868,7 +869,7 @@ class Model
      */
     private function filterData(array $data, bool $admit = false): array
     {
-        $excludedProperties = ['conn', 'isInstance', 'id', 'pk', 'table', 'created_at', 'updated_at'];
+        $excludedProperties = ['conn', 'pk', 'table'];
 
         return array_filter($data, function ($key) use ($excludedProperties, $data, $admit) {
             return !in_array($key, $excludedProperties) && ($admit || $data[$key] !== null);
