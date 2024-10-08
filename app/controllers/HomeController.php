@@ -15,26 +15,9 @@ class HomeController extends Controller
         $this->productModel = new Product();
     }
 
-    public function getProductsForIndex()
-    {
-        $products = $this->productModel->select('id', 'name')->limit(50)->get();
-        foreach ($products as &$product) {
-            $variants = $product->getVariants();
-            foreach ($variants as &$variant) {
-                $attributes = $variant->getAttributes();
-                $variant->attributes = $attributes;
-                $images = $variant->getImages();
-                $variant->images = $images;
-            }
-            $product->variants = $variants;
-        }
-        return $products;
-    }
-
-
     public function index()
     {
-        $products = $this->getProductsForIndex();
+        $products = $this->productModel->getProductsForHome();
         shuffle($products);
         $home = new View("home");
         $home->data = [

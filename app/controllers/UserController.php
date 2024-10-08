@@ -2,8 +2,9 @@
 
 namespace App\Controllers;
 
-use App\Models\Phone;
+use Lib\View;
 use App\Models\User;
+use App\Models\Phone;
 
 class UserController extends Controller
 {
@@ -14,30 +15,71 @@ class UserController extends Controller
         $this->userModel = new User();
     }
 
-    public function index($state = null)
+    public function index() {}
+
+    public function showRegisterForm($role)
     {
-        $user = new User([
-            "name" =>  "John Doe",
-            "email" =>  "john@example.com",
-            "password"  =>  "password"
-        ]);
-        return dd($user);
-        $users = $state == null ? $user->all() : $user->all($state ===  'true' ? 1 : 0);
-        $users = $user->find(1);
-        dd($users);
+        $register = new View("auth/$role/register");
+        $register->data = [
+            'title' => 'Registro de ' . ($role == 'buyer' ? 'comprador' : 'vendedor')
+        ];
+        $register->styles = [
+            '/css/pages/register-login.css'
+        ];
+        $register->scripts = [
+            [
+                'src' => '/js/pages/buyer_register.js',
+                'defer' => true
+            ]
+        ];
+        $register->render();
     }
 
-    public function all()
+    public function showLoginForm()
     {
-        $users = new User();
-        $users = $users->all();
-        dd($users);
+        $msg = $_SESSION['msg']['login'] ?? '';
+        unset($_SESSION['msg']['login']);
+        $login = new View('auth/login', 'alter');
+        $login->data = [
+            'title' => 'Login ',
+            'msg' => $msg
+        ];
+        $login->styles = [
+            '/css/pages/register-login.css'
+        ];
+        $login->scripts = [
+            [
+                'src' => '/js/pages/login.js',
+                'defer' => true
+            ]
+        ];
+        $login->render();
     }
 
-    public function phones($id)
+    public function cart()
     {
-        $user = new User();
-        $userDetails = $user->find($id);
-        return $userDetails->phones();
+
+        $view = function ($role) {
+            $cart = new View("$role/cart");
+            $cart->data = [
+                "title" => "Carrito",
+
+            ];
+            $cart->styles = [
+                "/css/pages/cart.css"
+            ];
+            $cart->scripts = [
+                [
+                    "type" => "",
+                    "src" => "/js/components/cart_products.js",
+                    "defer" => true
+
+                ]
+            ];
+            $cart->render();
+        };
+        getUserRole() != 'admin' || getUserRole() != 'seller'
+            ? $view(getUserRole())
+            : redirect('/');
     }
 }

@@ -3,22 +3,32 @@
 namespace App\Controllers;
 
 use Lib\View;
+use App\Models\Product;
+use App\Models\Category;
 
 class CategoryController extends Controller
 {
-    public function index($catalog_id)
+    public $productModel;
+    public $categoryModel;
+
+    public function __construct()
     {
-        $products = $this->productController->getByCatalog($catalog_id);
-        $catalogs = $this->catalogModel->all();
-        $catalog = $this->find($catalog_id);
+        parent::__construct();
+        $this->productModel = new Product();
+        $this->categoryModel = new Category();
+    }
+
+    public function index($category_id)
+    {
+        $category = $this->categoryModel->find($category_id);
+        $products = $category->getProducts();
 
         // Crear la vista con los productos obtenidos
         $view = new View('catalogs/show');  // Cargar la vista 'catalogs/show.php'
         // Asignar los datos a la vista
         $view->data = [
-            "title" => $catalog['name'] . " | EME Comercio",
-            "catalog" => $catalog,
-            "catalogs"  => $catalogs,
+            "title" => $category->name,
+            "category" => $category,
             "products" => $products
         ];
 
@@ -27,12 +37,7 @@ class CategoryController extends Controller
             "/css/pages/catalog.css"
         ];
 
-        $view->scripts = [
-            [
-                "type" => "module",
-                "src" => "/js/pages/catalog.js"
-            ]
-        ];
+        $view->scripts = [];
 
         // Renderizar la vista y devolver el resultado
         return $view->render();

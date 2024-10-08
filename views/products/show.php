@@ -1,15 +1,15 @@
 <?php
 
-/** @var array $products
+/** @var App\Models\Product $product
+ * @var int $variantNumber
  */
-// ESTABA TOMANDO EL VARIANT PARA MOSTRARLO POR DEFAULT
 ?>
 
 <script>
-function changeImage(src) {
-    const mainImage = document.getElementById('main-product-image');
-    mainImage.src = src; // Cambia la fuente de la imagen principal
-}
+    function changeImage(src) {
+        const mainImage = document.getElementById('main-product-image');
+        mainImage.src = src; // Cambia la fuente de la imagen principal
+    }
 </script>
 
 <div class="product-page">
@@ -17,23 +17,23 @@ function changeImage(src) {
     <div class="product-page__main">
 
         <div class="thumbnail-container">
-            <?php 
-            $images = $product['variants'][$variantNumber]['images']['500x500'];
-            $maxImages = 5; 
+            <?php
+            $images = $product->variants[$variantNumber]->images;
+            $maxImages = 5;
             foreach (array_slice($images, 0, $maxImages) as $thumbnail) : ?>
-                <img src="<?= $thumbnail['src'] ?>" 
-                    alt="<?= $thumbnail['alt'] ?? 'no altern text' ?>" 
-                    class="thumbnail" 
+                <img src="<?= $thumbnail->src ?>"
+                    alt="<?= $thumbnail->alt ?? 'no altern text' ?>"
+                    class="thumbnail"
                     onclick="changeImage(this.src)">
             <?php endforeach; ?>
         </div>
 
         <div class="product-page__images1">
             <img
-                src="<?= $product['variants'][$variantNumber]['images']['500x500'][0]['src'] ?>"
+                src="<?= $product->variants[$variantNumber]->images[0]->src ?>"
                 width="500"
                 height="500"
-                alt="<?= $product['variants'][$variantNumber]['images']['500x500'][0]['alt'] ?? 'no altern text' ?>"
+                alt="<?= $product->variants[$variantNumber]->images[0]->alt ?? 'no altern text' ?>"
                 id="main-product-image" />
             <button class="favorite-button">♡</button>
         </div>
@@ -44,10 +44,10 @@ function changeImage(src) {
     <div class="product-page__info">
 
         <h1 class="product-page__title">
-            <?= $product['name'] ?>
+            <?= $product->name ?>
         </h1>
         <p class="product-page__price">
-            $<?= $product['variants'][0]['current_price'] ?>
+            $<?= $product->variants[0]->current_price ?>
         </p>
         <p class="product-page__payment-options">
             En hasta 12 cuotas de $70 sin interés
@@ -93,9 +93,9 @@ function changeImage(src) {
         <div class="product-button">
             <button class="product-page__buy-button">Comprar ahora</button>
             <button class="product-page__buy-button" id="add-to-cart-button"
-                data-product-id=<?= $product['id'] ?>
-                data-product-name=<?= $product['name'] ?>
-                data-product-price=<?= $product['variants'][0]['current_price'] ?>>
+                data-product-id=<?= $product->id ?>
+                data-product-name=<?= $product->name ?>
+                data-product-price=<?= $product->variants[0]->current_price ?>>
                 Añadir al carrito
             </button>
             <p>
@@ -171,7 +171,7 @@ function changeImage(src) {
 
     <!-- Descripción del producto -->
     <section class="product-description">
-        <?= $product['description'] ?>
+        <?= $product->description ?>
 
         <div class="shop-info">
             <p><strong>***Somos Ganga Shop***</strong></p>
@@ -285,7 +285,7 @@ function changeImage(src) {
 
         <div class="photo-review">
             <h3>Opiniones con fotos</h3>
-            <img src="<?= $product['variants'][0]['images']['500x500'][0]['src'] ?>" alt="Foto del producto" />
+            <img src="<?= $product->variants[0]->images[0]->src ?>" alt="<?= $product->variants[0]->images[0]->alt ?>" />
         </div>
 
         <div class="sort-reviews">

@@ -247,6 +247,25 @@ class Model
     }
 
     /**
+     * Find a record by a specific field and value.
+     *
+     * @param string $field The field to search by.
+     * @param mixed $value The value to search for.
+     * @return static|null Returns an instance of the model if found, or null if not.
+     */
+    protected function findByField($field, $value)
+    {
+        $sql = "SELECT * FROM users WHERE {$field} = ?";
+        $result = $this->query($sql,  [$value])->fetch_assoc();
+        if ($result) {
+            $model = new static();
+            $model->fill($result);
+            return $model;
+        }
+        return null;
+    }
+
+    /**
      * Sets the columns to select in the queries.
      *
      * This method allows specifying the columns to be selected
@@ -575,7 +594,7 @@ class Model
      * Otherwise, it will create a new record in the database. 
      * The method also handles any potential errors during the save process.
      *
-     * @return mixed Returns the result of the create or update operation.
+     * @return static  Returns the saved instance of the model.
      * 
      * @throws mysqli_sql_exception If a database-related exception occurs.
      * @throws \Exception For any other general exceptions.
@@ -912,7 +931,8 @@ class Model
      */
     public function exists($field, $value)
     {
-        $result = $this->query("SELECT 1 FROM $this->table WHERE $field = ? LIMIT 1", [$value]);
+        $sql = "SELECT 1 FROM $this->table WHERE $field = ? LIMIT 1";
+        $result = $this->query($sql, [$value]);
         return $result->num_rows > 0;
     }
 

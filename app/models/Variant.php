@@ -24,9 +24,9 @@ class Variant extends Model
     public $attributes = [];
     public $images = [];
 
-/**
- * @param array $data
- */
+    /**
+     * @param array $data
+     */
     public  function __construct($data = [])
     {
         parent::__construct($data);

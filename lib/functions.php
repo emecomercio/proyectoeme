@@ -31,8 +31,19 @@ function render($render, $data = [])
 
 function getUserRole()
 {
-    return $_SESSION['user']['role'] ?? ($_ENV['DB_ENV'] == 'prod' ? 'guest' : 'admin');
+    return getUser('role') ?? ($_ENV['DB_ENV'] == 'prod' ? 'guest' : 'admin');
 }
+
+function getUser($key = '')
+{
+    if (!isset($_SESSION['user'])) {
+        return null;
+    }
+
+    $user = json_decode($_SESSION['user']);
+    return !empty($key) ? ($user->$key ?? null) : $user;
+}
+
 
 
 function dd($arg, $debug = false)
@@ -53,4 +64,10 @@ function getCategories()
 {
     $categoryModel = new Category();
     return $categoryModel->all();
+}
+
+function bcrypt($password)
+{
+    $hash =  password_hash($password, PASSWORD_DEFAULT);
+    return $hash;
 }

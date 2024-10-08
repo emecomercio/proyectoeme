@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Models;
+
 /**
  * @property int $id
  * @property int $category_id
@@ -17,13 +18,41 @@ class Product extends Model
     public $name;
     public $description;
     public $variants;
-/**
- *  @param array $data
- */
+    /**
+     *  @param array $data
+     */
     public  function __construct($data = [])
     {
         parent::__construct($data);
         $this->table = 'products';
+    }
+
+    public function getProductsForHome()
+    {
+        $products = $this->select('id', 'name')->limit(50)->get();
+        foreach ($products as &$product) {
+            $variants = $product->getVariants();
+            foreach ($variants as &$variant) {
+                $attributes = $variant->getAttributes();
+                $variant->attributes = $attributes;
+                $images = $variant->getImages();
+                $variant->images = $images;
+            }
+            $product->variants = $variants;
+        }
+        return $products;
+    }
+
+    public function loadVariants()
+    {
+        $variants = $this->getVariants();
+        foreach ($variants as &$variant) {
+            $attributes = $variant->getAttributes();
+            $variant->attributes = $attributes;
+            $images = $variant->getImages();
+            $variant->images = $images;
+        }
+        $this->variants = $variants;
     }
 
     public function getCategory()
@@ -33,7 +62,7 @@ class Product extends Model
 
     public function getVariants()
     {
-        return $this->hasMany(Variant::class, 'product_id',  'id', 'current_price');
+        return $this->hasMany(Variant::class, 'product_id');
     }
 
     public function getSeller()

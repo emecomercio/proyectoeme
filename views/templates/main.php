@@ -42,7 +42,7 @@ $categories = getCategories();
     }
     ?>
 
-    <title><?= $title ?></title>
+    <title><?= $title . " | EME Comercio" ?></title>
 </head>
 
 <body>
@@ -63,25 +63,17 @@ $categories = getCategories();
 
                 <div class="TextoIcono" id="user-menu">
                     <img src="<?= asset("/img/icons/usuario_icono.png") ?>" class="icono" alt="Usuario" />
-                    <br /><?= $_SESSION['user']['name'] ?? "Usuario" ?>
+                    <br /><?= getUser('name') ?? "Usuario" ?>
                     <div class="dropdown-content" style="display: none;">
                         <?php if (getUserRole() == 'guest') : ?>
                             <div class="register-login" id="register-login">
                                 <a href="/register/buyer">Registrarse</a>
                                 <a href="/login">Ingresar</a>
                             </div>
-                        <?php elseif ($_SESSION['user']['role'] == 'buyer' || getUserRole() == 'seller'): ?>
+                        <?php elseif (getUserRole() == 'buyer' || getUserRole() == 'seller'): ?>
                             <div class="user-data" id="user-dropdown" style="display: block;">
                                 <a href="/settings">Configuracion</a>
-                                <form action="/logout" method="post" id='logout-form'>
-                                    <a id="logout-btn">Cerrar sesión</a>
-                                </form>
-                                <script>
-                                    const logoutForm = document.getElementById('logout-form')
-                                    document.getElementById('logout-btn').addEventListener('click', () => {
-                                        logoutForm.submit()
-                                    })
-                                </script>
+                                <a id="logout-btn">Cerrar sesión</a>
                             </div>
                         <?php endif; ?>
 
@@ -111,7 +103,7 @@ $categories = getCategories();
                 <a href="#" class="dropdown-toggle" id="categoriesDropdown">Categorias</a>
                 <div class="dropdown-content" id="categoriesMenu">
                     <?php foreach ($categories as $category): ?>
-                        <a href="/catalog/<?= $category->id ?>"><?= $category->name ?></a>
+                        <a href="/category/<?= $category->id ?>"><?= $category->name ?></a>
                     <?php endforeach; ?>
                 </div>
             </li>

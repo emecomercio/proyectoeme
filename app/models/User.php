@@ -15,6 +15,7 @@ namespace App\Models;
 
 class User extends Model
 {
+    protected $table = 'users';
     public $id;
     public $role;
     public $username;
@@ -23,16 +24,6 @@ class User extends Model
     public $name;
     public $password;
     public $active;
-
-    /**
-     * @param array $data
-     */
-    public function __construct($data = [])
-    {
-        $this->table = 'users';
-        parent::__construct($data);
-    }
-
 
     /**
      * @param boolean $state
@@ -48,5 +39,16 @@ class User extends Model
     public function phones()
     {
         return $this->hasMany(Phone::class, 'user_id');
+    }
+
+    public function authenticate($email, $password)
+    {
+        $user = $this->findByField('email', $email);
+
+        if ($user && password_verify($password, $user->password)) {
+            return $user;
+        }
+
+        throw new \Exception('Credenciales incorrectas');
     }
 }
