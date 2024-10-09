@@ -30,19 +30,3 @@ nextBtn.addEventListener("click", () => showSlide(currentIndex + 1));
 
 // Optional: Auto-play
 setInterval(() => showSlide(currentIndex + 1), 5000);
-
-// LOGOUT FORM
-document.getElementById("logout-btn").addEventListener("click", () => {
-  fetch("/api/logout", {
-    method: "GET",
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      console.log(data);
-      if (data.status === "success") {
-        window.location.href = "/login";
-      } else {
-        alert("Error logging out");
-      }
-    });
-});

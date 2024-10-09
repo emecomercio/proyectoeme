@@ -17,3 +17,21 @@ window.addEventListener("click", function (e) {
     dropdownContent.classList.remove("show");
   }
 });
+// LOGOUT FORM
+let logout = document.getElementById("logout-btn");
+if (logout) {
+  logout.addEventListener("click", () => {
+    fetch("/api/logout", {
+      method: "GET",
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        if (data.status === "success") {
+          window.location.href = "/login";
+        } else {
+          alert("Error logging out");
+        }
+      });
+  });
+}
