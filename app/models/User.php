@@ -36,7 +36,7 @@ class User extends Model
         return $this->select('*')->where('active', '=', $state)->get();
     }
 
-    public function phones()
+    public function getPhones()
     {
         return $this->hasMany(Phone::class, 'user_id');
     }

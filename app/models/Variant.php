@@ -15,6 +15,7 @@ namespace App\Models;
 
 class Variant extends Model
 {
+    protected $table = 'product_variants';
     public $id;
     public $product_id;
     public $discount_id;
@@ -24,13 +25,14 @@ class Variant extends Model
     public $attributes = [];
     public $images = [];
 
-    /**
-     * @param array $data
-     */
-    public  function __construct($data = [])
+    public function getProduct()
     {
-        parent::__construct($data);
-        $this->table = 'product_variants';
+        return $this->belongsTo(Product::class, 'product_id');
+    }
+
+    public function getDiscount()
+    {
+        return $this->belongsTo(Discount::class, 'discount_id');
     }
 
     public function getAttributes()

@@ -10,18 +10,15 @@ namespace App\Models;
  */
 
 class VariantAttribute extends Model
-{   
+{
+    protected $table = 'variant_attributes';
     public $id;
     public $variant_id;
     public $name;
     public $value;
 
-/**
- * @param array $data
- */
-    public  function __construct($data = [])
+    public function getVariant()
     {
-        parent::__construct($data);
-        $this->table = 'variant_attributes';
+        return $this->belongsTo(Variant::class, 'variant_id');
     }
 }

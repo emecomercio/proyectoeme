@@ -4,15 +4,10 @@ namespace App\Models;
 
 class Category extends Model
 {
+    protected $table = 'categories';
     public $id;
+    public $discount_id;
     public $name;
-
-
-    public function __construct($data = [])
-    {
-        parent::__construct($data);
-        $this->table = 'categories';
-    }
 
     public function getProducts()
     {

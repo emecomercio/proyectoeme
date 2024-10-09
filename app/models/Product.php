@@ -12,20 +12,13 @@ namespace App\Models;
  */
 class Product extends Model
 {
+    protected $table = 'products';
     public $id;
     public $category_id;
     public $seller_id;
     public $name;
     public $description;
     public $variants;
-    /**
-     *  @param array $data
-     */
-    public  function __construct($data = [])
-    {
-        parent::__construct($data);
-        $this->table = 'products';
-    }
 
     public function getProductsForHome()
     {
@@ -57,7 +50,7 @@ class Product extends Model
 
     public function getCategory()
     {
-        return $this->hasOne(Category::class, 'category_id');
+        return $this->belongsTo(Category::class, 'category_id');
     }
 
     public function getVariants()
@@ -67,6 +60,7 @@ class Product extends Model
 
     public function getSeller()
     {
-        return $this->hasOne(User::class, 'seller_id');
+        $seller = new Seller();
+        return $seller->find($this->seller_id);
     }
 }

@@ -4,10 +4,14 @@ namespace App\Models;
 
 class Phone extends Model
 {
+    protected $table = 'phones';
+    public $id;
+    public $user_id;
+    public $number;
 
-    public function __construct()
+
+    public function getUser()
     {
-        parent::__construct();
-        $this->table = 'phones';
+        return $this->belongsTo(User::class, 'user_id');
     }
 }
