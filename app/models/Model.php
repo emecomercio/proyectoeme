@@ -582,6 +582,12 @@ class Model
             $placeholders = rtrim(str_repeat('?,', count($filteredData)), ',');
             $sql = "INSERT INTO $this->table ($columns) VALUES ($placeholders)";
             $this->query($sql, array_values($filteredData));
+
+            $idManuallySet = isset($filteredData['id']);
+            if ($idManuallySet) {
+                return $this->find($filteredData['id']);
+            }
+
             return $this->find($this->id());
         });
     }
@@ -910,31 +916,41 @@ class Model
      */
     protected function id()
     {
-        $result = $this->query("SELECT LAST_INSERT_ID()")->fetch_assoc();
+        $result = $this->query("SELECT LAST_INSERT_ID() AS last_id")->fetch_assoc();
 
-        return $result ? $result['LAST_INSERT_ID()'] : null;
+        return $result ? (int) $result['last_id'] : null;
     }
+
 
     /**
      * Checks if a record exists in the database based on the specified field and value.
      *
      * This method executes a SELECT query to determine if any record in the 
      * specified table has a value in the given field that matches the provided 
-     * value. It returns true if at least one record exists; otherwise, false.
+     * value. It can either return a boolean indicating existence, or the ID of 
+     * the matching record if found.
      *
      * @param string $field The name of the field to check for existence.
      * @param mixed $value The value to search for in the specified field.
+     * @param bool $returnId Optional flag to return the ID of the found record. Defaults to false.
      * 
-     * @return bool Returns true if a matching record exists, false otherwise.
+     * @return bool|int Returns true if a matching record exists (or the ID if $returnId is true), false if not.
      *
      * @throws mysqli_sql_exception If a database-related exception occurs.
      */
-    public function exists($field, $value)
+    public function exists($field, $value, $returnId = false)
     {
-        $sql = "SELECT 1 FROM $this->table WHERE $field = ? LIMIT 1";
+        // Query with conditional field selection based on $returnId
+        $select = $returnId ? 'id' : '1';
+        $sql = "SELECT $select FROM $this->table WHERE $field = ? LIMIT 1";
+
         $result = $this->query($sql, [$value]);
-        return $result->num_rows > 0;
+        $row = $result->fetch_assoc();
+
+        // If a record is found, return the id or true, otherwise return false
+        return $row ? ($returnId ? $row['id'] : true) : false;
     }
+
 
     /**
      * Executes a raw SQL query and returns the results.

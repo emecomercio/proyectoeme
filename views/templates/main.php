@@ -1,8 +1,9 @@
 <?php
-$categories = getCategories();
+
 /**
  * @var App\Models\Category [] $categories
  */
+$categories = getCategories();
 ?>
 
 <!DOCTYPE html>

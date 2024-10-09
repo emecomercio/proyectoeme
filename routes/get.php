@@ -46,3 +46,11 @@ Route::get('/login',   function () {
     $userController = new UserController();
     return $userController->showLoginForm();
 });
+
+
+// SELLER
+
+Route::get('/dashboard', function () {
+    $userController = new UserController();
+    $userController->dashboard();
+});

@@ -28,7 +28,7 @@ class UserController extends Controller
         ];
         $register->scripts = [
             [
-                'src' => '/js/pages/buyer_register.js',
+                'src' => '/js/pages/register.js',
                 'defer' => true
             ]
         ];
@@ -81,5 +81,29 @@ class UserController extends Controller
         getUserRole() != 'admin' || getUserRole() != 'seller'
             ? $view(getUserRole())
             : redirect('/');
+    }
+
+    public function dashboard()
+    {
+        $show = function ($view) {
+            $dashboard = new View($view);
+            $dashboard->data = [
+                "title" => "Dashboard",
+            ];
+            $dashboard->styles = [
+                "/css/pages/dashboard.css",
+                "/css/pages/home-entrepise.css"
+            ];
+            $dashboard->scripts = [
+                [
+                    "src" => "/js/pages/seller_dashboard.js",
+                    "defer" => true
+                ],
+            ];
+            $dashboard->render();
+        };
+        getUserRole() == 'guest'
+            ? redirect('/')
+            : $show(getUserRole()  . "/dashboard");
     }
 }

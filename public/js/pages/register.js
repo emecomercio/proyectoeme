@@ -50,7 +50,7 @@ document
       })
         .then((response) => response.json())
         .then((result) => {
-          //   console.log(result);
+          // console.log(result);
           if (result.status == "success") {
             window.location.href = "/login";
           } else {

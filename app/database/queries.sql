@@ -1,6 +1,8 @@
 USE ecommerce;
-
-
+INSERT INTO users (role, username, email, name, password, document_number) VALUES
+('admin', 'Anibalxyz2', 'anibalboggio12.6.20062@gmail.com', 'Anibal Boggio2', '$2y$10$UlzvPXndnzCa73DtSaeQa.ddfcgEeYugh04aFOl2fLnx2zKSLN4F6', '560040022');
+SELECT LAST_INSERT_ID() AS last_id;
+DELETE FROM buyers WHERE id = 108;
 SELECT * FROM users;
 SELECT * FROM buyers;
 SELECT * FROM sellers;
@@ -10,7 +12,7 @@ SELECT * FROM carts;
 SELECT * FROM cart_lines;
 SELECT * FROM images;
 SELECT * FROM discounts;
-SELECT * FROM categories;
+SELECT * FROM catalogs;
 SELECT * FROM products;
 SELECT * FROM product_variants;
 SELECT * FROM variant_attributes;
@@ -107,8 +109,8 @@ SELECT
     pv.stock AS variant_stock,
     va.name AS attribute_name,
     va.value AS attribute_value,
-    i.image_url AS image_url,
-    i.alt_text AS image_alt_text,
+    i.src AS image_url,
+    i.alt AS image_alt_text,
     i.width AS image_width,
     i.height AS image_height
 FROM 

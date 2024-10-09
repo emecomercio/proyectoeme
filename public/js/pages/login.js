@@ -25,9 +25,9 @@ document
         if (result.status === "success") {
           let user = result.data;
           localStorage.setItem("user", JSON.stringify(user));
-          user.role == "seller"
-            ? (window.location.href = "/dashboard")
-            : (window.location.href = "/");
+          user.role == "guest"
+            ? (window.location.href = "/")
+            : (window.location.href = "/dashboard");
         } else {
           console.log("Error de autenticación:", result.message);
           errorBox.textContent = result.message;

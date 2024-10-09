@@ -2,9 +2,12 @@
 
 namespace App\Api\Controllers;
 
+use mysqli_sql_exception;
 use Exception;
 use App\Models\User;
-use mysqli_sql_exception;
+use App\Models\Buyer;
+use App\Models\Seller;
+use stdClass;
 
 class UserController extends BaseController
 {
@@ -52,23 +55,33 @@ class UserController extends BaseController
         return $this->handle(function () {
             $data = json_decode(file_get_contents('php://input'), true);
 
-            $this->checkRequiredFields(['email', 'password', 'document-number', 'role', 'name'], $data);
+            $this->checkRequiredFields(['email', 'password', 'password-check', 'document-number', 'role', 'name', 'checkbox'], $data);
 
-            if ($data['checkbox'] != 'on') {
-                $this->respondWithError("Checkbox must be checked");
+            if ($data['password'] != $data['password-check']) {
+                $this->respondWithError("Passwords do not match", 400);
             }
 
-            if ($data['password'] == $data['password-check']) {
-                $user = new User();
-                $user->email = $data['email'];
-                $user->document_number = $data['document-number'];
-                $user->name = $data['name'];
-                $user->username = strtolower(str_replace(' ', '.', $user->name)) . '_' . $user->document_number;
-                $user->password = bcrypt($data['password']);
-                $user = $user->save();
-                $_SESSION['msg']['login'] = 'Registrado con éxito. Ingresa sesión para continuar';
-                $this->respondWithSuccess($user->id); // Returns id to use it in the frontend if needed
-            }
+            $model = $data['role'] == 'seller' ? Seller::class : Buyer::class;
+
+            $user = new User();
+            $user->email = $data['email'];
+            $user->role =  $data['role'];
+            $user->document_number = $data['document-number'];
+            $user->name = $data['name'];
+            $user->username = strtolower(str_replace(' ', '.', $user->name)) . '_' . $user->document_number;
+            $user->password = bcrypt($data['password']);
+            $user = $user->save();
+            $user_id = $user->id;
+
+            /**
+             * @var Seller|Buyer $user
+             */
+            $user = new $model();
+            $user = $user->create([
+                'id' => $user_id,
+            ]);
+            $_SESSION['msg']['login'] = 'Registrado con éxito. Ingresa sesión para continuar';
+            $this->respondWithSuccess($user);
         });
     }
 

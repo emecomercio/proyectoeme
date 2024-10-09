@@ -34,6 +34,9 @@ GRANT SELECT ON ecommerce.categories TO 'guest'@'localhost';
 GRANT SELECT ON ecommerce.images TO 'guest'@'localhost';
 GRANT SELECT ON ecommerce.discounts TO 'guest'@'localhost';
 GRANT INSERT ON ecommerce.users TO 'guest'@'localhost';
+GRANT INSERT ON ecommerce.sellers TO 'guest'@'localhost';
+GRANT INSERT ON ecommerce.buyers TO 'guest'@'localhost';
+
 
 
 -- DEFAULT ROLES --
