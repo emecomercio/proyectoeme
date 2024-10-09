@@ -2,26 +2,22 @@
 
 namespace App\Controllers;
 
+use App\Models\Product;
 use Lib\View;
-use App\Models\CatalogModel;
 
-class HomeController extends BaseController
+class HomeController extends Controller
 {
-    protected $userController;
-    protected $productController;
-    protected $catalogModel;
+    public $productModel;
 
     public function __construct()
     {
         parent::__construct();
-        $this->userController = new UserController();
-        $this->productController = new ProductController();
-        $this->catalogModel = new CatalogModel();
+        $this->productModel = new Product();
     }
 
     public function index()
     {
-        $products = $this->productController->allWithVariants();
+        $products = $this->productModel->getProductsForHome();
         shuffle($products);
         $home = new View("home");
         $home->data = [
@@ -43,36 +39,8 @@ class HomeController extends BaseController
         ];
         $home->render();
     }
-    public function dashboard()
-    {
-        $show = function ($view) {
-            $dashboard = new View($view);
-            $dashboard->data = [
-                "title" => "Dashboard | EME Comercio"
-            ];
-            $dashboard->styles = [
-                "/css/pages/dashboard.css"
-            ];
-            $dashboard->scripts = [
-                [
-                    "type" => "module",
-                    "src" => "js/main.js"
-                ],
-                [
-                    "type" => "module",
-                    "src" => "js/pages/dashboard.js"
-                ]
-            ];
-            $dashboard->render();
-        };
-        $this->role != 'guest'
-            ? $show($this->role  . "/dashboard")
-            : $this->userController->showLogin('Necesitas iniciar sesión primero');
-    }
 
-
-
-    public function termsAndConditions()
+    public static function termsAndConditions()
     {
         $view = new View("static/terms-and-conditions", 'alter');
         $view->data = [

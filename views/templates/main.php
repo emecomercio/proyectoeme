@@ -1,4 +1,8 @@
 <?php
+
+/**
+ * @var App\Models\Category [] $categories
+ */
 $categories = getCategories();
 ?>
 
@@ -39,14 +43,14 @@ $categories = getCategories();
     }
     ?>
 
-    <title><?= $title ?></title>
+    <title><?= $title . " | EME Comercio" ?></title>
 </head>
 
 <body>
     <header>
         <div class="main-h">
             <div class="logo">
-            <a href="<?= getLogoHref() ?>">
+                <a href="<?= getLogoHref() ?>">
                     <img class="LogoEme" src="<?= asset("/img/icons/logo.png") ?>" alt="logo de la empresa" />
                 </a>
             </div>
@@ -60,25 +64,17 @@ $categories = getCategories();
 
                 <div class="TextoIcono" id="user-menu">
                     <img src="<?= asset("/img/icons/usuario_icono.png") ?>" class="icono" alt="Usuario" />
-                    <br /><?= $_SESSION['user']['name'] ?? "Usuario" ?>
+                    <br /><?= getUser('name') ?? "Usuario" ?>
                     <div class="dropdown-content" style="display: none;">
                         <?php if (getUserRole() == 'guest') : ?>
                             <div class="register-login" id="register-login">
                                 <a href="/register/buyer">Registrarse</a>
                                 <a href="/login">Ingresar</a>
                             </div>
-                        <?php elseif ($_SESSION['user']['role'] == 'buyer' || getUserRole() == 'seller'): ?>
+                        <?php elseif (getUserRole() == 'buyer' || getUserRole() == 'seller'): ?>
                             <div class="user-data" id="user-dropdown" style="display: block;">
                                 <a href="/settings">Configuracion</a>
-                                <form action="/logout" method="post" id='logout-form'>
-                                    <a id="logout-btn">Cerrar sesión</a>
-                                </form>
-                                <script>
-                                    const logoutForm = document.getElementById('logout-form')
-                                    document.getElementById('logout-btn').addEventListener('click', () => {
-                                        logoutForm.submit()
-                                    })
-                                </script>
+                                <a id="logout-btn">Cerrar sesión</a>
                             </div>
                         <?php endif; ?>
 
@@ -87,45 +83,46 @@ $categories = getCategories();
                 <?php if (getUserRole() === 'buyer' ||  getUserRole() === 'guest'): ?>
 
                     <div class=" TextoIcono" id="cart-menu">
-                    <img src="<?= asset("/img/icons/carrito_icono.png") ?>" class="icono" alt="Usuario" />
-                    <br />Carrito
-                    <div class="dropdown-content" style="display: none;">
-                        <a href="/cart">Carrito</a>
+                        <img src="<?= asset("/img/icons/carrito_icono.png") ?>" class="icono" alt="Usuario" />
+                        <br />Carrito
+                        <div class="dropdown-content" style="display: none;">
+                            <a href="/cart">Carrito</a>
+                        </div>
                     </div>
-                </div>
-                    <?php else: ?>
-                        <div hidden class=" TextoIcono" id="cart-menu">
-                    <img src="<?= asset("/img/icons/carrito_icono.png") ?>" class="icono" alt="Usuario" />
-                    <br />Carrito
-                    <div class="dropdown-content" style="display: none;">
-                        <a href="/cart">Carrito</a>
-                    </div>
+                <?php else: ?>
+                    <div hidden class=" TextoIcono" id="cart-menu">
+                        <img src="<?= asset("/img/icons/carrito_icono.png") ?>" class="icono" alt="Usuario" />
+                        <br />Carrito
+                        <div class="dropdown-content" style="display: none;">
+                            <a href="/cart">Carrito</a>
+                        </div>
                     <?php endif; ?>
             </nav>
         </div>
         <ul class="snd-h">
             <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" id="categoriesDropdown">Categorias</a>
-                    <div class="dropdown-content" id="categoriesMenu">
-                        <?php foreach ($categories as $category): ?>
-                            <a href="/catalog/<?= $category['id'] ?>"><?= $category['name'] ?></a>
-                        <?php endforeach; ?>
-                    </div>
-                </li>
-                <li class="dropdown"><a href="#">Ofertas</a></li>
-                <li class="dropdown"><a href="#">Cupones</a></li>
-                <li class="dropdown">
-                    <?php if (getUserRole() === 'seller'): ?>
-                        <a href="#">Vender</a>
-                    <?php else: ?>
-                        <a href="#">Próximas ofertas</a>
-                    <?php endif; ?>
-                </li>
-                
-                <li class="dropdown"><a href="#">Ayuda</a></li>
+                <a href="#" class="dropdown-toggle" id="categoriesDropdown">Categorias</a>
+                <div class="dropdown-content" id="categoriesMenu">
+                    <?php foreach ($categories as $category): ?>
+                        <a href="/category/<?= $category->id ?>"><?= $category->name ?></a>
+                    <?php endforeach; ?>
+                </div>
+            </li>
+            <li class="dropdown"><a href="#">Ofertas</a></li>
+            <li class="dropdown"><a href="#">Cupones</a></li>
+            <li class="dropdown">
+                <?php if (getUserRole() === 'seller'): ?>
+                    <a href="#">Vender</a>
+                <?php else: ?>
+                    <a href="#">Próximas ofertas</a>
+                <?php endif; ?>
+            </li>
+
+            <li class="dropdown"><a href="#">Ayuda</a></li>
         </ul>
         <?php
-        function getLogoHref() {
+        function getLogoHref()
+        {
             if (getUserRole() == 'seller') {
                 echo '/dashboard';
             } else if (getUserRole() === 'buyer' ||  getUserRole() === 'guest') {

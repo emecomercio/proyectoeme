@@ -9,7 +9,7 @@ CREATE TABLE users (
     email VARCHAR(255) NOT NULL UNIQUE,
     document_number VARCHAR(255) NOT NULL UNIQUE,
     name VARCHAR(255) NOT NULL,
-    password_hash VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
     active TINYINT DEFAULT 1,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
@@ -64,7 +64,7 @@ CREATE TABLE discounts (
     FOREIGN KEY (seller_id) REFERENCES sellers(id)
 );
 
-CREATE TABLE catalogs (
+CREATE TABLE categories (
 	id INT AUTO_INCREMENT PRIMARY KEY,
     discount_id INT,
     name VARCHAR(255),
@@ -73,11 +73,11 @@ CREATE TABLE catalogs (
 
 CREATE TABLE products (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    catalog_id INT DEFAULT 1,
+    category_id INT DEFAULT 1,
     seller_id INT NOT NULL,
     name VARCHAR(255) NOT NULL,
     description TEXT,
-    FOREIGN KEY (catalog_id) REFERENCES catalogs(id),
+    FOREIGN KEY (category_id) REFERENCES categories(id),
     FOREIGN KEY (seller_id) REFERENCES sellers(id)
 );
 
@@ -106,8 +106,6 @@ CREATE TABLE images (
     variant_id INT,
     src VARCHAR(255) NOT NULL,
     alt VARCHAR(255),
-    width INT NOT NULL,
-    height INT NOT NULL,
     FOREIGN KEY (variant_id) REFERENCES product_variants(id)
 );
 

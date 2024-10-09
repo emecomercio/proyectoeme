@@ -1,4 +1,4 @@
-<h1><?= $catalog['name'] ?></h1>
+<h1><?= $category->name ?></h1>
 
 <pre>
 <?php

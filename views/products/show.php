@@ -1,29 +1,39 @@
 <?php
 
-/** @var array $products
+/** @var App\Models\Product $product
+ * @var int $variantNumber
  */
-// ESTABA TOMANDO EL VARIANT PARA MOSTRARLO POR DEFAULT
 ?>
+
+<script>
+    function changeImage(src) {
+        const mainImage = document.getElementById('main-product-image');
+        mainImage.src = src; // Cambia la fuente de la imagen principal
+    }
+</script>
 
 <div class="product-page">
     <!-- Imagen principal del producto -->
     <div class="product-page__main">
 
-        <!-- Limitar a 10 imagenes-->
         <div class="thumbnail-container">
-            <?php foreach ($product['variants'][$variantNumber]['images']['500x500'] as $thumbnail) : ?>
-                <img src="<?= $thumbnail['src'] ?>" alt="<?= $thumbnail['alt'] ?? 'no altern text' ?>" class="thumbnail">
+            <?php
+            $images = $product->variants[$variantNumber]->images;
+            $maxImages = 5;
+            foreach (array_slice($images, 0, $maxImages) as $thumbnail) : ?>
+                <img src="<?= $thumbnail->src ?>"
+                    alt="<?= $thumbnail->alt ?? 'no altern text' ?>"
+                    class="thumbnail"
+                    onclick="changeImage(this.src)">
             <?php endforeach; ?>
         </div>
 
         <div class="product-page__images1">
-
             <img
-
-                src="<?= $product['variants'][$variantNumber]['images']['500x500'][0]['src'] ?>"
+                src="<?= $product->variants[$variantNumber]->images[0]->src ?>"
                 width="500"
                 height="500"
-                alt="<?= $product['variants'][$variantNumber]['images']['500x500'][0]['alt'] ?? 'no altern text' ?>"
+                alt="<?= $product->variants[$variantNumber]->images[0]->alt ?? 'no altern text' ?>"
                 id="main-product-image" />
             <button class="favorite-button">♡</button>
         </div>
@@ -34,28 +44,18 @@
     <div class="product-page__info">
 
         <h1 class="product-page__title">
-            <?= $product['name'] ?>
+            <?= $product->name ?>
         </h1>
         <p class="product-page__price">
-            $<?= $product['variants'][0]['current_price'] ?>
+            $<?= $product->variants[0]->current_price ?>
         </p>
         <p class="product-page__payment-options">
             En hasta 12 cuotas de $70 sin interés
         </p>
-        <p class="product-page__availability">Última disponible</p>
-        <div class="quantity-container">
-            <span class="quantity-label" id="quantity-toggle">Cantidad: <span id="selected-quantity">1 unidad</span>
-                <span class="quantity-arrow">^</span></span>
-            <ul class="quantity-dropdown">
-                <li class="quantity-option" data-value="1">1 unidad</li>
-                <li class="quantity-option" data-value="2">2 unidades</li>
-                <li class="quantity-option" data-value="3">3 unidades</li>
-                <li class="quantity-option" data-value="4">4 unidades</li>
-                <li class="quantity-option" data-value="5">5 unidades</li>
-                <li class="quantity-option" data-value="6">6 unidades</li>
-            </ul>
+        <div class="product-quantity">
+            <label for="quantity">Cantidad:</label>
+            <input type="number" id="quantity" name="quantity" min="1" value="1" />
         </div>
-        <p class="quantity-availability">(+10 disponibles)</p>
         <div class="product-options">
             <div class="option">
                 <p>Seleccione: <strong>Modelo:</strong></p>
@@ -93,9 +93,9 @@
         <div class="product-button">
             <button class="product-page__buy-button">Comprar ahora</button>
             <button class="product-page__buy-button" id="add-to-cart-button"
-                data-product-id=<?= $product['id'] ?>
-                data-product-name=<?= $product['name'] ?>
-                data-product-price=<?= $product['variants'][0]['current_price'] ?>>
+                data-product-id=<?= $product->id ?>
+                data-product-name=<?= $product->name ?>
+                data-product-price=<?= $product->variants[0]->current_price ?>>
                 Añadir al carrito
             </button>
             <p>
@@ -171,7 +171,7 @@
 
     <!-- Descripción del producto -->
     <section class="product-description">
-        <?= $product['description'] ?>
+        <?= $product->description ?>
 
         <div class="shop-info">
             <p><strong>***Somos Ganga Shop***</strong></p>
@@ -285,7 +285,7 @@
 
         <div class="photo-review">
             <h3>Opiniones con fotos</h3>
-            <img src="<?= $product['variants'][0]['images']['500x500'][0]['src'] ?>" alt="Foto del producto" />
+            <img src="<?= $product->variants[0]->images[0]->src ?>" alt="<?= $product->variants[0]->images[0]->alt ?>" />
         </div>
 
         <div class="sort-reviews">
@@ -307,13 +307,11 @@
                 <span class="review-date">01 Ago 2024</span>
             </div>
         </div>
-
         <div class="show-more-reviews">
             <button>Mostrar todas las opiniones</button>
         </div>
     </div>
 </div>
 <div class="comments-container">
-
 
 </div>

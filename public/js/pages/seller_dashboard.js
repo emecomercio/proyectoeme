@@ -8,7 +8,7 @@ const createProduct = (data) => {
   })
     .then((response) => {
       if (!response.ok) {
-        throw new Error('Error al crear el producto');
+        throw new Error("Error al crear el producto");
       }
       return response.json();
     })
@@ -18,7 +18,7 @@ const createProduct = (data) => {
       getProductsBySeller(data["seller-id"]);
     })
     .catch((error) => {
-      console.error('Error:', error);
+      console.error("Error:", error);
       alert("Hubo un problema al crear el producto.");
     });
 };
@@ -34,7 +34,7 @@ const getProductsBySeller = (sellerId) => {
     .then((response) => {
       // Limpiar la lista de productos antes de agregar los nuevos
       const dashboard = document.querySelector(".product-dashboard");
-      dashboard.innerHTML = ''; // Limpia el contenido anterior
+      dashboard.innerHTML = ""; // Limpia el contenido anterior
 
       response.data.forEach((product) => {
         console.log(product);
@@ -131,16 +131,17 @@ let mapsSections = document.querySelectorAll(".maps-display div");
 
 // Escuchar cuando el usuario selecciona una oficina del dropdown
 correosDropdown.addEventListener("change", function () {
-    let selectedTarget = this.options[this.selectedIndex].getAttribute("data-target");
+  let selectedTarget =
+    this.options[this.selectedIndex].getAttribute("data-target");
 
-    // Ocultar todos los mapas
-    mapsSections.forEach((mapSection) => {
-        mapSection.classList.remove("active");
-    });
+  // Ocultar todos los mapas
+  mapsSections.forEach((mapSection) => {
+    mapSection.classList.remove("active");
+  });
 
-    // Mostrar el mapa correspondiente a la oficina seleccionada
-    let selectedMap = document.getElementById(selectedTarget);
-    if (selectedMap) {
-        selectedMap.classList.add("active");
-    }
+  // Mostrar el mapa correspondiente a la oficina seleccionada
+  let selectedMap = document.getElementById(selectedTarget);
+  if (selectedMap) {
+    selectedMap.classList.add("active");
+  }
 });

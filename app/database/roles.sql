@@ -30,10 +30,13 @@ GRANT ALL PRIVILEGES ON ecommerce.* TO 'buyer'@'localhost';
 GRANT SELECT ON ecommerce.products TO 'guest'@'localhost';
 GRANT SELECT ON ecommerce.product_variants TO 'guest'@'localhost';
 GRANT SELECT ON ecommerce.variant_attributes TO 'guest'@'localhost';
-GRANT SELECT ON ecommerce.catalogs TO 'guest'@'localhost';
+GRANT SELECT ON ecommerce.categories TO 'guest'@'localhost';
 GRANT SELECT ON ecommerce.images TO 'guest'@'localhost';
 GRANT SELECT ON ecommerce.discounts TO 'guest'@'localhost';
 GRANT INSERT ON ecommerce.users TO 'guest'@'localhost';
+GRANT INSERT ON ecommerce.sellers TO 'guest'@'localhost';
+GRANT INSERT ON ecommerce.buyers TO 'guest'@'localhost';
+
 
 
 -- DEFAULT ROLES --

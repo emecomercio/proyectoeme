@@ -14,7 +14,7 @@ use Faker\Generator;
  * @var string $username
  * @var string $email
  * @var string $document_number
- * @var string $password_hash
+ * @var string $password
  * @var string $fullname
  * @var string $birthdate
  * @var string $address
@@ -43,8 +43,8 @@ $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 // function insertUsers(PDO $pdo, Generator $faker, int $num)
 // {
 //     $stmt = $pdo->prepare("
-//         INSERT INTO users (role, username, email, password_hash, document_number) 
-//         VALUES (:role, :username, :email, :password_hash, :document_number)
+//         INSERT INTO users (role, username, email, password, document_number) 
+//         VALUES (:role, :username, :email, :password, :document_number)
 //     ");
 
 //     for ($i = 0; $i < $num; $i++) {
@@ -52,13 +52,13 @@ $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 //         $username = $faker->userName;
 //         $email = $faker->email;
 //         $document_number = $faker->ssn;
-//         $password_hash = password_hash($faker->password, PASSWORD_BCRYPT);
+//         $password = password($faker->password, PASSWORD_BCRYPT);
 
 //         $stmt->execute([
 //             ':role' => $role,
 //             ':username' => $username,
 //             ':email' => $email,
-//             ':password_hash' => $password_hash,
+//             ':password' => $password,
 //             ':document_number' => $document_number
 //         ]);
 //     }
@@ -67,8 +67,8 @@ $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 function insertBuyers(PDO $pdo, Generator $faker, int $num)
 {
     $insertUserStmt = $pdo->prepare("
-        INSERT INTO users (role, username, email, password_hash, document_number, name) 
-        VALUES (:role, :username, :email, :password_hash, :document_number, :name)
+        INSERT INTO users (role, username, email, password, document_number, name) 
+        VALUES (:role, :username, :email, :password, :document_number, :name)
     ");
 
     $insertBuyerStmt = $pdo->prepare("
@@ -85,7 +85,7 @@ function insertBuyers(PDO $pdo, Generator $faker, int $num)
         $username = $faker->userName;
         $email = $faker->email;
         $name = ucwords($faker->name());
-        $password_hash = password_hash($faker->password, PASSWORD_BCRYPT);
+        $password = password_hash($faker->password, PASSWORD_BCRYPT);
         $document_number = $faker->unique()->numberBetween(10000000, 99999999);
 
         // Verificar si el email ya existe
@@ -115,7 +115,7 @@ function insertBuyers(PDO $pdo, Generator $faker, int $num)
             ':username' => $username,
             ':email' => $email,
             ':name' => $name,
-            ':password_hash' => $password_hash,
+            ':password' => $password,
             ':document_number' => $document_number
         ]);
 
@@ -136,8 +136,8 @@ function insertBuyers(PDO $pdo, Generator $faker, int $num)
 function insertSellers(PDO $pdo, Generator $faker, int $num)
 {
     $insertUserStmt = $pdo->prepare("
-        INSERT INTO users (role, username, email, password_hash, document_number, name) 
-        VALUES (:role, :username, :email, :password_hash, :document_number, :name)
+        INSERT INTO users (role, username, email, password, document_number, name) 
+        VALUES (:role, :username, :email, :password, :document_number, :name)
     ");
 
     $insertSellerStmt = $pdo->prepare("
@@ -154,7 +154,7 @@ function insertSellers(PDO $pdo, Generator $faker, int $num)
         $username = $faker->userName;
         $name = ucwords($faker->company);
         $email = $faker->email;
-        $password_hash = password_hash($faker->password, PASSWORD_BCRYPT);
+        $password = password_hash($faker->password, PASSWORD_BCRYPT);
         $document_number = $faker->unique()->numberBetween(10000000, 99999999);
 
         // Verificar si el email ya existe
@@ -184,7 +184,7 @@ function insertSellers(PDO $pdo, Generator $faker, int $num)
             ':username' => $username,
             ':email' => $email,
             ':name' => $name,
-            ':password_hash' => $password_hash,
+            ':password' => $password,
             ':document_number' => $document_number
         ]);
 
@@ -296,11 +296,11 @@ function insertDiscounts(PDO $pdo, Generator $faker, int $num)
     }
 }
 
-// Insertar datos en la tabla catalogs
-function insertCatalogs(PDO $pdo, Generator $faker, int $num)
+// Insertar datos en la tabla categories
+function insertCategories(PDO $pdo, Generator $faker, int $num)
 {
     $stmt = $pdo->prepare("
-        INSERT INTO catalogs (discount_id, name) 
+        INSERT INTO categories (discount_id, name) 
         VALUES (:discount_id, :name)
     ");
 
@@ -322,22 +322,22 @@ function insertCatalogs(PDO $pdo, Generator $faker, int $num)
 function insertProducts(PDO $pdo, Generator $faker, int $num)
 {
     $stmt = $pdo->prepare("
-        INSERT INTO products (catalog_id, seller_id, name, description) 
-        VALUES (:catalog_id, :seller_id, :name, :description)
+        INSERT INTO products (category_id, seller_id, name, description) 
+        VALUES (:category_id, :seller_id, :name, :description)
     ");
 
     // Obtener IDs de catálogos y vendedores existentes
-    $catalogIds = $pdo->query('SELECT id FROM catalogs')->fetchAll(PDO::FETCH_COLUMN);
+    $categoriesIds = $pdo->query('SELECT id FROM categories')->fetchAll(PDO::FETCH_COLUMN);
     $sellerIds = $pdo->query('SELECT id FROM sellers')->fetchAll(PDO::FETCH_COLUMN);
 
     for ($i = 0; $i < $num; $i++) {
-        $catalog_id = $faker->randomElement($catalogIds);
+        $category_id = $faker->randomElement($categoriesIds);
         $seller_id = $faker->randomElement($sellerIds);
         $name = ucwords($faker->word);
         $description = $faker->optional()->text(200);
 
         $stmt->execute([
-            ':catalog_id' => $catalog_id,
+            ':category_id' => $category_id,
             ':seller_id' => $seller_id,
             ':name' => $name,
             ':description' => $description
@@ -453,11 +453,11 @@ function insertImages(PDO $pdo, Generator $faker, int $num)
     }
 }
 
-function insertImagesBySize(PDO $pdo, Generator $faker, int $num, array $size = ['width' => 500, 'height' => 500])
+function insertImagesBySize(PDO $pdo, Generator $faker, int $num)
 {
     $stmt = $pdo->prepare("
-        INSERT INTO images (variant_id, src, alt, width, height) 
-        VALUES (:variant_id, :src, :alt, :width, :height)
+        INSERT INTO images (variant_id, src, alt) 
+        VALUES (:variant_id, :src, :alt)
     ");
 
     // Obtener IDs de variantes de productos existentes
@@ -466,16 +466,12 @@ function insertImagesBySize(PDO $pdo, Generator $faker, int $num, array $size = 
     for ($i = 0; $i < $num; $i++) {
         $variant_id = $faker->randomElement($variantIds);
         $alt_text = $faker->sentence;
-        $width = $size['width'];
-        $height = $size['height'];
-        $src = "https://picsum.photos/" . $width . "/" . $height . "?random=" . rand();
+        $src = "https://picsum.photos/500?random=" . rand(1, 1000);
 
         $stmt->execute([
             ':variant_id' => $variant_id,
             ':src' => $src,
             ':alt' => $alt_text,
-            ':width' => $width,
-            ':height' => $height
         ]);
     }
 }
@@ -535,33 +531,33 @@ function insertCartLines(PDO $pdo, Generator $faker, int $num)
 
 try {
     insertBuyers($pdo, $faker, 50);
-    echo "-> Buyers insertados\n";
+    echo "\033[32m-> Buyers inserted\033[0m\n";
     insertSellers($pdo, $faker, 50);
-    echo "-> Sellers insertados\n";
+    echo "\033[32m-> Sellers inserted\033[0m\n";
     insertPhones($pdo, $faker, 110);
-    echo "-> Phones insertados\n";
+    echo "\033[32m-> Phones inserted\033[0m\n";
     insertAddresses($pdo, $faker, 110);
-    echo "-> Addresses insertados\n";
+    echo "\033[32m-> Addresses inserted\033[0m\n";
     insertDiscounts($pdo, $faker, 50);
-    echo "-> Discounts insertados\n";
-    insertCatalogs($pdo, $faker, 10);
-    echo "-> Catalogs insertados\n";
+    echo "\033[32m-> Discounts inserted\033[0m\n";
+    insertCategories($pdo, $faker, 10);
+    echo "\033[32m-> Categories inserted\033[0m\n";
     insertProducts($pdo, $faker, 100);
-    echo "-> Products insertados\n";
+    echo "\033[32m-> Products inserted\033[0m\n";
     insertProductVariants($pdo, $faker, 300);
-    echo "-> ProductsVariants  insertados\n";
+    echo "\033[32m-> ProductVariants inserted\033[0m\n";
     insertVariantAttributes($pdo, $faker, 700);
-    echo "-> VariantAttributes insertados\n";
+    echo "\033[32m-> VariantAttributes inserted\033[0m\n";
     // insertImages($pdo, $faker, 300);
-    insertImagesBySize($pdo, $faker, 10000);
-    echo "-> Images insertados\n";
+    insertImagesBySize($pdo, $faker, 5000);
+    echo "\033[32m-> Images inserted\033[0m\n";
     insertCarts($pdo, $faker, 50);
-    echo "-> Carts insertados\n";
+    echo "\033[32m-> Carts inserted\033[0m\n";
     insertCartLines($pdo, $faker, 500);
-    echo "-> CartLines insertados\n";
-    echo "--------------------------------\n";
-    echo "|Datos insertados correctamente|\n";
-    echo "--------------------------------\n";
+    echo "\033[32m-> CartLines inserted\033[0m\n";
+    echo "\033[32m----------------------------\033[0m\n";
+    echo "\033[32m|Data inserted successfully|\033[0m\n";
+    echo "\033[32m----------------------------\033[0m\n";
 } catch (Exception $e) {
     echo "Hubo un error:\n";
     echo $e;

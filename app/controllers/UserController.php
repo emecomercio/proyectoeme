@@ -2,26 +2,58 @@
 
 namespace App\Controllers;
 
-use App\Models\CatalogModel;
-use App\Models\UserModel;
 use Lib\View;
+use App\Models\User;
+use App\Models\Phone;
 
-class UserController extends BaseController
+class UserController extends Controller
 {
-    protected $catalogModel;
-    protected $userModel;
+    protected  $userModel;
 
     public function __construct()
     {
-        parent::__construct();
-        $this->userModel = new UserModel();
-        $this->catalogModel = new CatalogModel();
+        $this->userModel = new User();
     }
 
-    public function showLogin($msg = '')
+    public function index() {}
+
+    public function showRegisterForm($role)
     {
-        $_SESSION['msg']['login'] = $msg;
-        redirect('/login');
+        $register = new View("auth/$role/register");
+        $register->data = [
+            'title' => 'Registro de ' . ($role == 'buyer' ? 'comprador' : 'vendedor')
+        ];
+        $register->styles = [
+            '/css/pages/register-login.css'
+        ];
+        $register->scripts = [
+            [
+                'src' => '/js/pages/register.js',
+                'defer' => true
+            ]
+        ];
+        $register->render();
+    }
+
+    public function showLoginForm()
+    {
+        $msg = $_SESSION['msg']['login'] ?? '';
+        unset($_SESSION['msg']['login']);
+        $login = new View('auth/login', 'alter');
+        $login->data = [
+            'title' => 'Login ',
+            'msg' => $msg
+        ];
+        $login->styles = [
+            '/css/pages/register-login.css'
+        ];
+        $login->scripts = [
+            [
+                'src' => '/js/pages/login.js',
+                'defer' => true
+            ]
+        ];
+        $login->render();
     }
 
     public function cart()
@@ -30,7 +62,7 @@ class UserController extends BaseController
         $view = function ($role) {
             $cart = new View("$role/cart");
             $cart->data = [
-                "title" => "Carrito | EME Comercio",
+                "title" => "Carrito",
 
             ];
             $cart->styles = [
@@ -46,37 +78,17 @@ class UserController extends BaseController
             ];
             $cart->render();
         };
-        $this->role != 'admin' || $this->role != 'seller'
-            ? $view($this->role)
+        getUserRole() != 'admin' || getUserRole() != 'seller'
+            ? $view(getUserRole())
             : redirect('/');
-    }
-
-    public function settings()
-    {
-        $show = function ($view) {
-            $settings = new View($view);
-            $settings->data = [
-                "title" => "Settings | EME Comercio"
-            ];
-            $settings->styles = [
-                "/css/pages/settings.css"
-            ];
-            $settings->render();
-        };
-        $this->role != 'guest'
-            ? $show($this->role  . "/settings")
-            : $this->showLogin('Necesitas iniciar sesión primero');
     }
 
     public function dashboard()
     {
         $show = function ($view) {
-            $catalogs = $this->catalogModel->all();
             $dashboard = new View($view);
             $dashboard->data = [
-                "title" => "Dashboard | EME Comercio",
-                "user" => $this->userModel->find($_SESSION['user']['id']),
-                "catalogs" => $catalogs
+                "title" => "Dashboard",
             ];
             $dashboard->styles = [
                 "/css/pages/dashboard.css",
@@ -90,16 +102,8 @@ class UserController extends BaseController
             ];
             $dashboard->render();
         };
-        $this->role != 'seller'
+        getUserRole() == 'guest'
             ? redirect('/')
-            : $show($this->role  . "/dashboard");
-    }
-
-    public function logout()
-    {
-        session_unset();
-        session_destroy();
-        session_start();
-        $this->showLogin('Sesión cerrada con éxito');
+            : $show(getUserRole()  . "/dashboard");
     }
 }
