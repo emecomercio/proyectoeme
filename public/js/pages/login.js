@@ -23,9 +23,9 @@ document
       .then((response) => response.json())
       .then((result) => {
         if (result.status === "success") {
-          let user = result.data;
+          let user = result.data.user;
           localStorage.setItem("user", JSON.stringify(user));
-          user.role == "guest"
+          user.role == "buyer"
             ? (window.location.href = "/")
             : (window.location.href = "/dashboard");
         } else {

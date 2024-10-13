@@ -2,6 +2,13 @@
 
 use Lib\Route;
 
-Route::get("/test", function () {
-    return "Hello World";
-});
+class Test
+{
+    public $att;
+    public function test($t = '')
+    {
+        return ('test' . $t);
+    }
+}
+
+Route::get("/test/{id}", [Test::class,  'test']);

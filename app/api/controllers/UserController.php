@@ -7,9 +7,8 @@ use Exception;
 use App\Models\User;
 use App\Models\Buyer;
 use App\Models\Seller;
-use stdClass;
 
-class UserController extends BaseController
+class UserController extends Controller
 {
     protected $userModel;
 
@@ -82,32 +81,6 @@ class UserController extends BaseController
             ]);
             $_SESSION['msg']['login'] = 'Registrado con éxito. Ingresa sesión para continuar';
             $this->respondWithSuccess($user);
-        });
-    }
-
-    public function login()
-    {
-        return $this->handle(function () {
-            $data = json_decode(file_get_contents('php://input'), true);
-            $this->checkRequiredFields(['email', 'password'], $data);
-
-            $user = $this->userModel->authenticate($data['email'], $data['password']);
-
-            if (!$user) {
-                $this->respondWithError('Credenciales incorrectas', 401);
-            }
-            $_SESSION['user'] = json_encode($user);
-            $this->respondWithSuccess($user, 200);
-        });
-    }
-
-    public function logout()
-    {
-        return $this->handle(function () {
-            session_unset();
-            session_destroy();
-            $_SESSION['msg']['login'] = 'Sesión cerrada con éxito';
-            $this->respondWithSuccess('Logged out');
         });
     }
 

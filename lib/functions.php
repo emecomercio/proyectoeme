@@ -31,7 +31,8 @@ function render($render, $data = [])
 
 function getUserRole()
 {
-    return getUser('role') ?? ($_ENV['DB_ENV'] == 'prod' ? 'guest' : 'admin');
+
+    return getUser('role') ?? ($_ENV['DB_ENV'] == 'dev'  ? 'admin' : 'guest');
 }
 
 function getUser($key = '')

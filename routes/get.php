@@ -8,10 +8,7 @@ use App\Controllers\ProductController;
 use App\Controllers\CategoryController;
 use App\Models\Product;
 
-Route::get('/', function () {
-    $homeController = new HomeController();
-    return $homeController->index();
-});
+Route::get('/', [HomeController::class, 'index']);
 
 
 Route::get('/terms-and-conditions', function () {
