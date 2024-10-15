@@ -112,14 +112,9 @@ class Model
             try {
                 $host = $_ENV['DB_HOST'];
                 $database = $_ENV['DB_NAME'];
-                $roles = json_decode($_ENV['DB_USERS'], true);
-                $db_role = getUserRole();
-                if (!isset($roles[$db_role])) {
-                    throw new InvalidArgumentException("Invalid role specified.");
-                }
-                $username = $roles[$db_role]['user'];
-                $password = $roles[$db_role]['password'];
-                $this->conn = new mysqli($host, $username, $password, $database);
+                $user = $_ENV["DB_USER"];
+                $password = $_ENV["DB_PASSWORD"];
+                $this->conn = new mysqli($host, $user, $password, $database);
                 if ($this->conn->connect_error) {
                     throw new mysqli_sql_exception("Error connecting to database");
                 }
