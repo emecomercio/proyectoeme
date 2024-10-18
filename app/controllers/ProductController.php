@@ -34,10 +34,6 @@ class ProductController extends Controller
                 "type" => "module",
                 "src" => "/js/pages/product_page.js"
             ],
-            [
-                "src" => "/js/components/add_to_cart_button.js",
-                "defer" => true
-            ]
         ];
 
         return $view->render();

@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Attribute;
+
 /**
  * @property int $id
  * @property int $product_id
@@ -35,13 +37,13 @@ class Variant extends Model
         return $this->belongsTo(Discount::class, 'discount_id');
     }
 
-    public function getAttributes()
+    public function getAttributes($fetchToObj = true)
     {
-        return $this->hasMany(VariantAttribute::class,  'variant_id');
+        return $this->hasMany(VariantAttribute::class,  'variant_id', ['name', 'value'], $fetchToObj);
     }
 
-    public function  getImages()
+    public function  getImages($fetchToObj = true)
     {
-        return $this->hasMany(Image::class,  'variant_id');
+        return $this->hasMany(Image::class,  'variant_id', ['src', 'alt'], $fetchToObj);
     }
 }

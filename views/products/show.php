@@ -3,6 +3,7 @@
 /** @var App\Models\Product $product
  * @var int $variantNumber
  */
+
 ?>
 
 <script>
@@ -13,96 +14,56 @@
 </script>
 
 <div class="product-page">
-    <!-- Imagen principal del producto -->
-    <div class="product-page__main">
+    <section class="product-main">
+        <!-- Imagen principal del producto -->
+        <div class="product-page__main">
 
-        <div class="thumbnail-container">
-            <?php
-            $images = $product->variants[$variantNumber]->images;
-            $maxImages = 5;
-            foreach (array_slice($images, 0, $maxImages) as $thumbnail) : ?>
-                <img src="<?= $thumbnail->src ?>"
-                    alt="<?= $thumbnail->alt ?? 'no altern text' ?>"
-                    class="thumbnail"
-                    onclick="changeImage(this.src)">
-            <?php endforeach; ?>
-        </div>
-
-        <div class="product-page__images1">
-            <img
-                src="<?= $product->variants[$variantNumber]->images[0]->src ?>"
-                width="500"
-                height="500"
-                alt="<?= $product->variants[$variantNumber]->images[0]->alt ?? 'no altern text' ?>"
-                id="main-product-image" />
-            <button class="favorite-button">♡</button>
-        </div>
-
-    </div>
-
-    <!-- Información del producto -->
-    <div class="product-page__info">
-
-        <h1 class="product-page__title">
-            <?= $product->name ?>
-        </h1>
-        <p class="product-page__price">
-            $<?= $product->variants[0]->current_price ?>
-        </p>
-        <p class="product-page__payment-options">
-            En hasta 12 cuotas de $70 sin interés
-        </p>
-        <div class="product-quantity">
-            <label for="quantity">Cantidad:</label>
-            <input type="number" id="quantity" name="quantity" min="1" value="1" />
-        </div>
-        <div class="product-options">
-            <div class="option">
-                <p>Seleccione: <strong>Modelo:</strong></p>
-                <div class="choices">
-                    <div class="choice" data-choice="256 GB">Modelo 1</div>
-                    <div class="choice" data-choice="512 GB">Modelo 2</div>
-                </div>
+            <div class="thumbnail-container">
             </div>
 
-            <div class="option">
-                <p>Seleccione: <strong>Talle</strong></p>
-                <div class="choices">
-                    <div class="choice" data-choice="8 GB">M</div>
-                    <div class="choice" data-choice="12 GB">S</div>
-                </div>
+            <div class="product-page__images1">
             </div>
 
-            <div class="option">
-                <p>Color: </p>
-                <div class="color-choices">
-                    <div class="color-choice" data-choice="Peacock blue">
-                        <img src="#" alt="Peacock blue">
-                    </div>
-                    <div class="color-choice" data-choice="Golden">
-                        <img src="#" alt="Golden">
-                    </div>
-                </div>
-            </div>
         </div>
 
+        <!-- Información del producto -->
+        <div class="product-page__info">
 
-        <!-- Area to display the information -->
-        <div id="product-info"></div>
-
-        <div class="product-button">
-            <button class="product-page__buy-button">Comprar ahora</button>
-            <button class="product-page__buy-button" id="add-to-cart-button"
-                data-product-id=<?= $product->id ?>
-                data-product-name=<?= $product->name ?>
-                data-product-price=<?= $product->variants[0]->current_price ?>>
-                Añadir al carrito
-            </button>
-            <p>
-                Vendido por <a class="seller-name" href="/">Nombre del vendedor</a>
+            <h1 class="product-page__title">
+                <?= $product->name ?>
+            </h1>
+            <p class="product-page__price">
+                $<?= $product->variants[0]->current_price ?>
             </p>
+            <!-- <p class="product-page__payment-options">
+                En hasta 12 cuotas de $70 sin interés
+            </p> -->
+
+            <section class="product-attributes">
+            </section>
+            <div class="product-quantity">
+                <label for="quantity">Cantidad:</label>
+                <input type="number" id="quantity" name="quantity" min="1" value="1" />
+            </div>
+
+            <div id="product-info">
+                <!-- <?= $product->description ?> -->
+            </div>
+
+            <div class="product-button">
+                <button class="product-page__buy-button">Comprar ahora</button>
+                <button class="product-page__buy-button" id="add-to-cart-button"
+                    data-product-id=<?= $product->id ?>
+                    data-product-name=<?= $product->name ?>
+                    data-product-price=<?= $product->variants[0]->current_price ?>>
+                    Añadir al carrito
+                </button>
+                <p>
+                    Vendido por <a class="seller-name" href="/">Nombre del vendedor</a>
+                </p>
+            </div>
         </div>
-    </div>
+    </section>
 
     <!-- Características del producto -->
     <section class="product-page__features">
@@ -285,7 +246,7 @@
 
         <div class="photo-review">
             <h3>Opiniones con fotos</h3>
-            <img src="<?= $product->variants[0]->images[0]->src ?>" alt="<?= $product->variants[0]->images[0]->alt ?>" />
+            <img src="<?= $product->variants[0]->images[0]['src'] ?>" alt="<?= $product->variants[0]->images[0]['alt'] ?>" />
         </div>
 
         <div class="sort-reviews">
@@ -315,3 +276,7 @@
 <div class="comments-container">
 
 </div>
+<script>
+    var product = <?php echo json_encode($product) ?>;
+    var variantNumber = <?php echo json_encode($variantNumber) ?>
+</script>

@@ -10,7 +10,6 @@ class Image extends Model
     public $src;
     public $alt;
 
-
     public function getProduct()
     {
         return $this->belongsTo(Variant::class, 'variant_id');

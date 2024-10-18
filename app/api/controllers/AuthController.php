@@ -30,7 +30,13 @@ class AuthController extends Controller
 
             $this->generateToken($user);
 
-            $_SESSION['user'] = json_encode($user);
+            $_SESSION['user'] = json_encode([
+                'id' => $user->id,
+                'role' =>  $user->role,
+                'name' => $user->name,
+                'email' => $user->email,
+                'username' => $user->username
+            ]);
 
             $this->respondWithSuccess(['user' =>  $user]);
         });

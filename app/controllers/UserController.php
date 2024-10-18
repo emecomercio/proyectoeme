@@ -78,8 +78,8 @@ class UserController extends Controller
             ];
             $cart->render();
         };
-        getUserRole() != 'admin' || getUserRole() != 'seller'
-            ? $view(getUserRole())
+        getUser('role') != 'admin' || getUser('role') != 'seller'
+            ? $view(getUser('role'))
             : redirect('/');
     }
 
@@ -102,8 +102,8 @@ class UserController extends Controller
             ];
             $dashboard->render();
         };
-        getUserRole() == 'guest'
+        getUser('role') == 'guest'
             ? redirect('/')
-            : $show(getUserRole()  . "/dashboard");
+            : $show(getUser('role')  . "/dashboard");
     }
 }

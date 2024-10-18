@@ -2,6 +2,11 @@
 
 namespace App\Models;
 
+/**
+ * Undocumented class
+ * 
+ * @property array<CartLine> $lines
+ */
 class Cart extends  Model
 {
     protected $table = 'carts';
@@ -22,13 +27,41 @@ class Cart extends  Model
         return $seller->find($this->user_id);
     }
 
-    public function setLine($data)
+
+    public function fillLines()
     {
-        $line = new CartLine();
-        $line->cart_id =  $this->id;
-        $line->product_id = $data['variant_id'];
-        $line->quantity = $data['quantity'];
-        $line->price = $data['price'];
-        $this->lines[] = $line;
+        $lines = $this->getLines();
+
+        foreach ($lines as $line) {
+            $this->setLine($line);
+        }
+    }
+
+    public function setLine(array|CartLine $data)
+    {
+
+        if (is_array($data)) {
+            $line = new CartLine();
+            $line->cart_id =  $this->id;
+            $line->product_id = $data['variant_id'];
+            $line->quantity = $data['quantity'];
+            $line->price = $data['price'];
+            $this->lines[] = $line;
+        } else {
+            $line = $data;
+            $this->lines[] = $line;
+        }
+    }
+
+    public function save()
+    {
+        if (!empty($this->lines)) {
+            $this->total_price = 0;
+            foreach ($this->lines as &$line) {
+                $this->total_price += $line->price;
+                $line = $line->save();
+            }
+        }
+        return parent::save();
     }
 }

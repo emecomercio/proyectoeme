@@ -7,32 +7,24 @@ use App\Controllers\UserController;
 use App\Controllers\ProductController;
 use App\Controllers\CategoryController;
 use App\Models\Product;
+use Lib\Middleware;
 
 Route::get('/', [HomeController::class, 'index']);
 
-
-Route::get('/terms-and-conditions', function () {
-    $homeController = new HomeController();
-    return $homeController->termsAndConditions();
-});
+Route::get('/terms-and-conditions', [HomeController::class, 'termsAndConditions']);
 
 // Products
-Route::get('/product-page/{id}/{variantNumber}', function ($id, $variantNumber) {
-    $productController = new ProductController();
-    $productController->index($id,  $variantNumber);
-});
+Route::get('/product-page/{id}/{variantNumber}', [ProductController::class, 'index']);
 
 Route::get('/category/{$id}',  function ($id) {
     $categoryController = new CategoryController();
     return $categoryController->index($id);
-});
+}); //cambiar parametro
 
 // Shared / Users
 
-Route::get('/cart',  function () {
-    $userController = new UserController();
-    return $userController->cart();
-});
+Route::get('/cart',  [UserController::class, 'cart']);
+
 
 Route::get('/register/{role}',   function ($role) {
     $userController = new UserController();

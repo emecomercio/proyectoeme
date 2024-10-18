@@ -29,12 +29,11 @@ function render($render, $data = [])
     }
 }
 
-function getUserRole()
-{
-
-    return getUser('role') ?? ($_ENV['DB_ENV'] == 'dev'  ? 'admin' : 'guest');
-}
-
+/**
+ * Undocumented function
+ *
+ * @return null|mixed
+ */
 function getUser($key = '')
 {
     if (!isset($_SESSION['user'])) {

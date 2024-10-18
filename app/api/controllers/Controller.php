@@ -83,7 +83,7 @@ class Controller
             header('Content-Type: application/json');
             echo json_encode([
                 'status' => 'error',
-                'message' => 'You do not have permission to access this resource. You are ' . getUserRole()
+                'message' => 'You do not have permission to access this resource. You are ' . getUser('role')
             ]);
         } elseif (in_array($e->getCode(), [1062])) {
             error_log($e->getMessage());
