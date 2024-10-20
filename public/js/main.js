@@ -1,5 +1,10 @@
 import { searchbar } from "./components/main/searchbar.js";
 import { userButton } from "./components/main/user_button.js";
+import { createModal, showModal, closeModal } from "./components/main/modal.js";
+
+window.createModal = createModal;
+window.showModal = showModal;
+window.closeModal = closeModal;
 
 searchbar();
 userButton();
@@ -21,6 +26,7 @@ window.addEventListener("click", function (e) {
 let logout = document.getElementById("logout-btn");
 if (logout) {
   logout.addEventListener("click", () => {
+    localStorage.removeItem("user");
     fetch("/api/logout", {
       method: "GET",
     })
