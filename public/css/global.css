@@ -2,7 +2,7 @@
 @import url("./components/footer.css");
 @import url("./components/categories.css");
 @import url("./components/carrousel.css");
-@import url("./components/main/alertModel.css");
+@import url("./components/main/modal.css");
 
 :root {
   --primary: black;
