@@ -52,14 +52,32 @@ var currentVariant = product.variants[variantNumber];
 const addBtn = document.querySelector("#add-to-cart-button");
 
 addBtn.addEventListener("click", function () {
-  let quantity = parseInt(document.querySelector("#quantity").value);
+  const user = localStorage.getItem("user");
 
-  let product = {
-    id: productId,
-    variant: currentVariant,
-    quantity: quantity,
-  };
-  addToCart(product);
+  if (user && JSON.parse(user).role === "buyer") {
+    let quantity = parseInt(document.querySelector("#quantity").value);
+
+    let product = {
+      id: productId,
+      variant: currentVariant,
+      quantity: quantity,
+    };
+    addToCart(product);
+  } else {
+    let [modal, loginBtn, registerBtn] = createModal(
+      "Atencion",
+      "Para agregar productos a tu carrito, primero debes iniciar sesión. Si no tienes una cuenta, puedes registrarte.",
+      ["Iniciar Sesion", "Registrarse"],
+      ["#28a745", "blue"]
+    );
+    showModal(modal);
+    loginBtn.onclick = () => {
+      window.location.href = "/login";
+    };
+    registerBtn.onclick = () => {
+      window.location.href = "/register/buyer";
+    };
+  }
 });
 
 // MANEJO DE ATRIBUTOS DINAMICO

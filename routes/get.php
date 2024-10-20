@@ -23,12 +23,16 @@ Route::get('/category/{$id}',  function ($id) {
 
 // Shared / Users
 
-Route::get('/cart',  [UserController::class, 'cart']);
+Route::get('/cart',  [UserController::class, 'cart'], [Middleware::checkRole('buyer')]);
 
 
 Route::get('/register/{role}',   function ($role) {
     $userController = new UserController();
     return $userController->showRegisterForm($role);
+});
+
+Route::get('/register',   function () {
+    redirect("/register/buyer");
 });
 
 Route::get('/login',   function () {

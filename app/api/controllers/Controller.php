@@ -56,10 +56,12 @@ class Controller
     {
         http_response_code($statusCode);
         header('Content-Type: application/json');
-        echo json_encode([
+        $response = [
             'status' => 'error',
-            'message' => $message
-        ]);
+            'message' => $message,
+            'statusCode'  => $statusCode
+        ];
+        echo json_encode($response);
         exit;
     }
 
