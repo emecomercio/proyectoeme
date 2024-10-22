@@ -112,7 +112,7 @@ $categories = getCategories();
             <li class="dropdown"><a href="#">Cupones</a></li>
             <li class="dropdown">
                 <?php if (getUserRole() === 'seller'): ?>
-                    <a href="#">Vender</a>
+                    <a href="#"></a>
                 <?php else: ?>
                     <a href="#">Próximas ofertas</a>
                 <?php endif; ?>
