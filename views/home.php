@@ -248,9 +248,9 @@
 <?php
 function getCarouselHref()
 {
-    if (getUserRole() == 'guest') {
+    if (getUser('role') == 'guest') {
         echo "/img/Carrousel/Unete_ahora.png";
-    } else if (getUserRole() === 'buyer') {
+    } else if (getUser('role') === 'buyer') {
         echo "/img/Carrousel/nuevas_modas.webp";
     }
 }

@@ -40,9 +40,9 @@ class Product extends Model
     {
         $variants = $this->getVariants();
         foreach ($variants as &$variant) {
-            $attributes = $variant->getAttributes();
+            $attributes = $variant->getAttributes(false);
             $variant->attributes = $attributes;
-            $images = $variant->getImages();
+            $images = $variant->getImages(false);
             $variant->images = $images;
         }
         $this->variants = $variants;

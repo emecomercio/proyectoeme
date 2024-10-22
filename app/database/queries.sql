@@ -1,6 +1,9 @@
 USE ecommerce;
 INSERT INTO users (role, username, email, name, password, document_number) VALUES
-('admin', 'Anibalxyz2', 'anibalboggio12.6.20062@gmail.com', 'Anibal Boggio2', '$2y$10$UlzvPXndnzCa73DtSaeQa.ddfcgEeYugh04aFOl2fLnx2zKSLN4F6', '560040022');
+('admin', 'Anibalxyz22', 'anibalboggio12.6.200622@gmail.com', 'Anibal Boggio22', '$2y$10$UlzvPXndnzCa73DtSaeQa.ddfcgEeYugh04aFOl2fLnx2zKSLN4F6', '5600400222');
+INSERT INTO buyers (id) VALUES
+(109);
+
 SELECT LAST_INSERT_ID() AS last_id;
 DELETE FROM buyers WHERE id = 108;
 SELECT * FROM users;

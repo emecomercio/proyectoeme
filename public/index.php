@@ -7,7 +7,7 @@ require_once __DIR__ . "/../routes/web.php";
 
 use Lib\Route;
 
-// Tomamos la URI (ej proyecto.com/settings)
+// Tomamos la URI (ej /settings)
 $uri = $_SERVER['REQUEST_URI'];
 // Tomamos el metodo HTTP (ej: GET)
 $method = $_SERVER['REQUEST_METHOD'];

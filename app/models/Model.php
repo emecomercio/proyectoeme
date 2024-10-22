@@ -38,6 +38,223 @@ class Model
     protected $created_at;
     protected $updated_at;
 
+    public function realProduct()
+    {
+        return $this->handle(function () {
+            $product = new Product([
+                'name' => 'Celular Pro',
+                'description' => 'Este celular es el mejor de la historia de los celulares.',
+                'catalog_id' => 3,
+                'seller_id' => 105
+            ]);
+            $product = $product->save();
+
+            $variants = [];
+            $variants[] = new Variant([
+                'product_id' => $product->id,
+                'stock' => 10,
+                'current_price' => 1200,
+                'last_price' => 1600,
+            ]);
+            $variants[] = new Variant([
+                'product_id' => $product->id,
+                'stock' => 15,
+                'current_price' => 1300,
+                'last_price' => 1300,
+            ]);
+            $variants[] = new Variant([
+                'product_id' => $product->id,
+                'stock' => 8,
+                'current_price' => 1500,
+                'last_price' => 1800,
+            ]);
+            $variants[] = new Variant([
+                'product_id' => $product->id,
+                'stock' => 10,
+                'current_price' => 1200,
+                'last_price' => 1600,
+            ]);
+            $variants[] = new Variant([
+                'product_id' => $product->id,
+                'stock' => 15,
+                'current_price' => 1300,
+                'last_price' => 1300,
+            ]);
+            $variants[] = new Variant([
+                'product_id' => $product->id,
+                'stock' => 8,
+                'current_price' => 1500,
+                'last_price' => 1800,
+            ]);
+            $variants[] = new Variant([
+                'product_id' => $product->id,
+                'stock' => 8,
+                'current_price' => 5500,
+                'last_price' => 7000,
+            ]);
+            $variants[] = new Variant([
+                'product_id' => $product->id,
+                'stock' => 8,
+                'current_price' => 500,
+                'last_price' => 700,
+            ]);
+
+            foreach ($variants as $index => &$variant) {
+                $variant = $variant->save();
+
+                $image = new Image([
+                    'variant_id' => $variant->id,
+                    'src' => "/uploads/dev/celular/{$index}_v1.jpg",
+                    'alt' => 'Alternative Text',
+                ]);
+                $image->save();
+                $image = new Image([
+                    'variant_id' => $variant->id,
+                    'src' => "/uploads/dev/celular/{$index}_v2.jpg",
+                    'alt' => 'Alternative Text',
+                ]);
+                $image->save();
+            }
+
+
+            $attributes = [];
+
+            $attributes[] = new VariantAttribute([
+                'variant_id' => $variants[0]->id,
+                'name' => 'color',
+                'value' =>  'azul'
+            ]);
+            $attributes[] = new VariantAttribute([
+                'variant_id' => $variants[0]->id,
+                'name' => 'almacenamiento',
+                'value' =>  '256GB'
+            ]);
+            $attributes[] = new VariantAttribute([
+                'variant_id' => $variants[0]->id,
+                'name' => 'memoria',
+                'value' =>  '8GB'
+            ]);
+
+            $attributes[] = new VariantAttribute([
+                'variant_id' => $variants[1]->id,
+                'name' => 'color',
+                'value' =>  'azul'
+            ]);
+            $attributes[] = new VariantAttribute([
+                'variant_id' => $variants[1]->id,
+                'name' => 'almacenamiento',
+                'value' =>  '512GB'
+            ]);
+            $attributes[] = new VariantAttribute([
+                'variant_id' => $variants[1]->id,
+                'name' => 'memoria',
+                'value' =>  '12GB'
+            ]);
+
+            $attributes[] = new VariantAttribute([
+                'variant_id' => $variants[2]->id,
+                'name' => 'color',
+                'value' =>  'azul'
+            ]);
+            $attributes[] = new VariantAttribute([
+                'variant_id' => $variants[2]->id,
+                'name' => 'almacenamiento',
+                'value' =>  '512GB'
+            ]);
+            $attributes[] = new VariantAttribute([
+                'variant_id' => $variants[2]->id,
+                'name' => 'memoria',
+                'value' =>  '16GB'
+            ]);
+            //////////////////////
+
+            $attributes[] = new VariantAttribute([
+                'variant_id' => $variants[3]->id,
+                'name' => 'color',
+                'value' =>  'verde'
+            ]);
+            $attributes[] = new VariantAttribute([
+                'variant_id' => $variants[3]->id,
+                'name' => 'almacenamiento',
+                'value' =>  '256GB'
+            ]);
+            $attributes[] = new VariantAttribute([
+                'variant_id' => $variants[3]->id,
+                'name' => 'memoria',
+                'value' =>  '8GB'
+            ]);
+
+            $attributes[] = new VariantAttribute([
+                'variant_id' => $variants[4]->id,
+                'name' => 'color',
+                'value' =>  'verde'
+            ]);
+            $attributes[] = new VariantAttribute([
+                'variant_id' => $variants[4]->id,
+                'name' => 'almacenamiento',
+                'value' =>  '512GB'
+            ]);
+            $attributes[] = new VariantAttribute([
+                'variant_id' => $variants[4]->id,
+                'name' => 'memoria',
+                'value' =>  '12GB'
+            ]);
+
+            $attributes[] = new VariantAttribute([
+                'variant_id' => $variants[5]->id,
+                'name' => 'color',
+                'value' =>  'verde'
+            ]);
+            $attributes[] = new VariantAttribute([
+                'variant_id' => $variants[5]->id,
+                'name' => 'almacenamiento',
+                'value' =>  '512GB'
+            ]);
+            $attributes[] = new VariantAttribute([
+                'variant_id' => $variants[5]->id,
+                'name' => 'memoria',
+                'value' =>  '16GB'
+            ]);
+
+            $attributes[] = new VariantAttribute([
+                'variant_id' => $variants[6]->id,
+                'name' => 'color',
+                'value' =>  'verde'
+            ]);
+            $attributes[] = new VariantAttribute([
+                'variant_id' => $variants[6]->id,
+                'name' => 'almacenamiento',
+                'value' =>  '512GB'
+            ]);
+            $attributes[] = new VariantAttribute([
+                'variant_id' => $variants[6]->id,
+                'name' => 'memoria',
+                'value' =>  '20GB'
+            ]);
+
+            $attributes[] = new VariantAttribute([
+                'variant_id' => $variants[7]->id,
+                'name' => 'color',
+                'value' =>  'azul'
+            ]);
+            $attributes[] = new VariantAttribute([
+                'variant_id' => $variants[7]->id,
+                'name' => 'almacenamiento',
+                'value' =>  '256GB'
+            ]);
+            $attributes[] = new VariantAttribute([
+                'variant_id' => $variants[7]->id,
+                'name' => 'memoria',
+                'value' =>  '6GB'
+            ]);
+
+            foreach ($attributes as &$attribute) {
+                $attribute = $attribute->save();
+            }
+        });
+    }
+
+
     // MAGIC METHODS
     /**
      * Model Constructor
@@ -166,12 +383,12 @@ class Model
      * properties like select fields, joins, where conditions, group by,
      * order by, and limit. It executes the query and returns an array
      * of records as instances of the current class.
-     *
-     * @return array<static> An array of instances of the current class, each representing a row from the result set.
+     * @param bool $fetchToObj  Whether to fetch records as objects or arrays.
+     * @return array<static|array<string,mixed>> An array of instances or associative arrays of the current class, each representing a row from the result set.
      */
-    public function get()
+    public function get($fetchToObj = true)
     {
-        $results = $this->handle(function () {
+        $results = $this->handle(function () use ($fetchToObj) {
             $query = "SELECT {$this->select} FROM {$this->table}";
 
             if (!empty($this->join)) {
@@ -196,9 +413,14 @@ class Model
             }
             $results = [];
 
-            // It executes while there are results.
-            while ($row = $resultSet->fetch_assoc()) {
-                $results[] = new static($row);
+
+            if ($fetchToObj) {
+                // It executes while there are results.
+                while ($row = $resultSet->fetch_assoc()) {
+                    $results[] = new static($row);
+                }
+            } else {
+                $results = $resultSet->fetch_all(MYSQLI_ASSOC);
             }
 
             return $results;
@@ -718,7 +940,7 @@ class Model
      * 
      * @throws InvalidArgumentException If the provided related model is not a valid class name.
      */
-    public function hasMany($relatedModel, $fk, ...$fields)
+    public function hasMany($relatedModel, $fk, $fields = [], $fetchToObj = true)
     {
         $this->existsRelatedModel($relatedModel);
 
@@ -733,7 +955,7 @@ class Model
 
         $related->where($fk, '=', $this->{$this->pk});
 
-        return $related->get();
+        return $related->get($fetchToObj);
     }
 
     /**
@@ -892,7 +1114,7 @@ class Model
         $excludedProperties = ['conn', 'pk', 'table'];
 
         return array_filter($data, function ($key) use ($excludedProperties, $data, $admit) {
-            return !in_array($key, $excludedProperties) && ($admit || $data[$key] !== null);
+            return !in_array($key, $excludedProperties) && ($admit || ($data[$key] !== null && !empty($data[$key])));
         }, ARRAY_FILTER_USE_KEY);
     }
 
@@ -953,16 +1175,15 @@ class Model
      * This method prepares and executes a SQL statement, allowing for bound parameters.
      * It can fetch results as objects or associative arrays based on the provided flag.
      *
+     * @template T 
      * @param string $sql The SQL query to be executed.
      * @param array $bindings An array of values to bind to the SQL statement.
      * @param string $placeholders Optional. A string specifying the types of the bound parameters.
-     * @param bool $fetchToObj Optional. If true, fetches results as objects; if false, as associative arrays. Default is false.
-     * 
-     * @return array<static|array<string, mixed>> An array of results, either as instances of the current class or associative arrays.
-     *
+     * @param class-string<T> $fetchToObj The name of the desired returned object type.
+     * @return array<T|array<string,mixed>> An array of results, either as instances of the indicated class or associative arrays.
      * @throws mysqli_sql_exception If preparing the SQL statement fails.
      */
-    protected function rawQuery($sql, $bindings = [], $placeholders = '', $fetchToObj = false)
+    protected function rawQuery($sql, $bindings = [], $placeholders = '', $fetchToObj = '')
     {
         $this->connect();
         if (empty($placeholders) && !empty($bindings)) {
@@ -980,14 +1201,14 @@ class Model
 
         $results = [];
 
-        if ($fetchToObj) {
-            while ($row = $resultSet->fetch_object()) {
-                $results[] = $row;
-            }
-        } else {
+        if (empty($fetchToObj)) {
             $results = $resultSet->fetch_all(MYSQLI_ASSOC);
+        } else {
+            while ($row = $resultSet->fetch_assoc()) {
+                $results[] = new static($row);
+            }
         }
-
+        $this->conn = null;
         return $results;
     }
 
@@ -1015,7 +1236,7 @@ class Model
             error_log($e->getMessage() . " - Error at line: " . $e->getLine());
 
             if (in_array($e->getCode(), [1044, 1142])) {
-                die('You do not have permission to access this resource. You are a ' . getUserRole() . '.');
+                die('You do not have permission to access this resource. You are a ' . getUser('role') . '.');
             } // Then it is neccesary to add more error codes here...
 
             die('A database error occurred. Please try again later or contact ' . $_ENV['EMAIL'] . ' for assistance.');

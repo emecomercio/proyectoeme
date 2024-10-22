@@ -12,16 +12,16 @@ class Route
     public static $routes = [];
 
 
-    public static function get($uri, $callback)
+    public static function get($uri, $callback, $middleware = [])
     {
         $uri = trim($uri, '/');
-        self::$routes['GET'][$uri] = $callback;
+        self::$routes['GET'][$uri] =  ['callback' => $callback, 'middleware' => $middleware];
     }
 
-    public static function post($uri, $callback)
+    public static function post($uri, $callback, $middleware = [])
     {
         $uri = trim($uri, '/');
-        self::$routes['POST'][$uri] = $callback;
+        self::$routes['POST'][$uri] = ['callback' => $callback, 'middleware' => $middleware];
     }
 
     public static function dispatch()
@@ -35,10 +35,13 @@ class Route
             return;
         }
 
-        foreach (self::$routes[$method] as $route => $callback) {
-            // Verificar si la ruta coincide exactamente (sin parámetros)
+        foreach (self::$routes[$method] as $route => $routeData) {
+            $callback = $routeData['callback'];
+            $middleware = $routeData['middleware'];
+
+
             if ($route === $uri) {
-                return self::executeCallback($callback);
+                return self::executeMiddleware($middleware, $callback);
             }
 
             // Extraer parámetros solo si la ruta contiene placeholders
@@ -46,13 +49,25 @@ class Route
                 $params = self::extractParams($uri, $route);
 
                 if (!empty($params)) {
-                    return self::executeCallback($callback, $params);
+                    return self::executeMiddleware($middleware, $callback, $params);
                 }
             }
         }
 
         // Si ninguna ruta coincide, enviar 404
         self::sendNotFound();
+    }
+
+    private static function executeMiddleware($middleware, $callback, $params = [])
+    {
+        foreach ($middleware as $m) {
+            $result = call_user_func($m);
+            if ($result  === false) {
+                return;
+            }
+        }
+
+        return self::executeCallback($callback, $params);
     }
 
     private static function executeCallback($callback, $params = [])

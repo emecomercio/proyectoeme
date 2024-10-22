@@ -66,12 +66,12 @@ $categories = getCategories();
                     <img src="<?= asset("/img/icons/usuario_icono.png") ?>" class="icono" alt="Usuario" />
                     <br /><?= getUser('name') ?? "Usuario" ?>
                     <div class="dropdown-content" style="display: none;">
-                        <?php if (getUserRole() == 'guest') : ?>
+                        <?php if (getUser('role') == 'guest') : ?>
                             <div class="register-login" id="register-login">
                                 <a href="/register/buyer">Registrarse</a>
                                 <a href="/login">Ingresar</a>
                             </div>
-                        <?php elseif (getUserRole() == 'buyer' || getUserRole() == 'seller'): ?>
+                        <?php elseif (getUser('role') == 'buyer' || getUser('role') == 'seller'): ?>
                             <div class="user-data" id="user-dropdown" style="display: block;">
                                 <a href="/settings">Configuracion</a>
                                 <a id="logout-btn">Cerrar sesión</a>
@@ -80,7 +80,7 @@ $categories = getCategories();
 
                     </div>
                 </div>
-                <?php if (getUserRole() === 'buyer' ||  getUserRole() === 'guest'): ?>
+                <?php if (getUser('role') === 'buyer' ||  getUser('role') === 'guest'): ?>
 
                     <div class=" TextoIcono" id="cart-menu">
                         <img src="<?= asset("/img/icons/carrito_icono.png") ?>" class="icono" alt="Usuario" />
@@ -111,7 +111,8 @@ $categories = getCategories();
             <li class="dropdown"><a href="#">Ofertas</a></li>
             <li class="dropdown"><a href="#">Cupones</a></li>
             <li class="dropdown">
-                <?php if (getUserRole() === 'seller'): ?>
+
+                <?php if (getUser('role') === 'seller'): ?>
                     <a href="#"></a>
                 <?php else: ?>
                     <a href="#">Próximas ofertas</a>
@@ -123,9 +124,9 @@ $categories = getCategories();
         <?php
         function getLogoHref()
         {
-            if (getUserRole() == 'seller') {
+            if (getUser('role') == 'seller') {
                 echo '/dashboard';
-            } else if (getUserRole() === 'buyer' ||  getUserRole() === 'guest') {
+            } else if (getUser('role') === 'buyer' ||  getUser('role') === 'guest') {
 
                 echo '/';
             }

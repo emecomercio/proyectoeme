@@ -318,109 +318,99 @@ function insertCategories(PDO $pdo, Generator $faker, int $num)
     }
 }
 
-// Insertar datos en la tabla products
-function insertProducts(PDO $pdo, Generator $faker, int $num)
+function insertProductsAndVariantsWithAttributes(PDO $pdo, Generator $faker, int $numProducts)
 {
-    $stmt = $pdo->prepare("
+    // Preparar la consulta para insertar productos
+    $insertProductStmt = $pdo->prepare("
         INSERT INTO products (category_id, seller_id, name, description) 
         VALUES (:category_id, :seller_id, :name, :description)
     ");
 
-    // Obtener IDs de catálogos y vendedores existentes
-    $categoriesIds = $pdo->query('SELECT id FROM categories')->fetchAll(PDO::FETCH_COLUMN);
-    $sellerIds = $pdo->query('SELECT id FROM sellers')->fetchAll(PDO::FETCH_COLUMN);
+    // Preparar la consulta para insertar variantes
+    $insertVariantStmt = $pdo->prepare("
+        INSERT INTO product_variants (product_id, discount_id, stock, current_price, last_price) 
+        VALUES (:product_id, :discount_id, :stock, :current_price, :last_price)
+    ");
 
-    for ($i = 0; $i < $num; $i++) {
-        $category_id = $faker->randomElement($categoriesIds);
+    // Preparar la consulta para insertar atributos de variantes
+    $insertAttributeStmt = $pdo->prepare("
+        INSERT INTO variant_attributes (variant_id, name, value)
+        VALUES (:variant_id, :name, :value)
+    ");
+
+    // Obtener IDs de categorías, vendedores y descuentos existentes
+    $categoryIds = $pdo->query('SELECT id FROM categories')->fetchAll(PDO::FETCH_COLUMN);
+    $sellerIds = $pdo->query('SELECT id FROM sellers')->fetchAll(PDO::FETCH_COLUMN);
+    $discountIds = $pdo->query('SELECT id FROM discounts')->fetchAll(PDO::FETCH_COLUMN);
+
+    for ($i = 0; $i < $numProducts; $i++) {
+        // Insertar el producto
+        $category_id = $faker->randomElement($categoryIds);
         $seller_id = $faker->randomElement($sellerIds);
         $name = ucwords($faker->word);
         $description = $faker->optional()->text(200);
 
-        $stmt->execute([
+        $insertProductStmt->execute([
             ':category_id' => $category_id,
             ':seller_id' => $seller_id,
             ':name' => $name,
             ':description' => $description
         ]);
-    }
-}
 
-// Insertar datos en la tabla product_variants
-function insertProductVariants(PDO $pdo, Generator $faker, int $num)
-{
-    $stmt = $pdo->prepare("
-        INSERT INTO product_variants (product_id, discount_id, stock, current_price, last_price) 
-        VALUES (:product_id, :discount_id, :stock, :current_price, :last_price)
-    ");
+        // Obtener el ID del producto recién insertado
+        $product_id = $pdo->lastInsertId();
 
-    // Obtener IDs de productos y descuentos existentes
-    $productIds = $pdo->query('SELECT id FROM products')->fetchAll(PDO::FETCH_COLUMN);
-    $discountIds = $pdo->query('SELECT id FROM discounts')->fetchAll(PDO::FETCH_COLUMN);
+        // Generar entre 2 y 5 variantes para el producto
+        $numVariants = $faker->numberBetween(3, 10);
+        $variantIds = [];
+        for ($j = 0; $j < $numVariants; $j++) {
+            $discount_id = $faker->optional()->randomElement($discountIds); // Puede ser NULL si no hay descuento asociado
+            $stock = $faker->numberBetween(0, 100);
+            $current_price = $faker->randomFloat(2, 5, 500); // Precio actual entre 5 y 500
+            $last_price = $faker->optional(0.5, $current_price)->randomFloat(2, 5, 500); // Precio anterior (opcional)
 
-    for ($i = 0; $i < $num; $i++) {
-        $product_id = $faker->randomElement($productIds);
-        $discount_id = $faker->optional()->randomElement($discountIds); // Puede ser NULL si no hay descuento asociado
-        $stock = $faker->numberBetween(0, 100);
-        $current_price = $faker->randomFloat(2, 5, 500); // Precio actual entre 5 y 500
-        $last_price = $faker->optional(0.5, $current_price)->randomFloat(2, 5, 500); // Precio anterior (opcional)
-
-        $stmt->execute([
-            ':product_id' => $product_id,
-            ':discount_id' => $discount_id,
-            ':stock' => $stock,
-            ':current_price' => $current_price,
-            ':last_price' => $last_price,
-        ]);
-    }
-}
-
-// Insertar datos en la tabla variant_attributes
-function insertVariantAttributes($pdo, $faker, $num)
-{
-    $insertStmt = $pdo->prepare("
-        INSERT INTO variant_attributes (variant_id, name, value)
-        VALUES (:variant_id, :name, :value)
-    ");
-
-    // Consulta para verificar si ya existe el atributo para ese variant_id y name
-    $checkStmt = $pdo->prepare("
-        SELECT COUNT(*) FROM variant_attributes WHERE variant_id = :variant_id AND name = :name
-    ");
-
-    // Obtener todos los IDs de variantes
-    $variantIds = $pdo->query("SELECT id FROM product_variants")->fetchAll(PDO::FETCH_COLUMN);
-
-    for ($i = 0; $i < $num; $i++) {
-        $variant_id = $faker->randomElement($variantIds);
-        $name = $faker->word;
-        $value = $faker->word;
-
-        // Verificar si ya existe el atributo
-        $checkStmt->execute([
-            ':variant_id' => $variant_id,
-            ':name' => $name
-        ]);
-
-        $exists = $checkStmt->fetchColumn();
-
-        // Si ya existe el atributo, generar un nuevo nombre
-        while ($exists > 0) {
-            $name = $faker->unique()->word;
-            $checkStmt->execute([
-                ':variant_id' => $variant_id,
-                ':name' => $name
+            // Insertar la variante
+            $insertVariantStmt->execute([
+                ':product_id' => $product_id,
+                ':discount_id' => $discount_id,
+                ':stock' => $stock,
+                ':current_price' => $current_price,
+                ':last_price' => $last_price,
             ]);
-            $exists = $checkStmt->fetchColumn();
+
+            // Obtener el ID de la variante recién insertada
+            $variantIds[] = $pdo->lastInsertId();
         }
 
-        // Insertar si no existe
-        $insertStmt->execute([
-            ':variant_id' => $variant_id,
-            ':name' => $name,
-            ':value' => $value
-        ]);
+        // Generar entre 2 y 5 nombres de atributos únicos a nivel de producto
+        $attributeNames = [];
+        $numAttributes = min(5, $numVariants); // Máximo de 5 nombres de atributos por producto
+        for ($k = 0; $k < $numAttributes; $k++) {
+            $name = $faker->unique()->word; // Generar un nombre de atributo único para el producto
+            $attributeNames[] = $name;
+        }
+
+        // Para cada variante, asignar valores a cada uno de los atributos definidos
+        foreach ($variantIds as $variant_id) {
+            foreach ($attributeNames as $name) {
+                // Generar un valor único para cada atributo
+                $value = $faker->word;
+
+                // Insertar el atributo para la variante
+                $insertAttributeStmt->execute([
+                    ':variant_id' => $variant_id,
+                    ':name' => $name,
+                    ':value' => $value
+                ]);
+            }
+        }
+
+        // Restablecer el generador de palabras únicas para el próximo producto
+        $faker->unique(true);
     }
 }
+
+
 
 
 
@@ -542,19 +532,19 @@ try {
     echo "\033[32m-> Discounts inserted\033[0m\n";
     insertCategories($pdo, $faker, 10);
     echo "\033[32m-> Categories inserted\033[0m\n";
-    insertProducts($pdo, $faker, 100);
+    insertProductsAndVariantsWithAttributes($pdo, $faker, 100);
     echo "\033[32m-> Products inserted\033[0m\n";
-    insertProductVariants($pdo, $faker, 300);
-    echo "\033[32m-> ProductVariants inserted\033[0m\n";
-    insertVariantAttributes($pdo, $faker, 700);
-    echo "\033[32m-> VariantAttributes inserted\033[0m\n";
+    // insertProductVariants($pdo, $faker, 700);
+    // echo "\033[32m-> ProductVariants inserted\033[0m\n";
+    // insertVariantAttributes($pdo, $faker, 1000);
+    // echo "\033[32m-> VariantAttributes inserted\033[0m\n";
     // insertImages($pdo, $faker, 300);
-    insertImagesBySize($pdo, $faker, 5000);
+    insertImagesBySize($pdo, $faker, 2000);
     echo "\033[32m-> Images inserted\033[0m\n";
-    insertCarts($pdo, $faker, 50);
-    echo "\033[32m-> Carts inserted\033[0m\n";
-    insertCartLines($pdo, $faker, 500);
-    echo "\033[32m-> CartLines inserted\033[0m\n";
+    // insertCarts($pdo, $faker, 50);
+    // echo "\033[32m-> Carts inserted\033[0m\n";
+    // insertCartLines($pdo, $faker, 500);
+    // echo "\033[32m-> CartLines inserted\033[0m\n";
     echo "\033[32m----------------------------\033[0m\n";
     echo "\033[32m|Data inserted successfully|\033[0m\n";
     echo "\033[32m----------------------------\033[0m\n";

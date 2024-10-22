@@ -61,12 +61,5 @@ document.addEventListener("DOMContentLoaded", function () {
             <p>Total: $${totalAmount.toFixed(2)}</p>
             <a href="#"> <button class="button-cart">Comprar</button></a>
         `;
-  } else {
-    cartProductsContainer.innerHTML = `
-            <img class="icon-cart" src="<?= loadIMG("icons/carrito_icono.png") ?>" alt="">
-            <h3>¡Tu carrito está vacío!</h3>
-            <p>Agrega productos para empezar a comprar.</p>
-            <a href="/"> <button class="button-cart">Descubrir productos</button></a>
-        `;
   }
 });

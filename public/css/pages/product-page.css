@@ -1,2 +1,57 @@
 @import url("../components/product.css");
 @import url("../components/reviews-questions.css");
+
+.product-attributes {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0.5rem;
+}
+
+.attribute {
+  display: flex;
+  flex-direction: column;
+}
+
+.attribute-values {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 1rem;
+  text-align: center;
+  color: black;
+  margin-bottom: 0.7rem;
+}
+.attribute-name {
+  margin: 0.4em 0;
+}
+
+.attribute-value {
+  padding: 0.5rem;
+  min-width: 50px;
+  outline: 0.1rem solid #bebebe;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: scale 0.1s;
+}
+
+.attribute-value.selected {
+  outline: 0.15rem solid #030303;
+}
+.attribute-value.disabled {
+  outline: 0.1rem dashed #000000;
+}
+
+.attribute-value:hover {
+  scale: 1.05;
+}
+
+.attribute-value:active {
+  scale: 1;
+}
+
+.product-main {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 0.8rem;
+}

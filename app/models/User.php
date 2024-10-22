@@ -79,4 +79,19 @@ class User extends Model
             return $result ? $result[0] : null;
         }
     }
+
+    public function getCurrentCart()
+    {
+        $cartModel = new Cart();
+        $cart =  $cartModel->where('user_id', '=', $this->id)->andWhere('status', '=', 0)->get();
+
+        if ($cart[0]) {
+            $cart[0]->fillLines();
+            return  $cart[0];
+        }
+        $cart = $cartModel->create([
+            'user_id' => $this->id,
+        ]);
+        return $cart;
+    }
 }
