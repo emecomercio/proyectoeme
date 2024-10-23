@@ -19,7 +19,7 @@ class ErrorHandler
 
     private static function handleDatabaseError(\mysqli_sql_exception $e)
     {
-        error_log("[{$e->getCode()}] " . $e->getMessage() . " - Error at line: " . $e->getLine());
+        static::logError($e);
 
         $errorMessages = [
             1044 => "You do not have permission to access this resource.",
@@ -41,14 +41,19 @@ class ErrorHandler
 
     protected static function handleException(\Exception $e, string $message = "An error occurred")
     {
+        static::logError($e);
+        return static::respondWithError(!empty($e->getMessage()) ? $e->getMessage() : $message, 500);
+    }
+
+    private static function logError(\Exception|\mysqli_sql_exception $e)
+    {
         $redColor = "\033[31m";
         $resetColor = "\033[0m";
         $error = $e->getMessage();
         $line = $e->getLine();
         $code = $e->getCode();
         $file = $e->getFile();
-        $backtrace = $e->getTrace();
-
+        $backtrace = $e->getTraceAsString();
         error_log(
             $redColor . "[{$code}] " . $error
                 . "\n" . "Stack Trace: "
@@ -56,9 +61,6 @@ class ErrorHandler
                 . "\n" . $backtrace
                 . $resetColor
         );
-
-
-        return static::respondWithError(!empty($error) ? $error : $message, 500);
     }
 
     protected static function respondWithError(string $message, int $statusCode = 500)

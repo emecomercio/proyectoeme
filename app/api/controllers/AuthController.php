@@ -57,7 +57,6 @@ class AuthController extends Controller
         session_unset();
         session_destroy();
         $_SESSION['msg']['login'] = 'Sesión cerrada con éxito';
-        throw new \Exception('Sesión cerrada con éxito');
         $this->respondWithSuccess('Logged out');
     }
 
