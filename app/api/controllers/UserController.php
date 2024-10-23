@@ -19,69 +19,53 @@ class UserController extends Controller
 
     public function index()
     {
-        try {
-            $users = $this->userModel->all();
-            $this->respondWithSuccess($users);
-        } catch (mysqli_sql_exception $e) {
-            // Errores especificos de la BD
-            $this->handleDatabaseError($e);
-        } catch (Exception $e) {
-            // Errores generales
-            $this->handleException($e, "Error retrieving users");
-        }
+        $users = $this->userModel->all();
+        $this->respondWithSuccess($users);
     }
 
 
     public function find($id)
     {
-        try {
-            $user = $this->userModel->find($id);
+        $user = $this->userModel->find($id);
 
-            if (!$user) {
-                $this->respondWithError("User not found", 404);
-            } else {
-                $this->respondWithSuccess($user);
-            }
-        } catch (mysqli_sql_exception $e) {
-            $this->handleDatabaseError($e);
-        } catch (Exception $e) {
-            $this->handleException($e, "Error retrieving user");
+        if (!$user) {
+            $this->respondWithError("User not found", 404);
+        } else {
+            $this->respondWithSuccess($user);
         }
     }
 
     public function register()
     {
-        return $this->handle(function () {
-            $data = json_decode(file_get_contents('php://input'), true);
+        $data = json_decode(file_get_contents('php://input'), true);
 
-            $this->checkRequiredFields(['email', 'password', 'password-check', 'document-number', 'role', 'name', 'checkbox'], $data);
+        $this->checkRequiredFields(['email', 'password', 'password-check', 'document-number', 'role', 'name', 'checkbox'], $data);
 
-            if ($data['password'] != $data['password-check']) {
-                $this->respondWithError("Passwords do not match", 400);
-            }
+        if ($data['password'] != $data['password-check']) {
+            $this->respondWithError("Passwords do not match", 400);
+        }
 
-            $model = $data['role'] == 'seller' ? Seller::class : Buyer::class;
+        $model = $data['role'] == 'seller' ? Seller::class : Buyer::class;
 
-            $user = new User();
-            $user->email = $data['email'];
-            $user->role =  $data['role'];
-            $user->document_number = $data['document-number'];
-            $user->name = $data['name'];
-            $user->username = strtolower(str_replace(' ', '.', $user->name)) . '_' . $user->document_number;
-            $user->password = bcrypt($data['password']);
-            $user = $user->save();
-            $user_id = $user->id;
+        $user = new User();
+        $user->email = $data['email'];
+        $user->role =  $data['role'];
+        $user->document_number = $data['document-number'];
+        $user->name = $data['name'];
+        $user->username = strtolower(str_replace(' ', '.', $user->name)) . '_' . $user->document_number;
+        $user->password = bcrypt($data['password']);
+        $user = $user->save();
+        $user_id = $user->id;
 
-            /**
-             * @var Seller|Buyer $user
-             */
-            $user = new $model();
-            $user = $user->create([
-                'id' => $user_id,
-            ]);
-            $_SESSION['msg']['login'] = 'Registrado con éxito. Ingresa sesión para continuar';
-            $this->respondWithSuccess($user);
-        });
+        /**
+         * @var Seller|Buyer $user
+         */
+        $user = new $model();
+        $user = $user->create([
+            'id' => $user_id,
+        ]);
+        $_SESSION['msg']['login'] = 'Registrado con éxito. Ingresa sesión para continuar';
+        $this->respondWithSuccess($user);
     }
 
     private function checkRequiredFields(array $fields, $data)

@@ -36,7 +36,11 @@ if (logout) {
         if (data.status === "success") {
           window.location.href = "/login";
         } else {
-          alert("Error logging out");
+          const [modal, okBtn, badBtn] = createModal(
+            "Error Iniciando Sesion",
+            data.message
+          );
+          showModal(modal);
         }
       });
   });

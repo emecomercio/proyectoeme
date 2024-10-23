@@ -22,46 +22,40 @@ class CartController extends Controller
 
     public  function index()
     {
-        $this->handle(
-            function () {
-                $data = $this->verifyToken();
+        $data = $this->verifyToken();
 
-                $user = $this->userModel->find($data->user_id);
+        $user = $this->userModel->find($data->user_id);
 
-                $cart = $user->getCurrentCart();
+        $cart = $user->getCurrentCart();
 
-                $this->respondWithSuccess(['cart' => $cart]);
-            }
-        );
+        $this->respondWithSuccess(['cart' => $cart]);
     }
 
     public function addLine()
     {
-        $this->handle(function () {
-            $productData = $this->getInput();
-            $token = $this->verifyToken();
+        $productData = $this->getInput();
+        $token = $this->verifyToken();
 
-            $user = $this->userModel->find($token->user_id);
-            $cart = $user->getCurrentCart();
+        $user = $this->userModel->find($token->user_id);
+        $cart = $user->getCurrentCart();
 
-            $variant = $productData['variant'];
-            $quantity = $productData['quantity'];
+        $variant = $productData['variant'];
+        $quantity = $productData['quantity'];
 
-            $price = $quantity * $variant['current_price'];
+        $price = $quantity * $variant['current_price'];
 
-            $result = [
-                'cart_id' => $cart->id,
-                'variant_id' => $variant['id'],
-                'quantity' => $quantity,
-                'price' => number_format($price, 2, '.', ''),
-            ];
-            $line =  new CartLine($result);
-            $result = $line->save();
-            // $cart->setLine($line);
-            // $result = $cart->save();
+        $result = [
+            'cart_id' => $cart->id,
+            'variant_id' => $variant['id'],
+            'quantity' => $quantity,
+            'price' => number_format($price, 2, '.', ''),
+        ];
+        $line =  new CartLine($result);
+        $result = $line->save();
+        // $cart->setLine($line);
+        // $result = $cart->save();
 
-            $this->respondWithSuccess($result);
-        });
+        $this->respondWithSuccess($result);
     }
 
     public function create()

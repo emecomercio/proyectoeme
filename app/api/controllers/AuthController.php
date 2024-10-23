@@ -18,51 +18,47 @@ class AuthController extends Controller
 
     public function login()
     {
-        return $this->handle(function () {
-            $data = $this->getInput();
-            $this->checkRequiredFields(['email', 'password'], $data);
+        $data = $this->getInput();
+        $this->checkRequiredFields(['email', 'password'], $data);
 
-            $user = $this->userModel->authenticate($data['email'], $data['password']);
+        $user = $this->userModel->authenticate($data['email'], $data['password']);
 
-            if (!$user) {
-                $this->respondWithError('Credenciales incorrectas', 401);
-            }
+        if (!$user) {
+            $this->respondWithError('Credenciales incorrectas', 401);
+        }
 
-            $this->generateToken($user);
+        $this->generateToken($user);
 
-            $_SESSION['user'] = json_encode([
-                'id' => $user->id,
-                'role' =>  $user->role,
-                'name' => $user->name,
-                'email' => $user->email,
-                'username' => $user->username
-            ]);
+        $_SESSION['user'] = json_encode([
+            'id' => $user->id,
+            'role' =>  $user->role,
+            'name' => $user->name,
+            'email' => $user->email,
+            'username' => $user->username
+        ]);
 
-            $this->respondWithSuccess(['user' =>  $user]);
-        });
+        $this->respondWithSuccess(['user' =>  $user]);
     }
 
     public function logout()
     {
-        return $this->handle(function () {
+        setcookie('jwt', '', [
+            'expires' => time() - 3600,
+            'path' => '/',
+            'domain' => $_ENV["DOMAIN"],
+            'secure' => $_ENV["DB_ENV"] === 'prod',
+            'httponly' => true,
+            'samesite' => 'Strict'
+        ]);
 
-            setcookie('jwt', '', [
-                'expires' => time() - 3600,
-                'path' => '/',
-                'domain' => $_ENV["DOMAIN"],
-                'secure' => $_ENV["DB_ENV"] === 'prod',
-                'httponly' => true,
-                'samesite' => 'Strict'
-            ]);
-
-            session_regenerate_id(true);
+        session_regenerate_id(true);
 
 
-            session_unset();
-            session_destroy();
-            $_SESSION['msg']['login'] = 'Sesión cerrada con éxito';
-            $this->respondWithSuccess('Logged out');
-        });
+        session_unset();
+        session_destroy();
+        $_SESSION['msg']['login'] = 'Sesión cerrada con éxito';
+        throw new \Exception('Sesión cerrada con éxito');
+        $this->respondWithSuccess('Logged out');
     }
 
     private function checkRequiredFields(array $fields, $data)

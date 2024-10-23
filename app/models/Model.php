@@ -40,218 +40,216 @@ class Model
 
     public function realProduct()
     {
-        return $this->handle(function () {
-            $product = new Product([
-                'name' => 'Celular Pro',
-                'description' => 'Este celular es el mejor de la historia de los celulares.',
-                'catalog_id' => 3,
-                'seller_id' => 105
-            ]);
-            $product = $product->save();
+        $product = new Product([
+            'name' => 'Celular Pro',
+            'description' => 'Este celular es el mejor de la historia de los celulares.',
+            'catalog_id' => 3,
+            'seller_id' => 105
+        ]);
+        $product = $product->save();
 
-            $variants = [];
-            $variants[] = new Variant([
-                'product_id' => $product->id,
-                'stock' => 10,
-                'current_price' => 1200,
-                'last_price' => 1600,
-            ]);
-            $variants[] = new Variant([
-                'product_id' => $product->id,
-                'stock' => 15,
-                'current_price' => 1300,
-                'last_price' => 1300,
-            ]);
-            $variants[] = new Variant([
-                'product_id' => $product->id,
-                'stock' => 8,
-                'current_price' => 1500,
-                'last_price' => 1800,
-            ]);
-            $variants[] = new Variant([
-                'product_id' => $product->id,
-                'stock' => 10,
-                'current_price' => 1200,
-                'last_price' => 1600,
-            ]);
-            $variants[] = new Variant([
-                'product_id' => $product->id,
-                'stock' => 15,
-                'current_price' => 1300,
-                'last_price' => 1300,
-            ]);
-            $variants[] = new Variant([
-                'product_id' => $product->id,
-                'stock' => 8,
-                'current_price' => 1500,
-                'last_price' => 1800,
-            ]);
-            $variants[] = new Variant([
-                'product_id' => $product->id,
-                'stock' => 8,
-                'current_price' => 5500,
-                'last_price' => 7000,
-            ]);
-            $variants[] = new Variant([
-                'product_id' => $product->id,
-                'stock' => 8,
-                'current_price' => 500,
-                'last_price' => 700,
-            ]);
+        $variants = [];
+        $variants[] = new Variant([
+            'product_id' => $product->id,
+            'stock' => 10,
+            'current_price' => 1200,
+            'last_price' => 1600,
+        ]);
+        $variants[] = new Variant([
+            'product_id' => $product->id,
+            'stock' => 15,
+            'current_price' => 1300,
+            'last_price' => 1300,
+        ]);
+        $variants[] = new Variant([
+            'product_id' => $product->id,
+            'stock' => 8,
+            'current_price' => 1500,
+            'last_price' => 1800,
+        ]);
+        $variants[] = new Variant([
+            'product_id' => $product->id,
+            'stock' => 10,
+            'current_price' => 1200,
+            'last_price' => 1600,
+        ]);
+        $variants[] = new Variant([
+            'product_id' => $product->id,
+            'stock' => 15,
+            'current_price' => 1300,
+            'last_price' => 1300,
+        ]);
+        $variants[] = new Variant([
+            'product_id' => $product->id,
+            'stock' => 8,
+            'current_price' => 1500,
+            'last_price' => 1800,
+        ]);
+        $variants[] = new Variant([
+            'product_id' => $product->id,
+            'stock' => 8,
+            'current_price' => 5500,
+            'last_price' => 7000,
+        ]);
+        $variants[] = new Variant([
+            'product_id' => $product->id,
+            'stock' => 8,
+            'current_price' => 500,
+            'last_price' => 700,
+        ]);
 
-            foreach ($variants as $index => &$variant) {
-                $variant = $variant->save();
+        foreach ($variants as $index => &$variant) {
+            $variant = $variant->save();
 
-                $image = new Image([
-                    'variant_id' => $variant->id,
-                    'src' => "/uploads/dev/celular/{$index}_v1.jpg",
-                    'alt' => 'Alternative Text',
-                ]);
-                $image->save();
-                $image = new Image([
-                    'variant_id' => $variant->id,
-                    'src' => "/uploads/dev/celular/{$index}_v2.jpg",
-                    'alt' => 'Alternative Text',
-                ]);
-                $image->save();
-            }
+            $image = new Image([
+                'variant_id' => $variant->id,
+                'src' => "/uploads/dev/celular/{$index}_v1.jpg",
+                'alt' => 'Alternative Text',
+            ]);
+            $image->save();
+            $image = new Image([
+                'variant_id' => $variant->id,
+                'src' => "/uploads/dev/celular/{$index}_v2.jpg",
+                'alt' => 'Alternative Text',
+            ]);
+            $image->save();
+        }
 
 
-            $attributes = [];
+        $attributes = [];
 
-            $attributes[] = new VariantAttribute([
-                'variant_id' => $variants[0]->id,
-                'name' => 'color',
-                'value' =>  'azul'
-            ]);
-            $attributes[] = new VariantAttribute([
-                'variant_id' => $variants[0]->id,
-                'name' => 'almacenamiento',
-                'value' =>  '256GB'
-            ]);
-            $attributes[] = new VariantAttribute([
-                'variant_id' => $variants[0]->id,
-                'name' => 'memoria',
-                'value' =>  '8GB'
-            ]);
+        $attributes[] = new VariantAttribute([
+            'variant_id' => $variants[0]->id,
+            'name' => 'color',
+            'value' =>  'azul'
+        ]);
+        $attributes[] = new VariantAttribute([
+            'variant_id' => $variants[0]->id,
+            'name' => 'almacenamiento',
+            'value' =>  '256GB'
+        ]);
+        $attributes[] = new VariantAttribute([
+            'variant_id' => $variants[0]->id,
+            'name' => 'memoria',
+            'value' =>  '8GB'
+        ]);
 
-            $attributes[] = new VariantAttribute([
-                'variant_id' => $variants[1]->id,
-                'name' => 'color',
-                'value' =>  'azul'
-            ]);
-            $attributes[] = new VariantAttribute([
-                'variant_id' => $variants[1]->id,
-                'name' => 'almacenamiento',
-                'value' =>  '512GB'
-            ]);
-            $attributes[] = new VariantAttribute([
-                'variant_id' => $variants[1]->id,
-                'name' => 'memoria',
-                'value' =>  '12GB'
-            ]);
+        $attributes[] = new VariantAttribute([
+            'variant_id' => $variants[1]->id,
+            'name' => 'color',
+            'value' =>  'azul'
+        ]);
+        $attributes[] = new VariantAttribute([
+            'variant_id' => $variants[1]->id,
+            'name' => 'almacenamiento',
+            'value' =>  '512GB'
+        ]);
+        $attributes[] = new VariantAttribute([
+            'variant_id' => $variants[1]->id,
+            'name' => 'memoria',
+            'value' =>  '12GB'
+        ]);
 
-            $attributes[] = new VariantAttribute([
-                'variant_id' => $variants[2]->id,
-                'name' => 'color',
-                'value' =>  'azul'
-            ]);
-            $attributes[] = new VariantAttribute([
-                'variant_id' => $variants[2]->id,
-                'name' => 'almacenamiento',
-                'value' =>  '512GB'
-            ]);
-            $attributes[] = new VariantAttribute([
-                'variant_id' => $variants[2]->id,
-                'name' => 'memoria',
-                'value' =>  '16GB'
-            ]);
-            //////////////////////
+        $attributes[] = new VariantAttribute([
+            'variant_id' => $variants[2]->id,
+            'name' => 'color',
+            'value' =>  'azul'
+        ]);
+        $attributes[] = new VariantAttribute([
+            'variant_id' => $variants[2]->id,
+            'name' => 'almacenamiento',
+            'value' =>  '512GB'
+        ]);
+        $attributes[] = new VariantAttribute([
+            'variant_id' => $variants[2]->id,
+            'name' => 'memoria',
+            'value' =>  '16GB'
+        ]);
+        //////////////////////
 
-            $attributes[] = new VariantAttribute([
-                'variant_id' => $variants[3]->id,
-                'name' => 'color',
-                'value' =>  'verde'
-            ]);
-            $attributes[] = new VariantAttribute([
-                'variant_id' => $variants[3]->id,
-                'name' => 'almacenamiento',
-                'value' =>  '256GB'
-            ]);
-            $attributes[] = new VariantAttribute([
-                'variant_id' => $variants[3]->id,
-                'name' => 'memoria',
-                'value' =>  '8GB'
-            ]);
+        $attributes[] = new VariantAttribute([
+            'variant_id' => $variants[3]->id,
+            'name' => 'color',
+            'value' =>  'verde'
+        ]);
+        $attributes[] = new VariantAttribute([
+            'variant_id' => $variants[3]->id,
+            'name' => 'almacenamiento',
+            'value' =>  '256GB'
+        ]);
+        $attributes[] = new VariantAttribute([
+            'variant_id' => $variants[3]->id,
+            'name' => 'memoria',
+            'value' =>  '8GB'
+        ]);
 
-            $attributes[] = new VariantAttribute([
-                'variant_id' => $variants[4]->id,
-                'name' => 'color',
-                'value' =>  'verde'
-            ]);
-            $attributes[] = new VariantAttribute([
-                'variant_id' => $variants[4]->id,
-                'name' => 'almacenamiento',
-                'value' =>  '512GB'
-            ]);
-            $attributes[] = new VariantAttribute([
-                'variant_id' => $variants[4]->id,
-                'name' => 'memoria',
-                'value' =>  '12GB'
-            ]);
+        $attributes[] = new VariantAttribute([
+            'variant_id' => $variants[4]->id,
+            'name' => 'color',
+            'value' =>  'verde'
+        ]);
+        $attributes[] = new VariantAttribute([
+            'variant_id' => $variants[4]->id,
+            'name' => 'almacenamiento',
+            'value' =>  '512GB'
+        ]);
+        $attributes[] = new VariantAttribute([
+            'variant_id' => $variants[4]->id,
+            'name' => 'memoria',
+            'value' =>  '12GB'
+        ]);
 
-            $attributes[] = new VariantAttribute([
-                'variant_id' => $variants[5]->id,
-                'name' => 'color',
-                'value' =>  'verde'
-            ]);
-            $attributes[] = new VariantAttribute([
-                'variant_id' => $variants[5]->id,
-                'name' => 'almacenamiento',
-                'value' =>  '512GB'
-            ]);
-            $attributes[] = new VariantAttribute([
-                'variant_id' => $variants[5]->id,
-                'name' => 'memoria',
-                'value' =>  '16GB'
-            ]);
+        $attributes[] = new VariantAttribute([
+            'variant_id' => $variants[5]->id,
+            'name' => 'color',
+            'value' =>  'verde'
+        ]);
+        $attributes[] = new VariantAttribute([
+            'variant_id' => $variants[5]->id,
+            'name' => 'almacenamiento',
+            'value' =>  '512GB'
+        ]);
+        $attributes[] = new VariantAttribute([
+            'variant_id' => $variants[5]->id,
+            'name' => 'memoria',
+            'value' =>  '16GB'
+        ]);
 
-            $attributes[] = new VariantAttribute([
-                'variant_id' => $variants[6]->id,
-                'name' => 'color',
-                'value' =>  'verde'
-            ]);
-            $attributes[] = new VariantAttribute([
-                'variant_id' => $variants[6]->id,
-                'name' => 'almacenamiento',
-                'value' =>  '512GB'
-            ]);
-            $attributes[] = new VariantAttribute([
-                'variant_id' => $variants[6]->id,
-                'name' => 'memoria',
-                'value' =>  '20GB'
-            ]);
+        $attributes[] = new VariantAttribute([
+            'variant_id' => $variants[6]->id,
+            'name' => 'color',
+            'value' =>  'verde'
+        ]);
+        $attributes[] = new VariantAttribute([
+            'variant_id' => $variants[6]->id,
+            'name' => 'almacenamiento',
+            'value' =>  '512GB'
+        ]);
+        $attributes[] = new VariantAttribute([
+            'variant_id' => $variants[6]->id,
+            'name' => 'memoria',
+            'value' =>  '20GB'
+        ]);
 
-            $attributes[] = new VariantAttribute([
-                'variant_id' => $variants[7]->id,
-                'name' => 'color',
-                'value' =>  'azul'
-            ]);
-            $attributes[] = new VariantAttribute([
-                'variant_id' => $variants[7]->id,
-                'name' => 'almacenamiento',
-                'value' =>  '256GB'
-            ]);
-            $attributes[] = new VariantAttribute([
-                'variant_id' => $variants[7]->id,
-                'name' => 'memoria',
-                'value' =>  '6GB'
-            ]);
+        $attributes[] = new VariantAttribute([
+            'variant_id' => $variants[7]->id,
+            'name' => 'color',
+            'value' =>  'azul'
+        ]);
+        $attributes[] = new VariantAttribute([
+            'variant_id' => $variants[7]->id,
+            'name' => 'almacenamiento',
+            'value' =>  '256GB'
+        ]);
+        $attributes[] = new VariantAttribute([
+            'variant_id' => $variants[7]->id,
+            'name' => 'memoria',
+            'value' =>  '6GB'
+        ]);
 
-            foreach ($attributes as &$attribute) {
-                $attribute = $attribute->save();
-            }
-        });
+        foreach ($attributes as &$attribute) {
+            $attribute = $attribute->save();
+        }
     }
 
 
@@ -388,48 +386,43 @@ class Model
      */
     public function get($fetchToObj = true)
     {
-        $results = $this->handle(function () use ($fetchToObj) {
-            $query = "SELECT {$this->select} FROM {$this->table}";
+        $query = "SELECT {$this->select} FROM {$this->table}";
 
-            if (!empty($this->join)) {
-                $query .= ' ' . implode(' ', $this->join);
-            }
-            if (!empty($this->where)) {
-                $query .= ' WHERE ' . implode(' ', $this->where);
-            }
-            if (!empty($this->groupBy)) {
-                $query .= ' ' . implode(' ', $this->groupBy);
-            }
-            if (!empty($this->orderBy)) {
-                $query .= ' ORDER BY ' . implode(', ', $this->orderBy);
-            }
-            if (!empty($this->limit)) {
-                $query .= ' ' . $this->limit;
-            }
-            if (!empty($this->bindings)) {
-                $resultSet = $this->query($query, $this->bindings);
-            } else {
-                $resultSet = $this->query($query);
-            }
-            $results = [];
+        if (!empty($this->join)) {
+            $query .= ' ' . implode(' ', $this->join);
+        }
+        if (!empty($this->where)) {
+            $query .= ' WHERE ' . implode(' ', $this->where);
+        }
+        if (!empty($this->groupBy)) {
+            $query .= ' ' . implode(' ', $this->groupBy);
+        }
+        if (!empty($this->orderBy)) {
+            $query .= ' ORDER BY ' . implode(', ', $this->orderBy);
+        }
+        if (!empty($this->limit)) {
+            $query .= ' ' . $this->limit;
+        }
+        if (!empty($this->bindings)) {
+            $resultSet = $this->query($query, $this->bindings);
+        } else {
+            $resultSet = $this->query($query);
+        }
+        $results = [];
 
 
-            if ($fetchToObj) {
-                // It executes while there are results.
-                while ($row = $resultSet->fetch_assoc()) {
-                    $results[] = new static($row);
-                }
-            } else {
-                $results = $resultSet->fetch_all(MYSQLI_ASSOC);
+        if ($fetchToObj) {
+            // It executes while there are results.
+            while ($row = $resultSet->fetch_assoc()) {
+                $results[] = new static($row);
             }
-
-            return $results;
-        });
-
-        // Resets the properties for future queries.
-        $this->reset();
+        } else {
+            $results = $resultSet->fetch_all(MYSQLI_ASSOC);
+        }
 
         return $results;
+
+        $this->reset();
     }
 
     /**
@@ -764,17 +757,14 @@ class Model
      */
     public function fill($data = [])
     {
-        return $this->handle(function () use ($data) {
-
-            foreach ($this->filterData($data, true) as $key => $value) {
-                // Verify if the property exists before setting it
-                if (property_exists($this, $key)) {
-                    $this->$key = $value;
-                }
+        foreach ($this->filterData($data, true) as $key => $value) {
+            // Verify if the property exists before setting it
+            if (property_exists($this, $key)) {
+                $this->$key = $value;
             }
+        }
 
-            $this->simplify(); // Simplify at the end
-        });
+        $this->simplify(); // Simplify at the end
     }
 
     /**
@@ -793,20 +783,18 @@ class Model
      */
     public function create($data = [])
     {
-        return $this->handle(function () use ($data) {
-            $filteredData = $this->filterData($data);
-            $columns = implode(',', array_keys($filteredData));
-            $placeholders = rtrim(str_repeat('?,', count($filteredData)), ',');
-            $sql = "INSERT INTO $this->table ($columns) VALUES ($placeholders)";
-            $this->query($sql, array_values($filteredData));
+        $filteredData = $this->filterData($data);
+        $columns = implode(',', array_keys($filteredData));
+        $placeholders = rtrim(str_repeat('?,', count($filteredData)), ',');
+        $sql = "INSERT INTO $this->table ($columns) VALUES ($placeholders)";
+        $this->query($sql, array_values($filteredData));
 
-            $idManuallySet = isset($filteredData['id']);
-            if ($idManuallySet) {
-                return $this->find($filteredData['id']);
-            }
+        $idManuallySet = isset($filteredData['id']);
+        if ($idManuallySet) {
+            return $this->find($filteredData['id']);
+        }
 
-            return $this->find($this->id());
-        });
+        return $this->find($this->id());
     }
 
     /**
@@ -824,17 +812,15 @@ class Model
      */
     public function save()
     {
-        return $this->handle(function () {
-            $this->simplify();
+        $this->simplify();
 
-            $data = get_object_vars($this);
+        $data = get_object_vars($this);
 
-            if (isset($data['id'])) {
-                return $this->update($data['id'], $data);
-            }
+        if (isset($data['id'])) {
+            return $this->update($data['id'], $data);
+        }
 
-            return $this->create($data);
-        });
+        return $this->create($data);
     }
 
     /**
@@ -855,26 +841,24 @@ class Model
      */
     public function  update($id, $data = [])
     {
-        return $this->handle(function () use ($id, $data) {
-            $filteredData = $this->filterData($data);
+        $filteredData = $this->filterData($data);
 
-            if (empty($filteredData)) {
-                throw new Exception('No valid fields to update');
-            }
+        if (empty($filteredData)) {
+            throw new Exception('No valid fields to update');
+        }
 
-            $sets = [];
-            $values = [];
+        $sets = [];
+        $values = [];
 
-            foreach ($filteredData as $key => $value) {
-                $sets[] = "$key = ?";
-                $values[] = $value;
-            }
-            $values[] = $id;
+        foreach ($filteredData as $key => $value) {
+            $sets[] = "$key = ?";
+            $values[] = $value;
+        }
+        $values[] = $id;
 
-            $sql = "UPDATE $this->table SET " . implode(',', $sets) . " WHERE id = ?";
-            $this->query($sql,  $values);
-            return $this->find($id);
-        });
+        $sql = "UPDATE $this->table SET " . implode(',', $sets) . " WHERE id = ?";
+        $this->query($sql,  $values);
+        return $this->find($id);
     }
 
     /**
@@ -1210,40 +1194,5 @@ class Model
         }
         $this->conn = null;
         return $results;
-    }
-
-    /**
-     * Handles the execution of a function, providing error handling.
-     *
-     * This method is designed to safely execute a callable function, wrapping it in error handling 
-     * mechanisms for both database-related and general exceptions. If a specific MySQLi error occurs 
-     * (e.g., permission issues), it handles that differently. All exceptions are logged, and the 
-     * application dies with a user-friendly message.
-     *
-     * @param callable $function The function to execute within the error handling.
-     * @param string $message A custom error message for general exceptions. Defaults to "An error occurred."
-     * 
-     * @return mixed The result of the callable function if no exceptions are thrown.
-     * 
-     * @throws mysqli_sql_exception If a database-related exception occurs.
-     * @throws \Exception For any other general exceptions.
-     */
-    protected function handle(callable $function, string $message = "An error occurred.")
-    {
-        try {
-            return $function();
-        } catch (mysqli_sql_exception $e) {
-            error_log($e->getMessage() . " - Error at line: " . $e->getLine());
-
-            if (in_array($e->getCode(), [1044, 1142])) {
-                die('You do not have permission to access this resource. You are a ' . getUser('role') . '.');
-            } // Then it is neccesary to add more error codes here...
-
-            die('A database error occurred. Please try again later or contact ' . $_ENV['EMAIL'] . ' for assistance.');
-        } catch (Exception $e) {
-            error_log($e->getMessage());
-
-            die($message . 'Please try again later or contact ' . $_ENV['EMAIL'] . ' for assistance.');
-        }
     }
 }

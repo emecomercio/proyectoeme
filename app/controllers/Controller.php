@@ -5,10 +5,6 @@ namespace App\Controllers;
 
 class Controller
 {
-    private $model;
-    private $view;
-    private $route;
-
-
+    // Pendiente agregar funciones comunes para aplicar DRY
     public function __construct() {}
 }

@@ -2,6 +2,7 @@
 
 namespace Lib;
 
+use Error;
 use Exception;
 use ReflectionClass;
 use ReflectionNamedType;
@@ -27,35 +28,40 @@ class Route
     public static function dispatch()
     {
         $uri = trim($_SERVER['REQUEST_URI'], '/');
-        $method = $_SERVER['REQUEST_METHOD'];
+        $isApi = (strpos($uri, 'api/') === 0);
+        ErrorHandler::$isApi = $isApi;
 
-        // Verificar si hay rutas definidas para el método actual
-        if (!isset(self::$routes[$method])) {
-            self::sendNotFound();
-            return;
-        }
+        ErrorHandler::handle(function () use ($uri) {
+            $method = $_SERVER['REQUEST_METHOD'];
 
-        foreach (self::$routes[$method] as $route => $routeData) {
-            $callback = $routeData['callback'];
-            $middleware = $routeData['middleware'];
-
-
-            if ($route === $uri) {
-                return self::executeMiddleware($middleware, $callback);
+            // Verificar si hay rutas definidas para el método actual
+            if (!isset(self::$routes[$method])) {
+                self::sendNotFound();
+                return;
             }
 
-            // Extraer parámetros solo si la ruta contiene placeholders
-            if (strpos($route, '{') !== false) {
-                $params = self::extractParams($uri, $route);
+            foreach (self::$routes[$method] as $route => $routeData) {
+                $callback = $routeData['callback'];
+                $middleware = $routeData['middleware'];
 
-                if (!empty($params)) {
-                    return self::executeMiddleware($middleware, $callback, $params);
+
+                if ($route === $uri) {
+                    return self::executeMiddleware($middleware, $callback);
+                }
+
+                // Extraer parámetros solo si la ruta contiene placeholders
+                if (strpos($route, '{') !== false) {
+                    $params = self::extractParams($uri, $route);
+
+                    if (!empty($params)) {
+                        return self::executeMiddleware($middleware, $callback, $params);
+                    }
                 }
             }
-        }
 
-        // Si ninguna ruta coincide, enviar 404
-        self::sendNotFound();
+            // Si ninguna ruta coincide, enviar 404
+            self::sendNotFound();
+        });
     }
 
     private static function executeMiddleware($middleware, $callback, $params = [])
