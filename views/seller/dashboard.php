@@ -73,7 +73,7 @@ $categories = getCategories();
     <div class="section" id="add-variants">
     <h3>Add Variants</h3>
     <div class="variant-row">
-        <span>Variant 1</span>
+        <span>Variant</span>
         <span class="variant-price">--</span>
         <span class="variant-stock">--</span>
         <button type="button" class="edit-button" data-variant-id="1">Editar</button>
@@ -94,10 +94,6 @@ $categories = getCategories();
         <input type="number" id="modal-price" placeholder="Enter price" required>
         <label for="modal-stock">Stock:</label>
         <input type="number" id="modal-stock" placeholder="Enter stock" required>
-        <label for="modal-description">Description:</label>
-        <textarea id="modal-description" placeholder="Enter description"></textarea>
-        <label for="modal-specs">Specifications:</label>
-        <textarea id="modal-specs" placeholder="Enter specifications"></textarea>
         <div id="modal-attributes-container"></div>
         <button type="button" id="save-modal">Save</button>
     </div>
