@@ -443,87 +443,198 @@
         }
         /* termina categoria y descripcion */
         /* empieza product variant */
-        .variant-container {
-            width: 80vw;
-            border: 2px solid green;
-            border-radius: 10px;
-            padding: 20px;
-            background-color: #111; /* Fondo oscuro */
-            color: #0f0; /* Texto en verde claro */
-            font-family: Arial, sans-serif;
-            margin: 0 auto;
-        }
-        
-        /* Encabezado */
-        h3 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        
-        /* Estilo de cada fila de variante */
-        .variant-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-        
-        /* Texto de las variantes */
-        .variant-name,
-        .variant-price,
-        .variant-stock {
-            font-size: 16px;
-        }
-        
-        /* Botón de editar */
-        .edit-button {
-            background-color: #0f0;
-            border: none;
-            color: #111;
-            padding: 5px 10px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        
-        /* Separador visual entre variantes */
-        .divider {
-            border: 1px solid #0f0;
-            margin: 10px 0;
-        }
-        
-        /* Botón para agregar nuevas variantes */
-        .add-variant-button {
-            background-color: #0f0;
-            color: #111;
-            font-size: 24px;
-            border: none;
-            padding: 5px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: block;
-            margin: 10px auto;
-        }
-        
-        /* Contenedor de botones al final */
-        .action-buttons {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
-        }
-        
-        /* Estilos de los botones de cancelar y next */
-        .cancel-button,
-        .next-button {
-            background-color: #0f0;
-            border: none;
-            color: #111;
-            padding: 8px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
+/* Contenedor general de la sección de variantes */
+#add-variants {
+    width: 80vw;
+    border: 2px solid green;
+    border-radius: 10px;
+    padding: 20px;
+    background-color: #111; /* Fondo oscuro */
+    color: #0f0; /* Texto en verde claro */
+    font-family: Arial, sans-serif;
+    margin: 0 auto;
+}
+
+/* Encabezado */
+#add-variants h3 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Estilo de cada fila de variante */
+.variant-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+/* Texto de las variantes */
+.variant-row span,
+.variant-price,
+.variant-stock {
+    font-size: 16px;
+    color: #0f0; /* Asegurando que el texto sea verde claro */
+}
+
+/* Botón de editar */
+.edit-button {
+    background-color: #0f0;
+    border: none;
+    color: #111;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Botón para agregar nuevas variantes */
+#add-variant-btn {
+    background-color: #0f0;
+    color: #111;
+    font-size: 24px;
+    border: none;
+    padding: 5px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: block;
+    margin: 10px auto;
+}
+
+/* Contenedor de botones al final */
+#add-variants .action-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+/* Estilos de los botones de cancelar y next */
+#cancel-step-2,
+#next-step-2 {
+    background-color: #222222;
+    border: none;
+    color: #111;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Estilo general del modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro con transparencia */
+}
+
+/* Contenido del modal */
+.modal-content {
+    background-color: #111;
+    margin: 10% auto;
+    padding: 20px;
+    border: 2px solid #222222;
+    border-radius: 10px;
+    width: 40vw;
+    color: #222222;
+    text-align: center;
+    max-height: 80vh; /* Limita la altura del modal para que no ocupe toda la pantalla */
+    overflow-y: auto; /* Permite el scroll vertical */
+}
+
+/* Cerrar el modal */
+.close {
+    color: #0f0;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: #fff;
+}
+
+label, input, textarea {
+    display: block;
+    width: 100%;
+    margin: 10px 0;
+    padding: 5px;
+    font-size: 16px;
+}
+
+input[type="number"],
+textarea {
+    background-color: #222;
+    color: #0f0;
+    border: 1px solid green;
+}
+
+#modal-attributes-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.attribute-row {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.attribute-input {
+    width: 48%;
+}
+
+#save-modal {
+    background-color: #0f0;
+    color: #111;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 100px;
+    margin-top: 15px;
+}
+
         /* termina product variant */
         /* empieza subir datos de la variante */
 
-
+        #upload-images {
+            max-width: 600px; /* Ancho máximo del contenedor */
+            margin: 20px auto; /* Centra el contenedor */
+            padding: 20px; /* Espaciado interno */
+            border: 1px solid #ccc; /* Borde gris claro */
+            border-radius: 8px; /* Bordes redondeados */
+            background-color: #222222; /* Fondo claro */
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+        }
+        
+        h3 {
+            font-size: 1.5em; /* Tamaño de fuente para los encabezados */
+            margin-bottom: 15px; /* Espacio debajo de los encabezados */
+            color: #333; /* Color de texto oscuro */
+        }
+        
+        label {
+            display: block; /* Hace que la etiqueta ocupe todo el ancho */
+            margin-bottom: 8px; /* Espacio debajo de la etiqueta */
+            font-weight: bold; /* Texto en negrita */
+            color: #555; /* Color de texto más claro */
+        }
+        
+        input[type="file"] {
+            display: block; /* Hace que el input ocupe todo el ancho */
+            margin-bottom: 20px; /* Espacio debajo del input */
+            padding: 10px; /* Espaciado interno */
+            border: 1px solid #ccc; /* Borde gris claro */
+            border-radius: 4px; /* Bordes redondeados */
+            width: 100%; /* Ancho completo */
+            font-size: 1em; /* Tamaño de fuente para el input */
+        }
 
         /* termina subir datos de la variante */

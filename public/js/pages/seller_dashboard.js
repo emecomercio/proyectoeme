@@ -283,3 +283,105 @@ document.addEventListener("DOMContentLoaded", function() {
       }
   });
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+  const editButtons = document.querySelectorAll('.edit-button');
+  const modal = document.getElementById('edit-modal');
+  const closeModal = document.querySelector('.close');
+  const saveButton = document.getElementById('save-modal');
+  const addVariantButton = document.getElementById('add-variant-btn');
+  const variantContainer = document.getElementById('add-variants');
+  
+  let currentRow = null;
+
+  // Función para abrir el modal al hacer clic en Editar
+  function openEditModal(row) {
+      currentRow = row;
+      modal.style.display = 'block';
+  }
+
+  // Añadir un nuevo evento de clic para el botón Editar
+  function attachEditEvent(button) {
+      button.addEventListener('click', function() {
+          openEditModal(this.closest('.variant-row'));
+      });
+  }
+
+  // Cerrar el modal
+  closeModal.addEventListener('click', () => {
+      modal.style.display = 'none';
+  });
+
+  window.addEventListener('click', function(event) {
+      if (event.target === modal) {
+          modal.style.display = 'none';
+      }
+  });
+
+  // Guardar los datos del modal y actualizar la fila
+  saveButton.addEventListener('click', () => {
+      const price = document.getElementById('modal-price').value;
+      const stock = document.getElementById('modal-stock').value;
+
+      if (price && stock) {
+          currentRow.querySelector('.variant-price').textContent = `$${price}`;
+          currentRow.querySelector('.variant-stock').textContent = stock;
+          modal.style.display = 'none'; // Cerrar el modal
+      } else {
+          alert('Please fill in all fields');
+      }
+  });
+
+  // Función para agregar una nueva variante
+  addVariantButton.addEventListener('click', () => {
+      // Crear una nueva fila de variante
+      const newRow = document.createElement('div');
+      newRow.classList.add('variant-row');
+      newRow.innerHTML = `
+          <span>Variant</span>
+          <span class="variant-price">--</span>
+          <span class="variant-stock">--</span>
+          <button type="button" class="edit-button">Editar</button>
+      `;
+
+      // Añadir el nuevo evento de clic al botón Editar de la nueva fila
+      const newEditButton = newRow.querySelector('.edit-button');
+      attachEditEvent(newEditButton);
+
+      // Añadir la nueva fila al contenedor
+      variantContainer.insertBefore(newRow, addVariantButton);
+  });
+
+  // Inicializar eventos para los botones de edición existentes
+  editButtons.forEach(button => {
+      attachEditEvent(button);
+  });
+});
+document.addEventListener('DOMContentLoaded', () => {
+  const addAttributeButton = document.getElementById('add-attribute');
+  const attributesContainer = document.getElementById('attributes-container');
+
+  // Añadir un nuevo campo de atributo dinámico
+  addAttributeButton.addEventListener('click', () => {
+      const newAttribute = document.createElement('div');
+      newAttribute.classList.add('attribute-row');
+      newAttribute.innerHTML = `
+          <input type="text" name="attribute_name[]" placeholder="Attribute" required>
+      `;
+      attributesContainer.appendChild(newAttribute);
+  });
+});
+document.addEventListener('DOMContentLoaded', () => {
+  const addAttributeButton = document.getElementById('add-attribute');
+  const attributesContainer = document.getElementById('attributes-container');
+  
+    // Añadir un nuevo campo de atributo dinámico
+    addAttributeButton.addEventListener('click', () => {
+        const newAttribute = document.createElement('div');
+        newAttribute.classList.add('attribute-row');
+        newAttribute.innerHTML = `
+            <input type="text" name="attribute_name[]" placeholder="Attribute" required>
+        `;
+        attributesContainer.appendChild(newAttribute);
+    });
+  });

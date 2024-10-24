@@ -37,6 +37,10 @@ $categories = getCategories();
         <form class="product-upload-form">
     <!-- Primera sección: Crear Producto -->
     <div class="section active" id="create-product">
+        <div class="product-parent-section">
+                    <label for="parent-product-name">Product Parent Name:</label>
+                    <input type="text" id="parent-product-name" name="parent-product-name" placeholder="Enter parent product name">
+        </div>
         <label for="category">Select Category</label>
         <select name="category" id="category">
             <!-- Las opciones serán cargadas dinámicamente -->
@@ -49,44 +53,57 @@ $categories = getCategories();
             <textarea name="description" id="description"></textarea>
             <div id="charCount">0/350</div>
         </div>
-       
+        <div class="attributes-section">
+                <h3>Product Attributes</h3>
+                <div id="attributes-container">
+                    <!-- Campos dinámicos para atributos -->
+                    <div class="attribute-row">
+                        <input type="text" name="attribute_name[]" placeholder="Attribute 1" required>
+                    </div>
+                </div>
+                <!-- Botón para agregar nuevos atributos -->
+                <button type="button" id="add-attribute" class="add-attribute-button">Add Attribute</button>
+            </div>
+                <br>
 
         <button type="button" id="cancel-step-1">Cancelar</button>
         <button type="button" id="next-step-1">Next</button>
     </div>
 
     <div class="section" id="add-variants">
-    <div class="variant-container">
     <h3>Add Variants</h3>
-    
     <div class="variant-row">
-        <span class="variant-name">Variant 1</span>
-        <span class="variant-price">$$</span>
-        <span class="variant-stock">Stock</span>
-        <button class="edit-button">Editar</button>
+        <span>Variant 1</span>
+        <span class="variant-price">--</span>
+        <span class="variant-stock">--</span>
+        <button type="button" class="edit-button" data-variant-id="1">Editar</button>
     </div>
-
-    <!-- Separador visual -->
-    <hr class="divider">
-
-    <!-- Más variantes -->
-    <div class="variant-row">
-        <span class="variant-name">Variant 2</span>
-        <span class="variant-price">$$</span>
-        <span class="variant-stock">Stock</span>
-        <button class="edit-button">Editar</button>
-    </div>
-
-    <!-- Botón para agregar más variantes -->
-    <button class="add-variant-button">+</button>
-
-    <!-- Botones de acción al final -->
+    <button id="add-variant-btn">+</button>
     <div class="action-buttons">
-    <button type="button" id="cancel-step-2">Cancelar</button>
-    <button type="button" id="next-step-2">Next</button>
+        <button type="button" id="cancel-step-2">Cancelar</button>
+        <button type="button" id="next-step-2">Next</button>
     </div>
 </div>
+
+<!-- Modal para editar -->
+<div id="edit-modal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h3>Edit Variant</h3>
+        <label for="modal-price">Price:</label>
+        <input type="number" id="modal-price" placeholder="Enter price" required>
+        <label for="modal-stock">Stock:</label>
+        <input type="number" id="modal-stock" placeholder="Enter stock" required>
+        <label for="modal-description">Description:</label>
+        <textarea id="modal-description" placeholder="Enter description"></textarea>
+        <label for="modal-specs">Specifications:</label>
+        <textarea id="modal-specs" placeholder="Enter specifications"></textarea>
+        <div id="modal-attributes-container"></div>
+        <button type="button" id="save-modal">Save</button>
     </div>
+</div>
+
+
 
     <!-- Tercera sección: Cargar Imágenes y Atributos -->
     <div class="section" id="upload-images">
