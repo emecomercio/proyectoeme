@@ -245,7 +245,5 @@ $categories = getCategories();
         </div>
         <div class="correos-dropdown-wrapper">
         </div>
+    </section>
 </div>
-
-<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap" async defer></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js" async defer></script>

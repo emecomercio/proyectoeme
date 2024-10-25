@@ -514,3 +514,129 @@ function createAtributtesLoader() {
   attributesLoader.appendChild(attributesLoaderBtns);
   return attributesLoader;
 }
+
+// MAPAS
+function loadGoogleMapsAPI() {
+  return new Promise((resolve, reject) => {
+    if (window.google && window.google.maps) {
+      resolve(); // Google Maps API ya cargada
+      return;
+    }
+    const script = document.createElement("script");
+    script.src = "https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY";
+    script.async = true;
+    script.defer = true;
+    script.onload = resolve;
+    script.onerror = reject;
+    document.head.appendChild(script);
+  });
+}
+
+let correosDropdown = document.getElementById("correos-dropdown");
+let mapsSections = document.querySelectorAll(".maps-display div");
+
+// Escuchar cuando el usuario selecciona una oficina del dropdown
+correosDropdown.addEventListener("change", function () {
+  let selectedTarget =
+    this.options[this.selectedIndex].getAttribute("data-target");
+
+  // Ocultar todos los mapas
+  mapsSections.forEach((mapSection) => {
+    mapSection.classList.remove("active");
+  });
+
+  // Mostrar el mapa correspondiente a la oficina seleccionada
+  let selectedMap = document.getElementById(selectedTarget);
+  if (selectedMap) {
+    selectedMap.classList.add("active");
+  }
+});
+
+// GRAFICO
+function loadChartJS() {
+  return new Promise((resolve, reject) => {
+    const script = document.createElement("script");
+    script.src = "https://cdn.jsdelivr.net/npm/chart.js";
+    script.async = true;
+    script.defer = true;
+    script.onload = resolve;
+    script.onerror = reject;
+    document.head.appendChild(script);
+  });
+}
+
+loadChartJS()
+  .then(() => {
+    // Datos fijos representando ventas del último mes
+    const data = {
+      labels: ["Producto A", "Producto B", "Producto C", "Producto D"], // Etiquetas de productos
+      datasets: [
+        {
+          label: "Cantidad Vendida", // Cantidad de productos vendidos
+          data: [15, 30, 8, 12], // Datos de cantidad
+          backgroundColor: "rgba(54, 162, 235, 0.5)", // Color de las barras
+          borderColor: "rgba(54, 162, 235, 1)",
+          borderWidth: 1,
+        },
+        {
+          label: "Ganancias ($)", // Ganancias en dólares
+          data: [250, 400, 120, 350], // Datos de ganancias
+          backgroundColor: "rgba(75, 192, 192, 0.5)", // Color de las barras de ganancias
+          borderColor: "rgba(75, 192, 192, 1)",
+          borderWidth: 1,
+        },
+      ],
+    };
+
+    // Configuración del gráfico
+    const config = {
+      type: "bar",
+      data: data,
+      options: {
+        responsive: false, // Desactiva el ajuste automático de tamaño
+        maintainAspectRatio: false, // Permite controlar el tamaño manualmente
+        scales: {
+          x: {
+            grid: {
+              display: false, // Oculta las líneas de la grilla del eje X
+            },
+            title: {
+              display: true,
+              text: "Productos",
+              font: {
+                size: 16,
+                weight: "bold",
+              },
+            },
+          },
+          y: {
+            beginAtZero: true,
+            title: {
+              display: true,
+              text: "Cantidad / Ganancias ($)",
+              font: {
+                size: 16,
+                weight: "bold",
+              },
+            },
+          },
+        },
+        plugins: {
+          legend: {
+            labels: {
+              font: {
+                size: 14,
+              },
+            },
+          },
+        },
+      },
+    };
+
+    // Renderiza el gráfico
+    const ctx = document.getElementById("myChart").getContext("2d");
+    const myChart = new Chart(ctx, config);
+  })
+  .catch((error) => {
+    console.error(error);
+  });
