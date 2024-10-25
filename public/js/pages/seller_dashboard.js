@@ -169,14 +169,30 @@ previousButton.addEventListener("click", () => {
 });
 
 // SECCION DE ATRIBUTOS
+var productAttributes = [];
 const productAttrSection = document.querySelector(".product-attributes");
 const attributesList = document.querySelector(".attributes-list>ul");
 const variantsTable = document.querySelector(".variants-table>tbody");
 function createAtributte(name) {
   const attribute = document.createElement("li");
+  const deleteBtn = document.createElement("button");
+  deleteBtn.innerHTML = "&#10006;";
+  deleteBtn.className = "delete-attribute";
+  deleteBtn.addEventListener("click", () => {
+    attribute.remove();
+    productAttributes.forEach((attr, index) => {
+      if (attr == name) {
+        productAttributes.splice(index, 1);
+      }
+    });
+  });
+
   attribute.className = "product-attribute";
   attribute.textContent = name;
 
+  productAttributes.push(name);
+
+  attribute.appendChild(deleteBtn);
   return attribute;
 }
 
@@ -197,10 +213,9 @@ addAttribute.addEventListener("click", (e) => {
   }
 
   // Si llega a este punto es porque ya hay atributos
-  const attributes = productAttrSection.querySelectorAll(".product-attribute");
   let attributeFound = false;
-  attributes.forEach((attribute) => {
-    if (attribute.textContent === attributeName) {
+  productAttributes.forEach((attribute) => {
+    if (attribute === attributeName) {
       attributeFound = true;
     }
   });
@@ -410,7 +425,6 @@ function addVariantImg(src, alt) {
   const itemActions = document.createElement("div");
   itemActions.className = "item-actions";
   const deleteBtn = document.createElement("button");
-  // inner cross html
   deleteBtn.innerHTML = "&#10006;";
 
   deleteBtn.addEventListener("click", () => {
@@ -446,7 +460,6 @@ function showAttributesLoader() {
 }
 
 // CARGA DE ATRIBUTOS
-var productAttributes = ["Color", "Size", "Storage"];
 function createAtributtesLoader() {
   // MODAL
   const attributesLoader = document.createElement("dialog");
