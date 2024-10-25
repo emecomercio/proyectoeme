@@ -95,8 +95,7 @@ function createSellerItemCard(product) {
 
   return card;
 }
-
-// Evento para crear un producto y luego actualizar la lista
+/*
 const form = document.querySelector("#create-form");
 form.addEventListener("submit", function (event) {
   event.preventDefault();
@@ -107,281 +106,398 @@ form.addEventListener("submit", function (event) {
   });
   createProduct(data); // Crear el producto y actualizar la lista
 });
+*/
 
-let dashboardSections = document.querySelectorAll(".all-container section");
+// CAMBIO DE SECCIONES
+let dashboardSections = document.querySelectorAll(".all-container>section");
 let sidebarBtns = document.querySelectorAll(".sidebar-item");
 sidebarBtns.forEach((btn) => {
   btn.addEventListener("click", () => {
     dashboardSections.forEach((section) => {
       if (btn.getAttribute("data-target") != section.id) {
-        section.classList.remove("active");
+        section.classList.add("hidden");
       } else {
-        section.classList.add("active");
+        section.classList.remove("hidden");
       }
     });
   });
 });
 
-// Cargar los productos inicialmente
+// CARGAR LOS PRODUCTOS INICIALMENTE [EN EL HOME/DASHBOARD]
 getProductsBySeller(localStorage.getItem("sellerId"));
 
-// Obtener el dropdown y los contenedores de los mapas
-let correosDropdown = document.getElementById("correos-dropdown");
-let mapsSections = document.querySelectorAll(".maps-display div");
-
-// Escuchar cuando el usuario selecciona una oficina del dropdown
-correosDropdown.addEventListener("change", function () {
-  let selectedTarget =
-    this.options[this.selectedIndex].getAttribute("data-target");
-
-  // Ocultar todos los mapas
-  mapsSections.forEach((mapSection) => {
-    mapSection.classList.remove("active");
-  });
-
-  // Mostrar el mapa correspondiente a la oficina seleccionada
-  let selectedMap = document.getElementById(selectedTarget);
-  if (selectedMap) {
-    selectedMap.classList.add("active");
-  }
-});
-
-// Datos fijos representando ventas del último mes
-const data = {
-  labels: ['Producto A', 'Producto B', 'Producto C', 'Producto D'], // Etiquetas de productos
-  datasets: [
-    {
-      label: 'Cantidad Vendida', // Cantidad de productos vendidos
-      data: [15, 30, 8, 12], // Datos de cantidad
-      backgroundColor: 'rgba(54, 162, 235, 0.5)', // Color de las barras
-      borderColor: 'rgba(54, 162, 235, 1)',
-      borderWidth: 1
-    },
-    {
-      label: 'Ganancias ($)', // Ganancias en dólares
-      data: [250, 400, 120, 350], // Datos de ganancias
-      backgroundColor: 'rgba(75, 192, 192, 0.5)', // Color de las barras de ganancias
-      borderColor: 'rgba(75, 192, 192, 1)',
-      borderWidth: 1
-    }
-  ]
-};
-
-// Configuración del gráfico
-const config = {
-  type: 'bar',
-  data: data,
-  options: {
-    responsive: false, // Desactiva el ajuste automático de tamaño
-    maintainAspectRatio: false, // Permite controlar el tamaño manualmente
-    scales: {
-      x: { 
-        grid: {
-          display: false // Oculta las líneas de la grilla del eje X
-        },
-        title: {
-          display: true,
-          text: 'Productos',
-          font: {
-            size: 16,
-            weight: 'bold'
-          }
-        }
-      },
-      y: {
-        beginAtZero: true,
-        title: {
-          display: true,
-          text: 'Cantidad / Ganancias ($)',
-          font: {
-            size: 16,
-            weight: 'bold'
-          }
-        }
-      }
-    },
-    plugins: {
-      legend: {
-        labels: {
-          font: {
-            size: 14
-          }
-        }
-      }
-    }
-  }
-};
-
-// Renderiza el gráfico
-const ctx = document.getElementById('myChart').getContext('2d');
-const myChart = new Chart(ctx, config);
-
-// Seleccionar todas las secciones
-let sections = document.querySelectorAll(".section");
-
-// Obtener los botones de navegación
-let nextStep1 = document.getElementById("next-step-1");
-let cancelStep1 = document.getElementById("cancel-step-1");
-
-let nextStep2 = document.getElementById("next-step-2");
-let cancelStep2 = document.getElementById("cancel-step-2");
-
-let cancelStep3 = document.getElementById("cancel-step-3");
-
-// Función para ocultar todas las secciones
-function hideAllSections() {
-  sections.forEach(section => {
-    section.classList.remove("active");
-  });
-}
-
-// Navegar a la siguiente sección
-function showSection(sectionId) {
-  hideAllSections();
-  let section = document.getElementById(sectionId);
-  if (section) {
-    section.classList.add("active");
-  }
-}
-
-// Eventos para los botones de navegación
-nextStep1.addEventListener("click", function () {
-  showSection("add-variants");
-});
-
-cancelStep1.addEventListener("click", function () {
-  // Aquí puedes definir la acción de cancelar si es necesario
-  alert("Operación cancelada en paso 1");
-});
-
-nextStep2.addEventListener("click", function () {
-  showSection("upload-images");
-});
-
-cancelStep2.addEventListener("click", function () {
-  showSection("create-product");
-});
-
-cancelStep3.addEventListener("click", function () {
-  showSection("add-variants");
-});
-
-document.addEventListener("DOMContentLoaded", function() {
-  const descriptionField = document.getElementById("description");
-  const charCount = document.getElementById("charCount");
-
-  descriptionField.addEventListener("input", function() {
-      const currentLength = descriptionField.value.length;
-      charCount.textContent = `${currentLength}/350`;
-
-      // Si llega a 300 caracteres, cambia el color del contador
-      if (currentLength >= 300) {
-          charCount.classList.add("limit-reached");
-          descriptionField.value = descriptionField.value.substring(0, 350);  // Evita escribir más de 300 caracteres
+// SUBIDA DE PRODUCTOS --> STEPS
+const uploadProductSections = document.querySelectorAll(
+  "#upload-product>section"
+);
+let stepCounter = 1;
+const nextButton = document.querySelector(".next-btn");
+const previousButton = document.querySelector(".delete-btn");
+nextButton.addEventListener("click", () => {
+  if (stepCounter === 1) {
+    stepCounter++;
+    uploadProductSections.forEach((section) => {
+      if (stepCounter == section.dataset.step) {
+        section.classList.remove("hidden");
       } else {
-          charCount.classList.remove("limit-reached");
+        section.classList.add("hidden");
       }
-  });
-});
-
-document.addEventListener('DOMContentLoaded', () => {
-  const editButtons = document.querySelectorAll('.edit-button');
-  const modal = document.getElementById('edit-modal');
-  const closeModal = document.querySelector('.close');
-  const saveButton = document.getElementById('save-modal');
-  const addVariantButton = document.getElementById('add-variant-btn');
-  const variantContainer = document.getElementById('add-variants');
-  
-  let currentRow = null;
-
-  // Función para abrir el modal al hacer clic en Editar
-  function openEditModal(row) {
-      currentRow = row;
-      modal.style.display = 'block';
-  }
-
-  // Añadir un nuevo evento de clic para el botón Editar
-  function attachEditEvent(button) {
-      button.addEventListener('click', function() {
-          openEditModal(this.closest('.variant-row'));
-      });
-  }
-
-  // Cerrar el modal
-  closeModal.addEventListener('click', () => {
-      modal.style.display = 'none';
-  });
-
-  window.addEventListener('click', function(event) {
-      if (event.target === modal) {
-          modal.style.display = 'none';
-      }
-  });
-
-  // Guardar los datos del modal y actualizar la fila
-  saveButton.addEventListener('click', () => {
-      const price = document.getElementById('modal-price').value;
-      const stock = document.getElementById('modal-stock').value;
-
-      if (price && stock) {
-          currentRow.querySelector('.variant-price').textContent = `$${price}`;
-          currentRow.querySelector('.variant-stock').textContent = stock;
-          modal.style.display = 'none'; // Cerrar el modal
-      } else {
-          alert('Please fill in all fields');
-      }
-  });
-
-  // Función para agregar una nueva variante
-  addVariantButton.addEventListener('click', () => {
-      // Crear una nueva fila de variante
-      const newRow = document.createElement('div');
-      newRow.classList.add('variant-row');
-      newRow.innerHTML = `
-          <span>Variant</span>
-          <span class="variant-price">--</span>
-          <span class="variant-stock">--</span>
-          <button type="button" class="edit-button">Editar</button>
-      `;
-
-      // Añadir el nuevo evento de clic al botón Editar de la nueva fila
-      const newEditButton = newRow.querySelector('.edit-button');
-      attachEditEvent(newEditButton);
-
-      // Añadir la nueva fila al contenedor
-      variantContainer.insertBefore(newRow, addVariantButton);
-  });
-
-  // Inicializar eventos para los botones de edición existentes
-  editButtons.forEach(button => {
-      attachEditEvent(button);
-  });
-});
-document.addEventListener('DOMContentLoaded', () => {
-  const addAttributeButton = document.getElementById('add-attribute');
-  const attributesContainer = document.getElementById('attributes-container');
-
-  // Añadir un nuevo campo de atributo dinámico
-  addAttributeButton.addEventListener('click', () => {
-      const newAttribute = document.createElement('div');
-      newAttribute.classList.add('attribute-row');
-      newAttribute.innerHTML = `
-          <input type="text" name="attribute_name[]" placeholder="Attribute" required>
-      `;
-      attributesContainer.appendChild(newAttribute);
-  });
-});
-document.addEventListener('DOMContentLoaded', () => {
-  const addAttributeButton = document.getElementById('add-attribute');
-  const attributesContainer = document.getElementById('attributes-container');
-  
-    // Añadir un nuevo campo de atributo dinámico
-    addAttributeButton.addEventListener('click', () => {
-        const newAttribute = document.createElement('div');
-        newAttribute.classList.add('attribute-row');
-        newAttribute.innerHTML = `
-            <input type="text" name="attribute_name[]" placeholder="Attribute" required>
-        `;
-        attributesContainer.appendChild(newAttribute);
     });
+    previousButton.textContent = "Atrás";
+    previousButton.className = "previous-btn";
+    nextButton.textContent = "Crear publicación";
+  } else {
+    alert("creado");
+  }
+});
+previousButton.addEventListener("click", () => {
+  if (stepCounter > 1) {
+    stepCounter--;
+    uploadProductSections.forEach((section) => {
+      if (stepCounter == section.dataset.step) {
+        section.classList.remove("hidden");
+      } else {
+        section.classList.add("hidden");
+      }
+    });
+    nextButton.textContent = "Siguiente";
+    previousButton.textContent = "Borrar";
+    previousButton.className = "delete-btn";
+  } else {
+    alert("borrado");
+  }
+});
+
+// SECCION DE ATRIBUTOS
+const productAttrSection = document.querySelector(".product-attributes");
+const attributesList = document.querySelector(".attributes-list>ul");
+const variantsTable = document.querySelector(".variants-table>tbody");
+function createAtributte(name) {
+  const attribute = document.createElement("li");
+  attribute.className = "product-attribute";
+  attribute.textContent = name;
+
+  return attribute;
+}
+
+const addAttribute = document.querySelector(".add-attribute-btn");
+addAttribute.addEventListener("click", (e) => {
+  e.preventDefault();
+  const attributeName = document.querySelector("#attribute-name").value;
+  if (!attributeName) {
+    alert("Ingrese un nombre de atributo");
+    return; //crear un modal de alerta
+  }
+
+  // No hay atributos
+  if (!attributesList.querySelector(".product-attribute")) {
+    const attribute = createAtributte(attributeName);
+    attributesList.appendChild(attribute);
+    return;
+  }
+
+  // Si llega a este punto es porque ya hay atributos
+  const attributes = productAttrSection.querySelectorAll(".product-attribute");
+  let attributeFound = false;
+  attributes.forEach((attribute) => {
+    if (attribute.textContent === attributeName) {
+      attributeFound = true;
+    }
   });
+
+  if (attributeFound) {
+    alert("el atributo ya existe");
+    return; //crear un modal de alerta
+  } else {
+    const attribute = createAtributte(attributeName);
+    attributesList.appendChild(attribute);
+  }
+});
+
+var currentVariantRow = 0;
+function createVariantRow() {
+  const variant = document.createElement("tr");
+  variant.className = "variant-row";
+
+  const variantImageCell = document.createElement("td");
+  variantImageCell.className = "variant-image";
+  const variantImage = document.createElement("img");
+  variantImage.src = "";
+  variantImage.alt = "def";
+  variantImageCell.appendChild(variantImage);
+
+  const variantNumberCell = document.createElement("td");
+  variantNumberCell.className = "variant-number";
+  variantNumberCell.textContent = currentVariantRow + 1;
+
+  const variantPriceCell = document.createElement("td");
+  variantPriceCell.className = "variant-price";
+  const variantPrice = document.createElement("input");
+  variantPrice.type = "number";
+  variantPrice.step = "0.01";
+  variantPrice.min = "0";
+  variantPrice.max = "1000000";
+  variantPrice.value = "0.00";
+  variantPrice.setAttribute("data-variant", currentVariantRow + 1);
+  variantPriceCell.appendChild(variantPrice);
+
+  const variantStockCell = document.createElement("td");
+  variantStockCell.className = "variant-stock";
+  const variantStock = document.createElement("input");
+  variantStock.type = "number";
+  variantStock.step = "1";
+  variantStock.min = "0";
+  variantStock.max = "1000000";
+  variantStock.value = "0";
+  variantStock.setAttribute("data-variant", currentVariantRow + 1);
+  variantStockCell.appendChild(variantStock);
+
+  const variantActions = document.createElement("td");
+  variantActions.className = "variant-actions";
+  const deleteVariantBtn = document.createElement("button");
+  deleteVariantBtn.textContent = "Eliminar";
+  deleteVariantBtn.className = "delete-variant-btn";
+  deleteVariantBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    variant.remove(); //agregar logica de la variante
+    const rows = document.querySelectorAll(".variant-row");
+    rows.forEach((row, index) => {
+      row.cells[1].textContent = index + 1;
+      row.cells[2]
+        .querySelector("input")
+        .setAttribute("data-variant", index + 1);
+      row.cells[3]
+        .querySelector("input")
+        .setAttribute("data-variant", index + 1);
+    });
+    currentVariantRow--;
+  });
+  const attributesVariantBtn = document.createElement("button");
+  attributesVariantBtn.textContent = "Atributos";
+  attributesVariantBtn.className = "attributes-variant-btn";
+  attributesVariantBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    showAttributesLoader();
+  });
+  const imagesVariantBtn = document.createElement("button");
+  imagesVariantBtn.textContent = "Imágenes";
+  imagesVariantBtn.className = "images-variant-btn";
+  imagesVariantBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    showImgLoader();
+  });
+  variantActions.appendChild(attributesVariantBtn);
+  variantActions.appendChild(imagesVariantBtn);
+  variantActions.appendChild(deleteVariantBtn);
+
+  variant.appendChild(variantImageCell);
+  variant.appendChild(variantNumberCell);
+  variant.appendChild(variantPriceCell);
+  variant.appendChild(variantStockCell);
+  variant.appendChild(variantActions);
+  currentVariantRow++;
+  return variant;
+}
+
+const addVariant = document.querySelector(".add-variant-btn");
+addVariant.addEventListener("click", (e) => {
+  e.preventDefault();
+  let variant = createVariantRow();
+  variantsTable.appendChild(variant);
+});
+let variant = createVariantRow();
+variantsTable.appendChild(variant);
+
+// CARGA DE IMAGENES
+function createImgLoader() {
+  // MODAL
+  const imgLoader = document.createElement("dialog");
+  imgLoader.className = "img-loader";
+  const imgLoaderHeader = document.createElement("h2");
+  imgLoaderHeader.textContent = "Cargar imágenes";
+  imgLoader.appendChild(imgLoaderHeader);
+
+  // FORM
+  const imgForm = document.createElement("form");
+  imgForm.className = "img-form";
+  imgForm.enctype = "multipart/form-data";
+
+  const imgSelectorLabel = document.createElement("label");
+  imgSelectorLabel.textContent = "Seleccionar imagen";
+  const imgSelectorInput = document.createElement("input");
+  imgSelectorInput.type = "file";
+  imgSelectorInput.name = "image";
+  imgSelectorInput.accept = "image/*";
+  imgSelectorInput.style.display = "none";
+  imgSelectorInput.addEventListener("change", (e) => {
+    imgSelectorLabel.textContent =
+      e.target.files[0]?.name || "Seleccionar imagen";
+  });
+  imgSelectorLabel.addEventListener("click", () => {
+    imgSelectorInput.click();
+  });
+
+  const imgSubmitBtn = document.createElement("button");
+  imgSubmitBtn.textContent = "Añadir";
+  imgSubmitBtn.type = "submit";
+
+  const imgUploadSection = document.createElement("div");
+  imgUploadSection.className = "img-upload-section";
+  imgUploadSection.appendChild(imgSelectorLabel);
+  imgUploadSection.appendChild(imgSelectorInput);
+  imgUploadSection.appendChild(imgSubmitBtn);
+
+  const imgAltInput = document.createElement("input");
+  imgAltInput.type = "text";
+  imgAltInput.name = "alt";
+  imgAltInput.placeholder = "Ingrese el texto alternativo";
+  imgAltInput.required = true;
+
+  imgForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    if (!imgSelectorInput.files.length) {
+      alert("Por favor, seleccione una imagen"); //hacer un modal
+      return;
+    }
+
+    //logica back
+    // tomar la imagen desde  el input files
+    const image = imgSelectorInput.files[0];
+    const src = URL.createObjectURL(image);
+    const alt = imgAltInput.value;
+
+    imgSelectorLabel.textContent = "Seleccionar imagen";
+    imgForm.reset();
+    addVariantImg(src, alt);
+  });
+
+  const imgGallery = document.createElement("div");
+  imgGallery.className = "img-gallery";
+
+  //  BOTONES
+  const imgLoaderBtns = document.createElement("div");
+  imgLoaderBtns.className = "loader-btns";
+
+  const closeBtn = document.createElement("button");
+  closeBtn.textContent = "Cerrar";
+  closeBtn.addEventListener("click", () => {
+    imgLoader.remove();
+  });
+  const acceptBtn = document.createElement("button");
+  acceptBtn.textContent = "Aceptar";
+  acceptBtn.addEventListener("click", () => {
+    imgLoader.remove();
+  });
+  imgLoaderBtns.appendChild(closeBtn);
+  imgLoaderBtns.appendChild(acceptBtn);
+
+  imgForm.appendChild(imgUploadSection);
+  imgForm.appendChild(imgAltInput);
+  imgForm.appendChild(imgGallery);
+  imgLoader.appendChild(imgForm);
+  imgLoader.appendChild(imgLoaderBtns);
+  return imgLoader;
+}
+
+function addVariantImg(src, alt) {
+  const imgGallery = document.querySelector(".img-gallery");
+  const galleryItem = document.createElement("div");
+  galleryItem.className = "gallery-item";
+  const galleryImg = document.createElement("img");
+  galleryImg.src = src;
+  galleryImg.alt = alt;
+
+  const itemActions = document.createElement("div");
+  itemActions.className = "item-actions";
+  const deleteBtn = document.createElement("button");
+  // inner cross html
+  deleteBtn.innerHTML = "&#10006;";
+
+  deleteBtn.addEventListener("click", () => {
+    //  Eliminar la imagen
+  });
+  const editBtn = document.createElement("button");
+  editBtn.innerHTML = "&#9997;";
+
+  editBtn.addEventListener("click", () => {
+    // Editar la imagen
+  });
+  itemActions.appendChild(deleteBtn);
+  itemActions.appendChild(editBtn);
+
+  galleryItem.appendChild(galleryImg);
+  galleryItem.appendChild(itemActions);
+  imgGallery.appendChild(galleryItem);
+}
+
+function showImgLoader() {
+  if (document.querySelector(".img-loader")) {
+    document.querySelector(".img-loader").remove();
+  }
+  const imgLoader = createImgLoader();
+  document.body.appendChild(imgLoader);
+}
+function showAttributesLoader() {
+  if (document.querySelector(".attributes-loader")) {
+    document.querySelector(".attributes-loader").remove();
+  }
+  const attributesLoader = createAtributtesLoader();
+  document.body.appendChild(attributesLoader);
+}
+
+// CARGA DE ATRIBUTOS
+var productAttributes = ["Color", "Size", "Storage"];
+function createAtributtesLoader() {
+  // MODAL
+  const attributesLoader = document.createElement("dialog");
+  attributesLoader.className = "attributes-loader";
+  const attributesLoaderHeader = document.createElement("h2");
+  attributesLoaderHeader.textContent = "Cargar atributos";
+  attributesLoader.appendChild(attributesLoaderHeader);
+
+  // FORM
+
+  const attributesForm = document.createElement("form");
+  attributesForm.className = "attributes-form";
+
+  productAttributes.forEach((attribute) => {
+    const attributeRow = document.createElement("div");
+    attributeRow.className = "attribute-row";
+
+    const attributeLabel = document.createElement("label");
+    attributeLabel.textContent = `${attribute}: `;
+    attributeLabel.setAttribute("for", attribute);
+
+    const attributeInput = document.createElement("input");
+    attributeInput.type = "text";
+    attributeInput.name = attribute;
+    attributeInput.id = attribute;
+    attributeInput.placeholder = attribute;
+    attributeInput.required = true;
+
+    attributeRow.appendChild(attributeLabel);
+    attributeRow.appendChild(attributeInput);
+    attributesForm.appendChild(attributeRow);
+  });
+
+  //  BOTONES
+  const attributesLoaderBtns = document.createElement("div");
+  attributesLoaderBtns.className = "loader-btns";
+
+  const closeBtn = document.createElement("button");
+  closeBtn.textContent = "Cerrar";
+  closeBtn.addEventListener("click", () => {
+    attributesLoader.remove();
+  });
+  const acceptBtn = document.createElement("button");
+  acceptBtn.textContent = "Aceptar";
+  acceptBtn.addEventListener("click", () => {
+    attributesLoader.remove();
+  });
+  attributesLoaderBtns.appendChild(closeBtn);
+  attributesLoaderBtns.appendChild(acceptBtn);
+
+  attributesLoader.appendChild(attributesForm);
+  attributesLoader.appendChild(attributesLoaderBtns);
+  return attributesLoader;
+}

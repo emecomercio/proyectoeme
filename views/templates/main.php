@@ -7,7 +7,7 @@ $categories = getCategories();
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -80,7 +80,7 @@ $categories = getCategories();
 
                     </div>
                 </div>
-                <?php if (getUser('role') === 'buyer' ||  getUser('role') === 'guest'): ?>
+                <?php if (getUser('role') === 'buyer'): ?>
 
                     <div class=" TextoIcono" id="cart-menu">
                         <img src="<?= asset("/img/icons/carrito_icono.png") ?>" class="icono" alt="Usuario" />
