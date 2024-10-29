@@ -1,10 +1,11 @@
 <?php
 
 use Lib\Route;
+use Lib\Middleware;
 use App\Api\Controllers\AuthController;
 use App\Api\Controllers\CartController;
 use App\Api\Controllers\UserController;
-use Lib\Middleware;
+use App\Api\Controllers\ImageController;
 
 Route::post('/api/users', function () {
     $userController = new UserController();
@@ -19,3 +20,5 @@ Route::post('/api/carts/{id}/lines', [CartController::class, 'addLine']);
 
 // Hay que cambiar los middleware para las API
 Route::get('/api/carts', [CartController::class, 'index']);
+
+Route::post('/api/images', [ImageController::class, 'create']);

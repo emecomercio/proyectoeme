@@ -1,0 +1,261 @@
+/* UPLOAD PRODUCTS SECTION*/
+#upload-product {
+  margin: 0px auto;
+  font-size: large;
+}
+#upload-product > section {
+  height: 40%;
+}
+#upload-product > section.hidden {
+  display: none;
+}
+#upload-product > h1 {
+  text-align: center;
+  margin-bottom: 3rem;
+  font-size: 2.5rem;
+}
+#upload-product h2 {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+#upload-product button {
+  padding: 0.25rem 0.5rem;
+  color: rgb(0, 0, 0);
+  cursor: pointer;
+  border-radius: 0.5rem;
+}
+
+.upload-product-control {
+  margin-top: 17.3rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.upload-product-control > .previous-btn {
+  background-color: #ded678;
+}
+.upload-product-control > .delete-btn {
+  background-color: #de7878;
+}
+.upload-product-control > .next-btn {
+  background-color: #9cde78;
+}
+
+/* PRODUCT INFO*/
+.product-info {
+  display: flex;
+  flex-direction: column;
+}
+#product-form {
+  display: flex;
+  flex-direction: column;
+}
+
+#product-form > label {
+  margin-top: 1rem;
+}
+
+.product-attributes {
+  margin-top: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* VARIANTS */
+.table-scroll {
+  height: 95%;
+  overflow-y: auto;
+}
+
+.variants-table {
+  margin-top: 2rem;
+}
+
+.variant-actions {
+  display: flex;
+  gap: 5px;
+}
+
+.add-variant-btn {
+  background-color: #9cde78;
+  margin-top: 1rem;
+}
+
+/* MODALS*/
+/* Fondo del dialog */
+dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro con transparencia */
+}
+
+/* Contenido de dialog */
+dialog {
+  background-color: #111;
+  margin: auto;
+  padding: 20px;
+  border: 2px solid #222;
+  border-radius: 10px;
+  width: 50vw;
+  color: #222;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: large;
+}
+
+.loader-btns {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.loader-btns > button {
+  color: white;
+  padding: 0.25rem 0.5rem;
+  color: rgb(0, 0, 0);
+  border-radius: 0.5rem;
+}
+.loader-btns > :first-child {
+  background-color: #d13434;
+}
+
+.loader-btns > :last-child {
+  background-color: #7dd134;
+}
+
+/* IMAGES LOADER */
+.img-loader {
+  width: 30rem;
+  height: auto;
+}
+
+.img-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.img-upload-section {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+}
+
+.img-upload-section > label {
+  padding: 0.25rem 0.5rem;
+  background-color: #5f5f5f;
+  color: white;
+  cursor: pointer;
+  border-radius: 0.5rem;
+}
+
+.img-gallery {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: space-around;
+  margin-top: 1rem;
+}
+
+.gallery-item {
+  min-width: 7rem;
+  max-width: 10rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.gallery-item > img {
+  max-width: 5rem;
+  height: auto;
+}
+
+.item-actions {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.item-actions > button {
+  padding: 0.25rem 0.5rem;
+  cursor: pointer;
+  border-radius: 0.5rem;
+}
+
+input {
+  display: flex;
+  width: 100%;
+  margin: 10px 0;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #444; 
+  background-color: #222; 
+  color: rgb(255, 255, 255); 
+}
+
+button {
+  padding: 10px 20px; /* Espaciado interno */
+  border: none; /* Sin borde predeterminado */
+  border-radius: 5px; /* Bordes redondeados */
+  color: #fff; /* Color del texto */
+  background-color: #5f5f5f; /* Color de fondo del botón */
+  font-size: 16px; /* Tamaño de la fuente */
+  cursor: pointer; /* Cambia el cursor al pasar el ratón */
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Transiciones suaves */
+}
+/* ATTRIBUTES LOADER*/
+
+#product-form {
+  background-color: #222; /* Fondo oscuro para el formulario */
+  border: 2px solid #444; /* Borde del formulario */
+  border-radius: 10px; /* Bordes redondeados */
+  padding: 20px; /* Espaciado interno */
+  color: #fff; /* Color del texto */
+  max-width: 600px; /* Ancho máximo del formulario */
+  margin: 0 auto; /* Centra el formulario */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); /* Sombra para dar profundidad */
+}
+select,
+textarea {
+  width: 100%;
+  padding: 10px; 
+  border-radius: 5px; 
+  border: 1px solid #444;
+  background-color: #333;
+  color: #fff; 
+  font-size: 16px;
+}
+textarea {
+  resize: vertical; 
+}
+
+.product-attributes {
+  margin-top: 15px; 
+}
+
+.add-attribute {
+  display: flex;
+  gap: 5px;
+}
+
+.add-attribute button {
+  background-color: #0f0;
+  color: #222; 
+  border: none; 
+  border-radius: 5px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.add-attribute button:hover {
+  background-color: #7dd134; /* Cambia el color de fondo al pasar el cursor */
+  transform: scale(1.05); /* Aumenta ligeramente el tamaño */
+}

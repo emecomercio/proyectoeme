@@ -12,8 +12,8 @@ $categories = getCategories();
         <a href="#" class="sidebar-item" data-target="product-display">
             <i class="fas fa-shopping-bag"></i>
         </a>
-        <a href="#" class="sidebar-item" data-target="upload_product-display">
-        <i class="fa-solid fa-plus"></i>
+        <a href="#" class="sidebar-item" data-target="upload-product">
+            <i class="fa-solid fa-plus"></i>
         </a>
         <a href="#" class="sidebar-item" data-target="stats-display">
 
@@ -26,7 +26,7 @@ $categories = getCategories();
             <i class="fas fa-cog"></i>
         </a>
     </div>
-    <section class="products-display active" id="product-display">
+    <section class="products-display" id="product-display">
         <h1>Mis productos</h1>
         <div class="product-dashboard">
         </div>
@@ -116,14 +116,14 @@ $categories = getCategories();
 
     </section>
 
-    <section class="stats-display" id="stats-display">
+    <section class="stats-display hidden" id="stats-display">
         <h1>Estadisticas</h1>
         <div class="chart-container">
             <!-- Título y logo -->
             <div class="chart-header">
                 <h2>Ventas hasta la Fecha</h2>
             </div>
-                <canvas id="myChart"></canvas>
+            <canvas id="myChart"></canvas>
             <div class="chart-legend">
                 <div><span class="legend-sales"></span>Ventas a la Fecha</div>
                 <div><span class="legend-goal"></span>Meta</div>
@@ -132,7 +132,7 @@ $categories = getCategories();
         </div>
     </section>
 
-    <section class="settings-display" id="settings">
+    <section class="settings-display hidden" id="settings">
         <h1>Configuraciones</h1>
         <div class="stats-dashboard">
             <div class="container">
@@ -164,7 +164,7 @@ $categories = getCategories();
             </div>
         </div>
     </section>
-    <section class="maps-display" id="maps-display">
+    <section class="maps-display hidden" id="maps-display">
         <h1>Oficinas de Correos en Uruguay</h1>
         <label for="correos-dropdown">Oficinas de Correos</label>
         <select id="correos-dropdown">
@@ -196,22 +196,5 @@ $categories = getCategories();
         </div>
         <div class="correos-dropdown-wrapper">
         </div>
+    </section>
 </div>
-</div>
-</div>
-
-<form action="/api/seller/60/products" id="create-form">
-    <input type="hidden" name="seller-id" value="<?= getUser('id') ?>">
-    <input type="text" name="name" placeholder="Product Name">
-    <input type="text" name="description" placeholder="Product Description">
-    <select name="category-id">
-        <?php foreach (getCategories() as $category): ?>
-            <option value="<?= $category->id ?>"><?= $category->name ?></option>
-        <?php endforeach; ?>
-
-    </select>
-    <button type="submit">Enviar</button>
-</form>
-
-<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap" async defer></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js" async defer></script>

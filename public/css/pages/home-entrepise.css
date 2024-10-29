@@ -1,640 +1,355 @@
+@import url("../components/seller/upload-product.css");
+
 .all-container {
-    gap: 5%;
-    display: flex;
-    align-content: space-between;
+  gap: 5%;
+  display: flex;
+  align-content: space-between;
 }
-    .sidebar {
-      position: relative;
-      top: 0;
-      left: 0;
-      width: 70px;
-      height: 100vh;
-      background-color: #2222;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      box-shadow: 2px 0 5px rgba(0,0,0,0.1);
-    }
-    
-    .sidebar-item {
-      width: 100%;
-      text-align: center;
-      padding: 20px 0;
-      color: #666;
-      transition: background-color 0.3s ease;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    
-    .sidebar-item i {
-      font-size: 20px;
-    }
-    
-    .sidebar-item:hover {
-      background-color: #e0e0e0;
-      cursor: pointer;
-    }
-    
-    .sidebar-item.active {
-      background-color: #d9d9d9;
-      color: #007bff;
-    }
-    
-    .sidebar-item.active i {
-      color: #007bff;
-    }
-    h3{
-        color: black;
-    }
-    h1 {
-        text-align: center;
-        margin-bottom: 20px;
-        font-size: 24px;
-    }
-
-    .product-dashboard {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr); 
-        gap: 20px;
-        width: 100%; 
-        max-width: 1200px; 
-        margin: 0 auto;
-    }
-    
-    .seller-item-card {
-        background-color: white;
-        display: flex;
-        align-items: center;
-        padding: 15px;
-        border: 1px solid #ccc;
-        border-radius: 10px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    
-    .seller-item-card:hover {
-        transform: scale(1.05);
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    }
-    
-    .seller-item-card img {
-        width: 80px;
-        height: 80px;
-        object-fit: cover;
-        border-radius: 8px;
-    }
-    
-    .seller-item-info {
-        flex-grow: 1;
-        padding-left: 15px;
-    }
-    
-    .seller-item-info h3 {
-        margin-bottom: 5px;
-        font-size: 18px;
-    }
-    
-    .seller-item-info p {
-        font-size: 14px;
-        color: #666;
-    }
-    
-    .seller-action-buttons {
-        display: flex;
-        gap: 10px;
-    }
-    
-    .seller-action-buttons button {
-        padding: 8px 12px;
-        background-color: #007bff;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        font-size: 14px;
-        transition: transform 0.3s ease;
-    }
-    
-    .seller-action-buttons button.delete-item {
-        background-color: #dc3545;
-    }
-    
-    .seller-action-buttons button.pause-item {
-        background-color: #ffc107;
-    }
-    
-    /* Efecto hover para escalar los botones */
-    .seller-action-buttons button:hover {
-        transform: scale(1.2);
-    }
-    
-
-.products-display{
-    display: flex;
-    flex-direction: column;
-
-}
-.stats-display{
-    display: flex;
-    flex-direction: column;
-
+.sidebar {
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 70px;
+  height: 100vh;
+  background-color: #2222;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
 }
 
-.all-container section {
-    display: none;
-    }
-
-    .active {
-    display: block !important;
-    }
-
-    .settings-section {
-        background-color: #f9f9f9;
-        border: 1px solid #ddd;
-        padding: 20px;
-        margin-bottom: 20px;
-        border-radius: 8px;
-    }
-    
-    .settings-title {
-        font-size: 24px;
-        font-weight: bold;
-        margin-bottom: 15px;
-        color: #333;
-    }
-    
-    .settings-subtitle {
-        font-size: 20px;
-        font-weight: 600;
-        margin-bottom: 10px;
-        color: #555;
-    }
-    
-    .settings-section form {
-        display: flex;
-        flex-direction: column;
-    }
-    
-    .settings-section label {
-        margin-bottom: 5px;
-        font-weight: 500;
-        color: #000; /* Color negro para las etiquetas */
-    }
-    
-    .settings-section input,
-    .settings-section select,
-    .settings-section textarea {
-        padding: 10px;
-        margin-bottom: 15px;
-        border: 1px solid #ccc;
-        border-radius: 6px;
-        font-size: 16px;
-        width: 100%;
-    }
-    
-    .settings-section textarea {
-        resize: vertical;
-        height: 120px;
-    }
-    
-    .settings-section button {
-        background-color: #007bff;
-        color: #fff;
-        padding: 10px;
-        font-size: 16px;
-        border: none;
-        border-radius: 6px;
-        cursor: pointer;
-        transition: background-color 0.3s;
-    }
-    
-    .settings-section button:hover {
-        background-color: #0056b3;
-    }
-
-    
-
-        .chart-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .chart-header h2 {
-            font-size: 1.5rem;
-            color: #333;
-        }
-      #myChart {
-            width: 800px; /* Ancho personalizado */
-            height: 400px; /* Alto personalizado */
-            max-width: 100%; /* Asegura que sea responsive */
-                }
-
-        .chart-placeholder {
-            width: 100%;
-            height: 300px;
-            background-color: #f4faff;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 1.2rem;
-            color: #999;
-            margin-top: 20px;
-            position: relative;
-        }
-
-        /* Colores de las líneas (simulado) */
-        .line-sales {
-            position: absolute;
-            width: 70%;
-            height: 50px;
-            background: linear-gradient(to right, rgba(0, 99, 255, 0.5) 0%, rgba(0, 99, 255, 0.5) 70%, transparent 70%);
-            top: 40%;
-        }
-
-        .line-goal {
-            position: absolute;
-            width: 75%;
-            height: 10px;
-            background: rgba(77, 175, 124, 0.8);
-            top: 50%;
-        }
-
-        .line-last-year {
-            position: absolute;
-            width: 70%;
-            height: 15px;
-            background: rgba(255, 159, 64, 0.8);
-            top: 60%;
-        }
-
-        /* Leyenda de la gráfica */
-        .chart-legend {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 10px;
-        }
-
-        .chart-legend div {
-            display: flex;
-            align-items: center;
-        }
-
-        .chart-legend span {
-            display: inline-block;
-            width: 15px;
-            height: 15px;
-            margin-right: 5px;
-            border-radius: 3px;
-        }
-
-        .legend-sales {
-            background-color: rgba(0, 99, 255, 0.5);
-        }
-
-        .legend-goal {
-            background-color: rgba(77, 175, 124, 0.8);
-        }
-
-        .legend-last-year {
-            background-color: rgba(255, 159, 64, 0.8);
-        }
-        .graphicseller{
-            width: 100%;
-            height: 100%;
-        }
-
-        .correos-dropdown-wrapper {
-            width: 300px;
-            margin: 20px auto;
-        }
-
-        .maps-display div {
-            display: none;
-        }
-        
-        .maps-display div.active {
-            display: block;
-        }
-
-        label {
-            display: block;
-            font-size: 1.2rem;
-            margin-bottom: 10px;
-            color: #fff;
-            text-align: center;
-        }
-        
-        /* Estilos para el select */
-        #correos-dropdown {
-            width: 100%;
-            max-width: 400px;
-            padding: 12px 16px;
-            font-size: 1rem;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            background-color: #f9f9f9;
-            color: #333;
-            appearance: none; /* Elimina la flecha predeterminada en algunos navegadores */
-            -webkit-appearance: none; /* Safari y Chrome */
-            -moz-appearance: none; /* Firefox */
-            cursor: pointer;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            transition: border-color 0.3s, box-shadow 0.3s;
-            display: block;
-            margin: 0 auto;
-        }
-        
-        #correos-dropdown {
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23333'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 12px center;
-            background-size: 16px;
-        }
-
-        /* seleccionar categoria y descripción */
-        .product-upload-form {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            width: 80vw; /* Cambia esto para ajustar el ancho máximo */
-            margin: 0 auto; /* Centra el formulario en la página */
-        }
-        
-        .section {
-            padding: 20px;
-            border-radius: 8px;
-            width: 100%; /* Ajusta al tamaño del formulario principal */
-            }
-            .section {
-                display: none; /* Oculta todas las secciones */
-            }
-            
-            .section.active {
-                display: block; /* Solo la sección activa será visible */
-            }
-            
-        .product-upload-form select {
-            all: unset;
-            display: block;
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            font-size: 16px;
-            background-color: #fff;
-            color:#000;
-        }
-        
-        textarea {
-            width: 100%; /* O un tamaño específico, por ejemplo 500px */
-            height: 150px; /* Establece una altura fija */
-            max-width: 100%; /* Asegura que no sea más grande del contenedor */
-            max-height: 150px; /* Limita la altura */
-            min-height: 150px; /* Evita que sea más pequeño */
-            resize: none; /* Elimina la posibilidad de redimensionar el campo */
-            padding: 10px; /* Para darle espacio interno */
-            border: 1px solid #ccc; /* Añade un borde */
-            border-radius: 5px; /* Bordes redondeados */
-            box-sizing: border-box; /* Asegura que el padding y border estén dentro del ancho */
-            font-size: 16px; /* Tamaño de fuente para mejor legibilidad */
-            overflow: auto; /* Si el texto es demasiado largo, muestra un scroll interno */
-        }
-        #charCount {
-            text-align: right;
-            font-size: 14px;
-            color: #666;
-            margin-top: 5px;
-        }
-        
-        #charCount.limit-reached {
-            color: red;
-        }
-        
-        .form-buttons {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
-        }
-        
-        button {
-            padding: 10px 20px;
-            background-color: #28a745;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        
-        button.btn-cancel {
-            background-color: #dc3545;
-        }
-        
-        button.btn-next {
-            background-color: #007bff;
-        }
-        
-        button.btn-edit, button.btn-add-variant, button.btn-add-attribute {
-            background-color: #ffc107;
-            margin-left: 10px;
-        }
-        /* termina categoria y descripcion */
-        /* empieza product variant */
-/* Contenedor general de la sección de variantes */
-#add-variants {
-    width: 80vw;
-    border: 2px solid green;
-    border-radius: 10px;
-    padding: 20px;
-    background-color: #111; /* Fondo oscuro */
-    color: #0f0; /* Texto en verde claro */
-    font-family: Arial, sans-serif;
-    margin: 0 auto;
+.sidebar-item {
+  width: 100%;
+  text-align: center;
+  padding: 20px 0;
+  color: #666;
+  transition: background-color 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-/* Encabezado */
-#add-variants h3 {
-    text-align: center;
-    margin-bottom: 20px;
+.sidebar-item i {
+  font-size: 20px;
 }
 
-/* Estilo de cada fila de variante */
-.variant-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
+.sidebar-item:hover {
+  background-color: #e0e0e0;
+  cursor: pointer;
 }
 
-/* Texto de las variantes */
-.variant-row span,
-.variant-price,
-.variant-stock {
-    font-size: 16px;
-    color: #0f0; /* Asegurando que el texto sea verde claro */
+.sidebar-item.active {
+  background-color: #d9d9d9;
+  color: #007bff;
 }
 
-/* Botón de editar */
-.edit-button {
-    background-color: #0f0;
-    border: none;
-    color: #111;
-    padding: 5px 10px;
-    border-radius: 5px;
-    cursor: pointer;
+.sidebar-item.active i {
+  color: #007bff;
+}
+h3 {
+  color: black;
+}
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 24px;
 }
 
-/* Botón para agregar nuevas variantes */
-#add-variant-btn {
-    background-color: #0f0;
-    color: #111;
-    font-size: 24px;
-    border: none;
-    padding: 5px;
-    border-radius: 50%;
-    cursor: pointer;
-    display: block;
-    margin: 10px auto;
+.product-dashboard {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-/* Contenedor de botones al final */
-#add-variants .action-buttons {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
+.seller-item-card {
+  background-color: white;
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Estilos de los botones de cancelar y next */
-#cancel-step-2,
-#next-step-2 {
-    background-color: #222222;
-    border: none;
-    color: #111;
-    padding: 8px 15px;
-    border-radius: 5px;
-    cursor: pointer;
+.seller-item-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
-/* Estilo general del modal */
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro con transparencia */
+.seller-item-card img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
 }
 
-/* Contenido del modal */
-.modal-content {
-    background-color: #111;
-    margin: 10% auto;
-    padding: 20px;
-    border: 2px solid #222222;
-    border-radius: 10px;
-    width: 40vw;
-    color: #222222;
-    text-align: center;
-    max-height: 80vh; /* Limita la altura del modal para que no ocupe toda la pantalla */
-    overflow-y: auto; /* Permite el scroll vertical */
+.seller-item-info {
+  flex-grow: 1;
+  padding-left: 15px;
 }
 
-/* Cerrar el modal */
-.close {
-    color: #0f0;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-    cursor: pointer;
+.seller-item-info h3 {
+  margin-bottom: 5px;
+  font-size: 18px;
 }
 
-.close:hover,
-.close:focus {
-    color: #fff;
+.seller-item-info p {
+  font-size: 14px;
+  color: #666;
 }
 
-label, input, textarea {
-    display: block;
-    width: 100%;
-    margin: 10px 0;
-    padding: 5px;
-    font-size: 16px;
+.seller-action-buttons {
+  display: flex;
+  gap: 10px;
 }
 
-input[type="number"],
-textarea {
-    background-color: #222;
-    color: #0f0;
-    border: 1px solid green;
+.seller-action-buttons button {
+  padding: 8px 12px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: transform 0.3s ease;
 }
 
-#modal-attributes-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 15px;
+.seller-action-buttons button.delete-item {
+  background-color: #dc3545;
 }
 
-.attribute-row {
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
+.seller-action-buttons button.pause-item {
+  background-color: #ffc107;
 }
 
-.attribute-input {
-    width: 48%;
+/* Efecto hover para escalar los botones */
+.seller-action-buttons button:hover {
+  transform: scale(1.2);
 }
 
-#save-modal {
-    background-color: #0f0;
-    color: #111;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-    border-radius: 5px;
-    width: 100px;
-    margin-top: 15px;
+.products-display {
+  display: flex;
+  flex-direction: column;
+}
+.stats-display {
+  display: flex;
+  flex-direction: column;
 }
 
-        /* termina product variant */
-        /* empieza subir datos de la variante */
+.all-container > section.hidden {
+  display: none !important;
+}
 
-        #upload-images {
-            max-width: 600px; /* Ancho máximo del contenedor */
-            margin: 20px auto; /* Centra el contenedor */
-            padding: 20px; /* Espaciado interno */
-            border: 1px solid #ccc; /* Borde gris claro */
-            border-radius: 8px; /* Bordes redondeados */
-            background-color: #222222; /* Fondo claro */
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
-        }
-        
-        h3 {
-            font-size: 1.5em; /* Tamaño de fuente para los encabezados */
-            margin-bottom: 15px; /* Espacio debajo de los encabezados */
-            color: #333; /* Color de texto oscuro */
-        }
-        
-        label {
-            display: block; /* Hace que la etiqueta ocupe todo el ancho */
-            margin-bottom: 8px; /* Espacio debajo de la etiqueta */
-            font-weight: bold; /* Texto en negrita */
-            color: #555; /* Color de texto más claro */
-        }
-        
-        input[type="file"] {
-            display: block; /* Hace que el input ocupe todo el ancho */
-            margin-bottom: 20px; /* Espacio debajo del input */
-            padding: 10px; /* Espaciado interno */
-            border: 1px solid #ccc; /* Borde gris claro */
-            border-radius: 4px; /* Bordes redondeados */
-            width: 100%; /* Ancho completo */
-            font-size: 1em; /* Tamaño de fuente para el input */
-        }
+.settings-section {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+}
 
-        /* termina subir datos de la variante */
+.settings-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.settings-subtitle {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #555;
+}
+
+.settings-section form {
+  display: flex;
+  flex-direction: column;
+}
+
+.settings-section label {
+  margin-bottom: 5px;
+  font-weight: 500;
+  color: #000; /* Color negro para las etiquetas */
+}
+
+.settings-section input,
+.settings-section select,
+.settings-section textarea {
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 16px;
+  width: 100%;
+}
+
+.settings-section textarea {
+  resize: vertical;
+  height: 120px;
+}
+
+.settings-section button {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.settings-section button:hover {
+  background-color: #0056b3;
+}
+
+.chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.chart-header h2 {
+  font-size: 1.5rem;
+  color: #333;
+}
+#myChart {
+  width: 800px; /* Ancho personalizado */
+  height: 400px; /* Alto personalizado */
+  max-width: 100%; /* Asegura que sea responsive */
+}
+
+.chart-placeholder {
+  width: 100%;
+  height: 300px;
+  background-color: #f4faff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2rem;
+  color: #999;
+  margin-top: 20px;
+  position: relative;
+}
+
+/* Colores de las líneas (simulado) */
+.line-sales {
+  position: absolute;
+  width: 70%;
+  height: 50px;
+  background: linear-gradient(
+    to right,
+    rgba(0, 99, 255, 0.5) 0%,
+    rgba(0, 99, 255, 0.5) 70%,
+    transparent 70%
+  );
+  top: 40%;
+}
+
+.line-goal {
+  position: absolute;
+  width: 75%;
+  height: 10px;
+  background: rgba(77, 175, 124, 0.8);
+  top: 50%;
+}
+
+.line-last-year {
+  position: absolute;
+  width: 70%;
+  height: 15px;
+  background: rgba(255, 159, 64, 0.8);
+  top: 60%;
+}
+
+/* Leyenda de la gráfica */
+.chart-legend {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.chart-legend div {
+  display: flex;
+  align-items: center;
+}
+
+.chart-legend span {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  margin-right: 5px;
+  border-radius: 3px;
+}
+
+.legend-sales {
+  background-color: rgba(0, 99, 255, 0.5);
+}
+
+.legend-goal {
+  background-color: rgba(77, 175, 124, 0.8);
+}
+
+.legend-last-year {
+  background-color: rgba(255, 159, 64, 0.8);
+}
+.graphicseller {
+  width: 100%;
+  height: 100%;
+}
+
+.correos-dropdown-wrapper {
+  width: 300px;
+  margin: 20px auto;
+}
+
+.maps-display div {
+  display: none;
+}
+
+.maps-display div.active {
+  display: block;
+}
+/*
+label {
+  display: block;
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  color: #fff;
+  text-align: center;
+}
+*/
+/* Estilos para el select */
+#correos-dropdown {
+  width: 100%;
+  max-width: 400px;
+  padding: 12px 16px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  color: #333;
+  appearance: none; /* Elimina la flecha predeterminada en algunos navegadores */
+  -webkit-appearance: none; /* Safari y Chrome */
+  -moz-appearance: none; /* Firefox */
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: border-color 0.3s, box-shadow 0.3s;
+  display: block;
+  margin: 0 auto;
+}
+
+#correos-dropdown {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23333'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 16px;
+}
