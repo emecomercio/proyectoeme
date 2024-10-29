@@ -1,4 +1,4 @@
-const createProduct = (data) => {
+const uploadProduct = (data) => {
   fetch(`/api/seller/${data["seller-id"]}/products`, {
     method: "POST",
     headers: {
@@ -95,19 +95,6 @@ function createSellerItemCard(product) {
 
   return card;
 }
-/*
-const form = document.querySelector("#create-form");
-form.addEventListener("submit", function (event) {
-  event.preventDefault();
-  const formData = new FormData(this);
-  const data = {};
-  formData.forEach((value, key) => {
-    data[key] = value;
-  });
-  createProduct(data); // Crear el producto y actualizar la lista
-});
-*/
-
 // CAMBIO DE SECCIONES
 let dashboardSections = document.querySelectorAll(".all-container>section");
 let sidebarBtns = document.querySelectorAll(".sidebar-item");
@@ -130,6 +117,7 @@ getProductsBySeller(localStorage.getItem("sellerId"));
 const uploadProductSections = document.querySelectorAll(
   "#upload-product>section"
 );
+const uploadProductSection = document.querySelector("#upload-product");
 let stepCounter = 1;
 const nextButton = document.querySelector(".next-btn");
 const previousButton = document.querySelector(".delete-btn");
@@ -143,9 +131,11 @@ nextButton.addEventListener("click", () => {
         section.classList.add("hidden");
       }
     });
+    startProduct();
     previousButton.textContent = "Atrás";
     previousButton.className = "previous-btn";
     nextButton.textContent = "Crear publicación";
+    uploadProductSection.dataset.step = stepCounter;
   } else {
     alert("creado");
   }
@@ -163,16 +153,16 @@ previousButton.addEventListener("click", () => {
     nextButton.textContent = "Siguiente";
     previousButton.textContent = "Borrar";
     previousButton.className = "delete-btn";
+    uploadProductSection.dataset.step = stepCounter;
   } else {
     alert("borrado");
   }
 });
 
 // SECCION DE ATRIBUTOS
-var productAttributes = [];
+let productAttributes = [];
 const productAttrSection = document.querySelector(".product-attributes");
 const attributesList = document.querySelector(".attributes-list>ul");
-const variantsTable = document.querySelector(".variants-table>tbody");
 function createAtributte(name) {
   const attribute = document.createElement("li");
   const deleteBtn = document.createElement("button");
@@ -199,7 +189,8 @@ function createAtributte(name) {
 const addAttribute = document.querySelector(".add-attribute-btn");
 addAttribute.addEventListener("click", (e) => {
   e.preventDefault();
-  const attributeName = document.querySelector("#attribute-name").value;
+  const attributInput = document.querySelector("#attribute-name");
+  const attributeName = attributInput.value;
   if (!attributeName) {
     alert("Ingrese un nombre de atributo");
     return; //crear un modal de alerta
@@ -209,6 +200,7 @@ addAttribute.addEventListener("click", (e) => {
   if (!attributesList.querySelector(".product-attribute")) {
     const attribute = createAtributte(attributeName);
     attributesList.appendChild(attribute);
+    attributInput.value = "";
     return;
   }
 
@@ -226,10 +218,11 @@ addAttribute.addEventListener("click", (e) => {
   } else {
     const attribute = createAtributte(attributeName);
     attributesList.appendChild(attribute);
+    attributInput.value = "";
   }
 });
 
-var currentVariantRow = 0;
+// CARGA DE VARIANTES
 function createVariantRow() {
   const variant = document.createElement("tr");
   variant.className = "variant-row";
@@ -252,7 +245,7 @@ function createVariantRow() {
   variantPrice.step = "0.01";
   variantPrice.min = "0";
   variantPrice.max = "1000000";
-  variantPrice.value = "0.00";
+  variantPrice.placeholder = "0.00";
   variantPrice.setAttribute("data-variant", currentVariantRow + 1);
   variantPriceCell.appendChild(variantPrice);
 
@@ -263,7 +256,7 @@ function createVariantRow() {
   variantStock.step = "1";
   variantStock.min = "0";
   variantStock.max = "1000000";
-  variantStock.value = "0";
+  variantStock.placeholder = "0";
   variantStock.setAttribute("data-variant", currentVariantRow + 1);
   variantStockCell.appendChild(variantStock);
 
@@ -274,7 +267,14 @@ function createVariantRow() {
   deleteVariantBtn.className = "delete-variant-btn";
   deleteVariantBtn.addEventListener("click", (e) => {
     e.preventDefault();
-    variant.remove(); //agregar logica de la variante
+    if (currentVariantRow == 1) {
+      alert("El producto debe tener al menos una variante");
+      return;
+    }
+    if (!confirm("¿Estás seguro de eliminar esta variante?")) {
+      return;
+    }
+    variant.remove();
     const rows = document.querySelectorAll(".variant-row");
     rows.forEach((row, index) => {
       row.cells[1].textContent = index + 1;
@@ -286,20 +286,21 @@ function createVariantRow() {
         .setAttribute("data-variant", index + 1);
     });
     currentVariantRow--;
+    variants.splice(currentVariantRow, 1);
   });
   const attributesVariantBtn = document.createElement("button");
   attributesVariantBtn.textContent = "Atributos";
   attributesVariantBtn.className = "attributes-variant-btn";
   attributesVariantBtn.addEventListener("click", (e) => {
     e.preventDefault();
-    showAttributesLoader();
+    showAttributesLoader(variantNumberCell.textContent - 1);
   });
   const imagesVariantBtn = document.createElement("button");
   imagesVariantBtn.textContent = "Imágenes";
   imagesVariantBtn.className = "images-variant-btn";
   imagesVariantBtn.addEventListener("click", (e) => {
     e.preventDefault();
-    showImgLoader();
+    showImgLoader(variantNumberCell.textContent - 1);
   });
   variantActions.appendChild(attributesVariantBtn);
   variantActions.appendChild(imagesVariantBtn);
@@ -314,17 +315,8 @@ function createVariantRow() {
   return variant;
 }
 
-const addVariant = document.querySelector(".add-variant-btn");
-addVariant.addEventListener("click", (e) => {
-  e.preventDefault();
-  let variant = createVariantRow();
-  variantsTable.appendChild(variant);
-});
-let variant = createVariantRow();
-variantsTable.appendChild(variant);
-
 // CARGA DE IMAGENES
-function createImgLoader() {
+function createImgLoader(index) {
   // MODAL
   const imgLoader = document.createElement("dialog");
   imgLoader.className = "img-loader";
@@ -371,11 +363,10 @@ function createImgLoader() {
   imgForm.addEventListener("submit", (e) => {
     e.preventDefault();
     if (!imgSelectorInput.files.length) {
-      alert("Por favor, seleccione una imagen"); //hacer un modal
+      alert("Por favor, seleccione una imagen");
       return;
     }
 
-    //logica back
     // tomar la imagen desde  el input files
     const image = imgSelectorInput.files[0];
     const src = URL.createObjectURL(image);
@@ -383,7 +374,11 @@ function createImgLoader() {
 
     imgSelectorLabel.textContent = "Seleccionar imagen";
     imgForm.reset();
-    addVariantImg(src, alt);
+    // let images = lenght de variants[index].images
+    if (variants[index].images.length < 5) {
+      createImage(src, alt);
+      variants[index].images.push({ image, alt });
+    }
   });
 
   const imgGallery = document.createElement("div");
@@ -413,8 +408,8 @@ function createImgLoader() {
   imgLoader.appendChild(imgLoaderBtns);
   return imgLoader;
 }
-
-function addVariantImg(src, alt) {
+let isMain = true;
+function createImage(src, alt) {
   const imgGallery = document.querySelector(".img-gallery");
   const galleryItem = document.createElement("div");
   galleryItem.className = "gallery-item";
@@ -438,29 +433,38 @@ function addVariantImg(src, alt) {
   });
   itemActions.appendChild(deleteBtn);
   itemActions.appendChild(editBtn);
-
   galleryItem.appendChild(galleryImg);
   galleryItem.appendChild(itemActions);
+
+  if (isMain) {
+    const mainItem = document.createElement("div");
+    mainItem.className = "main-item";
+
+    mainItem.appendChild(galleryItem);
+    imgGallery.appendChild(mainItem);
+    isMain = false;
+    return;
+  }
   imgGallery.appendChild(galleryItem);
 }
 
-function showImgLoader() {
+function showImgLoader(index) {
   if (document.querySelector(".img-loader")) {
     document.querySelector(".img-loader").remove();
   }
-  const imgLoader = createImgLoader();
+  const imgLoader = createImgLoader(index);
   document.body.appendChild(imgLoader);
 }
-function showAttributesLoader() {
+function showAttributesLoader(index) {
   if (document.querySelector(".attributes-loader")) {
     document.querySelector(".attributes-loader").remove();
   }
-  const attributesLoader = createAtributtesLoader();
+  const attributesLoader = createAtributtesLoader(index);
   document.body.appendChild(attributesLoader);
 }
 
 // CARGA DE ATRIBUTOS
-function createAtributtesLoader() {
+function createAtributtesLoader(index) {
   // MODAL
   const attributesLoader = document.createElement("dialog");
   attributesLoader.className = "attributes-loader";
@@ -469,11 +473,11 @@ function createAtributtesLoader() {
   attributesLoader.appendChild(attributesLoaderHeader);
 
   // FORM
-
   const attributesForm = document.createElement("form");
   attributesForm.className = "attributes-form";
 
-  productAttributes.forEach((attribute) => {
+  const attributes = variants[index].attributes;
+  Object.keys(attributes).forEach((attribute) => {
     const attributeRow = document.createElement("div");
     attributeRow.className = "attribute-row";
 
@@ -485,7 +489,7 @@ function createAtributtesLoader() {
     attributeInput.type = "text";
     attributeInput.name = attribute;
     attributeInput.id = attribute;
-    attributeInput.placeholder = attribute;
+    attributeInput.value = attributes[attribute] ?? "";
     attributeInput.required = true;
 
     attributeRow.appendChild(attributeLabel);
@@ -505,6 +509,12 @@ function createAtributtesLoader() {
   const acceptBtn = document.createElement("button");
   acceptBtn.textContent = "Aceptar";
   acceptBtn.addEventListener("click", () => {
+    console.log(index);
+    let attributes = {};
+    attributesForm.querySelectorAll("input").forEach((input) => {
+      attributes[input.name] = input.value;
+    });
+    variants[index].attributes = attributes;
     attributesLoader.remove();
   });
   attributesLoaderBtns.appendChild(closeBtn);
@@ -640,3 +650,100 @@ loadChartJS()
   .catch((error) => {
     console.error(error);
   });
+
+// SUBIDA DE PRODUCTOS --> VALUES
+
+function createProduct(name, categoryId, description) {
+  return {
+    sellerId: JSON.parse(localStorage.getItem("user")).id,
+    name: name,
+    categoryId: categoryId,
+    description: description,
+    variants: [],
+  };
+}
+/**
+ * Flag para saber si se está subiendo un producto nuevo o editando uno existente
+ */
+let productStarted = false;
+let product = {};
+
+function startProduct() {
+  const productName = document.querySelector("#product-name").value;
+  const productCategory = document.querySelector("#product-category").value;
+  const productDescription = document.querySelector(
+    "#product-description"
+  ).value;
+
+  if (!productStarted) {
+    productStarted = true;
+    product = createProduct(productName, productCategory, productDescription);
+    console.log(product);
+  } else {
+    //crear modal
+    product.name = productName;
+    product.categoryId = productCategory;
+    product.description = productDescription;
+    console.log(product);
+  }
+  startVariantsLoad();
+}
+
+var variants = [];
+let currentVariantRow = 0;
+let variantsStarted = false;
+function startVariantsLoad() {
+  if (variantsStarted) {
+    productAttributes.forEach((attribute) => {
+      variants.forEach((variant) => {
+        variant.attributes[attribute] =
+          variant.attributes[attribute] != ""
+            ? variant.attributes[attribute]
+            : "";
+      });
+    });
+    return;
+  }
+  const variantsTable = document.querySelector(".variants-table>tbody");
+  const addVariantBtn = document.querySelector(".add-variant-btn");
+  addVariantBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    let [variantRow, variant] = [createVariantRow(), createVariant()];
+    variants.push(variant);
+    variantsTable.appendChild(variantRow);
+  });
+  variantsStarted = true;
+  console.log("primera carga");
+  variants.push(createVariant());
+  variantsTable.appendChild(createVariantRow());
+}
+
+function createVariant() {
+  let attributes = {};
+  productAttributes.forEach((attribute) => {
+    attributes[attribute] = "";
+  });
+  return {
+    price: 0,
+    stock: 0,
+    attributes: attributes,
+    images: [],
+  };
+}
+
+/*
+variants.forEach((variant, index) => {
+  fillVariant(variant, index);
+});
+*/
+function fillVariant(variant, index) {
+  const variantRow = document.querySelector(
+    `.variant-row:nth-child(${index + 1})`
+  );
+  variant.price = parseFloat(
+    variantRow.querySelector(".variant-price>input").value
+  );
+  variant.stock = parseInt(
+    variantRow.querySelector(".variant-stock>input").value
+  );
+}

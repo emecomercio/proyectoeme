@@ -32,14 +32,68 @@ $categories = getCategories();
         </div>
     </section>
 
+    <section id="upload-product" class="hidden" data-step="1">
+        <h1>Crear una nueva publicación</h1>
+        <section class="product-info" data-step="1">
+            <h2>Información general del producto</h2>
+            <form id="product-form">
+                <label for="product-name">Nombre del producto:</label>
+                <input type="text" id="product-name" name="product-name">
+
+                <label for="product-category">Selecciona una categoría:</label>
+                <select name="product-category" id="product-category">
+                    <?php foreach ($categories as $category): ?>
+                        <option value="<?= $category->id ?>"><?= $category->name ?></option>
+                    <?php endforeach; ?>
+                </select>
+
+                <label for="product-description">Descipción del producto:</label>
+                <textarea id="product-description" name="product-description" placeholder="Redacta una descripción detallada de las características del producto..." rows="5" cols="50"></textarea>
+
+                <label for="attribute-name">Atributos del producto:</label>
+                <div class="product-attributes">
+                    <div class="add-attribute">
+                        <input type="text" name="attribute-name" id="attribute-name" placeholder="Nombre del atributo">
+                        <button class="add-attribute-btn">Agregar</button>
+                    </div>
+                    <div class="attributes-list">
+                        <ul>
+                        </ul>
+                    </div>
+            </form>
+        </section>
+        <section class="variants-info hidden" data-step="2">
+            <h2>Variantes del producto</h2>
+            <div class="table-scroll">
+                <table class="variants-table">
+                    <thead>
+                        <th>Imagen</th>
+                        <th>Número</th>
+                        <th>Precio</th>
+                        <th>Stock</th>
+                        <th>Acciones</th>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+            <button class="add-variant-btn">Nueva Variante</button>
+        </section>
+        <div class="upload-product-control">
+            <button class="delete-btn">Borrar</button>
+            <button class="next-btn">Siguiente</button>
+        </div>
+    </section>
+
+    <!--  
     <section class="upload_product-display" id="upload_product-display">
         <h1>Subir producto</h1>
         <form class="product-upload-form">
     <!-- Primera sección: Crear Producto -->
     <div class="section active" id="create-product">
         <div class="product-parent-section">
-                    <label for="parent-product-name">Product Parent Name:</label>
-                    <input type="text" id="parent-product-name" name="parent-product-name" placeholder="Enter parent product name">
+            <label for="parent-product-name">Product Parent Name:</label>
+            <input type="text" id="parent-product-name" name="parent-product-name" placeholder="Enter parent product name">
         </div>
         <label for="category">Select Category</label>
         <select name="category" id="category">
@@ -54,50 +108,50 @@ $categories = getCategories();
             <div id="charCount">0/350</div>
         </div>
         <div class="attributes-section">
-                <h3>Product Attributes</h3>
-                <div id="attributes-container">
-                    <!-- Campos dinámicos para atributos -->
-                    <div class="attribute-row">
-                        <input type="text" name="attribute_name[]" placeholder="Attribute 1" required>
-                    </div>
+            <h3>Product Attributes</h3>
+            <div id="attributes-container">
+                <!-- Campos dinámicos para atributos -->
+                <div class="attribute-row">
+                    <input type="text" name="attribute_name[]" placeholder="Attribute 1" required>
                 </div>
-                <!-- Botón para agregar nuevos atributos -->
-                <button type="button" id="add-attribute" class="add-attribute-button">Add Attribute</button>
             </div>
-                <br>
+            <!-- Botón para agregar nuevos atributos -->
+            <button type="button" id="add-attribute" class="add-attribute-button">Add Attribute</button>
+        </div>
+        <br>
 
         <button type="button" id="cancel-step-1">Cancelar</button>
         <button type="button" id="next-step-1">Next</button>
     </div>
 
     <div class="section" id="add-variants">
-    <h3>Add Variants</h3>
-    <div class="variant-row">
-        <span>Variant</span>
-        <span class="variant-price">--</span>
-        <span class="variant-stock">--</span>
-        <button type="button" class="edit-button" data-variant-id="1">Editar</button>
+        <h3>Add Variants</h3>
+        <div class="variant-row">
+            <span>Variant</span>
+            <span class="variant-price">--</span>
+            <span class="variant-stock">--</span>
+            <button type="button" class="edit-button" data-variant-id="1">Editar</button>
+        </div>
+        <button id="add-variant-btn">+</button>
+        <div class="action-buttons">
+            <button type="button" id="cancel-step-2">Cancelar</button>
+            <button type="button" id="next-step-2">Next</button>
+        </div>
     </div>
-    <button id="add-variant-btn">+</button>
-    <div class="action-buttons">
-        <button type="button" id="cancel-step-2">Cancelar</button>
-        <button type="button" id="next-step-2">Next</button>
-    </div>
-</div>
 
-<!-- Modal para editar -->
-<div id="edit-modal" class="modal">
-    <div class="modal-content">
-        <span class="close">&times;</span>
-        <h3>Edit Variant</h3>
-        <label for="modal-price">Price:</label>
-        <input type="number" id="modal-price" placeholder="Enter price" required>
-        <label for="modal-stock">Stock:</label>
-        <input type="number" id="modal-stock" placeholder="Enter stock" required>
-        <div id="modal-attributes-container"></div>
-        <button type="button" id="save-modal">Save</button>
+    <!-- Modal para editar -->
+    <div id="edit-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3>Edit Variant</h3>
+            <label for="modal-price">Price:</label>
+            <input type="number" id="modal-price" placeholder="Enter price" required>
+            <label for="modal-stock">Stock:</label>
+            <input type="number" id="modal-stock" placeholder="Enter stock" required>
+            <div id="modal-attributes-container"></div>
+            <button type="button" id="save-modal">Save</button>
+        </div>
     </div>
-</div>
 
 
 
@@ -106,13 +160,13 @@ $categories = getCategories();
         <h3>Upload Images</h3>
         <label for="images">Cargar imágenes</label>
         <input type="file" name="images" id="images" multiple>
-        
+
         <h3>Atributos</h3>
         <!-- Aquí van los campos de atributos -->
         <button type="button" id="cancel-step-3">Cancelar</button>
         <button type="submit" id="submit-form">Aceptar</button>
     </div>
-</form>
+    </form>
 
     </section>
 

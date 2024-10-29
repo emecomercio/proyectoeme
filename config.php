@@ -12,6 +12,12 @@ if (!isset($_SESSION['user'])) {
     ]);
 }
 
+if (!file_exists($_ENV["UPLOADS"])) {
+    mkdir($_ENV["UPLOADS"], 0777, true);
+}
+if (!file_exists($_ENV["UPLOADS"] . '/products')) {
+    mkdir(($_ENV["UPLOADS"] . "/products"), 0777, true);
+}
 
 $generate = false;
 
