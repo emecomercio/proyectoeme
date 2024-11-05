@@ -45,3 +45,5 @@ if (logout) {
       });
   });
 }
+
+localStorage.setItem("uploadsDir", "/uploads");
