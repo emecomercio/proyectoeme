@@ -394,7 +394,6 @@ class Model
         if ($placeholders && count($bindings)) {
             $stmt->bind_param($placeholders, ...$bindings);
         }
-        error_log(self::$isClosed);
         $stmt->execute();
         $result = $stmt->get_result();
         $stmt->close();
