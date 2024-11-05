@@ -322,25 +322,32 @@ function loadImages(variant) {
   let images = variant.images;
 
   images.forEach((image) => {
+    let src = image.src.startsWith("http")
+      ? image.src
+      : localStorage.getItem("uploadsDir") + image.src;
+    console.log(src);
     const thumbnail = document.createElement("img");
     thumbnail.classList.add("thumbnail");
 
     if (image != null) {
-      thumbnail.src = image.src;
+      thumbnail.src = src;
       thumbnail.alt = image.alt;
     } else {
       thumbnail.src = "";
       thumbnail.alt = "Product Thumbnail";
     }
     thumbnail.addEventListener("click", () => {
-      mainImage.src = image.src;
+      mainImage.src = src;
       mainImage.alt = image.alt;
     });
     thumbnailsContainer.appendChild(thumbnail);
   });
   const mainImage = document.createElement("img");
   if (images[0] != null) {
-    mainImage.src = images[0].src;
+    mainImage.src = images[0].src.startsWith("http")
+      ? images[0].src
+      : localStorage.getItem("uploadsDir") + images[0].src;
+
     mainImage.alt = images[0].alt;
   } else {
     mainImage.src = "";

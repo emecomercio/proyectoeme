@@ -1,27 +1,4 @@
-const uploadProduct = (data) => {
-  fetch(`/api/seller/${data["seller-id"]}/products`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
-  })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("Error al crear el producto");
-      }
-      return response.json();
-    })
-    .then((responseData) => {
-      console.log(responseData);
-      // Después de crear el producto, vuelve a cargar la lista de productos
-      getProductsBySeller(data["seller-id"]);
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-      alert("Hubo un problema al crear el producto.");
-    });
-};
+import { uploadProduct } from "../components/seller/upload_product.js";
 
 const getProductsBySeller = (sellerId) => {
   fetch(`/api/seller/${sellerId}/products`, {
@@ -137,7 +114,10 @@ nextButton.addEventListener("click", () => {
     nextButton.textContent = "Crear publicación";
     uploadProductSection.dataset.step = stepCounter;
   } else {
-    alert("creado");
+    fillVariants();
+    product.variants = variants;
+    uploadProduct(product);
+    //vaciar todo
   }
 });
 previousButton.addEventListener("click", () => {
@@ -360,6 +340,9 @@ function createImgLoader(index) {
   imgAltInput.placeholder = "Ingrese el texto alternativo";
   imgAltInput.required = true;
 
+  const imgGallery = document.createElement("div");
+  imgGallery.className = "img-gallery";
+
   imgForm.addEventListener("submit", (e) => {
     e.preventDefault();
     if (!imgSelectorInput.files.length) {
@@ -367,22 +350,33 @@ function createImgLoader(index) {
       return;
     }
 
-    // tomar la imagen desde  el input files
-    const image = imgSelectorInput.files[0];
-    const src = URL.createObjectURL(image);
-    const alt = imgAltInput.value;
-
-    imgSelectorLabel.textContent = "Seleccionar imagen";
-    imgForm.reset();
-    // let images = lenght de variants[index].images
     if (variants[index].images.length < 5) {
-      createImage(src, alt);
-      variants[index].images.push({ image, alt });
+      // tomar la imagen desde el input files
+      const file = imgSelectorInput.files[0];
+      const src = URL.createObjectURL(file);
+      const alt = imgAltInput.value;
+
+      createImage(imgGallery, src, alt);
+      variants[index].images.push({ file, alt });
+
+      imgSelectorLabel.textContent = "Seleccionar imagen";
+      imgForm.reset();
+    }
+
+    // Verifica si el límite de imágenes se alcanzó
+    if (variants[index].images.length >= 5) {
+      imgSelectorInput.disabled = true;
+      imgAltInput.disabled = true;
+      imgSubmitBtn.disabled = true;
+      imgSelectorLabel.textContent = "Límite de imágenes alcanzado";
     }
   });
 
-  const imgGallery = document.createElement("div");
-  imgGallery.className = "img-gallery";
+  // Cargar imágenes por defecto de la variante
+  variants[index].images.forEach(({ file, alt }) => {
+    const src = URL.createObjectURL(file); // Usa el URL.createObjectURL para mostrar la imagen
+    createImage(imgGallery, src, alt);
+  });
 
   //  BOTONES
   const imgLoaderBtns = document.createElement("div");
@@ -397,6 +391,7 @@ function createImgLoader(index) {
   acceptBtn.textContent = "Aceptar";
   acceptBtn.addEventListener("click", () => {
     imgLoader.remove();
+    setMainImg(index);
   });
   imgLoaderBtns.appendChild(closeBtn);
   imgLoaderBtns.appendChild(acceptBtn);
@@ -409,8 +404,7 @@ function createImgLoader(index) {
   return imgLoader;
 }
 let isMain = true;
-function createImage(src, alt) {
-  const imgGallery = document.querySelector(".img-gallery");
+function createImage(imgGallery, src, alt) {
   const galleryItem = document.createElement("div");
   galleryItem.className = "gallery-item";
   const galleryImg = document.createElement("img");
@@ -509,7 +503,6 @@ function createAtributtesLoader(index) {
   const acceptBtn = document.createElement("button");
   acceptBtn.textContent = "Aceptar";
   acceptBtn.addEventListener("click", () => {
-    console.log(index);
     let attributes = {};
     attributesForm.querySelectorAll("input").forEach((input) => {
       attributes[input.name] = input.value;
@@ -655,7 +648,6 @@ loadChartJS()
 
 function createProduct(name, categoryId, description) {
   return {
-    sellerId: JSON.parse(localStorage.getItem("user")).id,
     name: name,
     categoryId: categoryId,
     description: description,
@@ -666,7 +658,7 @@ function createProduct(name, categoryId, description) {
  * Flag para saber si se está subiendo un producto nuevo o editando uno existente
  */
 let productStarted = false;
-let product = {};
+var product = {};
 
 function startProduct() {
   const productName = document.querySelector("#product-name").value;
@@ -713,7 +705,6 @@ function startVariantsLoad() {
     variantsTable.appendChild(variantRow);
   });
   variantsStarted = true;
-  console.log("primera carga");
   variants.push(createVariant());
   variantsTable.appendChild(createVariantRow());
 }
@@ -736,14 +727,27 @@ variants.forEach((variant, index) => {
   fillVariant(variant, index);
 });
 */
-function fillVariant(variant, index) {
-  const variantRow = document.querySelector(
-    `.variant-row:nth-child(${index + 1})`
-  );
-  variant.price = parseFloat(
-    variantRow.querySelector(".variant-price>input").value
-  );
-  variant.stock = parseInt(
-    variantRow.querySelector(".variant-stock>input").value
-  );
+function fillVariants() {
+  variants.forEach((variant, index) => {
+    const variantRow = document.querySelector(
+      `.variant-row:nth-child(${index + 1})`
+    );
+    variant.price = parseFloat(
+      variantRow.querySelector(".variant-price>input").value
+    );
+    variant.stock = parseInt(
+      variantRow.querySelector(".variant-stock>input").value
+    );
+  });
+}
+
+function setMainImg(index) {
+  const variantImages = document.querySelectorAll(".variant-image>img");
+  const src = URL.createObjectURL(variants[index].images[0].file);
+
+  variantImages.forEach((img, i) => {
+    if (i === index) {
+      img.src = src;
+    }
+  });
 }
