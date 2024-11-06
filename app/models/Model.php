@@ -25,7 +25,8 @@ use InvalidArgumentException;
  */
 class Model
 {
-    private $conn = null;
+    public static $conn = null;
+    public static $isClosed = false;
     protected $table;
     protected $pk = 'id';
     protected $bindings = [];
@@ -278,14 +279,15 @@ class Model
      *
      * @return void
      */
-    public function __destruct()
-    {
-        // Check if there is an active database connection
-        if ($this->conn) {
-            // Close the database connection
-            $this->conn->close();
-        }
-    }
+    // public function __destruct()
+    // {
+    //     if (self::$conn && !self::$isClosed) {
+    //         if (self::$conn->ping()) {
+    //             self::$conn->close();
+    //             self::$isClosed = true;
+    //         }
+    //     }
+    // }
 
     /**
      * Sets the value of a property dynamically.
@@ -323,20 +325,44 @@ class Model
      */
     private function connect()
     {
-        if (!$this->conn) {
+        if (!self::$conn  || self::$isClosed) {
             try {
                 $host = $_ENV['DB_HOST'];
                 $database = $_ENV['DB_NAME'];
                 $user = $_ENV["DB_USER"];
                 $password = $_ENV["DB_PASSWORD"];
-                $this->conn = new mysqli($host, $user, $password, $database);
-                if ($this->conn->connect_error) {
+                self::$conn = new mysqli($host, $user, $password, $database);
+                if (self::$conn->connect_error) {
                     throw new mysqli_sql_exception("Error connecting to database");
                 }
             } catch (mysqli_sql_exception $e) {
                 error_log($e->getMessage());
                 die('An error occurred while connecting to the database');
             }
+        }
+    }
+
+    public function beginTransaction()
+    {
+        $this->connect();
+        self::$conn->begin_transaction();
+    }
+
+    public  function commit()
+    {
+        self::$conn->commit();
+        if (!self::$isClosed) {
+            self::$conn->close();
+            self::$isClosed = true;
+        }
+    }
+
+    public function rollback()
+    {
+        self::$conn->rollback();
+        if (!self::$isClosed) {
+            self::$conn->close();
+            self::$isClosed = true;
         }
     }
 
@@ -361,9 +387,9 @@ class Model
         if (empty($placeholders) && !empty($bindings)) {
             $placeholders = $this->getBindingsTypes($bindings);
         }
-        $stmt = $this->conn->prepare($sql);
+        $stmt = self::$conn->prepare($sql);
         if (!$stmt) {
-            throw new mysqli_sql_exception("Failed to prepare SQL statement: " . $this->conn->error);
+            throw new mysqli_sql_exception("Failed to prepare SQL statement: " . self::$conn->error);
         }
         if ($placeholders && count($bindings)) {
             $stmt->bind_param($placeholders, ...$bindings);

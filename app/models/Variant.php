@@ -10,7 +10,7 @@ use Attribute;
  * @property int $discount_id
  * @property int $stock
  * @property int $current_price
- * @property int $latest_price
+ * @property int $last_price
  * @property VariantAttribute[] $attributes
  * @property Image[] $images
  */

@@ -97,6 +97,7 @@ class UserController extends Controller
             $dashboard->scripts = [
                 [
                     "src" => "/js/pages/seller_dashboard.js",
+                    "type" => 'module',
                     "defer" => true
                 ],
             ];

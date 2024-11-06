@@ -6,14 +6,14 @@ class ErrorHandler
 {
     public static $isApi;
 
-    public static function handle(callable $callback, string $message = "An error occured")
+    public static function handle(callable $callback)
     {
         try {
             return $callback();
         } catch (\mysqli_sql_exception $e) {
             return static::handleDatabaseError($e);
         } catch (\Exception $e) {
-            return static::handleException($e, $message);
+            return static::handleException($e);
         }
     }
 
@@ -39,10 +39,10 @@ class ErrorHandler
         return static::respondWithError($message, 400);
     }
 
-    protected static function handleException(\Exception $e, string $message = "An error occurred")
+    protected static function handleException(\Exception $e)
     {
         static::logError($e);
-        return static::respondWithError(!empty($e->getMessage()) ? $e->getMessage() : $message, 500);
+        return static::respondWithError(!empty($e->getMessage()) ? $e->getMessage() : "An error occurred.", $e->getCode());
     }
 
     private static function logError(\Exception|\mysqli_sql_exception $e)

@@ -85,6 +85,86 @@ $categories = getCategories();
         </div>
     </section>
 
+    <!--  
+    <section class="upload_product-display" id="upload_product-display">
+        <h1>Subir producto</h1>
+        <form class="product-upload-form">
+            <div class="section active" id="create-product">
+                <div class="product-parent-section">
+                    <label for="parent-product-name">Product Name:</label>
+                    <input type="text" id="parent-product-name" name="parent-product-name" placeholder="Enter product name">
+                </div>
+                <label for="category">Select Category</label>
+                <select name="category" id="category">
+                    <?php foreach ($categories as $category): ?>
+                        <option value="<?= $category->id ?>"><?= $category->name ?></option>
+                    <?php endforeach; ?>
+                </select>
+                <div class="description-section">
+                    <label for="description">Description</label>
+                    <textarea name="description" id="description"></textarea>
+                    <div id="charCount">0/350</div>
+                </div>
+                <div class="attributes-section">
+                    <h3>Product Attributes</h3>
+                    <div id="attributes-container">
+                        <div class="attribute-row">
+                            <input type="text" name="attribute_name" placeholder="Attribute 1" required>
+                        </div>
+                    </div>
+                    <button type="button" id="add-attribute" class="add-attribute-button">Add Attribute</button>
+                </div>
+                <br>
+
+                <button type="button" id="cancel-step-1">Cancelar</button>
+                <button type="button" id="next-step-1">Next</button>
+            </div>
+
+            <div class="section" id="add-variants">
+                <h3>Add Variants</h3>
+                <div class="variant-row">
+                    <span>Variant 1</span>
+                    <span class="variant-price">--</span>
+                    <span class="variant-stock">--</span>
+                    <button type="button" class="edit-button" data-variant-id="1">Editar</button>
+                </div>
+                <button id="add-variant-btn">+</button>
+                <div class="action-buttons">
+                    <button type="button" id="cancel-step-2">Cancelar</button>
+                    <button type="button" id="next-step-2">Next</button>
+                </div>
+            </div>
+
+            <div id="edit-modal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <h3>Edit Variant</h3>
+                    <label for="modal-price">Price:</label>
+                    <input type="number" id="modal-price" placeholder="Enter price" required>
+                    <label for="modal-stock">Stock:</label>
+                    <input type="number" id="modal-stock" placeholder="Enter stock" required>
+                    <label for="modal-description">Description:</label>
+                    <textarea id="modal-description" placeholder="Enter description"></textarea>
+                    <label for="modal-specs">Specifications:</label>
+                    <textarea id="modal-specs" placeholder="Enter specifications"></textarea>
+                    <div id="modal-attributes-container"></div>
+                    <button type="button" id="save-modal">Save</button>
+                </div>
+            </div>
+
+            <div class="section" id="upload-images">
+                <h3>Upload Images</h3>
+                <label for="images">Cargar imágenes</label>
+                <input type="file" name="images" id="images" multiple>
+
+                <h3>Atributos</h3>
+                <button type="button" id="cancel-step-3">Cancelar</button>
+                <button type="submit" id="submit-form">Aceptar</button>
+            </div>
+        </form>
+    </section> 
+    -->
+
     <section class="stats-display hidden" id="stats-display">
         <h1>Estadisticas</h1>
         <div class="chart-container">

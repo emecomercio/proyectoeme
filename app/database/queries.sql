@@ -1,11 +1,32 @@
 USE ecommerce;
-INSERT INTO users (role, username, email, name, password, document_number) VALUES
-('admin', 'Anibalxyz22', 'anibalboggio12.6.200622@gmail.com', 'Anibal Boggio22', '$2y$10$UlzvPXndnzCa73DtSaeQa.ddfcgEeYugh04aFOl2fLnx2zKSLN4F6', '5600400222');
-INSERT INTO buyers (id) VALUES
-(109);
+SELECT
+    c.id AS order_id,
+    c.total_price,
+    c.updated_at AS order_date,
+    cl.quantity,
+    cl.price AS price_at_sale,
+    p.name AS product_name,
+    pv.current_price,
+    u.username AS buyer_username
+FROM
+    carts c
+JOIN
+    cart_lines cl ON c.id = cl.cart_id
+JOIN
+    product_variants pv ON cl.variant_id = pv.id
+JOIN
+    products p ON pv.product_id = p.id
+JOIN
+    users u ON c.user_id = u.id
+WHERE
+    p.seller_id = 66  -- ID del vendedor
+    AND c.status = 1  -- Solo carritos cerrados
+ORDER BY
+    c.updated_at DESC;
 
-SELECT LAST_INSERT_ID() AS last_id;
-DELETE FROM buyers WHERE id = 108;
+INSERT INTO users (id, role, username, email, document_number, name, password) VALUES (114, 'seller', 'Vendedor', 'vendedor@gmail.com', '5642v', 'ElVendedor', '$2y$10$UlzvPXndnzCa73DtSaeQa.ddfcgEeYugh04aFOl2fLnx2zKSLN4F6');
+INSERT INTO sellers (id, description) VALUES (114, 'The best store');
+
 SELECT * FROM users;
 SELECT * FROM buyers;
 SELECT * FROM sellers;
@@ -18,6 +39,9 @@ SELECT * FROM discounts;
 SELECT * FROM catalogs;
 SELECT * FROM products;
 SELECT * FROM product_variants;
+SELECT * FROM variant_attributes;
+SHOW ENGINE INNODB STATUS;
+
 SELECT * FROM variant_attributes;
 -- SELECCIONAR TODOS LOS BUYERS Y TODOS SUS DATOS
 SELECT
