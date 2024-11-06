@@ -1,3 +1,5 @@
+<script src="https://unpkg.com/i18next/i18next.min.js"></script>
+<script src="https://unpkg.com/i18next-http-backend/i18nextHttpBackend.min.js"></script>
 <div class="comment">
     <div class="rating">
         <span class="star filled">★</span>

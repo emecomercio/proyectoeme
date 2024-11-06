@@ -1,224 +1,115 @@
-.contacto {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
+/* Header principal */
+header {
+  background-color: #222;
   padding: 10px;
-  background-color: #1c1c1c;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  width: 100%;
+}
+/* Contenedor principal */
+/* Contenedor principal */
+.main-h {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1024px; /* Mayor tamaño en pantallas grandes */
+  padding: 0 20px; /* Espaciado lateral */
 }
 
-.contactoa {
-  color: white;
-  text-decoration: none;
+
+/* Logo */
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo img {
+  height: 30px;
+}
+
+/* Barra de búsqueda */
+.buscador {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
   margin: 0 10px;
 }
 
-.contactoa:hover {
-  text-decoration: underline;
-}
-
-.LogoEme {
-  height: 40px;
-  width: auto;
-  transition: height 0.3s, width 0.3s;
-}
-
-.LogoEme:hover {
-  scale: 1.2;
-}
-
-.buscador {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative; /* Permite posicionar el botón dentro del input */
-  margin: 10px;
-}
-
 .BarraBusqueda {
-  height: 30px;
-  width: 40vw;
-  background-color: aliceblue;
-  border: 1px solid #ccc;
-  padding-right: 40px;
-  padding-left: 10px;
-  border-radius: 20px;
+  width: 100%;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
 }
 
 .BotonBusqueda {
-  position: absolute;
-  right: 1em; /* Coloca el botón en el extremo derecho del input */
   background: none;
   border: none;
   cursor: pointer;
-  padding: 0;
-  margin: 0;
-  height: 100%; /* Hace que el botón tenga la misma altura que el input */
+}
+
+.BotonBusqueda img {
+  width: 20px;
+}
+
+/* Iconos del menú */
+.iconos {
   display: flex;
   align-items: center;
 }
 
-.LogoBusqueda {
-  width: 20px;
-  height: auto;
-}
-.user-menu:hover {
-  cursor: pointer;
-}
-.iconos {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
+.TextoIcono {
+  text-align: center;
+  font-size: 12px;
+  margin-left: 10px;
 }
 
 .icono {
   width: 20px;
-  height: 20px;
-  cursor: pointer;
-}
-
-.TextoIcono {
-  color: white;
-  text-decoration: none;
-  text-align: center;
-  margin: 0 10px;
-  cursor: pointer;
-}
-/* Dropdown styling */
-.dropdown-content {
-  position: absolute; /* Usar absolute para que se posicione en relación con el contenedor padre */
-  background-color: #ffffff;
-  min-width: 160px;
-  max-width: 200px; /* Limita el ancho */
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-  z-index: 1;
-  margin-top: 10px;
-  padding: 10px;
-  border-radius: 5px;
-  right: 0; /* Asegura que el dropdown no se salga por la derecha */
-  left: auto; /* Deshabilita el left */
-}
-
-.dropdown-categories {
-  position: absolute; /* Usar absolute para que se posicione en relación con el contenedor padre */
-  background-color: #ffffff;
-  min-width: 160px;
-  max-width: 200px; /* Limita el ancho */
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-  z-index: 1;
-  margin-top: 10px;
-  padding: 10px;
-  border-radius: 5px;
-}
-
-.dropdown-categories a {
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
   display: block;
-}
-.dropdown-categories a:hover {
-  background-color: #f1f1f1;
+  margin: 0 auto;
+  padding: 0;
 }
 
-.dropdown-content a {
-  color: black;
-  padding: 12px 16px;
+
+/* Submenú secundario */
+.snd-h {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  max-width: 1024px; /* Aumenta el ancho en pantallas grandes */
+  background-color: #2b2b2b;
+  padding: 5px 0;
+  list-style: none;
+  margin: 0;
+}
+.snd-h > li > a {
+  color: #f8f8f8;
   text-decoration: none;
+  font-size: 14px;
+}
+
+.dropdown-content > a {
+  color: #000000;
+  padding: 8px 16px;
   display: block;
-}
-.dropdown > a {
-  color: rgb(255, 255, 255);
-}
-
-.dropdown-content a:hover {
-  background-color: #f1f1f1;
-}
-
-/* Oculta el menú por defecto */
-#categoriesMenu {
-  display: none;
-  position: absolute;
-  background-color: white;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 10px;
-  border-radius: 4px;
-  z-index: 1000; /* Asegúrate de que esté sobre otros elementos */
-}
-
-/* Cuando la clase "show" está presente, se muestra el menú */
-#categoriesMenu.show {
-  display: block;
-  position: absolute;
-  left: 0;
-  right: 0;
-}
-
-/* Para que los enlaces en el menú tengan un buen estilo */
-#categoriesMenu a {
-  display: block;
-  padding: 8px 12px;
   text-decoration: none;
-  color: black;
 }
 
-#categoriesMenu a:hover {
-  background-color: #f0f0f0;
-}
-
-/* mostrar y ocultar */
-
-.user-data {
-  display: none;
-}
-
-/* mostrar y ocultar */
 @media (max-width: 768px) {
-  .header {
-    flex-direction: column;
+  .main-h, .snd-h {
+      max-width: 480px; /* Reduce el ancho en pantallas pequeñas */
   }
 
-  .buscador {
-    width: 100%;
-    justify-content: space-between;
+  .snd-h li a {
+      font-size: 12px;
   }
 
-  #BarraBusqueda {
-    width: calc(100% - 50px);
-  }
-
-  .iconos {
-    width: 100%;
-    justify-content: space-around;
-  }
-
-  .idiomaclass {
-    width: 100%;
-    justify-content: center;
-  }
-}
-
-@media (max-width: 480px) {
-  .contacto {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .header {
-    text-align: center;
-  }
-
-  .buscador {
-    flex-direction: column;
-  }
-
-  .iconos {
-    flex-direction: column;
-  }
-
-  #BarraBusqueda {
-    width: 80%;
-    margin-bottom: 10px;
+  .TextoIcono {
+      font-size: 10px;
   }
 }

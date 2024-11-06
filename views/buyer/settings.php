@@ -1,3 +1,5 @@
+<script src="https://unpkg.com/i18next/i18next.min.js"></script>
+<script src="https://unpkg.com/i18next-http-backend/i18nextHttpBackend.min.js"></script>
 <div class="container">
     <h1>Configuraciones</h1>
     <div class="settings-section">

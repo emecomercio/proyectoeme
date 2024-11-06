@@ -1,3 +1,5 @@
+<script src="https://unpkg.com/i18next/i18next.min.js"></script>
+<script src="https://unpkg.com/i18next-http-backend/i18nextHttpBackend.min.js"></script>
 <div class="products-container-cards">
     <div class="product-container">
         <h2>Titulo del producto</h2>

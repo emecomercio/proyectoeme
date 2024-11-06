@@ -145,22 +145,19 @@ $categories = getCategories();
                     Contacto <br />
                     Cel: 0965565 <br />
                     Tel: 22099878 <br />
-                    <a class="mailto" href="mailto:emecommerceoficial@gmail.com"> Correo: emecomerciooficial@gmail.com
-                    </a>
                 </p>
             </div>
             <div class="inner-div" id="about-section">
-                Sobre Nosotros <br />
-                - <br />
-                - <br />
-                -
-            </div>
-            <div class="inner-div" id="locales-section">
-                Locales <br />
-                - <br />
-                - <br />
-                -
-            </div>
+    Redes sociales <br />
+    <a href="https://www.instagram.com/eme.o.ficial/" target="_blank" rel="noopener noreferrer" style="color: white;">
+        Síguenos en Instagram
+    </a>
+    <br />
+    <a class="mailto" href="mailto:emecommerceoficial@gmail.com"> Correo: emecomerciooficial@gmail.com
+    </a>
+    <br />
+    - <br />
+</div>
         </div>
         <div class="bottom-div">
             <a class="contactoa" href="/terms-and-conditions" href="#about-section">Terminos y condiciones</a>

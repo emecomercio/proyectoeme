@@ -1,3 +1,5 @@
+<script src="https://unpkg.com/i18next/i18next.min.js"></script>
+<script src="https://unpkg.com/i18next-http-backend/i18nextHttpBackend.min.js"></script>
 <!DOCTYPE html>
 <html lang="en">
 

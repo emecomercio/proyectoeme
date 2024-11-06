@@ -1,3 +1,5 @@
+<script src="https://unpkg.com/i18next/i18next.min.js"></script>
+<script src="https://unpkg.com/i18next-http-backend/i18nextHttpBackend.min.js"></script>y
 <?php
 
 /**
@@ -60,58 +62,6 @@ $categories = getCategories();
                         <ul>
                         </ul>
                     </div>
-            </form>
-        </section>
-        <section class="variants-info hidden" data-step="2">
-            <h2>Variantes del producto</h2>
-            <div class="table-scroll">
-                <table class="variants-table">
-                    <thead>
-                        <th>Imagen</th>
-                        <th>Número</th>
-                        <th>Precio</th>
-                        <th>Stock</th>
-                        <th>Acciones</th>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
-            </div>
-            <button class="add-variant-btn">Nueva Variante</button>
-        </section>
-        <div class="upload-product-control">
-            <button class="delete-btn">Borrar</button>
-            <button class="next-btn">Siguiente</button>
-        </div>
-    </section>
-
-    <!--  
-    <section class="upload_product-display" id="upload_product-display">
-        <h1>Subir producto</h1>
-        <form class="product-upload-form">
-            <div class="section active" id="create-product">
-                <div class="product-parent-section">
-                    <label for="parent-product-name">Product Name:</label>
-                    <input type="text" id="parent-product-name" name="parent-product-name" placeholder="Enter product name">
-                </div>
-                <label for="category">Select Category</label>
-                <select name="category" id="category">
-                    <?php foreach ($categories as $category): ?>
-                        <option value="<?= $category->id ?>"><?= $category->name ?></option>
-                    <?php endforeach; ?>
-                </select>
-                <div class="description-section">
-                    <label for="description">Description</label>
-                    <textarea name="description" id="description"></textarea>
-                    <div id="charCount">0/350</div>
-                </div>
-                <div class="attributes-section">
-                    <h3>Product Attributes</h3>
-                    <div id="attributes-container">
-                        <div class="attribute-row">
-                            <input type="text" name="attribute_name" placeholder="Attribute 1" required>
-                        </div>
-                    </div>
                     <button type="button" id="add-attribute" class="add-attribute-button">Add Attribute</button>
                 </div>
                 <br>
@@ -163,7 +113,30 @@ $categories = getCategories();
             </div>
         </form>
     </section> 
-    -->
+            </form>
+        </section>
+        <section class="variants-info hidden" data-step="2">
+            <h2>Variantes del producto</h2>
+            <div class="table-scroll">
+                <table class="variants-table">
+                    <thead>
+                        <th>Imagen</th>
+                        <th>Número</th>
+                        <th>Precio</th>
+                        <th>Stock</th>
+                        <th>Acciones</th>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+            <button class="add-variant-btn">Nueva Variante</button>
+        </section>
+        <div class="upload-product-control">
+            <button class="delete-btn">Borrar</button>
+            <button class="next-btn">Siguiente</button>
+        </div>
+    </section>
 
     <section class="stats-display hidden" id="stats-display">
         <h1>Estadisticas</h1>

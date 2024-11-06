@@ -1,3 +1,5 @@
+<script src="https://unpkg.com/i18next/i18next.min.js"></script>
+<script src="https://unpkg.com/i18next-http-backend/i18nextHttpBackend.min.js"></script>
 <form class="auth-form" method="post">
     <h1>Registrarse</h1>
     <input type="hidden" id="role" name="role" value="buyer">

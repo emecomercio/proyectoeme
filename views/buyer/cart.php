@@ -1,3 +1,5 @@
+<script src="https://unpkg.com/i18next/i18next.min.js"></script>
+<script src="https://unpkg.com/i18next-http-backend/i18nextHttpBackend.min.js"></script>
 <h1>TU CARRITO</h1>
 <div class="cart-component-container">
     <div class="cart-container">
