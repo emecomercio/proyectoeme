@@ -1,3 +1,6 @@
+<script src="https://unpkg.com/i18next/i18next.min.js"></script>
+<script src="https://unpkg.com/i18next-http-backend/i18nextHttpBackend.min.js"></script> 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/6.4.4/css/flag-icons.min.css">
 <?php
 
 /**
@@ -47,123 +50,116 @@ $categories = getCategories();
 </head>
 
 <body>
-    <header>
-        <div class="main-h">
-            <div class="logo">
-                <a href="<?= getLogoHref() ?>">
-                    <img class="LogoEme" src="<?= asset("/img/icons/logo.png") ?>" alt="logo de la empresa" />
-                </a>
-            </div>
-            <div class="buscador">
-                <input type="search" placeholder="Buscar" class="BarraBusqueda" />
-                <button type="button" class="BotonBusqueda">
-                    <img class="LogoBusqueda" src="<?= asset("/img/icons/lupa_icono_negro.png") ?>" alt="Buscar" />
-                </button>
-            </div>
-            <nav class="iconos">
+<header>
+    <div class="main-h">
+        <div class="logo">
+            <a href="<?= getLogoHref() ?>">
+                <img class="LogoEme" src="<?= asset("/img/icons/logo.png") ?>" alt="logo de la empresa" />
+            </a>
+        </div>
+        <div class="language-toggle">
+            <span class="fi fi-us flag" id="flag-1"></span>
+            <span class="fi fi-es flag" id="flag-2"></span>
+        </div>
 
-                <div class="TextoIcono" id="user-menu">
-                    <img src="<?= asset("/img/icons/usuario_icono.png") ?>" class="icono" alt="Usuario" />
-                    <br /><?= getUser('name') ?? "Usuario" ?>
-                    <div class="dropdown-content" style="display: none;">
-                        <?php if (getUser('role') == 'guest') : ?>
-                            <div class="register-login" id="register-login">
-                                <a href="/register/buyer">Registrarse</a>
-                                <a href="/login">Ingresar</a>
-                            </div>
-                        <?php elseif (getUser('role') == 'buyer' || getUser('role') == 'seller'): ?>
-                            <div class="user-data" id="user-dropdown" style="display: block;">
-                                <a href="/settings">Configuracion</a>
-                                <a id="logout-btn">Cerrar sesión</a>
-                            </div>
-                        <?php endif; ?>
+        <div class="buscador">
+            <input type="search" placeholder="Buscar" class="BarraBusqueda" data-translate="searchPlaceholder" />
+            <button type="button" class="BotonBusqueda">
+                <img class="LogoBusqueda" src="<?= asset("/img/icons/lupa_icono_negro.png") ?>" alt="Buscar" />
+            </button>
+        </div>
+        <nav class="iconos">
 
-                    </div>
-                </div>
-                <?php if (getUser('role') === 'buyer'): ?>
-
-                    <div class=" TextoIcono" id="cart-menu">
-                        <img src="<?= asset("/img/icons/carrito_icono.png") ?>" class="icono" alt="Usuario" />
-                        <br />Carrito
-                        <div class="dropdown-content" style="display: none;">
-                            <a href="/cart">Carrito</a>
+            <div class="TextoIcono" id="user-menu">
+                <img src="<?= asset("/img/icons/usuario_icono.png") ?>" class="icono" alt="Usuario" />
+                <br /><span data-translate="userLabel"><?= getUser('name') ?? "Usuario" ?></span>
+                <div class="dropdown-content" id="user-dropdown-content" style="display: none;">
+                    <?php if (getUser('role') == 'guest') : ?>
+                        <div class="register-login" id="register-login">
+                            <a href="/register/buyer" data-translate="register">Registrarse</a>
+                            <a href="/login" data-translate="login">Ingresar</a>
                         </div>
-                    </div>
-                <?php else: ?>
-                    <div hidden class=" TextoIcono" id="cart-menu">
-                        <img src="<?= asset("/img/icons/carrito_icono.png") ?>" class="icono" alt="Usuario" />
-                        <br />Carrito
-                        <div class="dropdown-content" style="display: none;">
-                            <a href="/cart">Carrito</a>
+                    <?php elseif (getUser('role') == 'buyer' || getUser('role') == 'seller'): ?>
+                        <div class="user-data" id="user-dropdown" style="display: block;">
+                            <a href="/settings" data-translate="settings">Configuracion</a>
+                            <a id="logout-btn" data-translate="logout">Cerrar sesión</a>
                         </div>
                     <?php endif; ?>
-            </nav>
-        </div>
-        <ul class="snd-h">
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle" id="categoriesDropdown">Categorias</a>
-                <div class="dropdown-content" id="categoriesMenu">
-                    <?php foreach ($categories as $category): ?>
-                        <a href="/category/<?= $category->id ?>"><?= $category->name ?></a>
-                    <?php endforeach; ?>
                 </div>
-            </li>
-            <li class="dropdown"><a href="#">Ofertas</a></li>
-            <li class="dropdown"><a href="#">Cupones</a></li>
-            <li class="dropdown">
+            </div>
+            <?php if (getUser('role') === 'buyer'): ?>
+                <div class="TextoIcono" id="cart-menu">
+                    <img src="<?= asset("/img/icons/carrito_icono.png") ?>" class="icono" alt="Usuario" />
+                    <br /><span data-translate="cartLabel">Carrito</span>
+                    <div class="dropdown-content" id="Cart-text-content" style="display: none;">
+                        <a href="/cart" data-translate="cart">Carrito</a>
+                    </div>
+                </div>
+            <?php else: ?>
+                <div hidden class="TextoIcono" id="cart-menu">
+                    <img src="<?= asset("/img/icons/carrito_icono.png") ?>" class="icono" alt="Usuario" />
+                    <br /><span data-translate="cartLabel">Carrito</span>
+                    <div class="dropdown-content" style="display: none;">
+                        <a href="/cart" data-translate="cart">Carrito</a>
+                    </div>
+            <?php endif; ?>
+        </nav>
+    </div>
+    <ul class="snd-h">
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" id="categoriesDropdown" data-translate="categories">Categorias</a>
+            <div class="dropdown-content" id="categoriesMenu">
+                <?php foreach ($categories as $category): ?>
+                    <a href="/category/<?= $category->id ?>"><?= $category->name ?></a>
+                <?php endforeach; ?>
+            </div>
+        </li>
+        <li class="dropdown"><a href="#" data-translate="offers">Ofertas</a></li>
+        <li class="dropdown"><a href="#" data-translate="coupons">Cupones</a></li>
+        <li class="dropdown"><a href="#" data-translate="help">Ayuda</a></li>
+    </ul>
+    <?php
+    function getLogoHref()
+    {
+        if (getUser('role') == 'seller') {
+            echo '/dashboard';
+        } else if (getUser('role') === 'buyer' ||  getUser('role') === 'guest') {
 
-                <?php if (getUser('role') === 'seller'): ?>
-                    <a href="#"></a>
-                <?php else: ?>
-                    <a href="#">Próximas ofertas</a>
-                <?php endif; ?>
-            </li>
-
-            <li class="dropdown"><a href="#">Ayuda</a></li>
-        </ul>
-        <?php
-        function getLogoHref()
-        {
-            if (getUser('role') == 'seller') {
-                echo '/dashboard';
-            } else if (getUser('role') === 'buyer' ||  getUser('role') === 'guest') {
-
-                echo '/';
-            }
+            echo '/';
         }
-        ?>
-    </header>
+    }
+    ?>
+</header>
 
     <main>
         <?= $content ?>
     </main>
 
     <footer class="footer">
-        <div class="top-container">
-            <div class="inner-div" id="contact-section">
-                <p>
-                    Contacto <br />
-                    Cel: 0965565 <br />
-                    Tel: 22099878 <br />
-                </p>
-            </div>
-            <div class="inner-div" id="about-section">
-    Redes sociales <br />
-    <a href="https://www.instagram.com/eme.o.ficial/" target="_blank" rel="noopener noreferrer" style="color: white;">
-        Síguenos en Instagram
-    </a>
-    <br />
-    <a class="mailto" href="mailto:emecommerceoficial@gmail.com"> Correo: emecomerciooficial@gmail.com
-    </a>
-    <br />
-    - <br />
-</div>
+    <div class="top-container">
+        <div class="inner-div" id="contact-section">
+            <p>
+                <span data-translate="contact">Contacto</span> <br />
+                <span data-translate="phone">Cel:</span> 0965565 <br />
+                <span data-translate="telephone">Tel:</span> 22099878 <br />
+            </p>
         </div>
-        <div class="bottom-div">
-            <a class="contactoa" href="/terms-and-conditions" href="#about-section">Terminos y condiciones</a>
-            <p>@ TODOS LOS DERECHOS RESERVADOS EME COMERCIO</p>
+        <div class="inner-div" id="about-section">
+            <span data-translate="socialMedia">Redes sociales</span> <br />
+            <a href="https://www.instagram.com/eme.o.ficial/" target="_blank" rel="noopener noreferrer" style="color: white;" data-translate="followInstagram">
+                Síguenos en Instagram
+            </a>
+            <br />
+            <a class="mailto" href="mailto:emecommerceoficial@gmail.com" data-translate="email">Correo: emecomerciooficial@gmail.com</a>
+            <br />
+            - <br />
         </div>
-    </footer>
+    </div>
+    <div class="bottom-div">
+        <a class="contactoa" href="/terms-and-conditions" href="#about-section" data-translate="terms">Términos y condiciones</a>
+        <p data-translate="rights">© TODOS LOS DERECHOS RESERVADOS EME COMERCIO</p>
+    </div>
+</footer>
 </body>
 
 </html>

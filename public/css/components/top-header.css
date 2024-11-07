@@ -93,12 +93,70 @@ header {
   font-size: 14px;
 }
 
+/* Asegúrate de que el contenedor sea relativo */
+#user-menu {
+  position: relative;
+}
+
+/* Ajuste del menú desplegable */
+#user-dropdown-content {
+  position: absolute;
+  top: 100%; /* Justo debajo del ícono de usuario */
+  right: 0; /* Alineado al borde derecho del contenedor */
+  background-color: #f9f9f9;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  display: none; /* Oculto por defecto */
+}
+
+/* Mostrar el menú al pasar el ratón */
+#user-menu:hover .dropdown-content {
+  display: block;
+}
+
 .dropdown-content > a {
   color: #000000;
   padding: 8px 16px;
   display: block;
   text-decoration: none;
 }
+
+.language-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  width: 50px;
+  height: 24px;
+  overflow: hidden;
+}
+
+.flag {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  transition: transform 0.3s ease-in-out;
+}
+
+/* Posición inicial: Bandera de EE.UU. visible y bandera de España oculta a la derecha */
+#flag-1 {
+  transform: translateX(0);
+}
+
+#flag-2 {
+  transform: translateX(100%);
+}
+
+/* Cuando se activa la clase toggle: Bandera de EE.UU. sale hacia la izquierda y bandera de España entra desde la derecha */
+.language-toggle.toggle #flag-1 {
+  transform: translateX(-100%);
+}
+
+.language-toggle.toggle #flag-2 {
+  transform: translateX(0);
+}
+
 
 @media (max-width: 768px) {
   .main-h, .snd-h {
