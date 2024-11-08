@@ -1,0 +1,27 @@
+.cart-main.default {
+  flex-direction: row;
+}
+
+.cart-icon {
+  object-fit: contain;
+  width: 8rem;
+}
+
+.info-container {
+  display: flex;
+  flex-direction: column;
+  margin-left: 1.5rem;
+  width: 100%;
+}
+
+.cart-subtitle.default {
+  text-align: start;
+}
+
+.discover-products-btn {
+  height: max-content;
+  font-size: 1.1rem;
+  padding: 0.2rem 0.4rem;
+  align-self: flex-end;
+  margin-top: auto;
+}

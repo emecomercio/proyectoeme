@@ -1,2 +1,71 @@
-@import url("../components/cart.css");
 @import url("../components/recommended.css");
+@import url("../components/cart-table.css");
+@import url("../components/cart-order-summary.css");
+@import url("../components/cart-defaults.css");
+
+.cart-title {
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.cart-subtitle {
+  text-align: center;
+}
+
+.cart-container {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  width: 70%;
+  margin: auto;
+  gap: 5rem;
+
+  > * {
+    background-color: #3f3f3f;
+    border-radius: 5px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  @media (max-width: 1440px) {
+    width: 75%;
+  }
+
+  @media (max-width: 1024px) {
+    width: 80%;
+  }
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+
+  @media (max-width: 480px) {
+    width: 90%;
+  }
+}
+
+.payment-options {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.option {
+  text-align: center;
+  max-width: 30%;
+}
+
+.more-info {
+  display: inline-block;
+  margin-top: 10px;
+  font-size: 0.9rem;
+  color: #007bff;
+  text-decoration: none;
+}
+
+.more-info:hover {
+  text-decoration: underline;
+}

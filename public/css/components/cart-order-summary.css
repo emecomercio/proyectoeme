@@ -1,0 +1,45 @@
+.order-summary {
+  position: relative;
+}
+
+.order-title {
+  text-align: center;
+}
+
+.summary-line {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.order-summary .summary-line:nth-last-child(3) {
+  border-bottom: 1px solid #171717;
+  padding-bottom: 1rem;
+  margin-bottom: 5rem;
+}
+
+.summary-line-value:has(button) {
+  display: flex;
+  justify-content: end;
+}
+
+.shipping-btn {
+  min-width: max-content;
+
+  @media (max-width: 1024px) {
+    min-width: auto;
+    max-width: 70%;
+  }
+
+  @media (max-width: 768px) {
+    min-width: max-content;
+    max-width: auto;
+  }
+}
+
+.finish-order-btn {
+  align-self: flex-end;
+  margin-top: auto;
+  width: 30%;
+  min-width: max-content;
+}
