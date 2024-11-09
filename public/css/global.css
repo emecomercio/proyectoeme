@@ -29,6 +29,11 @@ html {
   @media (max-width: 480px) {
     font-size: 14px;
   }
+
+  /* Mobile M*/
+  @media (max-width: 320px) {
+    font-size: 13px;
+  }
 }
 
 *,
