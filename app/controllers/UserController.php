@@ -71,7 +71,7 @@ class UserController extends Controller
             $cart->scripts = [
                 [
                     "type" => "",
-                    "src" => "/js/components/cart_products.js",
+                    "src" => "/js/pages/cart.js",
                     "defer" => true
 
                 ]
