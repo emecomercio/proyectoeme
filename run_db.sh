@@ -27,11 +27,19 @@ echo "--------------------------------"
 echo -e "\033[32mSQL scripts executed successfully\033[0m"
 echo "--------------------------------"
 
-read -p "¿Desea ejecutar el script PHP para datos de prueba? (1 para sí, cualquier otro valor para no): " respuesta
+while true; do
+  read -p "¿Desea ejecutar el script PHP para datos de prueba? (s para sí, n para no): " respuesta
 
-if [ "$respuesta" -eq 1 ]; then
-  echo ""
-  echo -e "\033[32mExecuting PHP script for test data\033[0m"
-  echo "------------------------------------------"
-  php -d max_execution_time=0 $SQL_SCRIPTS_PATH/test_data.php
-fi
+  if [ "$respuesta" = "s" ]; then
+    echo ""
+    echo -e "\033[32mExecuting PHP script for test data\033[0m"
+    echo "------------------------------------------"
+    php -d max_execution_time=0 "$SQL_SCRIPTS_PATH/test_data.php"
+    break
+  elif [ "$respuesta" = "n" ]; then
+    break
+  else
+    continue
+  fi
+done
+
