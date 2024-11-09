@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function() {
       
       // Verifica el idioma actual y cambia al opuesto
       const currentLanguage = i18next.language;
-      const newLanguage = currentLanguage === 'es' ? 'en' : 'es';
+      const newLanguage = currentLanguage === 'en' ? 'es' : 'en';
 
       // Cambia el idioma en i18next y guarda en localStorage
       i18next.changeLanguage(newLanguage, (err, t) => {
