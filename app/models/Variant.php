@@ -21,9 +21,9 @@ class Variant extends Model
     public $id;
     public $product_id;
     public $discount_id;
-    public $stock;
-    public $current_price;
-    public $last_price;
+    public int $stock;
+    public int $current_price;
+    public int $last_price;
     public $attributes = [];
     public $images = [];
 
@@ -45,5 +45,16 @@ class Variant extends Model
     public function  getImages($fetchToObj = true)
     {
         return $this->hasMany(Image::class,  'variant_id', ['src', 'alt'], $fetchToObj);
+    }
+
+    public function getIndex()
+    {
+        $parentProduct = $this->getProduct();
+        $variants = $parentProduct->getVariants();
+        foreach ($variants as $index => $variant) {
+            if ($variant->id == $this->id) {
+                return $index;
+            }
+        }
     }
 }

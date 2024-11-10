@@ -30,11 +30,7 @@ class Cart extends  Model
 
     public function fillLines()
     {
-        $lines = $this->getLines();
-
-        foreach ($lines as $line) {
-            $this->setLine($line);
-        }
+        $this->lines = $this->getLines();
     }
 
     public function setLine(array|CartLine $data)

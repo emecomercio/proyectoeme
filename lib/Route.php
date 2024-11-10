@@ -25,6 +25,17 @@ class Route
         self::$routes['POST'][$uri] = ['callback' => $callback, 'middleware' => $middleware];
     }
 
+    public static function put($uri, $callback, $middleware = [])
+    {
+        $uri = trim($uri, '/');
+        self::$routes['PUT'][$uri] = ['callback' => $callback, 'middleware' => $middleware];
+    }
+    public static function delete($uri, $callback, $middleware = [])
+    {
+        $uri = trim($uri, '/');
+        self::$routes['DELETE'][$uri] = ['callback' => $callback, 'middleware' => $middleware];
+    }
+
     public static function dispatch()
     {
         $uri = trim($_SERVER['REQUEST_URI'], '/');

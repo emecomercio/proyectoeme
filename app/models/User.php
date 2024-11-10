@@ -85,7 +85,7 @@ class User extends Model
         $cartModel = new Cart();
         $cart =  $cartModel->where('user_id', '=', $this->id)->andWhere('status', '=', 0)->get();
 
-        if ($cart[0]) {
+        if (isset($cart[0])) {
             $cart[0]->fillLines();
             return  $cart[0];
         }

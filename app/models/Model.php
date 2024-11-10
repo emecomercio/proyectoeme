@@ -104,13 +104,13 @@ class Model
 
             $image = new Image([
                 'variant_id' => $variant->id,
-                'src' => "/uploads/dev/celular/{$index}_v1.jpg",
+                'src' => "/dev/celular/{$index}_v1.jpg",
                 'alt' => 'Alternative Text',
             ]);
             $image->save();
             $image = new Image([
                 'variant_id' => $variant->id,
-                'src' => "/uploads/dev/celular/{$index}_v2.jpg",
+                'src' => "/dev/celular/{$index}_v2.jpg",
                 'alt' => 'Alternative Text',
             ]);
             $image->save();
@@ -901,10 +901,10 @@ class Model
      * @throws mysqli_sql_exception If a database-related exception occurs.
      * @throws Exception For any other general exceptions.
      */
-    protected function hardDelete($id)
+    public function delete($id = null)
     {
         $sql = "DELETE FROM $this->table WHERE id = ?";
-        return $this->query($sql, [$id]);
+        return $this->query($sql, [$id == null ? $this->{$this->pk} : $id]);
     }
 
     // RELATIONSHIP METHODS

@@ -7,9 +7,9 @@ $dotenv = Dotenv\Dotenv::createImmutable('../');
 $dotenv->load();
 
 if (!isset($_SESSION['user'])) {
-    $_SESSION['user'] = json_encode([
+    $_SESSION['user'] = [
         "role"  => $_ENV["DB_ENV"] == 'dev' ? 'admin' : 'guest',
-    ]);
+    ];
 }
 
 if (!file_exists($_ENV["UPLOADS"])) {

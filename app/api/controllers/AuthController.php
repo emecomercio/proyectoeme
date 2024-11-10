@@ -3,8 +3,8 @@
 namespace App\Api\Controllers;
 
 use App\Models\User;
-use Error;
 use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
 
 class AuthController extends Controller
 {
@@ -12,7 +12,6 @@ class AuthController extends Controller
 
     public function __construct()
     {
-        parent::__construct();
         $this->userModel = new User();
     }
 
@@ -24,18 +23,18 @@ class AuthController extends Controller
         $user = $this->userModel->authenticate($data['email'], $data['password']);
 
         if (!$user) {
-            $this->respondWithError('Credenciales incorrectas', 401);
+            throw new \Exception('Credenciales incorrectas', 401);
         }
 
         $this->generateToken($user);
 
-        $_SESSION['user'] = json_encode([
+        $_SESSION['user'] = [
             'id' => $user->id,
             'role' =>  $user->role,
             'name' => $user->name,
             'email' => $user->email,
             'username' => $user->username
-        ]);
+        ];
 
         $this->respondWithSuccess(['user' =>  $user]);
     }
@@ -71,7 +70,45 @@ class AuthController extends Controller
 
         if (!empty($missingFields)) {
             $msg = 'The following fields are required: ' . implode(', ', $missingFields);
-            $this->respondWithError($msg, 400);
+            throw new \Exception($msg, 400);
+        }
+    }
+
+    private function generateToken(User $user)
+    {
+        // Asegúrate de que la clave secreta esté definida
+        if (empty($_ENV["JWT_SECRET"])) {
+            throw new \Exception("La clave secreta no está definida");
+        }
+
+        $payload = [
+            'user_id' => $user->id,
+            'user_name' => $user->name,
+            'user_role' => $user->role,
+            'iat' => time(), // Timestamp de creación
+            'exp' => time() + 60 * 60 * 24 * 7 // Expira en 7 días
+        ];
+
+        $token = JWT::encode($payload, $_ENV["JWT_SECRET"], 'HS256');
+
+        setcookie('jwt', $token, [
+            'expires' => time() + 60 * 60 * 24 * 7,
+            'path' => '/',
+            'domain' =>  $_ENV["DOMAIN"],
+            'secure' => $_ENV["DB_ENV"] === 'prod',
+            'httponly' => true,
+            'samesite' => 'Strict'
+        ]);
+
+        return $token;
+    }
+
+    public static function getToken()
+    {
+        if (isset($_COOKIE['jwt'])) {
+            return JWT::decode($_COOKIE['jwt'], new Key($_ENV['JWT_SECRET'], 'HS256'));
+        } else {
+            throw new \Exception("There is no JWT token");
         }
     }
 }

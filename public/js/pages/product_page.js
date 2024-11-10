@@ -1,7 +1,7 @@
 // AGREGAR AL CARRITO
 async function getCart() {
   try {
-    const response = await fetch("/api/carts");
+    const response = await fetch("/api/carts/current");
 
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
@@ -24,7 +24,7 @@ async function getCart() {
 async function addToCart(product) {
   let cart = await getCart();
   if (cart) {
-    fetch(`/api/carts/${cart.id}/lines`, {
+    fetch(`/api/carts/current/lines`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -47,6 +47,7 @@ var path = window.location.pathname;
 var segments = path.split("/");
 var productId = segments[2];
 var variantNumber = segments[3];
+// Esto habria que hacerlo con fetch
 var currentVariant = product.variants[variantNumber];
 
 const addBtn = document.querySelector("#add-to-cart-button");
@@ -325,7 +326,6 @@ function loadImages(variant) {
     let src = image.src.startsWith("http")
       ? image.src
       : localStorage.getItem("uploadsDir") + image.src;
-    console.log(src);
     const thumbnail = document.createElement("img");
     thumbnail.classList.add("thumbnail");
 

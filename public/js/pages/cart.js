@@ -1,15 +1,108 @@
+async function getSellerById(id) {
+  return fetch(`/api/sellers/${id}`)
+    .then((response) => response.json())
+    .then((result) => result.data);
+}
+
+async function getProductByLine(line) {
+  const response = await fetch(`/api/variants/${line.variant_id}`);
+  const result = await response.json();
+
+  let variant = result.data.variant;
+  let parent = result.data.parent;
+  let index = result.data.variantIndex;
+  let sellerName = (await getSellerById(parent.seller_id)).name;
+
+  return {
+    id: variant.id,
+    parentId: parent.id,
+    index: index,
+    name: parent.name,
+    lastPrice: variant.last_price,
+    currentPrice: variant.current_price,
+    quantity: line.quantity,
+    stock: variant.stock,
+    sellerName: sellerName,
+    lineId: line.id,
+    image: {
+      src: variant.images[0].src,
+      alt: variant.images[0].alt,
+    },
+  };
+}
+
+// TEMPORALMENTE ES VAR
+var products = [];
+
+/*
+[
+  {
+    id: 1,
+    name: "Product 1",
+    lastPrice: 16,
+    currentPrice: 11,
+    quantity: 1,
+    stock: 10,
+    sellerName: "Seller 1",
+    image: {
+      src: "https://picsum.photos/200/200",
+      alt: "Product 1 image",
+    },
+  },
+  {
+    id: 2,
+    name: "Product 2",
+    lastPrice: 24,
+    currentPrice: 16,
+    quantity: 2,
+    stock: 15,
+    sellerName: "Seller 1",
+    image: {
+      src: "https://picsum.photos/200/200",
+      alt: "Product 2 image",
+    },
+  },
+]
+*/
+async function getCartProducts() {
+  const response = await fetch("/api/carts/current");
+  const result = await response.json();
+  let cart = result.data.cart;
+
+  for (const line of cart.lines) {
+    const product = await getProductByLine(line);
+    products.push(product);
+  }
+
+  const cartContainer = document.querySelector(".cart-container");
+  if (products.length != 0) {
+    renderCart(cartContainer);
+    renderSummary(cartContainer, products);
+  } else {
+    renderDefaultCart(cartContainer);
+    renderDefaultSummary(cartContainer);
+  }
+}
+
 const cartTable = document.querySelector(".cart-table");
 
 function createCartLine(product = {}) {
   const cartLine = document.createElement("tr");
   cartLine.className = "cart-line";
-  cartLine.dataset.id = product.id;
+  cartLine.dataset.productId = product.id;
+  cartLine.dataset.id = product.lineId;
 
   const lineImg = document.createElement("td");
   lineImg.className = "line-img";
   const productImage = document.createElement("img");
-  productImage.src = product.image.src;
+  productImage.src = product.image.src.startsWith("http")
+    ? product.image.src
+    : localStorage.getItem("uploadsDir") + product.image.src;
+
   productImage.alt = product.image.alt;
+  productImage.onclick = () => {
+    window.location.href = `/product-page/${product.parentId}/${product.index}`;
+  };
   lineImg.appendChild(productImage);
 
   const lineInfo = document.createElement("td");
@@ -76,15 +169,13 @@ function createCartLine(product = {}) {
   discountContainer.className = "discount-container";
   const discountSpan = document.createElement("span");
   discountSpan.className = "product-discount";
-  discountSpan.textContent = `-${(
-    (1 - product.currentPrice / product.lastPrice) *
-    100
-  ).toFixed(2)}%`;
+  let discount = calculateDiscount(product.lastPrice, product.currentPrice);
+  discountSpan.textContent = discount == null ? "" : `-${discount}%`;
 
   discountContainer.appendChild(discountSpan);
   const lastPriceSpan = document.createElement("span");
   lastPriceSpan.className = "last-price";
-  lastPriceSpan.textContent = `$${product.lastPrice.toFixed(2)}`;
+  lastPriceSpan.textContent = discount == null ? "" : product.lastPrice;
   discountContainer.appendChild(lastPriceSpan);
 
   const currentPriceSpan = document.createElement("span");
@@ -107,7 +198,7 @@ function updateQuantity(productId, isSum) {
 
   if (product) {
     const quantityInput = document.querySelector(
-      `.cart-line[data-id="${productId}"] .quantity-input`
+      `.cart-line[data-product-id="${productId}"] .quantity-input`
     );
     let quantityValue = parseInt(quantityInput.textContent);
 
@@ -120,6 +211,7 @@ function updateQuantity(productId, isSum) {
     }
 
     quantityInput.textContent = quantityValue;
+    renderSummary(document.querySelector(".cart-container"));
   }
 }
 
@@ -131,58 +223,26 @@ function deleteProduct(productId, cartLine) {
 
   if (productIndex !== -1) {
     products.splice(productIndex, 1);
-    cartLine.remove();
-  }
-}
-
-// TEMPORALMENTE ES VAR
-var products = [
-  {
-    id: 1,
-    name: "Product 1",
-    lastPrice: 16,
-    currentPrice: 11,
-    quantity: 1,
-    stock: 10,
-    sellerName: "Seller 1",
-    image: {
-      src: "https://picsum.photos/200/200",
-      alt: "Product 1 image",
-    },
-  },
-  {
-    id: 2,
-    name: "Product 2",
-    lastPrice: 24,
-    currentPrice: 16,
-    quantity: 2,
-    stock: 15,
-    sellerName: "Seller 1",
-    image: {
-      src: "https://picsum.photos/200/200",
-      alt: "Product 2 image",
-    },
-  },
-];
-products = [];
-function getCartProducts() {
-  const cartContainer = document.querySelector(".cart-container");
-  if (products.length != 0) {
-    renderCart(cartContainer);
-    renderSummary(cartContainer, products);
-  } else {
-    renderDefaultCart(cartContainer);
-    renderDefaultSummary(cartContainer);
-  }
-  return;
-  // obtener los productos del carrito con fetch
-  fetch("/api/cart....")
-    .then((response) => response.json())
-    .then((data) => {
-      products = data;
-      renderCart();
+    fetch(`/api/carts/current/lines/${cartLine.dataset.id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
     })
-    .catch((error) => console.error("Error:", error));
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        cartLine.remove();
+        if (products.length === 0) {
+          document.querySelector(".cart-main").remove();
+          document.querySelector(".order-summary").remove();
+          getCartProducts();
+        } else {
+          renderSummary(document.querySelector(".cart-container"));
+        }
+      })
+      .catch((error) => console.error(error));
+  }
 }
 
 function renderCart(cartContainer) {
@@ -220,11 +280,23 @@ function renderSummary(cartContainer) {
     discounts: 0,
   };
   products.forEach((product) => {
-    summary.subtotal += product.currentPrice;
-    summary.discounts += product.lastPrice - product.currentPrice;
+    let discount = calculateDiscount(product.lastPrice, product.currentPrice);
+    summary.subtotal +=
+      discount == null
+        ? product.currentPrice * product.quantity
+        : product.lastPrice * product.quantity;
+    summary.discounts +=
+      discount == null
+        ? 0
+        : product.lastPrice * product.quantity -
+          product.currentPrice * product.quantity;
   });
   summary.subtotal = summary.subtotal.toFixed(2);
   summary.discounts = summary.discounts.toFixed(2);
+
+  if (document.querySelector(".order-summary")) {
+    document.querySelector(".order-summary").remove();
+  }
 
   const orderSummary = document.createElement("div");
   orderSummary.className = "order-summary";
@@ -339,7 +411,26 @@ function renderDefaultSummary(cartContainer) {
 }
 
 function finishOrder() {
-  alert("Pedido Realizado (dev)");
+  fetch("/api/carts", {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((response) => response.json())
+    .then((result) => {
+      // Vaciar o recargar todo el frontend y abrir el modal o vista del pago
+      console.log(result);
+    })
+    .catch((error) => console.error("Error:", error));
+}
+
+function calculateDiscount(lastPrice, currentPrice) {
+  if (lastPrice <= currentPrice) return null;
+
+  let discount = (1 - currentPrice / lastPrice) * 100;
+
+  return discount.toFixed(2);
 }
 
 getCartProducts();

@@ -8,6 +8,13 @@ use App\Models\Variant;
 
 class VariantController extends Controller
 {
+    private $variantModel;
+
+    public function __construct()
+    {
+        $this->variantModel = new Variant();
+    }
+
     public function create(array $variant, $variantIndex, $productId)
     {
         $variantModel = new Variant();
@@ -50,5 +57,14 @@ class VariantController extends Controller
         $createdVariant->attributes = $createdAttributes;
         $createdVariant->images = $createdImages;
         return $variant;
+    }
+
+    public function find(int $id)
+    {
+        $variant = $this->variantModel->find($id);
+        $variant->images = $variant->getImages();
+        $parent = $variant->getProduct();
+
+        $this->respondWithSuccess(["variant" => $variant, "parent" => $parent, "variantIndex" => $variant->getIndex()]);
     }
 }

@@ -14,19 +14,20 @@ class CartController extends Controller
 
     public function __construct()
     {
-        parent::__construct();
         $this->cartModel = new Cart();
         $this->lineModel = new CartLine();
         $this->userModel = new User();
     }
 
-    public  function index()
+    public  function getCurrentCart()
     {
-        $data = $this->verifyToken();
+        $jwt = AuthController::getToken();
 
-        $user = $this->userModel->find($data->user_id);
+        $user = $this->userModel->find($jwt->user_id);
 
         $cart = $user->getCurrentCart();
+
+        $cart->lines = $cart->getLines();
 
         $this->respondWithSuccess(['cart' => $cart]);
     }
@@ -34,9 +35,9 @@ class CartController extends Controller
     public function addLine()
     {
         $productData = $this->getInput();
-        $token = $this->verifyToken();
+        $jwt = AuthController::getToken();
 
-        $user = $this->userModel->find($token->user_id);
+        $user = $this->userModel->find($jwt->user_id);
         $cart = $user->getCurrentCart();
 
         $variant = $productData['variant'];
@@ -52,10 +53,38 @@ class CartController extends Controller
         ];
         $line =  new CartLine($result);
         $result = $line->save();
-        // $cart->setLine($line);
-        // $result = $cart->save();
 
         $this->respondWithSuccess($result);
+    }
+
+    public function deleteLine(int $id)
+    {
+        $jwt = AuthController::getToken();
+
+        $user = $this->userModel->find($jwt->user_id);
+        $userCart = $user->getCurrentCart();
+        $line = $this->lineModel->find($id);
+        $lineCart = $line->getCart();
+
+        if ($lineCart->id !== $userCart->id) {
+            throw new \Exception('You are not allowed to delete this line', 403);
+        }
+
+        $line->delete();
+
+
+        $this->respondWithSuccess($id);
+    }
+
+    public function closeCart()
+    {
+        $jwt = AuthController::getToken();
+
+        //Validaciones necesarias
+
+        // Setear current cart en 1
+
+        $this->respondWithSuccess($jwt);
     }
 
     public function create()

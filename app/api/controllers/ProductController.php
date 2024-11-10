@@ -12,7 +12,7 @@ class ProductController extends Controller
     public function create()
     {
         $product = $_POST;
-        $user = $this->verifyToken();
+        $jwt = AuthController::getToken();
 
         if (empty($product)) {
             throw new Exception('Product data is empty', 400);
@@ -33,7 +33,7 @@ class ProductController extends Controller
         }
 
         $sellerModel = new Seller();
-        $seller = $sellerModel->find($user->user_id);
+        $seller = $sellerModel->find($jwt->user_id);
         if (!$seller) {
             throw new Exception('Seller not found', 404);
         }
@@ -51,7 +51,7 @@ class ProductController extends Controller
                 'name' => $product['name'],
                 'description' => $product['description'],
                 'category_id' =>  $categoryId,
-                'seller_id' => $user->user_id,
+                'seller_id' => $jwt->user_id,
             ]);
             $variantController = new VariantController();
             foreach ($product['variants'] as $variantIndex => $variant) {
