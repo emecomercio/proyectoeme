@@ -1,10 +1,3 @@
-<?php
-$categories = getCategories();
-/**
- * @var App\Models\Category [] $categories
- */
-?>
-
 <!DOCTYPE html>
 <html lang="es">
 
@@ -112,17 +105,6 @@ $categories = getCategories();
 
             <li class="dropdown"><a href="#">Ayuda</a></li>
         </ul>
-        <?php
-        function getLogoHref()
-        {
-            if (getUser('role') == 'seller') {
-                echo '/dashboard';
-            } else if (getUser('role') === 'buyer' ||  getUser('role') === 'guest') {
-
-                echo '/';
-            }
-        }
-        ?>
     </header>
 
     <main>

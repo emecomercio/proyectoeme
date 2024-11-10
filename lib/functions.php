@@ -40,8 +40,8 @@ function getUser($key = '')
         return null;
     }
 
-    $user = json_decode($_SESSION['user']);
-    return !empty($key) ? ($user->$key ?? null) : $user;
+    $user = $_SESSION['user'];
+    return !empty($key) ? ($user[$key] ?? null) : $user;
 }
 
 
@@ -70,4 +70,23 @@ function bcrypt($password)
 {
     $hash =  password_hash($password, PASSWORD_DEFAULT);
     return $hash;
+}
+
+
+function getLogoHref()
+{
+    if (getUser('role') == 'seller') {
+        echo '/dashboard';
+    } else if (getUser('role') === 'buyer' ||  getUser('role') === 'guest') {
+
+        echo '/';
+    }
+}
+function getCarouselHref()
+{
+    if (getUser('role') == 'guest') {
+        return "/img/Carrousel/Unete_ahora.png";
+    } else if (getUser('role') === 'buyer') {
+        return "/img/Carrousel/nuevas_modas.webp";
+    }
 }
