@@ -1,6 +1,4 @@
-<?php render("feedback/alert-cookie");
-dd(getUser(), true);
-?>
+<?php render("feedback/alert-cookie"); ?>
 <div class="carousel">
     <div class="carousel-inner">
         <div class="carousel-item">
