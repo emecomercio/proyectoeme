@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/6.4.4/css/flag-icons.min.css">
     <link rel="stylesheet" href="<?= asset('/css/global.css') ?>">
 
-    <?php if ($styles) : ?>
+    <?php if (isset($styles)) : ?>
         <?php foreach ($styles as  $style) : ?>
             <link rel="stylesheet" href="<?= asset($style) ?>">
         <?php endforeach; ?>
@@ -38,5 +38,5 @@
     }
     ?>
 
-    <title><?= $title . " | EME Comercio" ?></title>
+    <title><?= isset($title) ? $title : "Default" . " | EME Comercio" ?></title>
 </head>

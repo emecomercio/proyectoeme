@@ -39,10 +39,7 @@ Route::get('/register',   function () {
     redirect("/register/buyer");
 });
 
-Route::get('/login',   function () {
-    $userController = new UserController();
-    return $userController->showLoginForm();
-});
+Route::get('/login',  [UserController::class, 'showLoginForm']);
 
 
 // SELLER

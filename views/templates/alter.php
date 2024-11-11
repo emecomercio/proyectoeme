@@ -8,7 +8,7 @@ $categories = getCategories();
 <!DOCTYPE html>
 <html lang="es">
 
-<?php render('templates/components/head') ?>
+<?php render('templates/components/head', ["styles" => $this->styles, "scripts" => $this->scripts, "title" => $title]); ?>
 
 <body>
     <header>
