@@ -23,7 +23,7 @@ class User extends Model
     public string $document_number;
     public string $name;
     public string $password;
-    public bool $active = 1;
+    public bool $active = true;
 
     /**
      * @param boolean $state

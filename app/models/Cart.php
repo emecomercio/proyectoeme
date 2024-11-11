@@ -13,7 +13,7 @@ class Cart extends  Model
     public int|null $id;
     public int $user_id;
     public float $total_price = 0;
-    public bool $status = 0;
+    public bool $status = false;
     public array $lines = [];
 
     public function getLines()

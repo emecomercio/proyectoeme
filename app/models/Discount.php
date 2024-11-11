@@ -10,8 +10,8 @@ class Discount extends Model
     public string $name;
     public string $start_date;
     public string $end_date;
-    public bool $active = 1;
-    public bool $type = 0;
+    public bool $active = true;
+    public bool $type = false;
     public int $value;
     public int|null $max;
 
