@@ -90,17 +90,26 @@ class UserController extends Controller
             $dashboard->data = [
                 "title" => "Dashboard",
             ];
-            $dashboard->styles = [
-                "/css/pages/dashboard.css",
-                "/css/pages/home-entrepise.css"
-            ];
-            $dashboard->scripts = [
-                [
-                    "src" => "/js/pages/seller_dashboard.js",
-                    "type" => 'module',
-                    "defer" => true
-                ],
-            ];
+
+            $styles = getUser('role') == 'seller'
+                ? [
+                    "/css/pages/dashboard.css",
+                    "/css/pages/home-entrepise.css"
+                ]
+                : [];
+            $scripts = getUser('role') == 'seller'
+                ? [
+                    [
+                        "src" => "/js/pages/seller_dashboard.js",
+                        "type" => 'module',
+                        "defer" => true
+                    ],
+                ]
+                : [
+                    []
+                ];
+            $dashboard->styles = $styles;
+            $dashboard->scripts = $scripts;
             $dashboard->render();
         };
         getUser('role') == 'guest'
