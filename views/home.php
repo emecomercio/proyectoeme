@@ -171,7 +171,7 @@
                 <a href="#" class="promo-btn" data-translate="see-more">Ver más</a>
             </div>
             <div class="promo-image-section">
-                <img src="https://via.placeholder.com/150" alt="Sillas y sillones">
+                <img src="   " alt="Sillas y sillones">
             </div>
         </div>
     </div>

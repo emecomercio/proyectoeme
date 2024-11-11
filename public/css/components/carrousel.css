@@ -4,7 +4,7 @@
   margin: 0 auto;
   overflow: hidden;
   border-radius: 8px;
-  height: 520px; /* Fija la altura del carrusel, puedes ajustar este valor */
+  height: 520px; /* Altura del carrusel en pantallas grandes */
 }
 
 .carousel-inner {
@@ -12,6 +12,7 @@
   transition: transform 0.3s ease-in-out;
   height: 100%;
 }
+
 .carousel-item {
   flex: 0 0 100%;
 }
@@ -45,4 +46,21 @@
     rgb(255, 255, 255) 70%,
     transparent 100%
   );
+}
+
+/* Media query para pantallas pequeñas */
+@media (max-width: 600px) {
+  .carousel {
+    height: 200px; /* Reduce la altura del carrusel en pantallas móviles */
+  }
+
+  .carousel-control {
+    font-size: 14px; /* Reduce el tamaño de los controles en pantallas móviles */
+    padding: 5px 10px;
+  }
+
+  .carousel-item img {
+    height: auto; /* Ajusta la altura automática para mantener la proporción de la imagen */
+    max-height: 200px; /* Limita la altura máxima de la imagen en móviles */
+  }
 }

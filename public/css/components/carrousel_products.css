@@ -50,41 +50,42 @@
   display: flex;
   transition: transform 0.3s ease-in-out;
 }
-
 .product-card {
-  height: 300px;
-  min-width: 200px;
-  max-width: 200px;
-  margin-right: 15px;
+  height: auto; 
+  flex: 1 1 45%;
+  margin: 1%; 
   text-align: center;
   background-color: #ffffff;
-  border-radius: 8px;
-  padding: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 1em; 
+  padding: 1em; 
+  box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.1); 
+  box-sizing: border-box; 
 }
 
 .product-card img {
-  height: auto;
-  width: 100%;
-  border-radius: 8px;
+  height: 150px; /* Altura fija para las imágenes */
+  width: 150px;
+  border-radius: 1em; /* Redondeo relativo */
+  object-fit: cover; /* Ajusta la imagen para cubrir el contenedor manteniendo el aspecto */
 }
 
 .product-title {
-  font-size: 14px;
+  font-size: 1rem; /* 1 rem equivale al tamaño de fuente base del documento */
   color: #333;
-  margin-top: 10px;
+  margin-top: 0.5em; /* Espacio relativo */
 }
 
 .product-price {
-  font-size: 12px;
+  font-size: 0.875rem; /* 0.875 rem es un tamaño adecuado para el precio */
   color: #999;
 }
 
 .shipment {
-  font-size: 16px;
+  font-size: 1rem; /* Mantiene el tamaño de texto relativo */
   color: #28a745;
   font-weight: bold;
 }
+
 
 .carousel_control_product {
   position: absolute;
@@ -174,61 +175,57 @@
   font-size: 24px;
 }
 
-.promo-card-section {
-  display: flex;
-  justify-content: space-between;
-  padding: 20px;
-  background-color: #222222;
-}
-
 .promo-item {
+  display: flex;
+  flex-direction: row; /* En pantalla normal, los elementos están en fila */
   background-color: white;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  display: flex;
-  width: 48%;
+  width: 100%;
   overflow: hidden;
+  margin: 1em 0; /* Espacio entre carteles */
 }
 
+/* Contenedor de la descripción del cartel */
 .promo-description {
-  padding: 20px;
+  flex: 1;
+  padding: 2em;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  flex-basis: 50%;
+  background-color: #222;
+  color: white;
 }
 
-.promo-heading {
-  color: #999;
-  font-size: 12px;
-  text-transform: uppercase;
-  margin-bottom: 10px;
+/* Títulos y botón dentro de la descripción */
+.promo-heading, .promo-main-title, .promo-btn {
+  margin: 0.5em 0;
 }
 
+/* Título principal del cartel */
 .promo-main-title {
-  font-size: 20px;
-  margin-bottom: 15px;
+  font-size: 1.5em;
   font-weight: bold;
-  color: #333;
 }
 
+/* Botón de "Ver más" */
 .promo-btn {
   background-color: #007bff;
   color: white;
-  padding: 10px 15px;
+  padding: 0.5em 1em;
   text-decoration: none;
   border-radius: 5px;
-  display: inline-block;
-  margin-top: auto;
+  align-self: flex-start; /* Alinea el botón a la izquierda */
+  margin-top: auto; /* Empuja el botón al final de la descripción */
 }
 
 .promo-btn:hover {
   background-color: #0056b3;
 }
 
+/* Contenedor de la imagen del cartel */
 .promo-image-section {
-  position: relative;
-  flex-basis: 50%;
+  flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -237,11 +234,182 @@
 
 .promo-image-section img {
   max-width: 100%;
+  height: auto;
   border-radius: 8px;
 }
+@media (max-width: 768px) {
+  .presentation {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    margin: auto;
+    width: 100%; /* Usamos todo el ancho disponible */
+    margin-top: -4em;
+  }
 
-.promo-heart {
-  font-size: 18px;
-  margin-left: 5px;
-  color: red;
+  .presentation > .carousel-container {
+    margin: 20px 0;
+  }
+
+  .carousel-container {
+    width: 100%;
+    height: auto;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .carousel-header {
+    font-size: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .carousel-header h2 {
+    font-size: 12px;
+    color: #333;
+  }
+
+  .carousel-header a {
+    color: #007bff;
+    text-decoration: none;
+  }
+
+  .carousel {
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+  }
+
+  .carousel-track {
+    display: flex;
+    transition: transform 0.3s ease-in-out;
+    justify-content: space-between; /* Asegura que haya espacio entre los productos */
+  }
+
+  /* Reducir tamaño de las tarjetas y ajustarlas para dos en dos */
+  .product-card {
+    flex: 1 1 100%; /* Ocupa el 100% del ancho disponible en pantallas pequeñas */
+    margin: 0.5em 0; /* Espacio entre las tarjetas */
+    padding: 2em; /* Aumenta el padding relativo */
+  }
+
+  .product-card img {
+    height: 90px; /* Altura fija para las imágenes */
+    width: 90px;
+    border-radius: 1em; /* Redondeo relativo */
+    object-fit: cover; /* Ajusta la imagen para cubrir el contenedor manteniendo el aspecto */
+  }
+  
+
+  .product-title {
+    font-size: 1.1rem; /* Aumenta un poco el tamaño del título */
+  }
+
+  .product-price {
+    font-size: 0.9rem; /* Ajuste en tamaño para pantallas pequeñas */
+  }
+
+  .shipment {
+    font-size: 1.1rem; /* Ajuste en tamaño */
+  }
+
+  .carousel_control_product {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 50%;
+    z-index: 1;
+    transition: background-color 0.3s ease;
+  }
+
+  .carousel_control_product:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+
+  .carousel_control_product.prev {
+    left: 10px;
+  }
+
+  .carousel_control_product.next {
+    right: 10px;
+  }
+
+  .carousel_control_product:focus {
+    outline: none;
+  }
+
+  /* Ajuste para las categorías y otros elementos */
+  .container_category {
+    background-color: #222222;
+    border-radius: 8px;
+    padding: 20px;
+    max-width: 100%; /* Asegura que ocupe todo el ancho en pantallas pequeñas */
+    margin: 0 auto;
+  }
+
+  /* Cambiar grid para 2 categorías por fila y evitar desbordamiento */
+  .categories_category {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 categorías por fila */
+    gap: 10px; /* Reducir el espacio entre categorías */
+    width: 100%; /* Aseguramos que el contenedor ocupe todo el ancho disponible */
+    overflow: hidden; /* Evitar desplazamiento horizontal */
+  }
+
+  .category {
+    display: flex;
+    align-items: center;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+    justify-content: center; /* Centrar contenido */
+    flex-direction: column;
+  }
+
+  .category img {
+    width: 50px; /* Ajuste al tamaño de la imagen */
+    height: 50px;
+    margin-bottom: 10px; /* Añadir espacio entre la imagen y el texto */
+    object-fit: contain;
+  }
+
+  .category span {
+    color: #000000;
+    font-size: 12px; /* Ajuste en el tamaño del texto */
+  }
+
+  .promo-item {
+    flex-direction: column-reverse; /* En pantallas pequeñas, los elementos están en columna */
+  }
+
+  .promo-image-section, .promo-description {
+    width: 100%;
+  }
+
+  .promo-description {
+    padding: 1em; /* Ajusta el padding para pantallas pequeñas */
+  }
+
+  .promo-main-title {
+    font-size: 1.25em; /* Ajuste del tamaño de fuente para pantallas pequeñas */
+  }
+
+  .promo-btn {
+    align-self: center; /* Centra el botón en pantallas pequeñas */
+    margin-top: 1em; /* Añade un margen superior en pantallas pequeñas */
+  }
 }

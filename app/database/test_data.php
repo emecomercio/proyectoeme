@@ -41,7 +41,7 @@ set_time_limit(0);  // Sin límite de tiempo
 ini_set('memory_limit', '-1');  // Sin límite de memoria
 
 $faker = Faker::create(); // Crea una instancia de Faker
-$pdo = new PDO('mysql:host=' . $_ENV['DB_HOST'] . ';dbname=' . $_ENV['DB_NAME'], 'root', $_ENV['DB_ROOT']); // Configura la conexión PDO
+$pdo = new PDO('mysql:host=' . $_ENV['DB_HOST'] . ';dbname=' . $_ENV['DB_NAME'], $_ENV['DB_ROOT']); // Configura la conexión PDO
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 // Insertar datos en la tabla users

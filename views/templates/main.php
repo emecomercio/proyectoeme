@@ -5,7 +5,6 @@
  */
 $categories = getCategories();
 ?>
-
 <!DOCTYPE html>
 <html lang="es">
 

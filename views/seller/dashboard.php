@@ -1,3 +1,6 @@
+
+<script src="https://unpkg.com/i18next/i18next.min.js"></script>
+<script src="https://unpkg.com/i18next-http-backend/i18nextHttpBackend.min.js"></script>
 <?php
 
 /**
@@ -27,64 +30,67 @@ $categories = getCategories();
         </a>
     </div>
     <section class="products-display" id="product-display">
-        <h1>Mis productos</h1>
-        <div class="product-dashboard">
-        </div>
-    </section>
+    <h1>Mis productos</h1>
+    <div class="product-dashboard">
+    </div>
+</section>
 
-    <section id="upload-product" class="hidden">
-        <h1>Crear una nueva publicación</h1>
-        <section class="product-info" data-step="1">
-            <h2>Información general del producto</h2>
-            <form id="product-form">
-                <label for="product-name">Nombre del producto:</label>
-                <input type="text" id="product-name" name="product-name">
+<section id="upload-product" class="hidden">
+    <h1>Crear una nueva publicación</h1>
+    <section class="product-info" data-step="1">
+        <h2>Información general del producto</h2>
+        <form id="product-form">
+            <label for="product-name">Nombre del producto:</label>
+            <input type="text" id="product-name" name="product-name">
 
-                <label for="product-category">Selecciona una categoría:</label>
-                <select name="product-category" id="product-category">
-                    <?php foreach ($categories as $category): ?>
-                        <option value="<?= $category->id ?>"><?= $category->name ?></option>
-                    <?php endforeach; ?>
-                </select>
+            <label for="product-category">Selecciona una categoría:</label>
+            <select name="product-category" id="product-category">
+                <?php foreach ($categories as $category): ?>
+                    <option value="<?= $category->id ?>"><?= $category->name ?></option>
+                <?php endforeach; ?>
+            </select>
 
-                <label for="product-description">Descipción del producto:</label>
-                <textarea id="product-description" name="product-description" placeholder="Redacta una descripción detallada de las características del producto..." rows="5" cols="50"></textarea>
+            <label for="product-description">Descripción del producto:</label>
+            <textarea id="product-description" name="product-description" placeholder="Redacta una descripción detallada de las características del producto..." rows="5" cols="50"></textarea>
 
-                <label for="attribute-name">Atributos del producto:</label>
-                <div class="product-attributes">
-                    <div class="add-attribute">
-                        <input type="text" name="attribute-name" id="attribute-name" placeholder="Nombre del atributo">
-                        <button class="add-attribute-btn">Agregar</button>
-                    </div>
-                    <div class="attributes-list">
-                        <ul>
-                        </ul>
-                    </div>
+
+            <label for="attribute-name">Atributos del producto:</label>
+            <div class="product-attributes">
+                <div class="add-attribute">
+                    <input type="text" name="attribute-name" id="attribute-name" placeholder="Nombre del atributo">
+                    <button class="add-attribute-btn">Agregar</button>
                 </div>
-            </form>
-        </section>
-        <section class="variants-info hidden" data-step="2">
-            <h2>Variantes del producto</h2>
-            <div class="table-scroll">
-                <table class="variants-table">
-                    <thead>
-                        <th>Imagen</th>
-                        <th>Número</th>
-                        <th>Precio</th>
-                        <th>Stock</th>
-                        <th>Acciones</th>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
+                <div class="attributes-list">
+                    <ul></ul>
+                </div>
             </div>
-            <button class="add-variant-btn">Nueva Variante</button>
-        </section>
-        <div class="upload-product-control">
-            <button class="delete-btn">Borrar</button>
-            <button class="next-btn">Siguiente</button>
-        </div>
+
+            <br>
+        </form>
     </section>
+
+    <section class="variants-info hidden" data-step="2">
+        <h2>Variantes del producto</h2>
+        <div class="table-scroll">
+            <table class="variants-table">
+                <thead>
+                    <th>Imagen</th>
+                    <th>Número</th>
+                    <th>Precio</th>
+                    <th>Stock</th>
+                    <th>Acciones</th>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+        <button class="add-variant-btn">Nueva Variante</button>
+    </section>
+    
+    <div class="upload-product-control">
+        <button class="delete-btn">Borrar</button>
+        <button class="next-btn">Siguiente</button>
+    </div>
+</section>
 
     <section class="stats-display hidden" id="stats-display">
         <h1>Estadisticas</h1>
