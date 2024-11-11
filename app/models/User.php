@@ -7,7 +7,7 @@ namespace App\Models;
  * @property string $role
  * @property string $username
  * @property string $email
- * @property int $document_number
+ * @property string $document_number
  * @property string $name
  * @property string $password
  * @property int $active
@@ -16,14 +16,14 @@ namespace App\Models;
 class User extends Model
 {
     protected $table = 'users';
-    public $id;
-    public $role;
-    public $username;
-    public $email;
-    public $document_number;
-    public $name;
-    public $password;
-    public $active;
+    public int $id;
+    public string $role;
+    public string $username;
+    public string $email;
+    public string $document_number;
+    public string $name;
+    public string $password;
+    public bool $active;
 
     /**
      * @param boolean $state

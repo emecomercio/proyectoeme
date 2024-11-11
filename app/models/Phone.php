@@ -5,9 +5,9 @@ namespace App\Models;
 class Phone extends Model
 {
     protected $table = 'phones';
-    public $id;
-    public $user_id;
-    public $number;
+    public int $id;
+    public int $user_id;
+    public string $number;
 
 
     public function getUser()

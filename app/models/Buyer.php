@@ -5,5 +5,5 @@ namespace App\Models;
 class Buyer extends User
 {
     protected $table = "buyers";
-    public $birthdate;
+    public string $birthdate;
 }

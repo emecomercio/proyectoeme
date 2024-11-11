@@ -6,16 +6,16 @@ namespace App\Models;
  * @property id $id
  * @property id $variant_id
  * @property string $name
- * @property string $value
+ * @property mixed $value
  */
 
 class VariantAttribute extends Model
 {
     protected $table = 'variant_attributes';
-    public $id;
-    public $variant_id;
-    public $name;
-    public $value;
+    public int $id;
+    public int $variant_id;
+    public string $name;
+    public string $value;
 
     public function getVariant()
     {

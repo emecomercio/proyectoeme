@@ -25,19 +25,19 @@ use InvalidArgumentException;
  */
 class Model
 {
-    public static $conn = null;
-    public static $isClosed = false;
-    protected $table;
-    protected $pk = 'id';
-    protected $bindings = [];
-    protected $select = '*';
-    protected $where = [];
-    protected $orderBy = [];
-    protected $groupBy = [];
-    protected $limit = '';
-    protected $join = [];
-    protected $created_at;
-    protected $updated_at;
+    public static mysqli $conn = null;
+    public static bool $isClosed = false;
+    protected string $table;
+    protected string $pk = 'id';
+    protected array $bindings = [];
+    protected string $select = '*';
+    protected array $where = [];
+    protected array $orderBy = [];
+    protected array $groupBy = [];
+    protected string $limit = '';
+    protected array $join = [];
+    protected string $created_at;
+    protected string $updated_at;
 
     public function realProduct()
     {

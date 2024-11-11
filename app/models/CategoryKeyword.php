@@ -5,9 +5,9 @@ namespace App\Models;
 class CategoryKeyword extends Model
 {
     protected $table = 'category_keywords';
-    public $id;
-    public $category_id;
-    public $keyword;
+    public int $id;
+    public int $category_id;
+    public string $keyword;
 
     public function getCategory()
     {

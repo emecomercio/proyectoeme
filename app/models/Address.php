@@ -5,15 +5,15 @@ namespace App\Models;
 class Address extends Model
 {
     protected $table = 'addresses';
-    public $id;
-    public $user_id;
-    public $street;
-    public $city;
-    public $state;
-    public $postal_code;
-    public $country;
-    public $type;
-    public $description;
+    public int $id;
+    public int $user_id;
+    public string $street;
+    public string $city;
+    public string $state;
+    public string $postal_code;
+    public string $country;
+    public string $type;
+    public string $description;
 
     public function getUser()
     {

@@ -9,8 +9,8 @@ use Attribute;
  * @property int $product_id
  * @property int $discount_id
  * @property int $stock
- * @property int $current_price
- * @property int $last_price
+ * @property float $last_price
+ * @property float $current_price
  * @property VariantAttribute[] $attributes
  * @property Image[] $images
  */
@@ -18,14 +18,14 @@ use Attribute;
 class Variant extends Model
 {
     protected $table = 'product_variants';
-    public $id;
-    public $product_id;
-    public $discount_id;
+    public int $id;
+    public int $product_id;
+    public int $discount_id;
     public int $stock;
-    public int $current_price;
-    public int $last_price;
-    public $attributes = [];
-    public $images = [];
+    public float $current_price;
+    public float $last_price;
+    public array $attributes = [];
+    public array $images = [];
 
     public function getProduct()
     {

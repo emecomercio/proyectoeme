@@ -12,10 +12,10 @@ namespace App\Models;
 class Category extends Model
 {
     protected $table = 'categories';
-    public $id;
-    public $discount_id;
-    public $name;
-    public $keywords = [];
+    public int $id;
+    public int $discount_id;
+    public string $name;
+    public array $keywords = [];
 
     public function getProducts()
     {

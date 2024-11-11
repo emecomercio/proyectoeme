@@ -5,10 +5,10 @@ namespace App\Models;
 class Image extends Model
 {
     protected $table = 'images';
-    public $id;
-    public $variant_id;
-    public $src;
-    public $alt;
+    public int $id;
+    public int $variant_id;
+    public string $src;
+    public string $alt;
 
     public function getProduct()
     {
