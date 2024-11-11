@@ -28,14 +28,6 @@ class AuthController extends Controller
 
         $this->generateToken($user);
 
-        $_SESSION['user'] = [
-            'id' => $user->id,
-            'role' =>  $user->role,
-            'name' => $user->name,
-            'email' => $user->email,
-            'username' => $user->username
-        ];
-
         $this->respondWithSuccess(['user' =>  $user]);
     }
 
@@ -82,9 +74,11 @@ class AuthController extends Controller
         }
 
         $payload = [
-            'user_id' => $user->id,
-            'user_name' => $user->name,
-            'user_role' => $user->role,
+            'id' => $user->id,
+            'name' => $user->name,
+            'role' => $user->role,
+            'username' => $user->username,
+            'email' => $user->email,
             'iat' => time(), // Timestamp de creación
             'exp' => time() + 60 * 60 * 24 * 7 // Expira en 7 días
         ];
@@ -108,7 +102,7 @@ class AuthController extends Controller
         if (isset($_COOKIE['jwt'])) {
             return JWT::decode($_COOKIE['jwt'], new Key($_ENV['JWT_SECRET'], 'HS256'));
         } else {
-            throw new \Exception("There is no JWT token");
+            throw new \Exception("There is no JWT token", 401);
         }
     }
 }

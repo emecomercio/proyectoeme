@@ -43,7 +43,4 @@ Route::get('/login',   function () {
 
 // SELLER
 
-Route::get('/dashboard', function () {
-    $userController = new UserController();
-    $userController->dashboard();
-});
+Route::get('/dashboard', [UserController::class, 'dashboard']);

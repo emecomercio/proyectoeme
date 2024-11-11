@@ -1,6 +1,3 @@
-<script src="https://unpkg.com/i18next/i18next.min.js"></script>
-<script src="https://unpkg.com/i18next-http-backend/i18nextHttpBackend.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/6.4.4/css/flag-icons.min.css">
 <?php
 
 /**
@@ -62,20 +59,22 @@ $categories = getCategories();
                 <span class="fi fi-es flag" id="flag-2"></span>
             </div>
             <?php
-            render('templates/components/searchbar')
+            if (getUser('role') == 'guest' || getUser('role') == 'buyer') {
+                render('templates/components/searchbar');
+            }
             ?>
             <nav class="iconos">
 
                 <div class="TextoIcono" id="user-menu">
                     <img src="<?= asset("/img/icons/usuario_icono.png") ?>" class="icono" alt="Usuario" />
-                    <br /><span data-translate="userLabel"><?= getUser('name') ?? "Usuario" ?></span>
+                    <br /><span data-translate="userLabel"><?= getUser('username') ?? "Usuario" ?></span>
                     <div class="dropdown-content" id="user-dropdown-content" style="display: none;">
                         <?php if (getUser('role') == 'guest') : ?>
                             <div class="register-login" id="register-login">
                                 <a href="/register/buyer" data-translate="register">Registrarse</a>
                                 <a href="/login" data-translate="login">Ingresar</a>
                             </div>
-                        <?php elseif (getUser('role') == 'buyer' || getUser('role') == 'seller'): ?>
+                        <?php else: ?>
                             <div class="user-data" id="user-dropdown" style="display: block;">
                                 <a href="/settings" data-translate="settings">Configuracion</a>
                                 <a id="logout-btn" data-translate="logout">Cerrar sesión</a>

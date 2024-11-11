@@ -1,3 +1,10 @@
+<?php
+
+/**
+ * @var App\Models\Category [] $categories
+ */
+$categories = getCategories();
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -50,20 +57,19 @@
 
                 <div class="TextoIcono" id="user-menu">
                     <img src="<?= asset("/img/icons/usuario_icono.png") ?>" class="icono" alt="Usuario" />
-                    <br /><?= getUser('name') ?? "Usuario" ?>
+                    <br /><?= getUser('username') ?? "Usuario" ?>
                     <div class="dropdown-content" style="display: none;">
-                        <?php if (getUser('role') == 'guest') : ?>
-                            <div class="register-login" id="register-login">
-                                <a href="/register/buyer">Registrarse</a>
-                                <a href="/login">Ingresar</a>
-                            </div>
-                        <?php elseif (getUser('role') == 'buyer' || getUser('role') == 'seller'): ?>
+                        <?php if (getUser('role') != 'guest') : ?>
                             <div class="user-data" id="user-dropdown" style="display: block;">
                                 <a href="/settings">Configuracion</a>
                                 <a id="logout-btn">Cerrar sesión</a>
                             </div>
+                        <?php else : ?>
+                            <div class="register-login" id="register-login">
+                                <a href="/register/buyer">Registrarse</a>
+                                <a href="/login">Ingresar</a>
+                            </div>
                         <?php endif; ?>
-
                     </div>
                 </div>
                 <?php if (getUser('role') === 'buyer'): ?>

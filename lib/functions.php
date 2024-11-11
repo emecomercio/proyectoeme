@@ -1,5 +1,6 @@
 <?php
 
+use App\Api\Controllers\AuthController;
 use App\Models\Category;
 
 function asset($path = "")
@@ -29,20 +30,36 @@ function render($render, $data = [])
     }
 }
 
-/**
- * Undocumented function
- *
- * @return null|mixed
- */
 function getUser($key = '')
 {
-    if (!isset($_SESSION['user'])) {
-        return null;
-    }
+    try {
+        $user = AuthController::getToken();
 
-    $user = $_SESSION['user'];
-    return !empty($key) ? ($user[$key] ?? null) : $user;
+        if (!empty($key)) {
+            return property_exists($user, $key) ? $user->$key : null;
+        }
+
+        return $user;
+    } catch (\Exception $e) {
+        $defaultUser = $_ENV["DB_ENV"] != "dev" ? (object) [
+            'id' => null,
+            'role' => 'guest',
+            'name' => 'Usuario',
+            'email' => null,
+            'username' => 'Usuario'
+        ] :
+            (object) [
+                'id' => null,
+                'role' => 'admin',
+                'name' => 'Administrador',
+                'email' => null,
+                'username' => 'Administrador'
+            ];
+
+        return !empty($key) ? ($defaultUser->$key ?? null) : $defaultUser;
+    }
 }
+
 
 
 

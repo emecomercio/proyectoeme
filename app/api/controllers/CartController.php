@@ -23,7 +23,7 @@ class CartController extends Controller
     {
         $jwt = AuthController::getToken();
 
-        $user = $this->userModel->find($jwt->user_id);
+        $user = $this->userModel->find($jwt->id);
 
         $cart = $user->getCurrentCart();
 
@@ -37,7 +37,7 @@ class CartController extends Controller
         $productData = $this->getInput();
         $jwt = AuthController::getToken();
 
-        $user = $this->userModel->find($jwt->user_id);
+        $user = $this->userModel->find($jwt->id);
         $cart = $user->getCurrentCart();
 
         $variant = $productData['variant'];
@@ -61,7 +61,7 @@ class CartController extends Controller
     {
         $jwt = AuthController::getToken();
 
-        $user = $this->userModel->find($jwt->user_id);
+        $user = $this->userModel->find($jwt->id);
         $userCart = $user->getCurrentCart();
         $line = $this->lineModel->find($id);
         $lineCart = $line->getCart();

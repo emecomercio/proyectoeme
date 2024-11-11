@@ -10,7 +10,7 @@ class ImageController extends Controller
 
     public function create(array $data)
     {
-        $sellerId =  AuthController::getToken()->user_id;
+        $sellerId =  AuthController::getToken()->id;
         $images = $data['images'];
         $variantIndex = $data['variantIndex'];
         $imageIndex = $data['imageIndex'];
