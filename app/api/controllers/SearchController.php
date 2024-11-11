@@ -34,9 +34,9 @@ class SearchController extends Controller
         $cacheKey = 'search:' . md5($query);
         $cachedResults = $redis->get($cacheKey);
 
-        // if ($cachedResults) {
-        //     $this->respondWithSuccess(json_decode($cachedResults), 'Results fetched from cache');
-        // }
+        if ($cachedResults) {
+            $this->respondWithSuccess(json_decode($cachedResults), 'Results fetched from cache');
+        }
 
         $results = $this->performSearch($query);
 

@@ -29,7 +29,7 @@ class UserController extends Controller
         $user = $this->userModel->find($id);
 
         if (!$user) {
-            $this->respondWithError("User not found", 404);
+            throw new Exception("User not found", 404);
         } else {
             $this->respondWithSuccess($user);
         }
@@ -42,7 +42,7 @@ class UserController extends Controller
         $this->checkRequiredFields(['email', 'password', 'password-check', 'document-number', 'role', 'name', 'checkbox'], $data);
 
         if ($data['password'] != $data['password-check']) {
-            $this->respondWithError("Passwords do not match", 400);
+            throw new Exception("Passwords do not match", 400);
         }
 
         $model = $data['role'] == 'seller' ? Seller::class : Buyer::class;
@@ -79,7 +79,7 @@ class UserController extends Controller
 
         if (!empty($missingFields)) {
             $msg = 'The following fields are required: ' . implode(', ', $missingFields);
-            $this->respondWithError($msg, 400);
+            throw new Exception($msg, 400);
         }
     }
 
