@@ -1,0 +1,33 @@
+.searchbar-form {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+  margin: 0 10px;
+
+  > button {
+    position: absolute;
+    right: 0.1rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+
+    > img {
+      width: 20px;
+      height: auto;
+    }
+  }
+}
+
+.searchbar {
+  width: 100%;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.searchbar::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  appearance: none;
+}

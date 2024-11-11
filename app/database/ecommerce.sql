@@ -71,6 +71,14 @@ CREATE TABLE categories (
     FOREIGN KEY (discount_id) REFERENCES discounts(id)
 );
 
+CREATE TABLE category_keywords (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    category_id INT NOT NULL,
+    keyword VARCHAR(255) NOT NULL,
+    FOREIGN KEY (category_id) REFERENCES categories(id),
+    UNIQUE(category_id, keyword)
+);
+
 CREATE TABLE products (
     id INT AUTO_INCREMENT PRIMARY KEY,
     category_id INT DEFAULT 1,

@@ -348,7 +348,7 @@ class Model
         self::$conn->begin_transaction();
     }
 
-    public  function commit()
+    public function commit()
     {
         self::$conn->commit();
         if (!self::$isClosed) {
@@ -446,19 +446,20 @@ class Model
             $results = $resultSet->fetch_all(MYSQLI_ASSOC);
         }
 
-        return $results;
-
         $this->reset();
+
+        return $results;
     }
 
     /**
      * Retrieves all records from the database and returns them as an array of instances of the model.
      *
-     * @return array<static> An array of model instances representing all records.
+     * @param bool $fetchToObj  Whether to fetch records as objects or arrays.
+     * @return array<static|array<string,mixed>> An array of model instances representing all records.
      */
-    public function all()
+    public function all($fetchToObj = true)
     {
-        return $this->select('*')->get();
+        return $this->select('*')->get($fetchToObj);
     }
 
     /**
@@ -1040,11 +1041,12 @@ class Model
     private function reset()
     {
         $this->select = '*';
-        $this->where = '';
-        $this->orderBy = '';
-        $this->groupBy = '';
+        $this->where = [];
+        $this->orderBy = [];
+        $this->groupBy = [];
         $this->limit = '';
-        $this->join = '';
+        $this->join = [];
+        $this->bindings = [];
     }
 
     /**

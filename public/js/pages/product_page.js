@@ -355,5 +355,3 @@ function loadImages(variant) {
   }
   mainImageContainer.appendChild(mainImage);
 }
-
-console.log(product.variants[0]);

@@ -6,12 +6,19 @@
       "App\\Models\\": "app/models/",
       "App\\Database\\": "app/database/",
       "App\\Services\\": "app/services/",
+      "App\\Factories\\": "app/factories/",
       "Lib\\": "lib/"
     }
   },
   "require": {
     "vlucas/phpdotenv": "^5.6",
     "fakerphp/faker": "^1.23",
-    "firebase/php-jwt": "^6.10"
+    "firebase/php-jwt": "^6.10",
+    "predis/predis": "^2.2"
+  },
+  "config": {
+    "allow-plugins": {
+      "php-http/discovery": true
+    }
   }
 }

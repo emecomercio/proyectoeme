@@ -41,7 +41,9 @@ class ErrorHandler
 
     protected static function handleException(\Exception $e)
     {
-        static::logError($e);
+        if ($e->getCode() != 404) {
+            static::logError($e);
+        };
         return static::respondWithError(!empty($e->getMessage()) ? $e->getMessage() : "An error occurred.", $e->getCode());
     }
 
@@ -75,7 +77,11 @@ class ErrorHandler
             ]);
         } else {
             http_response_code($statusCode);
-            include $_ENV["ROOT"] . "/views/errors/error.php";
+            if ($statusCode == 404) {
+                echo '<h1>404 Not Found</h1>';
+            } else {
+                include $_ENV["ROOT"] . "/views/errors/error.php";
+            }
         }
         exit;
     }

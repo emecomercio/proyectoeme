@@ -19,7 +19,6 @@ header {
   padding: 0 20px; /* Espaciado lateral */
 }
 
-
 /* Logo */
 .logo {
   display: flex;
@@ -28,32 +27,6 @@ header {
 
 .logo img {
   height: 30px;
-}
-
-/* Barra de búsqueda */
-.buscador {
-  display: flex;
-  align-items: center;
-  flex-grow: 1;
-  margin: 0 10px;
-}
-
-.BarraBusqueda {
-  width: 100%;
-  padding: 5px 10px;
-  border: none;
-  border-radius: 5px;
-  font-size: 14px;
-}
-
-.BotonBusqueda {
-  background: none;
-  border: none;
-  cursor: pointer;
-}
-
-.BotonBusqueda img {
-  width: 20px;
 }
 
 /* Iconos del menú */
@@ -74,7 +47,6 @@ header {
   margin: 0 auto;
   padding: 0;
 }
-
 
 /* Submenú secundario */
 .snd-h {
@@ -157,17 +129,17 @@ header {
   transform: translateX(0);
 }
 
-
 @media (max-width: 768px) {
-  .main-h, .snd-h {
-      max-width: 480px; /* Reduce el ancho en pantallas pequeñas */
+  .main-h,
+  .snd-h {
+    max-width: 480px; /* Reduce el ancho en pantallas pequeñas */
   }
 
   .snd-h li a {
-      font-size: 12px;
+    font-size: 12px;
   }
 
   .TextoIcono {
-      font-size: 10px;
+    font-size: 10px;
   }
 }

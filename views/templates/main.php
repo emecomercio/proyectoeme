@@ -61,13 +61,9 @@ $categories = getCategories();
                 <span class="fi fi-us flag" id="flag-1"></span>
                 <span class="fi fi-es flag" id="flag-2"></span>
             </div>
-
-            <div class="buscador">
-                <input type="search" placeholder="Buscar" class="BarraBusqueda" data-translate="searchPlaceholder" />
-                <button type="button" class="BotonBusqueda">
-                    <img class="LogoBusqueda" src="<?= asset("/img/icons/lupa_icono_negro.png") ?>" alt="Buscar" />
-                </button>
-            </div>
+            <?php
+            render('templates/components/searchbar')
+            ?>
             <nav class="iconos">
 
                 <div class="TextoIcono" id="user-menu">

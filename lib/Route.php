@@ -38,7 +38,7 @@ class Route
 
     public static function dispatch()
     {
-        $uri = trim($_SERVER['REQUEST_URI'], '/');
+        $uri = parse_url(trim($_SERVER['REQUEST_URI'], '/'), PHP_URL_PATH);
         $isApi = (strpos($uri, 'api/') === 0);
         ErrorHandler::$isApi = $isApi;
 
@@ -47,7 +47,7 @@ class Route
 
             // Verificar si hay rutas definidas para el método actual
             if (!isset(self::$routes[$method])) {
-                self::sendNotFound();
+                throw new \Exception('Not Found', 404);
                 return;
             }
 
@@ -70,8 +70,7 @@ class Route
                 }
             }
 
-            // Si ninguna ruta coincide, enviar 404
-            self::sendNotFound();
+            throw new \Exception('Not Found', 404);
         });
     }
 
@@ -101,8 +100,7 @@ class Route
             return call_user_func_array([$object, $callback[1]], $params);
         }
 
-        // Si no es válido, enviar 404
-        self::sendNotFound();
+        throw new \Exception('Not Found', 404);
     }
 
     private static function resolveDependencies($class)

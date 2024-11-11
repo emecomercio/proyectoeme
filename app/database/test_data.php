@@ -6,6 +6,11 @@ $dotenv->load();
 use Faker\Factory as Faker;
 use Faker\Generator;
 
+use App\Factories\CategoryFactory;
+
+
+CategoryFactory::setProperties();
+
 /**
  * @var PDO $pdo
  * @var Generator $faker
@@ -296,28 +301,6 @@ function insertDiscounts(PDO $pdo, Generator $faker, int $num)
     }
 }
 
-// Insertar datos en la tabla categories
-function insertCategories(PDO $pdo, Generator $faker, int $num)
-{
-    $stmt = $pdo->prepare("
-        INSERT INTO categories (discount_id, name) 
-        VALUES (:discount_id, :name)
-    ");
-
-    // Obtener IDs de descuentos existentes
-    $discountIds = $pdo->query('SELECT id FROM discounts')->fetchAll(PDO::FETCH_COLUMN);
-
-    for ($i = 0; $i < $num; $i++) {
-        $discount_id = $faker->optional()->randomElement($discountIds); // Puede ser NULL si no hay descuento asociado
-        $name = ucwords($faker->word);
-
-        $stmt->execute([
-            ':discount_id' => $discount_id,
-            ':name' => $name
-        ]);
-    }
-}
-
 function insertProductsAndVariantsWithAttributes(PDO $pdo, Generator $faker, int $numProducts)
 {
     // Preparar la consulta para insertar productos
@@ -530,7 +513,7 @@ try {
     echo "\033[32m-> Addresses inserted\033[0m\n";
     insertDiscounts($pdo, $faker, 50);
     echo "\033[32m-> Discounts inserted\033[0m\n";
-    insertCategories($pdo, $faker, 10);
+    CategoryFactory::createCategories();
     echo "\033[32m-> Categories inserted\033[0m\n";
     insertProductsAndVariantsWithAttributes($pdo, $faker, 100);
     echo "\033[32m-> Products inserted\033[0m\n";

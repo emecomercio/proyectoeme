@@ -1,6 +1,6 @@
 export function createModal(
-  title,
-  info,
+  title = "Title",
+  info = "Information",
   buttons = ["Confirmar", "Cancelar"],
   colors = ["#28a745", "#dc3545"]
 ) {

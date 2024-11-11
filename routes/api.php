@@ -6,6 +6,7 @@ use App\Api\Controllers\AuthController;
 use App\Api\Controllers\CartController;
 use App\Api\Controllers\UserController;
 use App\Api\Controllers\ImageController;
+use App\Api\Controllers\SearchController;
 use App\Api\Controllers\SellerController;
 use App\Api\Controllers\ProductController;
 use App\Api\Controllers\VariantController;
@@ -36,3 +37,5 @@ Route::post('/api/images', [ImageController::class, 'create']);
 Route::post('/api/products', [ProductController::class, 'create']);
 
 Route::get('/api/variants/{id}', [VariantController::class, 'find']);
+
+Route::get('/api/search', [SearchController::class, 'index']);

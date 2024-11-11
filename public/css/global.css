@@ -3,6 +3,7 @@
 @import url("./components/categories.css");
 @import url("./components/carrousel.css");
 @import url("./components/main/modal.css");
+@import url("./components/main/searchbar.css");
 
 :root {
   --primary: black;
