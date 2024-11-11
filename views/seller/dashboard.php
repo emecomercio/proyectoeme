@@ -1,5 +1,3 @@
-<script src="https://unpkg.com/i18next/i18next.min.js"></script>
-<script src="https://unpkg.com/i18next-http-backend/i18nextHttpBackend.min.js"></script>y
 <?php
 
 /**
@@ -62,57 +60,7 @@ $categories = getCategories();
                         <ul>
                         </ul>
                     </div>
-                    <button type="button" id="add-attribute" class="add-attribute-button">Add Attribute</button>
                 </div>
-                <br>
-
-                <button type="button" id="cancel-step-1">Cancelar</button>
-                <button type="button" id="next-step-1">Next</button>
-            </div>
-
-            <div class="section" id="add-variants">
-                <h3>Add Variants</h3>
-                <div class="variant-row">
-                    <span>Variant 1</span>
-                    <span class="variant-price">--</span>
-                    <span class="variant-stock">--</span>
-                    <button type="button" class="edit-button" data-variant-id="1">Editar</button>
-                </div>
-                <button id="add-variant-btn">+</button>
-                <div class="action-buttons">
-                    <button type="button" id="cancel-step-2">Cancelar</button>
-                    <button type="button" id="next-step-2">Next</button>
-                </div>
-            </div>
-
-            <div id="edit-modal" class="modal">
-                <div class="modal-content">
-                    <span class="close">&times;</span>
-                    <h3>Edit Variant</h3>
-                    <label for="modal-price">Price:</label>
-                    <input type="number" id="modal-price" placeholder="Enter price" required>
-                    <label for="modal-stock">Stock:</label>
-                    <input type="number" id="modal-stock" placeholder="Enter stock" required>
-                    <label for="modal-description">Description:</label>
-                    <textarea id="modal-description" placeholder="Enter description"></textarea>
-                    <label for="modal-specs">Specifications:</label>
-                    <textarea id="modal-specs" placeholder="Enter specifications"></textarea>
-                    <div id="modal-attributes-container"></div>
-                    <button type="button" id="save-modal">Save</button>
-                </div>
-            </div>
-
-            <div class="section" id="upload-images">
-                <h3>Upload Images</h3>
-                <label for="images">Cargar imágenes</label>
-                <input type="file" name="images" id="images" multiple>
-
-                <h3>Atributos</h3>
-                <button type="button" id="cancel-step-3">Cancelar</button>
-                <button type="submit" id="submit-form">Aceptar</button>
-            </div>
-        </form>
-    </section> 
             </form>
         </section>
         <section class="variants-info hidden" data-step="2">

@@ -33,7 +33,7 @@ class ProductController extends Controller
         }
 
         $sellerModel = new Seller();
-        $seller = $sellerModel->find($jwt->user_id);
+        $seller = $sellerModel->find($jwt->id);
         if (!$seller) {
             throw new Exception('Seller not found', 404);
         }
@@ -51,7 +51,7 @@ class ProductController extends Controller
                 'name' => $product['name'],
                 'description' => $product['description'],
                 'category_id' =>  $categoryId,
-                'seller_id' => $jwt->user_id,
+                'seller_id' => $jwt->id,
             ]);
             $variantController = new VariantController();
             foreach ($product['variants'] as $variantIndex => $variant) {
