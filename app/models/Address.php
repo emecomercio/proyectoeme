@@ -4,16 +4,16 @@ namespace App\Models;
 
 class Address extends Model
 {
-    protected $table = 'addresses';
-    public int $id;
+    protected string $table = 'addresses';
+    public int|null $id;
     public int $user_id;
-    public string $street;
-    public string $city;
-    public string $state;
-    public string $postal_code;
-    public string $country;
-    public string $type;
-    public string $description;
+    public string|null $street;
+    public string|null $city;
+    public string|null $state;
+    public string|null $postal_code;
+    public string|null $country;
+    public string $type = "home";
+    public string|null $description;
 
     public function getUser()
     {

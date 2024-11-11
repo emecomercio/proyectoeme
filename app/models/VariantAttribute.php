@@ -11,8 +11,8 @@ namespace App\Models;
 
 class VariantAttribute extends Model
 {
-    protected $table = 'variant_attributes';
-    public int $id;
+    protected string $table = 'variant_attributes';
+    public int|null $id;
     public int $variant_id;
     public string $name;
     public string $value;

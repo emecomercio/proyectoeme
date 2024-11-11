@@ -12,10 +12,10 @@ namespace App\Models;
 
 class Seller  extends User
 {
-    protected $table = 'sellers';
-    public string $description;
-    public string $website;
-    public string $logo_url;
-    public string $mercadopago_account;
-    public string $paypal_account;
+    protected string $table = 'sellers';
+    public string|null $description;
+    public string|null $website;
+    public string|null $logo_url;
+    public string|null $mercadopago_account;
+    public string|null $paypal_account;
 }

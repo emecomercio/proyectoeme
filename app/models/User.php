@@ -15,15 +15,15 @@ namespace App\Models;
 
 class User extends Model
 {
-    protected $table = 'users';
-    public int $id;
-    public string $role;
+    protected string $table = 'users';
+    public int|null $id;
+    public string $role = "buyer";
     public string $username;
     public string $email;
     public string $document_number;
     public string $name;
     public string $password;
-    public bool $active;
+    public bool $active = 1;
 
     /**
      * @param boolean $state

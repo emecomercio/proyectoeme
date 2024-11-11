@@ -12,13 +12,13 @@ namespace App\Models;
  */
 class Product extends Model
 {
-    protected $table = 'products';
-    public int $id;
-    public int $category_id;
+    protected string $table = 'products';
+    public int|null $id;
+    public int $category_id = 1;
     public int $seller_id;
     public string $name;
     public string $description;
-    public array $variants;
+    public array $variants = [];
 
     public function getProductsForHome()
     {

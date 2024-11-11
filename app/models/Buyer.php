@@ -4,6 +4,6 @@ namespace App\Models;
 
 class Buyer extends User
 {
-    protected $table = "buyers";
-    public string $birthdate;
+    protected string $table = "buyers";
+    public string|null $birthdate;
 }

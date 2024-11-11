@@ -4,8 +4,8 @@ namespace App\Models;
 
 class CategoryKeyword extends Model
 {
-    protected $table = 'category_keywords';
-    public int $id;
+    protected string $table = 'category_keywords';
+    public int|null $id;
     public int $category_id;
     public string $keyword;
 

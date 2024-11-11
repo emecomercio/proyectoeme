@@ -4,11 +4,11 @@ namespace App\Models;
 
 class Image extends Model
 {
-    protected $table = 'images';
-    public int $id;
+    protected string $table = 'images';
+    public int|null $id;
     public int $variant_id;
     public string $src;
-    public string $alt;
+    public string $alt = "Product image";
 
     public function getProduct()
     {

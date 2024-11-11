@@ -4,11 +4,11 @@ namespace App\Models;
 
 class CartLine extends  Model
 {
-    protected $table = 'cart_lines';
-    public int $id;
+    protected string $table = 'cart_lines';
+    public int|null $id;
     public int $cart_id;
     public int $variant_id;
-    public float $quantity;
+    public float $quantity = 1;
     public float $price;
 
     public function getCart()

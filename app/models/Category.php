@@ -11,9 +11,9 @@ namespace App\Models;
  */
 class Category extends Model
 {
-    protected $table = 'categories';
-    public int $id;
-    public int $discount_id;
+    protected string $table = 'categories';
+    public int|null $id;
+    public int|null $discount_id;
     public string $name;
     public array $keywords = [];
 

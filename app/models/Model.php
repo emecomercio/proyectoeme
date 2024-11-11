@@ -25,9 +25,9 @@ use InvalidArgumentException;
  */
 class Model
 {
-    public static mysqli $conn = null;
+    public static mysqli|null $conn = null;
     public static bool $isClosed = false;
-    protected string $table;
+    protected string $table = "";
     protected string $pk = 'id';
     protected array $bindings = [];
     protected string $select = '*';
@@ -36,8 +36,8 @@ class Model
     protected array $groupBy = [];
     protected string $limit = '';
     protected array $join = [];
-    protected string $created_at;
-    protected string $updated_at;
+    protected string $created_at = "";
+    protected string $updated_at = "";
 
     public function realProduct()
     {

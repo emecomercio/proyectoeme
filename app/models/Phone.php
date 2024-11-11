@@ -4,8 +4,8 @@ namespace App\Models;
 
 class Phone extends Model
 {
-    protected $table = 'phones';
-    public int $id;
+    protected string $table = 'phones';
+    public int|null $id;
     public int $user_id;
     public string $number;
 

@@ -9,11 +9,11 @@ namespace App\Models;
  */
 class Cart extends  Model
 {
-    protected $table = 'carts';
-    public int $id;
+    protected string $table = 'carts';
+    public int|null $id;
     public int $user_id;
-    public float $total_price;
-    public bool $status;
+    public float $total_price = 0;
+    public bool $status = 0;
     public array $lines = [];
 
     public function getLines()

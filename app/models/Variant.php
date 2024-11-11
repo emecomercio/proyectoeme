@@ -17,15 +17,15 @@ use Attribute;
 
 class Variant extends Model
 {
-    protected $table = 'product_variants';
-    public int $id;
+    protected string $table = 'product_variants';
+    public int|null $id;
     public int $product_id;
-    public int $discount_id;
+    public int|null $discount_id;
     public int $stock;
     public float $current_price;
     public float $last_price;
-    public array $attributes = [];
-    public array $images = [];
+    public array|null $attributes = [];
+    public array|null $images = [];
 
     public function getProduct()
     {
