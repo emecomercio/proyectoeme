@@ -259,3 +259,64 @@ textarea {
   background-color: #7dd134; /* Cambia el color de fondo al pasar el cursor */
   transform: scale(1.05); /* Aumenta ligeramente el tamaño */
 }
+/* Media query para dispositivos móviles (máximo 768px) */
+@media (max-width: 768px) {
+  /* Ajustes de variantes */
+  .table-scroll {
+    height: auto;
+  }
+  .variants-table {
+    margin-top: 1rem;
+  }
+  .variant-actions {
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  /* Ajustes de la sección de carga de imágenes */
+  .img-loader {
+    width: 100%;
+    height: auto;
+  }
+  .img-upload-section {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .img-gallery {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .gallery-item {
+    flex-direction: column;
+    align-items: center;
+    max-width: 100%;
+  }
+  .gallery-item > img {
+    max-width: 100%;
+  }
+  .item-actions {
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+  }
+  
+  /* Ajustes de los botones */
+  button {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+  }
+  .add-attribute {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .add-attribute button {
+    width: 100%;
+  }
+
+  /* Ajustes de los modales */
+  dialog {
+    width: 90%;
+  }
+}
