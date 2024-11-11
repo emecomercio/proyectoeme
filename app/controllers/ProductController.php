@@ -38,4 +38,29 @@ class ProductController extends Controller
 
         return $view->render();
     }
+
+    public function search()
+    {
+
+        $products = $_GET['query'];
+
+        $view = new View('products/search');
+
+        $view->data = [
+            "title" => "Resultados de búsqueda"
+        ];
+
+        $view->styles = [
+            "/css/pages/search-results.css"
+        ];
+
+        $view->scripts = [
+            [
+                "type" => "module",
+                "src" => "/js/pages/search_results.js"
+            ]
+        ];
+
+        $view->render();
+    }
 }

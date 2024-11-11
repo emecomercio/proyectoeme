@@ -21,6 +21,10 @@ Route::get('/category/{$id}',  function ($id) {
     return $categoryController->index($id);
 }); //cambiar parametro
 
+Route::get('/search', [ProductController::class, 'search']);
+
+
+
 // Shared / Users
 
 Route::get('/cart',  [UserController::class, 'cart'], [Middleware::checkRole('buyer')]);

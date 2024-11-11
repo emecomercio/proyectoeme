@@ -19,31 +19,6 @@ export function searchbar() {
       return;
     }
 
-    searchQuery(query);
+    window.location.href = `/search?query=${encodeURIComponent(query)}`;
   });
-}
-
-async function searchQuery(query) {
-  const url = `/api/search?query=${encodeURIComponent(query)}`;
-
-  try {
-    const response = await fetch(url);
-
-    if (!response.ok) {
-      const errorResponse = await response.json();
-      throw new Error(
-        errorResponse.message || "Unknown error while performing the search"
-      );
-    }
-
-    const result = await response.json();
-
-    if (result.status === "error") {
-      throw new Error(result.message);
-    }
-
-    console.log(result);
-  } catch (error) {
-    console.error("Error:", error.message);
-  }
 }
