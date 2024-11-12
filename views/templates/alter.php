@@ -18,21 +18,25 @@ $categories = getCategories();
                     <img class="LogoEme" src="<?= asset("/img/icons/logo.png") ?>" alt="logo de la empresa" />
                 </a>
             </div>
+            <div class="language-toggle">
+                <span class="fi fi-us flag" id="flag-1"></span>
+                <span class="fi fi-es flag" id="flag-2"></span>
+            </div>
             <nav class="iconos">
 
-                <div class="TextoIcono" id="user-menu">
+            <div class="TextoIcono" id="user-menu">
                     <img src="<?= asset("/img/icons/usuario_icono.png") ?>" class="icono" alt="Usuario" />
-                    <br /><?= getUser('username') ?? "Usuario" ?>
-                    <div class="dropdown-content" style="display: none;">
-                        <?php if (getUser('role') != 'guest') : ?>
-                            <div class="user-data" id="user-dropdown" style="display: block;">
-                                <a href="/settings">Configuracion</a>
-                                <a id="logout-btn">Cerrar sesión</a>
-                            </div>
-                        <?php else : ?>
+                    <br /><span data-translate="userLabel"><?= getUser('username') ?? "Usuario" ?></span>
+                    <div class="dropdown-content" id="user-dropdown-content" style="display: none;">
+                        <?php if (getUser('role') == 'guest') : ?>
                             <div class="register-login" id="register-login">
-                                <a href="/register/buyer">Registrarse</a>
-                                <a href="/login">Ingresar</a>
+                                <a href="/register/buyer" data-translate="register">Registrarse</a>
+                                <a href="/login" data-translate="login">Ingresar</a>
+                            </div>
+                        <?php else: ?>
+                            <div class="user-data" id="user-dropdown" style="display: block;">
+                                <a href="/settings" data-translate="settings">Configuracion</a>
+                                <a id="logout-btn" data-translate="logout">Cerrar sesión</a>
                             </div>
                         <?php endif; ?>
                     </div>
@@ -42,7 +46,7 @@ $categories = getCategories();
                         <img src="<?= asset("/img/icons/carrito_icono.png") ?>" class="icono" alt="Usuario" />
                         <br />Carrito
                         <div class="dropdown-content" style="display: none;">
-                            <a href="/cart">Carrito</a>
+                            <a href="/cart" data-translate="cartLabel" >Carrito</a>
                         </div>
                     </div>
                 <?php else: ?>
@@ -50,32 +54,11 @@ $categories = getCategories();
                         <img src="<?= asset("/img/icons/carrito_icono.png") ?>" class="icono" alt="Usuario" />
                         <br />Carrito
                         <div class="dropdown-content" style="display: none;">
-                            <a href="/cart">Carrito</a>
+                            <a href="/cart"  data-translate="cart" >Carrito</a>
                         </div>
                     <?php endif; ?>
             </nav>
         </div>
-        <ul class="snd-h">
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle" id="categoriesDropdown">Categorias</a>
-                <div class="dropdown-content" id="categoriesMenu">
-                    <?php foreach ($categories as $category): ?>
-                        <a href="/category/<?= $category->id ?>"><?= $category->name ?></a>
-                    <?php endforeach; ?>
-                </div>
-            </li>
-            <li class="dropdown"><a href="#">Ofertas</a></li>
-            <li class="dropdown"><a href="#">Cupones</a></li>
-            <li class="dropdown">
-                <?php if (getUser('role') === 'seller'): ?>
-                    <a href="#">Vender</a>
-                <?php else: ?>
-                    <a href="#">Próximas ofertas</a>
-                <?php endif; ?>
-            </li>
-
-            <li class="dropdown"><a href="#">Ayuda</a></li>
-        </ul>
     </header>
 
     <main>
@@ -86,29 +69,25 @@ $categories = getCategories();
         <div class="top-container">
             <div class="inner-div" id="contact-section">
                 <p>
-                    Contacto <br />
-                    Cel: 0965565 <br />
-                    Tel: 22099878 <br />
-                    <a class="mailto" href="mailto:emecommerceoficial@gmail.com"> Correo: emecomerciooficial@gmail.com
-                    </a>
+                    <span data-translate="contact">Contacto</span> <br />
+                    <span data-translate="phone">Cel:</span> 0965565 <br />
+                    <span data-translate="telephone">Tel:</span> 22099878 <br />
                 </p>
             </div>
             <div class="inner-div" id="about-section">
-                Sobre Nosotros <br />
+                <span data-translate="socialMedia">Redes sociales</span> <br />
+                <a href="https://www.instagram.com/eme.o.ficial/" target="_blank" rel="noopener noreferrer" style="color: white;" data-translate="followInstagram">
+                    Síguenos en Instagram
+                </a>
+                <br />
+                <a class="mailto" href="mailto:emecommerceoficial@gmail.com" data-translate="email">Correo: emecomerciooficial@gmail.com</a>
+                <br />
                 - <br />
-                - <br />
-                -
-            </div>
-            <div class="inner-div" id="locales-section">
-                Locales <br />
-                - <br />
-                - <br />
-                -
             </div>
         </div>
         <div class="bottom-div">
-            <a class="contactoa" href="/terms-and-conditions" href="#about-section">Terminos y condiciones</a>
-            <p>@ TODOS LOS DERECHOS RESERVADOS EME COMERCIO</p>
+            <a class="contactoa" href="/terms-and-conditions" href="#about-section" data-translate="terms">Términos y condiciones</a>
+            <p data-translate="rights">© TODOS LOS DERECHOS RESERVADOS EME COMERCIO</p>
         </div>
     </footer>
 </body>

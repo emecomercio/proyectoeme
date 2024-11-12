@@ -9,14 +9,13 @@ window.closeModal = closeModal;
 if (document.querySelector(".searchbar")) searchbar();
 
 userButton();
-
 document.addEventListener("DOMContentLoaded", function () {
   // Inicializa i18next con el idioma predeterminado y carga las traducciones
   i18next.use(i18nextHttpBackend).init(
     {
       lng: "es", // Idioma predeterminado
       backend: {
-        loadPath: "../../../config/{{lng}}.json",
+        loadPath: "../../../config/{{lng}}.json", // Ruta donde se encuentran los archivos de traducción
       },
     },
     function (err, t) {
@@ -50,13 +49,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Actualiza el contenido en función del idioma seleccionado
   function updateContent() {
+    // Actualizar elementos con data-translate
     const translateElements = document.querySelectorAll("[data-translate]");
     translateElements.forEach((element) => {
       const key = element.getAttribute("data-translate");
       element.textContent = i18next.t(key);
+
+      // Si el elemento tiene un placeholder, traducirlo también
+      if (element.placeholder) {
+        element.placeholder = i18next.t(key);
+      }
     });
   }
 });
+
 
 var dropdown = document.getElementById("categoriesDropdown");
 var dropdownContent = document.getElementById("categoriesMenu");
@@ -96,3 +102,11 @@ if (logout) {
 }
 
 localStorage.setItem("uploadsDir", "/uploads");
+
+
+  const hamburgerMenu = document.getElementById('hamburger-menu');
+  const sidebar = document.querySelector('.sidebar');
+
+  hamburgerMenu.addEventListener('click', function () {
+    sidebar.classList.toggle('hidden');
+  });

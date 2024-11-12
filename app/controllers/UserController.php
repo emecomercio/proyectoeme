@@ -19,7 +19,7 @@ class UserController extends Controller
 
     public function showRegisterForm($role)
     {
-        $register = new View("auth/$role/register");
+        $register = new View("auth/$role/register", $template='alter');
         $register->data = [
             'title' => 'Registro de ' . ($role == 'buyer' ? 'comprador' : 'vendedor')
         ];

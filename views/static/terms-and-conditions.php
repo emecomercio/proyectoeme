@@ -1,4 +1,4 @@
-<div data-translate="terms-and-conditions" class="terms-container">
+<div class="terms-container">
     <h1 data-translate="title.terms">Términos y Condiciones</h1>
     <ul>
         <li>
