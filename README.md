@@ -1,107 +1,135 @@
 # EME Comercio
 
-Sistema de gestión de tiendas online desarrollado como proyecto de egreso de IAE Montevideo 2024 por los estudiantes: Anibal Boggio, Facundo Canclini, Lautaro da Rosa, Luca Gómez y Marcos Muñoz.
+EME Comercio es una empresa desarrolladora de soluciones tecnológicas para el comercio electrónico. Su producto estrella es un Sistema de Gestión de Tiendas Online, diseñado para facilitar la administración integral de tiendas virtuales. Este sistema permite a los comerciantes gestionar sus productos, procesar pedidos y obtener análisis detallados de ventas en una única plataforma.
 
-## Descripción
-
-EME Comercio es una plataforma para la gestión de tiendas online que permite a los comerciantes administrar sus productos, procesar pedidos y analizar ventas de manera eficiente.
+Este proyecto fue desarrollado como trabajo de egreso de los estudiantes Anibal Boggio, Facundo Canclini, Lautaro da Rosa, Luca Gómez y Marcos Muñoz para el IAE Montevideo, clase de 2024.
 
 ## Instalación
 
-Sigue los pasos correspondientes para instalar el proyecto en tu sistema (tener en cuenta que la Base de Datos no se menciona debido a que todavía se está configurando):
+### Requisitos
 
-**Nota**: recuerda copiar el archivo de configuración de ejemplo y ajustarlo en base a tu entorno:
+Antes de comenzar la instalación del sistema, asegúrese de cumplir con los siguientes requisitos:
 
-Linux: `cp .env.example .env`
+- Servidor **LAMP** (Linux, Apache, MySQL, PHP) correctamente configurado.
+- **Fedora Server 40** o superior.
+- **PHP 8.0** o superior
+- **MySQL Server 5.7** o superior
+- **Composer** para la gestión de dependencias de PHP
+- **Git** para clonar el repositorio del proyecto
+- **Redis** para utilizar la caché
 
-Windows: `copy .env.example .env`
+### Instalación del Sistema
 
-**Nota**: recuerda instalar las dependencias de Composer ejecutando: `composer install`
+**Nota**: Si ya cumple con todos los requisitos, puede proceder a la instalación del sistema, pero si necesita configurar su servidor, vaya a la sección [Configuración del Servidor Lamp](#configuración-del-servidor-lamp).
 
-Si no tienes instalado Composer puedes hacerlo mediante el siguiente link y siguiendo las instrucciones correspondientes a tu sistema operativo: [https://getcomposer.org/doc/00-intro.md](https://getcomposer.org/doc/00-intro.md)
+**Nota**: Para facilitar la instalación, se han creado dos scripts que montan automáticamente el proyecto. Estos scripts están en la raíz del proyecto.
 
-### Linux -> Fedora
+0. **Dirigirse al directorio raíz de documentos web**:
 
-1. Descargar el script `prepare_fedora.sh` desde el siguiente repositorio: [https://github.com/emecomercio/server_management](https://github.com/emecomercio/server_management)
-2. Asignarle permisos de ejecución al script: `chmod +x prepare_fedora.sh`
-3. Ejecutar el script con permisos de administrador: `sudo bash prepare_fedora.sh`
-4. **Si ya tienes montado el servidor LAMP, ve el paso 5**. Para montar el servidor LAMP, navega por las distintas secciones e instala o configura lo que necesites (si tienes dudas, abre el script con un editor de textos)
-5. Entrar en el menú de configuraciones (opción 4)
-6. Si necesitas permisos en `/var/www`, elige la opción 2
-7. Descarga este repositorio en `/var/www`
-8. Para generar un virtual host y un archivo de configuración de apache para el proyecto, elige la opción 3. Ingresa el nombre del repositorio, 'proyectoeme' y el correo [emecomerciooficial@gmail.com](emecomerciooficial@gmail.com)
-9. Ejecuta el script SQL `app/database/tienda.sql`, para ello puedes abrir una consola de mysql-server y ejecutar: `source /var/www/proyectoeme/app/database/tienda.sql`
-10. Ya puedes ejecutar el proyecto entrando a [http://proyectoeme.test/](http://proyectoeme.test/)
+Ejecutar:
 
-Nota: si tienes problemas, puedes ejecutar `php -S localhost:8000 -t /var/www/proyectoeme/public` y analizar los errores. Si no puedes resolverlos, contáctanos.
-
-### Windows (probado en Windows 10)
-
-0. Extra: recomendamos utilizar Laragon en vez de XAMPP para ahorrarse todos estos pasos.
-1. Tener instalado el stack AMP mediante la herramienta XAMPP
-2. Descargar el repositorio en la carpeta \xampp\htdocs\
-3. Modificar el archivo .env: ROOT=`/xampp/htdocs/proyectoeme`
-4. En el directorio /xampp/apache/conf/extra/ crear el archivo "proyectoeme.conf" con el siguiente contenido:
-
-```
-<VirtualHost *:80>
-    ServerAdmin webmaster@localhost
-    ServerName proyectoeme.test
-    DocumentRoot /xampp/htdocs/proyectoeme/public
-
-    <Directory /xampp/htdocs/proyectoeme/public>
-        Options Indexes FollowSymLinks
-        AllowOverride All
-        Require all granted
-    </Directory>
-
-    ErrorLog ${APACHE_LOG_DIR}/proyectoeme-error.log
-    CustomLog ${APACHE_LOG_DIR}/proyectoeme-access.log combined
-</VirtualHost>
+```bash
+ cd /var/www
 ```
 
-5. Modificar el archivo /xampp/apache/conf/httpd.conf, verificar que la línea que dice "Include conf/extra/httpd-vhosts.conf" no esté comentada y añadir la línea "Include conf/extra/proeyctoeme.conf".
-6. Modificar el archivo /Windows/System32/drivers/etc/hosts con permisos de administrador y anadir la siguiente línea: "127.0.0.1 proyectoeme.test".
-7. Guardar todos los cambios hechos e iniciar Apache desde la herramienta Xampp (o reiniciarlo si ya estaba encendido).
+1. **Clonar el repositorio del proyecto**:
 
-Ahora ingresando "http://proyectoeme.test/" en tu navegador ya puedes ver el sitio web.
+**Con SSH** (requiere clave SSH configurada):
 
-### Linux -> Debian (probado en Ubuntu)
-
-1. Tener instalado el stack AMP (Apache2, MySQL y PHP) [A futuro y si los docentes lo solicitan, se redactará el cómo]
-2. Descargar el repositorio en la carpeta /var/www
-3. Modificar el archivo .env: ROOT=`/var/www/proyectoeme`
-4. Dar permisos a tu usuario sobre esta carpeta mediante los siguientes comandos:
-
-`sudo usermod -a -G www-data [usuario] (ej sudo usermod -a -G www-data emecomercio)`
-Reinicia sesión y ejecuta:
-
-```
-sudo chown -R [usuario]:data-www /var/www (ej sudo chown emecomercio:data-www /var/www)
-sudo chmod -R 777 /var/www
+```bash
+git clone git@github.com:emecomercio/proyectoeme.git
 ```
 
-4. En el directorio /etc/apache2/sites-available/ crear con permisos de administrador el archivo "proyectoeme.test.conf" (`sudo nano /etc/apache2/sites-available/proyectoeme.test.conf `)con el siguiente contenido:
+**Con HTTPS**:
 
-```
-<VirtualHost *:80>
-    ServerAdmin webmaster@localhost
-    ServerName proyectoeme.test
-    DocumentRoot /var/www/proyectoeme/public
-
-    <Directory /var/www/proyectoeme/public>
-        Options Indexes FollowSymLinks
-        AllowOverride All
-        Require all granted
-    </Directory>
-
-    ErrorLog ${APACHE_LOG_DIR}/proyectoeme.test-error.log
-    CustomLog ${APACHE_LOG_DIR}/proyectoeme.test-access.log combined
-</VirtualHost>
+```bash
+git clone https://github.com/emecomercio/proyectoeme.git
 ```
 
-5. Modificar el archivo /etc/hosts con permisos de administrador (`sudo nano /etc/hosts`) y anadir la línea `127.0.0.1 proyectoeme.test`
-6. Reiniciar apache
+Una vez clonado el repositorio, moverse al directorio del proyecto:
 
-`sudo systemctl restart apache2`
-Ahora ingresando "http://proyectoeme.test/" en tu navegador ya puedes ver el sitio web.
+```bash
+cd proyectoeme
+```
+
+2. **Copiar el archivo de variables de entorno y ajustarlo**:
+
+```bash
+cp .env.example .env
+```
+
+Una vez copiado el archivo, abrirlo en un editor de texto y ajustar las variables de entorno según sea necesario.
+
+3. **Montar el Proyecto**:
+
+Ejecutar el script `install_sigto.sh`
+
+4. **Montar la Base de Datos**:
+
+Ejecutar el script `run_bd.sh` y seguir las instrucciones.
+
+### Configuración del Servidor Lamp
+
+**Nota**: Una vez instalado git, la configuración se realizará utilizando el script `prepare_fedora.sh` del repositorio [Server Management](https://github.com/emecomercio/server_management).
+
+Para configurar un servidor LAMP Fedora y poder montar el proyecto más tarde, seguir los siguientes pasos:
+
+0. **Conectarse a internet y actualizar el sistema**:
+
+En caso de que el servidor no esté conectado por cable, puedes conectarte vía Wi-Fi:
+
+```bash
+# Listar redes:
+nmcli dev wifi list
+# Conectar a una red (sustituir SSID por el nombre de la red):
+nmcli dev wifi connect "SSID" password "contraseña"
+```
+
+Una vez establecida la conexión, actualizar el sistema:
+
+```bash
+sudo dnf update -y
+```
+
+1. **Instalar Git y clonar el repositorio de Server Management**:
+
+```bash
+# Instalar Git:
+sudo dnf install git -y
+# Clonar el repositorio de Server Management:
+git clone https://github.com/emecomercio/server_management.git
+```
+
+2. **Instalar y Configurar Apache**:
+
+En el submenú **Instalaciones** (2), seleccionar la opción **Instalar Apache** (1).
+
+En el submenú **Configuraciones** (3), seleccionar la opción **Configurar Apache** (1). Esta opción configura el firewall para permitir el conexiones http y https, además de ajustar los permisos necesario sobre `/var/www`.
+
+3. **Instalar y Configurar MySQL**:
+
+En el submenú **Instalaciones** (2), seleccionar la opción **Instalar MySQL Server** (2).
+
+En el submenú **Configuraciones** (3), seleccionar la opción **Configurar MySQL Server (mysql_secure_installation)** (2). Siguiendo las instrucciones, realizar las configuraciones de preferencia. Se recomienda:
+
+- Would you like to set up VALIDATE PASSWORD component? -> **y**
+- levels of password validation -> **2**
+- Ejemplo de contraseña: **P@ssw0rd**
+- Remove anonymous users? -> **y**
+- Dissalow root login remotely? -> **y**
+- Remove test database and access to it? -> **y**
+- Reload privilege tables now? -> **y**
+
+4. **Instalar PHP**:
+
+En el submenú **Instalaciones** (2), seleccionar la opción **Instalar PHP** (3). Ingresa **y** cuando lo solicite.
+
+5. **Instalar Composer**:
+
+En el submenú **Instalaciones** (2), seleccionar la opción **Instalar Composer** (4).
+
+6. **Instalar Redis**:
+
+En el submenú **Instalaciones** (2), seleccionar la opción **Instalar Redis (Valkey)** (5).
+
+7. **Ya tienes todo lo necesario para montar el sistema**
