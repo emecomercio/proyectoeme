@@ -5,6 +5,7 @@
     <input type="email" id="email" name="email" placeholder="Correo electronico" required>
     <input type="password" id="password" name="password" placeholder="Contraseña" required>
     <a class="forgot-password" href="/forgot-password">¿Olvidaste tu contraseña?</a>
+    <a class="forgot-password" href="/register/buyer">¿No tienes una cuenta? Registrate aquí</a>
     <button type="submit" id="loginButton">Iniciar sesión</button>
 </form>
 <span class="auth-error error-message" style="display: none;"></span>

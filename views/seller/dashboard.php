@@ -29,6 +29,9 @@ $categories = getCategories();
             <i class="fas fa-cog"></i>
         </a>
     </div>
+    <button class="hamburger-menu" id="hamburger-menu">
+        &#9776;
+      </button>
     <section class="products-display" id="product-display">
     <h1>Mis productos</h1>
     <div class="product-dashboard">

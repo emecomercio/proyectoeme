@@ -7,6 +7,7 @@ use App\Models\CategoryKeyword;
 use Lib\RedisService;
 use App\Models\Product;
 use App\Models\Seller;
+use Dotenv\Loader\Loader;
 
 class SearchController extends Controller
 {
@@ -65,7 +66,7 @@ class SearchController extends Controller
             $categoryKeywords = $category->getKeywords(true);
 
             $searchableText = strtolower($product['name'] . ' ' . $sellerName . ' ' . $categoryKeywords);
-            $searchableDesc = strtolower($product['description']);
+            $searchableDesc = strtolower($product['description'] ?? "");
 
             $wordsInText = explode(" ", $searchableText);
             $wordsInDesc = explode(" ", $searchableDesc);
@@ -106,7 +107,7 @@ class SearchController extends Controller
         return $sortedProducts;
     }
 
-    private function calculateMatchScore($keyword, $words, $weight = 1): int
+    private function calculateMatchScore($keyword, $words, $weight = 1): float
     {
         $score = 0;
         foreach ($words as $word) {

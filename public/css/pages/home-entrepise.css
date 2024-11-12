@@ -354,7 +354,39 @@ label {
   background-position: right 12px center;
   background-size: 16px;
 }
+
+.hamburger-menu {
+  display: none;
+  width: 40px; 
+  height: 40px; 
+  background: none;
+  border-radius: 5px;
+  font-size: 24px;
+  color: #ffffff; 
+  cursor: pointer;
+  position: fixed;
+  bottom: 20px; 
+  left: 20px; 
+  z-index: 10; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.3s ease;
+}
+
 @media (max-width: 768px) {
+
+    .hamburger-menu {
+    display: block; /* Show the hamburger menu on mobile */
+  }
+  
+  .sidebar {
+    transition: left 0.3s ease; /* Smooth transition for sidebar */
+  }
+
+  .sidebar.hidden {
+    left: -250px; /* Adjust based on your sidebar width */
+  }
 
   #myChart {
     width: 350px; /* Ancho personalizado */

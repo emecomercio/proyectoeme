@@ -115,3 +115,52 @@
   font-weight: 600;
   color: greenyellow;
 }
+@media (max-width: 768px) {
+
+  .browse-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 90%;
+    margin: auto;
+    margin-top: 3rem;
+    padding: 1rem;
+    background-color: #3f3f3f;
+  }
+ 
+  .filters-section {
+    display: flex;
+    flex-direction: row;
+    width: 30%;
+  }
+  
+  .search-results {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+  }
+
+  .result-img {
+    display: flex;
+    justify-content: center;
+    align-content: flex-end;
+    width: 100px;
+    height: 100px;
+  
+    > img {
+      object-fit: cover;
+      max-width: 100%;
+      height: auto;
+    }
+  }
+ 
+  .result-info {
+    display: flex;
+    flex-direction: column;
+    width: auto;
+    padding: 0.2rem;
+  }
+  
+
+}
