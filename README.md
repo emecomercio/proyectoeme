@@ -70,7 +70,7 @@ sudo bash install_sigto.sh
 
 4. **Montar la Base de Datos**:
 
-Ejecutar el script `run_bd.sh` y seguir las instrucciones
+Abrir el script `run_bd.sh` con un editor de texto y ajustar las variables. Luego ejecutar el script:
 
 ```bash
 bash install_sigto.sh
@@ -79,6 +79,8 @@ bash install_sigto.sh
 ### Configuración del Servidor Lamp
 
 **Nota**: Una vez instalado git, la configuración se realizará utilizando el script `prepare_fedora.sh` del repositorio [Server Management](https://github.com/emecomercio/server_management).
+
+**Nota**: Se recomienda instalar un editor de texto. Para ello, se puede utilizar el comando `sudo dnf install nano`. Luego puedes editar un archivo con el comando `nano ejemplo.txt`.
 
 Para configurar un servidor LAMP Fedora y poder montar el proyecto más tarde, seguir los siguientes pasos:
 
