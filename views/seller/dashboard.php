@@ -10,8 +10,8 @@ $categories = getCategories();
 ?>
 <div class="all-container">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-
-    <div class="sidebar">
+    <button id="hamburger-menu" class="hamburger-menu">☰</button>
+    <div class="sidebar hiden">
         <a href="#" class="sidebar-item" data-target="product-display">
             <i class="fas fa-shopping-bag"></i>
         </a>
@@ -29,9 +29,7 @@ $categories = getCategories();
             <i class="fas fa-cog"></i>
         </a>
     </div>
-    <button class="hamburger-menu" id="hamburger-menu">
-        &#9776;
-      </button>
+    </button>
     <section class="products-display" id="product-display">
     <h1>Mis productos</h1>
     <div class="product-dashboard">

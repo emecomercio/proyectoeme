@@ -74,7 +74,6 @@ header {
   z-index: 1;
   display: none; /* Oculto por defecto */
   min-width: 160px; /* Establece un ancho mínimo */
-  padding: 10px 0; /* Espaciado interior */
 }
 
 /* Mostrar el menú cuando se pasa el ratón por encima del ícono del carrito */

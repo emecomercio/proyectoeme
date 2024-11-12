@@ -1,14 +1,13 @@
 import { uploadProduct } from "../components/seller/upload_product.js";
 
 
-
 const hamburgerMenu = document.getElementById('hamburger-menu');
 const sidebar = document.querySelector('.sidebar');
 
 hamburgerMenu.addEventListener('click', function () {
   sidebar.classList.toggle('hidden');
+  sidebar.classList.toggle('show'); // Añadir clase `show` para mostrar el sidebar
 });
-
 
 const getProductsBySeller = (sellerId) => {
   fetch(`/api/seller/${sellerId}/products`, {
