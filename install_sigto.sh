@@ -1,3 +1,8 @@
+if [[ $EUID -ne 0 ]]; then
+   echo "Este script debe ejecutarse como administrador" >&2
+   exit 1
+fi
+
 composer install
 
 echo "Creando archivo de configuracion de apache..."

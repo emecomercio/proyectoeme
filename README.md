@@ -64,9 +64,17 @@ Una vez copiado el archivo, abrirlo en un editor de texto y ajustar las variable
 
 Ejecutar el script `install_sigto.sh`
 
+```bash
+sudo bash install_sigto.sh
+```
+
 4. **Montar la Base de Datos**:
 
-Ejecutar el script `run_bd.sh` y seguir las instrucciones.
+Ejecutar el script `run_bd.sh` y seguir las instrucciones
+
+```bash
+bash install_sigto.sh
+```
 
 ### Configuración del Servidor Lamp
 
@@ -98,9 +106,17 @@ sudo dnf update -y
 sudo dnf install git -y
 # Clonar el repositorio de Server Management:
 git clone https://github.com/emecomercio/server_management.git
+# Moverse dentro:
+cd server_management
 ```
 
 2. **Instalar y Configurar Apache**:
+
+Primero ejecuta el script `prepare_fedora.sh`:
+
+```bash
+sudo bash prepare_fedora.sh
+```
 
 En el submenú **Instalaciones** (2), seleccionar la opción **Instalar Apache** (1).
 
