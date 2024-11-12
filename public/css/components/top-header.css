@@ -65,6 +65,22 @@ header {
   font-size: 14px;
 }
 
+/* Ajuste del menú desplegable para el carrito */
+#Cart-text-content {
+  position: absolute;
+  right: 0;
+  background-color: #f9f9f9;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  display: none; /* Oculto por defecto */
+  min-width: 160px; /* Establece un ancho mínimo */
+  padding: 10px 0; /* Espaciado interior */
+}
+
+/* Mostrar el menú cuando se pasa el ratón por encima del ícono del carrito */
+#cart-menu:hover .dropdown-content {
+  display: block;
+}
 /* Asegúrate de que el contenedor sea relativo */
 #user-menu {
   position: relative;
