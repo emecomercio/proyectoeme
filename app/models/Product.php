@@ -58,6 +58,35 @@ class Product extends Model
         return $this->hasMany(Variant::class, 'product_id');
     }
 
+    public function getVariantsById(int $id, bool $fetchToObj = true)
+    {
+        $vatiantModel = new Variant();
+        $variants =  $vatiantModel
+            ->select("id", "current_price", "last_price")
+            ->where("product_id", "=", $id)
+            ->get($fetchToObj);
+        if ($fetchToObj) {
+            return $variants; // desp agrego logica si se necesita en otro lado
+        }
+        $imageModel = new Image();
+        foreach ($variants as $i => &$variant) {
+            $images = $imageModel
+                ->select("src", "alt")
+                ->where("variant_id", "=", $variant['id'])
+                ->limit(1)
+                ->get(false);
+            if (!isset($images[0])) {
+                unset($variants[$i]);
+                continue;
+            }
+            $variant['image'] = (object) [
+                'src' => $images[0]['src'],
+                'alt' => $images[0]['alt']
+            ];
+        }
+        return $variants;
+    }
+
     public function getSeller()
     {
         $seller = new Seller();

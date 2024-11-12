@@ -1,0 +1,117 @@
+.browse-section {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 75%;
+  margin: auto;
+  margin-top: 3rem;
+  padding: 1rem;
+  background-color: #3f3f3f;
+}
+
+.browse-subtitle {
+  text-align: center;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+.filters-section {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+}
+
+.filter-list {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  padding-top: 0;
+  gap: 0.2rem;
+}
+
+.filter-item {
+  font-size: 1rem;
+}
+
+#order-by {
+  padding: 0.1rem;
+  font-size: 0.9em;
+  border: none;
+  background-color: #3f3f3f;
+  color: #fff;
+}
+
+.search-results {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 65%;
+}
+
+.result-card {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  padding-bottom: 1rem;
+}
+
+.result-card:not(:last-child) {
+  border-bottom: 1px solid #5c5b5b;
+}
+
+.result-img {
+  display: flex;
+  justify-content: center;
+  align-content: flex-end;
+  width: 100px;
+  height: 100px;
+
+  > img {
+    object-fit: cover;
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+.result-info {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 0.2rem;
+}
+
+.result-name {
+  font-size: 1rem;
+}
+
+.result-seller {
+  font-size: 0.8rem;
+  opacity: 0.7;
+}
+
+.prices-container {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  margin-top: 1rem;
+}
+
+.current-price {
+  font-size: 1.5rem;
+  font-weight: 900;
+  margin-right: 1rem;
+}
+
+.last-price {
+  font-size: 0.8rem;
+  font-weight: 500;
+  opacity: 0.7;
+  text-decoration: line-through;
+  margin-right: 0.5rem;
+}
+
+.discount {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: greenyellow;
+}

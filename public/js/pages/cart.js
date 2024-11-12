@@ -32,7 +32,7 @@ async function getProductByLine(line) {
 }
 
 // TEMPORALMENTE ES VAR
-var products = [];
+let products = [];
 
 /*
 [

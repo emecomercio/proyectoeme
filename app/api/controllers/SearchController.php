@@ -29,6 +29,12 @@ class SearchController extends Controller
         if (empty($query)) {
             throw new \Exception('Query is empty', 400);
         }
+
+        if (empty($_ENV["REDIS_HOST"]) || empty($_ENV["REDIS_PORT"])) {
+            $results = $this->performSearch($query);
+            $this->respondWithSuccess($results, "Results fetched from database");
+        }
+
         $redis = RedisService::getClient();
 
         $cacheKey = 'search:' . md5($query);
@@ -47,8 +53,6 @@ class SearchController extends Controller
 
     private function performSearch($query): array
     {
-        $this->productModel->beginTransaction();
-
         $products = $this->productModel->all(false);
         $keywords = explode(' ', strtolower($query));
 
@@ -56,6 +60,7 @@ class SearchController extends Controller
         foreach ($products as $product) {
             $sellerName = $this->sellerModel->find($product['seller_id'])->name;
             $category = $this->categoryModel->find($product['category_id']);
+            $variants = $this->productModel->getVariantsById($product['id'], false);
 
             $categoryKeywords = $category->getKeywords(true);
 
@@ -69,14 +74,19 @@ class SearchController extends Controller
             foreach ($keywords as $keyword) {
                 $score += $this->calculateMatchScore($keyword, $wordsInDesc, 1);
 
-                $score += $this->calculateMatchScore($keyword, $wordsInText, 2);
+                $score += $this->calculateMatchScore($keyword, $wordsInText, 5);
             }
 
-            error_log("Puntaje total de {$product['name']}: " . $score);
-
-            if ($score > 0) {
+            if ($score > 0 && isset($variants[0])) {
                 $productScores[] = [
-                    'product' => $product,
+                    'product' => (object) [
+                        'id' => $product['id'],
+                        'name' => $product['name'],
+                        'sellerName' => $sellerName,
+                        'currentPrice' => (float) $variants[0]['current_price'],
+                        'lastPrice' => (float) $variants[0]['last_price'],
+                        'image' => $variants[0]['image'],
+                    ],
                     'score'   => $score
                 ];
             }
