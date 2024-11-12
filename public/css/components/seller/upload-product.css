@@ -261,6 +261,12 @@ textarea {
 }
 /* Media query para dispositivos móviles (máximo 768px) */
 @media (max-width: 768px) {
+
+img{
+  max-width: 100px;
+  max-height: 100px;
+}
+
   /* Ajustes de variantes */
   .table-scroll {
     height: auto;
