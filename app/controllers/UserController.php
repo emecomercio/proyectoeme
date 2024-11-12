@@ -96,7 +96,9 @@ class UserController extends Controller
                     "/css/pages/dashboard.css",
                     "/css/pages/home-entrepise.css"
                 ]
-                : [];
+                : [
+                    "/css/pages/backOffice.css",
+                ];
             $scripts = getUser('role') == 'seller'
                 ? [
                     [
@@ -106,7 +108,10 @@ class UserController extends Controller
                     ],
                 ]
                 : [
-                    []
+                    [   
+                    "src" => "/js/pages/backOffice.js",
+                        "defer" => true
+                    ]
                 ];
             $dashboard->styles = $styles;
             $dashboard->scripts = $scripts;
