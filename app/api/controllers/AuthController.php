@@ -36,7 +36,7 @@ class AuthController extends Controller
         setcookie('jwt', '', [
             'expires' => time() - 3600,
             'path' => '/',
-            'domain' => $_ENV["DOMAIN"],
+            'domain' => $_ENV["DOMAIN"] == "localhost" || $_ENV["DOMAIN"] == "0.0.0.0" ? "" : $_ENV["DOMAIN"],
             'secure' => $_ENV["DB_ENV"] === 'prod',
             'httponly' => true,
             'samesite' => 'Strict'
@@ -88,7 +88,7 @@ class AuthController extends Controller
         setcookie('jwt', $token, [
             'expires' => time() + 60 * 60 * 24 * 7,
             'path' => '/',
-            'domain' =>  $_ENV["DOMAIN"],
+            'domain' =>  $_ENV["DOMAIN"] == "localhost" || $_ENV["DOMAIN"] == "0.0.0.0" ? "" : $_ENV["DOMAIN"],
             'secure' => $_ENV["DB_ENV"] === 'prod',
             'httponly' => true,
             'samesite' => 'Strict'
