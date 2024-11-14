@@ -80,7 +80,7 @@ class ErrorHandler
             if ($statusCode == 404) {
                 echo '<h1>404 Not Found</h1>';
             } else {
-                include $_ENV["ROOT"] . "/views/errors/error.php";
+                include $_ENV["APP_ROOT"] . "/views/errors/error.php";
             }
         }
         exit;

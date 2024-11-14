@@ -1,12 +1,11 @@
 import { uploadProduct } from "../components/seller/upload_product.js";
 
+const hamburgerMenu = document.getElementById("hamburger-menu");
+const sidebar = document.querySelector(".sidebar");
 
-const hamburgerMenu = document.getElementById('hamburger-menu');
-const sidebar = document.querySelector('.sidebar');
-
-hamburgerMenu.addEventListener('click', function () {
-  sidebar.classList.toggle('hidden');
-  sidebar.classList.toggle('show'); // Añadir clase `show` para mostrar el sidebar
+hamburgerMenu.addEventListener("click", function () {
+  sidebar.classList.toggle("hidden");
+  sidebar.classList.toggle("show"); // Añadir clase `show` para mostrar el sidebar
 });
 
 const getProductsBySeller = (sellerId) => {
@@ -97,7 +96,7 @@ sidebarBtns.forEach((btn) => {
 });
 
 // CARGAR LOS PRODUCTOS INICIALMENTE [EN EL HOME/DASHBOARD]
-getProductsBySeller(localStorage.getItem("sellerId"));
+// getProductsBySeller(localStorage.getItem("sellerId"));
 
 // SUBIDA DE PRODUCTOS --> STEPS
 const uploadProductSections = document.querySelectorAll(

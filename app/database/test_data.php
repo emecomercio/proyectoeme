@@ -1,13 +1,13 @@
 <?php
 require_once __DIR__ . '/../../vendor/autoload.php'; // Incluye el autoload de Composer
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../../');
-$dotenv->load();
 
 use Faker\Factory as Faker;
 use Faker\Generator;
 
 use App\Factories\CategoryFactory;
 
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../../');
+$dotenv->load();
 
 CategoryFactory::setProperties();
 
@@ -36,12 +36,10 @@ CategoryFactory::setProperties();
  * 
  */
 
-// Desactivar límites de tiempo y de memoria
-set_time_limit(0);  // Sin límite de tiempo
-ini_set('memory_limit', '-1');  // Sin límite de memoria
+
 
 $faker = Faker::create(); // Crea una instancia de Faker
-$pdo = new PDO('mysql:host=' . $_ENV['DB_HOST'] . ';dbname=' . $_ENV['DB_NAME'], 'root', $_ENV['DB_ROOT']); // Configura la conexión PDO
+$pdo = new PDO('mysql:host=' . $_ENV['DB_HOST'] . ';dbname=' . $_ENV['DB_NAME'], $_ENV["DB_USER"], $_ENV["DB_PASSWORD"]); // Configura la conexión PDO
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 // Insertar datos en la tabla users

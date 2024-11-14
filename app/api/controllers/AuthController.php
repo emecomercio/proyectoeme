@@ -36,8 +36,8 @@ class AuthController extends Controller
         setcookie('jwt', '', [
             'expires' => time() - 3600,
             'path' => '/',
-            'domain' => $_ENV["DOMAIN"] == "localhost" || $_ENV["DOMAIN"] == "0.0.0.0" ? "" : $_ENV["DOMAIN"],
-            'secure' => $_ENV["DB_ENV"] === 'prod',
+            'domain' => $_ENV["SERVER_DOMAIN"] == "localhost" || $_ENV["SERVER_DOMAIN"] == "0.0.0.0" ? "" : $_ENV["SERVER_DOMAIN"],
+            'secure' => $_ENV["APP_ENV"] === 'prod',
             'httponly' => true,
             'samesite' => 'Strict'
         ]);
@@ -69,7 +69,7 @@ class AuthController extends Controller
     private function generateToken(User $user)
     {
         // Asegúrate de que la clave secreta esté definida
-        if (empty($_ENV["JWT_SECRET"])) {
+        if (empty($_ENV["JWT_SECRET_KEY"])) {
             throw new \Exception("La clave secreta no está definida");
         }
 
@@ -83,13 +83,13 @@ class AuthController extends Controller
             'exp' => time() + 60 * 60 * 24 * 7 // Expira en 7 días
         ];
 
-        $token = JWT::encode($payload, $_ENV["JWT_SECRET"], 'HS256');
+        $token = JWT::encode($payload, $_ENV["JWT_SECRET_KEY"], 'HS256');
 
         setcookie('jwt', $token, [
             'expires' => time() + 60 * 60 * 24 * 7,
             'path' => '/',
-            'domain' =>  $_ENV["DOMAIN"] == "localhost" || $_ENV["DOMAIN"] == "0.0.0.0" ? "" : $_ENV["DOMAIN"],
-            'secure' => $_ENV["DB_ENV"] === 'prod',
+            'domain' =>  $_ENV["SERVER_DOMAIN"] == "localhost" || $_ENV["SERVER_DOMAIN"] == "0.0.0.0" ? "" : $_ENV["SERVER_DOMAIN"],
+            'secure' => $_ENV["APP_ENV"] === 'prod',
             'httponly' => true,
             'samesite' => 'Strict'
         ]);
@@ -100,7 +100,7 @@ class AuthController extends Controller
     public static function getToken()
     {
         if (isset($_COOKIE['jwt'])) {
-            return JWT::decode($_COOKIE['jwt'], new Key($_ENV['JWT_SECRET'], 'HS256'));
+            return JWT::decode($_COOKIE['jwt'], new Key($_ENV['JWT_SECRET_KEY'], 'HS256'));
         } else {
             throw new \Exception("There is no JWT token", 401);
         }

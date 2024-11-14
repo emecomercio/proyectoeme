@@ -22,9 +22,7 @@ function createResultCard(product) {
   const resultImgDiv = document.createElement("div");
   resultImgDiv.className = "result-img";
   const resultImg = document.createElement("img");
-  resultImg.src = product.image.src.startsWith("http")
-    ? product.image.src
-    : localStorage.getItem("uploadsDir") + product.image.src;
+  resultImg.src = product.image.src;
   resultImg.alt = product.image.alt;
 
   resultImgDiv.appendChild(resultImg);
@@ -37,7 +35,7 @@ function createResultCard(product) {
   resultName.textContent = product.name;
   const resultSeller = document.createElement("span");
   resultSeller.className = "result-seller";
-  resultSeller.textContent = product.seller;
+  resultSeller.textContent = product.sellerName;
 
   resultInfoDiv.appendChild(resultName);
   resultInfoDiv.appendChild(resultSeller);

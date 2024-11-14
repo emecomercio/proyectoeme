@@ -2,5 +2,6 @@
 /.env
 /.vscode
 /vendor/
-/public/uploads
 /dump.rdb
+/public/uploads/*
+!/public/uploads/.htaccess

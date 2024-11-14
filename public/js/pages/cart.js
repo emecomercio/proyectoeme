@@ -95,9 +95,7 @@ function createCartLine(product = {}) {
   const lineImg = document.createElement("td");
   lineImg.className = "line-img";
   const productImage = document.createElement("img");
-  productImage.src = product.image.src.startsWith("http")
-    ? product.image.src
-    : localStorage.getItem("uploadsDir") + product.image.src;
+  productImage.src = product.image.src;
 
   productImage.alt = product.image.alt;
   productImage.onclick = () => {

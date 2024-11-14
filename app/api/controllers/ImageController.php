@@ -25,16 +25,13 @@ class ImageController extends Controller
         $fileType = $images['type'][$variantIndex][$imageIndex];
         $extension = pathinfo($images['name'][$variantIndex][$imageIndex], PATHINFO_EXTENSION);
 
-        $uploadsDir = $_ENV["UPLOADS"];
-        $dir = "/products/{$sellerId}/{$productId}";
 
-        if (!file_exists($uploadsDir . $dir)) {
-            mkdir($uploadsDir . $dir, 0777, true);
+        $src = "/uploads/products/{$sellerId}/{$productId}/{$variantIndex}_{$imageIndex}.{$extension}";
+        $destination = $_SERVER['DOCUMENT_ROOT'] . $src;
+
+        if (!file_exists(dirname($destination))) {
+            mkdir(dirname($destination), 0775, true);
         }
-
-        $src = $dir . "/{$variantIndex}_{$imageIndex}.{$extension}";
-
-        $destination = $uploadsDir . $src;
 
         if (move_uploaded_file($tmpName, $destination)) {
             $imageModel = new Image();

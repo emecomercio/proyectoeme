@@ -21,7 +21,7 @@ function redirect($route)
 function render($render, $data = [])
 {
     extract($data);
-    $filepath = $_ENV['ROOT'] . "/views/" . $render . ".php";
+    $filepath = $_ENV['APP_ROOT'] . "/views/" . $render . ".php";
     if (file_exists($filepath)) {
         include $filepath;
     } else {
@@ -41,7 +41,7 @@ function getUser($key = '')
 
         return $user;
     } catch (\Exception $e) {
-        $defaultUser = $_ENV["DB_ENV"] != "dev" ? (object) [
+        $defaultUser = $_ENV["APP_ENV"] != "dev" ? (object) [
             'id' => null,
             'role' => 'guest',
             'name' => 'Usuario',

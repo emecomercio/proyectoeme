@@ -55,7 +55,12 @@ class Product extends Model
 
     public function getVariants()
     {
-        return $this->hasMany(Variant::class, 'product_id');
+        $vatiantModel = new Variant();
+        return $vatiantModel
+            ->select("*")
+            ->where("product_id", "=", $this->id)
+            ->orderBy("id")
+            ->get();
     }
 
     public function getVariantsById(int $id, bool $fetchToObj = true)
@@ -64,6 +69,7 @@ class Product extends Model
         $variants =  $vatiantModel
             ->select("id", "current_price", "last_price")
             ->where("product_id", "=", $id)
+            ->orderBy("id")
             ->get($fetchToObj);
         if ($fetchToObj) {
             return $variants; // desp agrego logica si se necesita en otro lado

@@ -16,13 +16,13 @@ Antes de comenzar la instalación del sistema, asegúrese de cumplir con los sig
 - **MySQL Server 5.7** o superior
 - **Composer** para la gestión de dependencias de PHP
 - **Git** para clonar el repositorio del proyecto
-- **Redis** para utilizar la caché
+- **Redis** o **Valekey** para utilizar la caché
 
 ### Instalación del Sistema
 
 **Nota**: Si ya cumple con todos los requisitos, puede proceder a la instalación del sistema, pero si necesita configurar su servidor, vaya a la sección [Configuración del Servidor Lamp](#configuración-del-servidor-lamp).
 
-**Nota**: Para facilitar la instalación, se han creado dos scripts que montan automáticamente el proyecto. Estos scripts están en la raíz del proyecto.
+**Nota**: Para facilitar la instalación, se han creado dos scripts que montan automáticamente el proyecto. Estos scripts estarán en el directorio `/var/www/proyectoeme/scripts`.
 
 0. **Dirigirse al directorio raíz de documentos web**:
 
@@ -62,18 +62,18 @@ Una vez copiado el archivo, abrirlo en un editor de texto y ajustar las variable
 
 3. **Montar el Proyecto**:
 
-Ejecutar el script `install_sigto.sh`
+Ejecutar el script `install_sigto.sh` con permisos de superusuario:
 
 ```bash
-sudo bash install_sigto.sh
+sudo bash scripts/install_sigto.sh
 ```
 
 4. **Montar la Base de Datos**:
 
-Abrir el script `run_bd.sh` con un editor de texto y ajustar las variables. Luego ejecutar el script:
+Ejecutar el scrip `run_db.sh`:
 
 ```bash
-bash install_sigto.sh
+bash scripts/run_db.sh
 ```
 
 ### Configuración del Servidor Lamp
@@ -82,7 +82,7 @@ bash install_sigto.sh
 
 **Nota**: Se recomienda instalar un editor de texto. Para ello, se puede utilizar el comando `sudo dnf install nano`. Luego puedes editar un archivo con el comando `nano ejemplo.txt`.
 
-Para configurar un servidor LAMP Fedora y poder montar el proyecto más tarde, seguir los siguientes pasos:
+Para configurar un servidor LAMP en Fedora Server y poder montar el proyecto más tarde, seguir los siguientes pasos:
 
 0. **Conectarse a internet y actualizar el sistema**:
 

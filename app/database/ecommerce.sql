@@ -137,8 +137,3 @@ CREATE TABLE cart_lines (
     FOREIGN KEY (cart_id) REFERENCES carts(id),
     FOREIGN KEY (variant_id) REFERENCES product_variants(id)
 );
-/* Para ejecutar via terminal
-SOURCE ./roles.sql;
-SOURCE ./triggers.sql;
-SOURCE ./default_data.sql;
-*/

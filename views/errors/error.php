@@ -11,7 +11,7 @@
     <main>
         <!-- Este mensaje podria ser dinamico -->
         <h1>An error occured</h1>
-        <p> Sorry, an error occurred while processing your request. Please try again later.</p>
+        <p> Sorry, an error occurred while processing your request. Contact: <?= $_ENV["ADMIN_EMAIL"] ?></p>
     </main>
     <style>
 

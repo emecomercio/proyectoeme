@@ -21,12 +21,12 @@ class View
     {
         extract($this->data);
 
-        $filepath =  $_ENV['ROOT'] . "/views/" . $this->view . ".php";
+        $filepath =  $_ENV['APP_ROOT'] . "/views/" . $this->view . ".php";
         if (file_exists($filepath)) {
             ob_start();
             include $filepath;
             $content = ob_get_clean();
-            include $_ENV['ROOT'] . "/views/" . $this->template;
+            include $_ENV['APP_ROOT'] . "/views/" . $this->template;
         } else {
             $error = "Se intentó cargar la vista '{$this->view}' pero no se encontro el archivo";
             echo "<span class='error-msg'>$error</span>";

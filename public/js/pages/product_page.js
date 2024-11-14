@@ -323,9 +323,7 @@ function loadImages(variant) {
   let images = variant.images;
 
   images.forEach((image) => {
-    let src = image.src.startsWith("http")
-      ? image.src
-      : localStorage.getItem("uploadsDir") + image.src;
+    let src = image.src;
     const thumbnail = document.createElement("img");
     thumbnail.classList.add("thumbnail");
 
@@ -344,9 +342,7 @@ function loadImages(variant) {
   });
   const mainImage = document.createElement("img");
   if (images[0] != null) {
-    mainImage.src = images[0].src.startsWith("http")
-      ? images[0].src
-      : localStorage.getItem("uploadsDir") + images[0].src;
+    mainImage.src = images[0].src;
 
     mainImage.alt = images[0].alt;
   } else {

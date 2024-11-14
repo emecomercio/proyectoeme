@@ -32,6 +32,11 @@ export function uploadProduct(product) {
     .then((result) => {
       console.log("Resultado de Fetch");
       console.log(result);
+      if (result.status == "success") {
+        alert(
+          "Producto creado con éxito (proximamente se reiniciaran los datos ingresados)..."
+        );
+      }
     })
     .catch((error) => {
       console.error("Error:", error);
