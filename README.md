@@ -80,7 +80,7 @@ bash scripts/run_db.sh
 
 **Nota**: Una vez instalado git, la configuración se realizará utilizando el script `prepare_fedora.sh` del repositorio [Server Management](https://github.com/emecomercio/server_management).
 
-**Nota**: Se recomienda instalar un editor de texto. Para ello, se puede utilizar el comando `sudo dnf install nano`. Luego puedes editar un archivo con el comando `nano ejemplo.txt`.
+**Nota**: Se necesita un editor de texto para realizar determinadas configuraciones. Por defecto, Fedora Server viene con `vim`, pero si lo deseas puedes instalar `nano` con el siguiente comando: `sudo dnf install nano`. Luego puedes editar un archivo con el comando `nano ejemplo.txt`.
 
 Para configurar un servidor LAMP en Fedora Server y poder montar el proyecto más tarde, seguir los siguientes pasos:
 
@@ -120,34 +120,34 @@ Primero ejecuta el script `prepare_fedora.sh`:
 sudo bash prepare_fedora.sh
 ```
 
-En el submenú **Instalaciones** (2), seleccionar la opción **Instalar Apache** (1).
+En el submenú `Instalaciones` (2), seleccionar la opción `Instalar Apache` (1).
 
-En el submenú **Configuraciones** (3), seleccionar la opción **Configurar Apache** (1). Esta opción configura el firewall para permitir el conexiones http y https, además de ajustar los permisos necesario sobre `/var/www`.
+En el submenú `Configuraciones` (3), seleccionar la opción `Configurar Apache` (1). Esta opción configura el firewall para permitir el conexiones http y https, además de ajustar los permisos necesario sobre `/var/www`.
 
 3. **Instalar y Configurar MySQL**:
 
-En el submenú **Instalaciones** (2), seleccionar la opción **Instalar MySQL Server** (2).
+En el submenú `Instalaciones` (2), seleccionar la opción `Instalar MySQL Server` (2).
 
-En el submenú **Configuraciones** (3), seleccionar la opción **Configurar MySQL Server (mysql_secure_installation)** (2). Siguiendo las instrucciones, realizar las configuraciones de preferencia. Se recomienda:
+En el submenú `Configuraciones` (3), seleccionar la opción `Configurar MySQL Server (mysql_secure_installation)` (2). Siguiendo las instrucciones, realizar las configuraciones de preferencia. Se recomienda:
 
-- Would you like to set up VALIDATE PASSWORD component? -> **y**
-- levels of password validation -> **2**
-- Ejemplo de contraseña: **P@ssw0rd**
-- Remove anonymous users? -> **y**
-- Dissalow root login remotely? -> **y**
-- Remove test database and access to it? -> **y**
-- Reload privilege tables now? -> **y**
+- Would you like to set up VALIDATE PASSWORD component? -> `y`
+- levels of password validation -> `2`
+- Ejemplo de contraseña: `P@ssw0rd`
+- Remove anonymous users? -> `y`
+- Dissalow root login remotely? -> `y`
+- Remove test database and access to it? -> `y`
+- Reload privilege tables now? -> `y`
 
 4. **Instalar PHP**:
 
-En el submenú **Instalaciones** (2), seleccionar la opción **Instalar PHP** (3). Ingresa **y** cuando lo solicite.
+En el submenú `Instalaciones` (2), seleccionar la opción `Instalar PHP` (3). Ingresa **y** cuando lo solicite.
 
 5. **Instalar Composer**:
 
-En el submenú **Instalaciones** (2), seleccionar la opción **Instalar Composer** (4).
+En el submenú `Instalaciones` (2), seleccionar la opción `Instalar Composer` (4).
 
 6. **Instalar Redis**:
 
-En el submenú **Instalaciones** (2), seleccionar la opción **Instalar Redis (Valkey)** (5).
+En el submenú `Instalaciones` (2), seleccionar la opción `Instalar Redis (Valkey)` (5).
 
-7. **Ya tienes todo lo necesario para montar el sistema**
+Ya tienes todo lo necesario para instalar el sistema, puedes continuar en: [Instalación del Sistema](#instalación-del-sistema).
