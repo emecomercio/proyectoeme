@@ -82,7 +82,7 @@ bash scripts/run_db.sh
 
 **Nota**: Se necesita un editor de texto para realizar determinadas configuraciones. Por defecto, Fedora Server viene con `vim`, pero si lo deseas puedes instalar `nano` con el siguiente comando: `sudo dnf install nano`. Luego puedes editar un archivo con el comando `nano ejemplo.txt`.
 
-Para configurar un servidor LAMP en Fedora Server y poder montar el proyecto más tarde, seguir los siguientes pasos:
+Para configurar un servidor LAMP en Fedora Server y poder montar el proyecto más tarde, debes seguir los siguientes pasos:
 
 0. **Conectarse a internet y actualizar el sistema**:
 
@@ -140,7 +140,7 @@ En el submenú `Configuraciones` (3), seleccionar la opción `Configurar MySQL S
 
 4. **Instalar PHP**:
 
-En el submenú `Instalaciones` (2), seleccionar la opción `Instalar PHP` (3). Ingresa **y** cuando lo solicite.
+En el submenú `Instalaciones` (2), seleccionar la opción `Instalar PHP` (3). Ingresa `y` cuando lo solicite.
 
 5. **Instalar Composer**:
 
