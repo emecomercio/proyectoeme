@@ -104,7 +104,10 @@ class Model
                 }
             } catch (mysqli_sql_exception $e) {
                 error_log($e->getMessage());
-                die('An error occurred while connecting to the database');
+                throw $e;
+            } catch (Exception $e) {
+                error_log($e->getMessage());
+                throw $e;
             }
         }
     }
