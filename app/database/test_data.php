@@ -1,15 +1,19 @@
 <?php
 require_once __DIR__ . '/../../vendor/autoload.php'; // Incluye el autoload de Composer
+require_once __DIR__ . '/../../lib/functions.php';
 
+use App\Factories\AdminFactory;
 use Faker\Factory as Faker;
 use Faker\Generator;
 
 use App\Factories\CategoryFactory;
+use App\Models\Category;
+use App\Models\CategoryKeyword;
+use App\Models\User;
 
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../../');
 $dotenv->load();
 
-CategoryFactory::setProperties();
 
 /**
  * @var PDO $pdo
@@ -41,6 +45,10 @@ CategoryFactory::setProperties();
 $faker = Faker::create(); // Crea una instancia de Faker
 $pdo = new PDO('mysql:host=' . $_ENV['DB_HOST'] . ';dbname=' . $_ENV['DB_NAME'], $_ENV["DB_USER"], $_ENV["DB_PASSWORD"]); // Configura la conexión PDO
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+$categoryFactory = new CategoryFactory($faker, new Category(), new CategoryKeyword());
+$adminFactory = new AdminFactory(new User());
+
 
 // Insertar datos en la tabla users
 // function insertUsers(PDO $pdo, Generator $faker, int $num)
@@ -501,6 +509,7 @@ function insertCartLines(PDO $pdo, Generator $faker, int $num)
 }
 
 try {
+    $adminFactory->createAdmin('admin', 'admin@gmail.com', '00-00', 'Administrator', 12345678);
     insertBuyers($pdo, $faker, 50);
     echo "\033[32m-> Buyers inserted\033[0m\n";
     insertSellers($pdo, $faker, 50);
@@ -511,7 +520,7 @@ try {
     echo "\033[32m-> Addresses inserted\033[0m\n";
     insertDiscounts($pdo, $faker, 50);
     echo "\033[32m-> Discounts inserted\033[0m\n";
-    CategoryFactory::createCategories();
+    $categoryFactory->createCategories();
     echo "\033[32m-> Categories inserted\033[0m\n";
     insertProductsAndVariantsWithAttributes($pdo, $faker, 100);
     echo "\033[32m-> Products inserted\033[0m\n";

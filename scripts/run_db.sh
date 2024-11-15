@@ -14,7 +14,6 @@ set -a
 source .env
 set +a
 
-
 if [[ -z "$DB_USER" || -z "$DB_PASSWORD" || -z "$DB_HOST" ]]; then
   echo "Error: Faltan algunas variables de entorno necesarias (DB_USER, DB_PASSWORD o DB_HOST)."
   exit 1
@@ -25,7 +24,7 @@ SQL_SCRIPTS_PATH="./app/database"
 echo "Iniciando ejecución de scripts SQL..."
 sleep 1
 
-mysql -u$DB_USER -p$DB_PASSWORD -h$DB_HOST <<EOF > /dev/null 2>&1
+mysql -u$DB_USER -p$DB_PASSWORD -h$DB_HOST <<EOF >/dev/null 2>&1
 SOURCE $SQL_SCRIPTS_PATH/ecommerce.sql;
 SOURCE $SQL_SCRIPTS_PATH/default_data.sql;
 EOF
@@ -42,9 +41,8 @@ while true; do
     echo "Generando datos de prueba..."
     echo "------------------------------------------"
 
-    mysql -u$DB_USER -p$DB_PASSWORD -h$DB_HOST <<EOF > /dev/null 2>&1
+    mysql -u$DB_USER -p$DB_PASSWORD -h$DB_HOST <<EOF >/dev/null 2>&1
     SOURCE $SQL_SCRIPTS_PATH/triggers.sql;
-    SOURCE $SQL_SCRIPTS_PATH/default_data.sql;
 EOF
 
     env -i php "$SQL_SCRIPTS_PATH/test_data.php"
@@ -54,3 +52,7 @@ EOF
   fi
 done
 
+echo "--------------------------------"
+echo "Se creó un usuario admin con las siguientes credenciales:"
+echo "Correo electrónico: admin@gmail.com"
+echo "Contraseña: 12345678"

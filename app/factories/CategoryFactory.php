@@ -2,29 +2,24 @@
 
 namespace App\Factories;
 
-use Faker\Factory as Faker;
+use Faker\Generator;
 use App\Models\Category;
 use App\Models\CategoryKeyword;
 
 class CategoryFactory
 {
-    private static $faker;
-    private static $categoryModel;
-    private static $keywordModel;
-    private static $isSetted = false;
+    private $faker;
+    private $categoryModel;
+    private $keywordModel;
 
-    public static function setProperties()
+    public function __construct(Generator $faker, Category $categoryModel, CategoryKeyword $keywordModel)
     {
-        if (self::$isSetted) {
-            return;
-        }
-        self::$faker = Faker::create();
-        self::$categoryModel = new Category();
-        self::$keywordModel = new CategoryKeyword();
-        self::$isSetted = true;
+        $this->faker = $faker;
+        $this->categoryModel = $categoryModel;
+        $this->keywordModel = $keywordModel;
     }
 
-    public static function createCategories()
+    public function createCategories()
     {
         $categoryNames = [
             'Tecnología' => ['Electrónica', 'Software', 'Hardware', 'Redes', 'Seguridad', 'Robótica', 'Inteligencia artificial', 'Celular'],
@@ -38,14 +33,14 @@ class CategoryFactory
         ];
 
         foreach ($categoryNames as $categoryName => $keywords) {
-            $category = self::$categoryModel->create(
+            $category = $this->categoryModel->create(
                 [
                     'name' => $categoryName,
                 ]
             );
 
             foreach ($keywords as $keyword) {
-                self::$keywordModel->create([
+                $this->keywordModel->create([
                     'category_id' => $category->id,
                     'keyword' => $keyword,
                 ]);

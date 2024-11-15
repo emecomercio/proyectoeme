@@ -1,7 +1,7 @@
 #!/bin/bash
 if [[ $EUID -ne 0 ]]; then
-   echo "Este script debe ejecutarse como administrador" >&2
-   exit 1
+  echo "Este script debe ejecutarse como administrador" >&2
+  exit 1
 fi
 
 while true; do
@@ -46,9 +46,9 @@ DocumentRoot $APP_ROOT/public
 
 ErrorLog /var/log/httpd/proyectoeme-error.log
 CustomLog /var/log/httpd/proyectoeme-access.log combined
-</VirtualHost>" | sudo tee /etc/httpd/conf.d/proyectoeme.conf > /dev/null
+</VirtualHost>" | sudo tee /etc/httpd/conf.d/proyectoeme.conf >/dev/null
 
-  echo "127.0.0.1 proyectoeme.test" | sudo tee -a /etc/hosts > /dev/null
+  echo "127.0.0.1 proyectoeme.test" | sudo tee -a /etc/hosts >/dev/null
 else
   echo "El archivo de configuración de Apache ya existe. No se realizaron cambios."
 fi

@@ -70,10 +70,18 @@ sudo bash scripts/install_sigto.sh
 
 4. **Montar la Base de Datos**:
 
-Ejecutar el scrip `run_db.sh`:
+Ejecutar el script `run_db.sh`:
 
 ```bash
 bash scripts/run_db.sh
+```
+
+5. **(Opcional) Crear un usuario administrador para la Base de Datos 'ecommerce'**:
+
+Ejecutar el script `create_ecommerce_admin.sh`
+
+```bash
+bash scripts/create_ecommerce_admin.sh
 ```
 
 ### Configuración del Servidor Lamp
@@ -151,3 +159,5 @@ En el submenú `Instalaciones` (2), seleccionar la opción `Instalar Composer` (
 En el submenú `Instalaciones` (2), seleccionar la opción `Instalar Redis (Valkey)` (5).
 
 Ya tienes todo lo necesario para instalar el sistema, puedes continuar en: [Instalación del Sistema](#instalación-del-sistema).
+
+Si lo deseas, puedes instalar el entorno de escritorio KDE Plasma en el submenú `Instalaciones` (2), opción `Instalar KDE Plasma` (6). Esto te permitirá interactuar con el sistema de manera gráfica.
